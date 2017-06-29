@@ -1,0 +1,92 @@
+<div class="bjui-pageContent">
+    <form method="post" action="${ctxPath}/system/member/clientUserUpdate" id="j_client_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
+        <input TYPE="hidden" name="clientId" value="${user.clientId!}">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    @if(isEmpty(user.clientId)){
+                    <label for="j_username" class="control-label x85">用户名：</label>
+                    <input type="text" name="username" id="j_username" value="${user.username!}" data-rule="required;remote(${ctxPath}/validate/username)" >
+                    @}else{
+                    <label for="j_username" class="control-label x85">用户名：</label>
+                    <input type="text" name="username" id="j_username" value="${user.username!}" data-rule="required;" >
+                    @}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_password" class="control-label x85">密码：</label>
+                    <input type="text" name="password" id="j_password" value="" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="hidden" name="pid" value="${role.roleId!}" size="5">
+                    <label class="control-label x85">用户角色：</label>
+                    <input type="text" data-toggle="lookup" data-url="${ctxPath}/system/member/roleCheck/1" value="${role.rolename!}"  data-rule="required" data-resizable="false" data-maxable="false" name="name">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_status" class="control-label x85"  data-toggle="selectpicker">用户状态：</label>
+                    <select name="status" id="j_status"  data-rule="required">
+                        @if(isEmpty(user.status)){
+                        <option value="1">正常</option>
+                        <option value="0">禁用</option>
+                        @}else if(!user.status){
+                        <option value="1">正常</option>
+                        <option value="0" selected>禁用</option>
+                        @}else{
+                        <option value="1" selected>正常</option>
+                        <option value="0">禁用</option>
+                        @}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_usertype" class="control-label x85"  data-toggle="selectpicker">用户类型：</label>
+                    <select name="userType" id="j_usertype"  data-rule="required"  data-toggle="selectpicker">
+                        @if(isEmpty(user.userType)){
+                        <option value="1">企业</option>
+                        <option value="0">个人</option>
+                        @}else if(user.userType==0){
+                        <option value="1">企业</option>
+                        <option value="0" selected>个人</option>
+                        @}else{
+                        <option value="1">企业</option>
+                        <option value="0"  selected>个人</option>
+                        @}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_linkman" class="control-label x85">联系人：</label>
+                    <input type="text" name="linkman" id="j_linkman" value="${user.linkman!}" data-rule="required" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_email" class="control-label x85">电子邮件：</label>
+                    <input type="text" name="email" id="j_email" value="${user.email!}"  data-rule="required;email">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label for="j_mobile" class="control-label x85">手机号码：</label>
+                    <input type="text" name="mobile" id="j_mobile" value="${user.mobile!}"   data-rule="required">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+        <li><button type="submit" class="btn-default">保存</button></li>
+    </ul>
+</div>

@@ -1,0 +1,27 @@
+<div class="bjui-pageContent">
+    <form action="${ctxPath}/system/cms/friendlink/group/save" data-toggle="validate" method="post">
+        <hr>
+        ${token!}
+        <div class="form-group">
+            <input type="hidden"  name="id" value="${group.id!}">
+            <label for="j_gname" class="control-label x85">名称：</label>
+            <input id="j_gname" type="text" data-rule="required" name="groupName" value="${group.groupName!}" placeholder="分组名称" size="20">
+        </div>
+        <div class="form-group">
+            <label for="status_" class="control-label x85">状态：</label>
+            @if(has(group)){
+            <input  id="status_"  type="radio" name="status" value="1" ${group.status?"checked":""}> 是 </input>
+            <input   type="radio" name="status" value="0" ${group.status?"":"checked"}> 否 </input>
+            @}else{
+            <input  id="status_"  type="radio" name="status" value="1" CHECKED> 是 </input>
+            <input   type="radio" name="status" value="0" > 否 </input>
+            @}
+        </div>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">取消</button></li>
+        <li><button type="submit" class="btn-default">提交</button></li>
+    </ul>
+</div>

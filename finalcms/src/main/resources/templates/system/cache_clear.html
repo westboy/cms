@@ -1,0 +1,19 @@
+<div class="bjui-pageContent">
+    <form action="${ctxPath}/system/doChangePassword" data-toggle="validate" method="post">
+        <hr>
+        <div class="form-group">
+            <label for="123#" class="control-label x85">缓存：</label>
+            <select id="123#" name="cacheName" data-toggle="selectpicker" data-width="200" multiple>
+                @for(cache in caches){
+                <option value="cache">cache</option>
+                @}
+                 </select>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close">取消</button></li>
+        <li><button type="submit" class="btn-default">提交</button></li>
+    </ul>
+</div>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiliao.mybatis.mapper.slave.ResBaseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.slave.ResBaseInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="res_id" jdbcType="INTEGER" property="resId" />
+    <result column="res_name" jdbcType="VARCHAR" property="resName" />
+    <result column="server_id" jdbcType="VARCHAR" property="serverId" />
+    <result column="res_address" jdbcType="VARCHAR" property="resAddress" />
+    <result column="res_size" jdbcType="INTEGER" property="resSize" />
+    <result column="thumbnails_address" jdbcType="VARCHAR" property="thumbnailsAddress" />
+    <result column="video_time" jdbcType="VARCHAR" property="videoTime" />
+    <result column="md5_value" jdbcType="VARCHAR" property="md5Value" />
+    <result column="video_image" jdbcType="VARCHAR" property="videoImage" />
+    <result column="refered_num" jdbcType="INTEGER" property="referedNum" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="swf_num" jdbcType="INTEGER" property="swfNum" />
+  </resultMap>
+
+
+</mapper>

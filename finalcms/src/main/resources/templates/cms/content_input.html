@@ -1,0 +1,287 @@
+<style>
+    .measure-input{
+        background:transparent url("${ctxPath}/static/images/ruler.gif") repeat-x scroll 0 bottom
+    }
+    .mutiUpload{
+        max-width: 510px;
+        height:auto;
+        font-size: 18px;
+        margin-left: 90px;
+        margin-top: -10px;
+    }
+    .mutiUpload div{
+        line-height: 1.8;
+    }
+    .mutiUpload p{
+        font-size: 20px;
+    }
+    .bjui-pageContent{
+        margin: 0 auto;
+    }
+</style>
+<script type="text/javascript">
+    function thumb_upload_success(file, data) {
+        var json = $.parseJSON(data)
+        $(this).bjuiajax('ajaxDone', json)
+        if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
+            $('#j_content_thumb').val(json.filename).trigger('validate')
+            $('#j_custom_pic').val(json.filename)
+            $('#j_custom_span_pic').html('<img src="'+ json.filename +'"  style="margin: 10px 0 0 0" WIDTH="200" HEIGHT="120"/>')
+        }
+    }
+    function content_save_post(){
+        $("#status").val("1");
+    }
+    function content_save(){
+        $("#status").val("0");
+    }
+</script>
+@if(isWindow=="NO"){
+<div class="bjui-pageHeader">
+        <div class="bjui-searchBar">
+
+            <a class="btn  btn-default" data-icon="reply"   href="${ctxPath}/system/cms/content/page?categoryId=${category.categoryId!}"  data-toggle="ajaxload" data-target="#layout-content">返回栏目</a>&nbsp;
+            <div class="pull-right">
+                @if(has(content)){
+                <!--<a class="btn btn-default" data-icon="desktop" href="${ctxPath}/system/cms/content/input?categoryId=${category.categoryId!}&contentId=${content.content_id!}&isWindow=YES" data-toggle="dialog" data-width="850" data-height="650" data-id="post-content-window-tab" data-mask="true">窗口模式</a>&nbsp;-->
+                @}else{
+                <!--<a class="btn btn-default" data-icon="desktop" href="${ctxPath}/system/cms/content/input?categoryId=${category.categoryId!}&isWindow=YES" data-toggle="dialog" data-width="900" data-height="600" data-id="post-content-window-tab" data-mask="true">窗口模式</a>&nbsp;-->
+                @}
+            </div>
+
+        </div>
+</div>
+@}
+<div class="bjui-pageContent">
+    <form method="post" action="${ctxPath}/system/cms/content/save" id="j_model_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
+        <input TYPE="hidden" name="contentId" value="${content.contentId!}">
+        <input TYPE="hidden" name="userId" value="${session.SysUser.userId!}">
+        <input TYPE="hidden" name="siteId" value="${session.SysUser.siteId!}">
+        <input type="hidden" name="tableName" value="${model.tableName!}" >
+        <input TYPE="hidden" id="status" name="status" >
+        <div class="form-group">
+            <label for="j_title" class="control-label x85">标题：</label>
+            <input type="text" name="title" id="j_title" class="input-nm measure-input" value="${content.title!,xss}"   placeholder="请填写标题" size="50" data-rule="required;length(1~128)" >
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+            <label for="j_keyword" class="control-label x85">关键字：</label>
+            <input type="text" name="keywords" id="j_keyword"  class="input-nm"  value="${content.keywords!,xss}"   placeholder="关键字请用逗号，隔开" size="50" data-rule="required;length(1~128)" >
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+            <label for="j_des" class="control-label x85">描述：</label>
+             <textarea id="j_des" name="description" data-rule="required;length(10~300)"  placeholder="请填写文章描述"  cols="50">${content.description!,xss}</textarea>
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+            <label for="categoryId" class="control-label x85">栏目：</label>
+            <select id="categoryId"  data-toggle="selectpicker"  class="input-nm"  readonly="readonly"   name="categoryId">
+               ${ContentSelectCategoryFunction(session.SysUser.siteId!0,category.categoryId!0)}
+            </select>
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+
+            <label class="control-label x85">封面图片：</label>
+            <div style="display: inline-block; vertical-align: middle;">
+                <div id="j_content_thumb" data-toggle="upload" data-uploader="${ctxPath}/upload"
+                     data-file-size-limit="1024000000"
+                     data-file-type-exts="*.jpg;*.png;*.gif;*.mpg"
+                     data-multi="false"
+                     data-on-upload-success="thumb_upload_success"
+                     data-icon="cloud-upload"></div>
+                <input type="hidden" name="thumb" value="${content.thumb!}" id="j_custom_pic">
+                <span id="j_custom_span_pic">
+                    @if(isNotEmpty(content.thumb)){
+                    <IMG WIDTH="200" HEIGHT="120"  style="margin: 10px 0 0 0" src="${content.thumb!}">
+                    @}
+                </span>
+            </div>
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+            <label for="j_url" class="control-label x85">外部链接：</label>
+            <input type="text" name="url" id="j_url"  value="${content.url!,xss}"  class="input-nm"   placeholder="如果填写为外部链接，则文章链接以外部链接为准" size="50" data-rule="url;" >
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div  class="form-group">
+            <label  class="control-label x85">推荐顶置：</label>
+            <input type="checkbox"  id="recommend" name="recommend"  data-toggle="icheck" data-label="推荐" ${(isNotEmpty(content.recommend)&&content.recommend)?'checked':''}>
+            <input type="checkbox"  id="top" name="top" data-toggle="icheck" data-label="顶置" ${(isNotEmpty(content.top)&&content.top)?'checked':''}>
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+            <label for="j_viewnum" class="control-label x85">浏览次数：</label>
+            <input type="text" name="viewNum" id="j_viewnum"  class="input-nm"   placeholder="浏览量" value="${content.viewNum!0}"  size="20" data-rule="required;integer(+0)" >
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+            <label for="j_author" class="control-label x85">作者：</label>
+            <input type="text" name="author" id="j_author"  class="input-nm"   placeholder="文章作者" value="${isEmpty(content.author)?session.SysUser.username:content.author!,xss}"  size="20" data-rule="required;" >
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+            <label  class="control-label x85">标签：</label>
+            <input type="text" name="tags"  data-toggle="tags"  VALUE=""  data-url="${ctxPath}/system/cms/tag/json" data-width="500"  placeholder="输入关键字，回车提交">
+        </div>
+        @for(filed in modelFiled){
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+            @if(filed.filedClass=="input"){
+            <!--TODO 有待做详细的表单验证-->
+            <!--普通表单输入-->
+            @var t="";
+            @if(filed.notNull){
+            @t ="data-rule=\"required;";
+            @if(filed.filedType=='int'){
+            @t=t+"'integer;'";
+            @if(filed.filedLength>1){
+            @t=t+"length(1~"+filed.filedLength+");";
+            @}else{
+            @t=t+"length("+filed.filedLength+");";
+            @}
+            @}
+            @t=t+"\"";
+            @}
+            <label for="${filed.filedName!}" class="control-label x85">${filed.alias}：</label>
+            <input type='text' name='${filed.filedName!}' id='${filed.filedName!}'  class='input-nm'   placeholder='${filed.alias!}' value='${(!has(content)?filed.filedValue!:content[filed.filedName]!),xss}'  size='50' ${t!}>
+            @}
+
+            @if(filed.filedClass=="image"){
+            <!--判断是否为图片上传字段-->
+            <!--TODO 有待做自定义文件类型-->
+            <label for="${filed.filedName!}" class="control-label x85">${filed.alias}：</label>
+            <input type="file" class="form-control" data-name="${filed.filedName!}"   data-toggle="webuploader" data-options="
+                        {
+                            pick: {label: '点击选择图片'},
+                            server: '${ctxPath}/upload',
+                            fileNumLimit: 20,
+                            formData: {dir:'${filed.filedName!}'},
+                            required: true,
+                            uploaded: '',
+                            basePath: '',
+                            accept: {
+                                title: '图片',
+                                extensions: 'jpg,JPG,jpeg,JPEG,png,gif',
+                                mimeTypes: '.jpg,.JPG,.jpeg,.png,gif'
+                            }
+                        }"
+            >
+            <input TYPE="hidden" name="${filed.filedName!}"  value="${!has(content)?'':content[filed.filedName]}" >
+            @}
+
+            @if(filed.filedClass=="file"){
+            <!--判断是否为文件上传字段-->
+            <script type="text/javascript">
+                function ${filed.filedName!}_upload_success(file, data) {
+                    var json = $.parseJSON(data)
+                    $(this).bjuiajax('ajaxDone', json)
+                    if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
+                        $('#${filed.filedName!}').val(json.filename).trigger('validate');
+                        $('#${filed.filedName!}_file').val(json.filename);
+                    }
+                }
+            </script>
+            <label for="${filed.filedName!}" class="control-label x85">${filed.alias}：</label>
+            <div style="display: inline-block; vertical-align: middle;">
+                <!--遍历获取运行上传的文件类型-->
+                @var strs = strutil.split(filed.filedValue,"#");
+                @var str="";
+                @if(isNotEmpty(strs)){
+                   @for(s in strs){
+                     @str=str+"*."+s+";";
+                   @}
+                @}
+                <div id="${filed.filedName!}" data-toggle="upload" data-uploader="${ctxPath}/upload"
+                     data-file-size-limit="1024000000"
+                     data-file-type-exts="${isNotEmpty(str)?strutil.subStringTo(str,0,strutil.length(str)-1):'*.jpg;*.png;*.gif;*.mpg;*.docx;*.doc;*.xls;*.xlsx'}"
+                     data-multi="false"
+                     data-on-upload-success="${filed.filedName!}_upload_success"
+                     data-icon="cloud-upload"></div>
+                <span>
+                   <input type="text"  class="input-nm" style="margin: 5px 0 0 0"    size="50" name="${filed.filedName!}" placeholder="${filed.alias!}" value="${(!has(content)?'':content[filed.filedName]!),xss='escape'}" id="${filed.filedName!}_file">
+                </span>
+            </div>
+            @}
+
+            @if(filed.filedClass=="editor"){
+            <!--判断是否为文本编辑器-->
+            <textarea  data-toggle="wangEditor"  data-upload="${ctxPath}/upload/wangEditorUpload"   style="height:450px;max-height:550px;margin:10px 0 0 0" name="${filed.filedName!}"  ${filed.notNull?'data-rule=\"required;\"':''}>${(has(content)?content[filed.filedName]:filed.filedValue),xss="escape"}</textarea>
+            @}
+
+            @if(filed.filedClass=="textarea"){
+            <label for="${filed.filedName!}" class="control-label x85">${filed.alias}：</label>
+            <!--判断是否为文本编辑器-->
+            <textarea id="${filed.filedName!}"  name="${filed.filedName!}"     value=""  PLACEHOLDER="${filed.filedValue!}"  cols="50" ${filed.notNull?'data-rule=\"required;\"':''}>${(!has(content)?filed.filedValue:content[filed.filedName]),xss="escape"}</textarea>
+            @}
+
+            @if(filed.filedClass=="dateInput"){
+            <label for="${filed.filedName!}" class="control-label x85">${filed.alias}：</label>
+            <!--判断是否为日期输入框-->
+            <input type="text"  name="${filed.filedName!}" data-toggle="datepicker" value="${(!has(content)?filed.filedValue!:content[filed.filedName]),xss}" data-pattern="yyyy-MM-dd HH:mm:ss">
+            @}
+
+            @if(filed.filedClass=="radio"){
+            <label class="control-label x85">${filed.alias}：</label>
+            <!--判断是否为单选按钮-->
+              @if(isNotEmpty(filed.filedValue)){
+                @var radios = strutil.split(filed.filedValue,"#");
+                @for(radio in radios){
+                 @var checked ="";
+                 @if(has(content)){
+                   @if(radio==content[filed.filedName]){
+                     @checked="checked";
+                   @}
+                  @}
+                 <input  type="radio" name="${filed.filedName!}"  id="${filed.filedName!}_${radio}" ${checked!} data-toggle="icheck" data-label="[${radio}]" value="${radio}" ${filed.notNull?'data-rule=\"required;\"':''}></input>
+                @}
+               @}
+            @}
+
+            @if(filed.filedClass=="checkbox"){
+            <label for="${filed.filedName!}" class="control-label x85">${filed.alias}：</label>
+              <!--判断是为多选按钮-->
+              @if(isNotEmpty(filed.filedValue)){
+               @var checkboxs = strutil.split(filed.filedValue,"#");
+                @for(checkbox in checkboxs){
+                  @var checked ="";
+                    @if(has(content)){
+                    @if(checkbox==content[filed.filedName]){
+                      @checked="checked";
+                    @}
+                  @}
+                 <input  type="checkbox"  name="${filed.filedName!}" id="${filed.filedName!}"  ${checked!}	data-toggle="icheck" data-label="${checkbox}" value="${checkbox}" ${filed.notNull?'data-rule=\"required;\"':''}></input>
+                @}
+              @}
+            @}
+
+            @if(filed.filedClass=="select"){
+            <label for="${filed.filedName!}" class="control-label x85">${filed.alias}：</label>
+              <!--判断是为单选菜单-->
+              @if(isNotEmpty(filed.filedValue)){
+                @var selects = strutil.split(filed.filedValue,"#");
+                 <select name="${filed.filedName!}" data-toggle="selectpicker" ${filed.notNull?'data-rule=\"required\"':''}>
+                 <option value=""  selected>所有</option>
+                 @for(s in selects){
+                   @var selected ="";
+                   @if(has(content)){
+                    @if(s==content[filed.filedName]){
+                     @selected="selected";
+                    @}
+                   @}
+                   <option value="${s}" ${selected!}>${s}</option>
+                 @}
+                 </select>
+              @}
+            @}
+        </div>
+        @}
+    </form>
+    </div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button onclick="content_save()" type="submit" class="btn btn-blue" data-icon="pencil">暂存草稿</button></li>
+        <li><button onclick="content_save_post()" type="submit" class="btn btn-green" data-icon="send">保存发布</button></li>
+    </ul>
+</div>

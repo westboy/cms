@@ -1,0 +1,50 @@
+<div class="bjui-pageContent">
+    <form method="post" action="${ctxPath}/system/cms/model/save" id="j_model_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
+        <input TYPE="hidden" name="modelId" value="${pojo.modelId!}">
+        <div class="form-group">
+            <label for="j_username" class="control-label x85">模型名称：</label>
+            @if(isEmpty(pojo.modelName)){
+            <input type="text" name="modelName" id="j_username" value="${pojo.modelName!,xss}" placeholder="模型名称" data-rule="required;remote(${ctxPath}/system/cms/model/checkModelName)" >
+            @}else{
+            <input type="text" name="modelName" id="j_username" value="${pojo.modelName!,xss}"  placeholder="模型名称" >
+            @}
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+
+            <label for="j_tableName" class="control-label x85">数据表名：</label>
+            @if(isEmpty(pojo.modelName)){
+            <input type="text" name="tableName" id="j_tableName" value="${pojo.tableName!,xss}" placeholder="数据表名"  data-rule="required;remote(${ctxPath}/system/cms/model/checkTableName)" >
+            @}else{
+            <input type="text" name="tableName"  value="${pojo.tableName!,xss}" readonly="readonly" placeholder="数据表名" >
+            @}
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+            <label for="j_status" class="control-label x85"  data-toggle="selectpicker">状态：</label>
+            <select name="status" id="j_status"  data-rule="required"  data-toggle="selectpicker">
+                @if(isEmpty(pojo.status)){
+                <option value="1">启用</option>
+                <option value="0">禁用</option>
+                @}else if(pojo.status){
+                <option value="1"  selected>启用</option>
+                <option value="0">禁用</option>
+                @}else{
+                <option value="1">正常</option>
+                <option value="0"  selected>禁用</option>
+                @}
+            </select>
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+            <label for="j_desc" class="control-label x85">描述：</label>
+            <textarea  name="des" id="j_desc"  placeholder="描述" data-rule="required">${pojo.des!,xss}</textarea>
+        </div>
+    </form>
+    </div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+        <li><button type="submit" class="btn-default"  data-icon="save">保存</button></li>
+    </ul>
+</div>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link href="${ctxPath}/static/front/chuangke/css/common.css" type="text/css" rel="stylesheet" />
+	<link href="${ctxPath}/static/front/chuangke/css/style.css" type="text/css" rel="stylesheet" />
+	<link href="${ctxPath}/static/front/chuangke/css/animate.min.css" type="text/css" rel="stylesheet" />
+	<script src="${ctxPath}/static/front/chuangke/js/jquery-1.8.3.min.js"></script>
+	<script src="${ctxPath}/static/front/chuangke/js/jquery.SuperSlide.2.1.1.js"></script>
+	<script src="${ctxPath}/static/front/chuangke/js/imgscroll.js"></script>
+	<script src="${ctxPath}/static/front/chuangke/js/plugin.js"></script>
+	<script src="${ctxPath}/static/front/chuangke/js/Browser.js"></script>
+	<script src="${ctxPath}/static/front/chuangke/js/jquery.pagination.min.js"></script>
+</head>
+
+<body>
+<div class="container white_bg">
+	<header>
+		<div class="center width1200">
+			<div>
+				<a href="${ctxPath}/front/${site.siteId!}"><img src="${ctxPath}/static/front/chuangke/image/school_logo1.png" class="school_logo"><div>${site.sitename!}</div></a>
+				<nav>
+				<a href="${ctxPath}/front/${site.siteId!}"   class="active">学校主页</a>
+				<a href="#">创客作品</a>
+				<a href="#">校园风采</a>
+				<a href="#">校本课程</a>
+				<a href="${ctxPath}/front/${site.siteId!}/${rzId!}">校园日志</a>
+				</nav>
+			</div>
+			<a href="index.html" class="login">
+				<img src="${ctxPath}/static/front/chuangke/img/login.png" /> 请登录
+			</a>
+			<a href="index.html" class="login hide">
+				<img src="${ctxPath}/static/front/chuangke/img/news.png" />
+			</a>
+		</div>
+	</header>
+
+	<div class="zone_banner">
+		<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/school_index.png" />
+	</div>
+
+	<div class="center width1200 school_index">
+		<!--第一部分-统计-->
+		<div class="index_count">
+			<div class="count_arts">
+				<h2><big>60</big><span>份作品</span></h2>
+				<span>海量权威专业，专注教育</span>
+			</div>
+			<div class="count_course">
+				<h2><big>180</big><span>个课程</span></h2>
+				<span>海量权威专业，专注教育</span>
+			</div>
+			<div class="count_pic">
+				<h2><big>80</big><span>个照片</span></h2>
+				<span>海量权威专业，专注教育</span>
+			</div>
+			<div class="count_blog">
+				<h2><big>120</big><span>个日志</span></h2>
+				<span>海量权威专业，专注教育</span>
+			</div>
+		</div>
+		<!--第二部分-通知、公告-->
+		<div class="content content1">
+			<div class="left_con">
+				<#cms_category  categoryId="${xyzxId!}" isParent="0" var="bean">
+					<div class="con_tit">
+						<div>
+							<img src="${ctxPath}/static/front/chuangke/img/s_l_6.png" />${bean.categoryName!}
+						</div>
+						<a class="more" href="${bean.url!}">更多+</a>
+					</div>
+				</#cms_category>
+				<div class="box">
+					<div>
+						<a href="school_info_content.html">
+							<img src="${ctxPath}/static/front/chuangke/image/content1.png" />
+							<p>经典诵读颁奖</p>
+						</a>
+					</div>
+					<ul>
+						<#cms_content_list  siteId="${site.siteId}" categoryId="${xyzxId!}" target="1" orderBy="1" isHot="0" hasChild="0" size="7"   titleLen="15"   var="content">
+							<li>
+								<span><mark>新闻</mark><a href="${content.url!}" target="_blank">${content.title!}</a></span><time>${content.inputdate!,dateFormat="MM/dd"}</time>
+							</li>
+						</#cms_content_list>
+					</ul>
+				</div>
+			</div>
+			<div class="right_con">
+				<#cms_category  categoryId="${tzggId!}" isParent="0" var="bean">
+					<div class="con_tit">
+						<div>
+							<img src="${ctxPath}/static/front/chuangke/img/s_l_6.png" />${bean.categoryName!}
+						</div>
+						<a class="more" href="${bean.url!}">更多+</a>
+					</div>
+				</#cms_category>
+				<div class="box">
+					<ul>
+						<#cms_content_list  siteId="${site.siteId}" categoryId="${tzggId!}" target="1" orderBy="1" isHot="0" hasChild="0" size="7"   titleLen="15"   var="content">
+							<li>
+								<span><a href="${content.url!}" target="_blank">${content.title!}</a></span><time>${content.inputdate!,dateFormat="MM/dd"}</time>
+							</li>
+						</#cms_content_list>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!--第三部分-作品-->
+		<div class="content content2">
+			<div class="con_tit">
+				<div>
+					<img src="${ctxPath}/static/front/chuangke/img/s_l_2.png" />创客作品
+				</div>
+				<a class="more" href="school_works.html">更多+</a>
+			</div>
+			<div class="box pulse">
+				<ul>
+					<li>
+						<a href="school_works_content.html">
+							<div><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/content1.png" /></div>
+							<div>
+								<h5>灯管智能模型</h5>
+								<font>3D模型社团</font>
+								<p>我的智能小机器人是由我们团队所有成员努力设计的第一个机器人作品，他可以帮助我们清扫地面，也可以为我们搬运东西。我们的付出得到了回报，我们非常高兴。</p>
+								<section>
+									<span>2017-05-21 10:44</span>
+									<span><img src="${ctxPath}/static/front/chuangke/img/small_eye.png"> 8500</span>
+								</section>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="school_works_content.html">
+							<div><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/content1.png" /></div>
+							<div>
+								<h5>灯管智能模型</h5>
+								<font>3D模型社团</font>
+								<p>我的智能小机器人是由我们团队所有成员努力设计的第一个机器人作品，他可以帮助我们清扫地面，也可以为我们搬运东西。我们的付出得到了回报，我们非常高兴。</p>
+								<section>
+									<span>2017-05-21 10:44</span>
+									<span><img src="${ctxPath}/static/front/chuangke/img/small_eye.png"> 8500</span>
+								</section>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="school_works_content.html">
+							<div><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/content1.png" /></div>
+							<div>
+								<h5>灯管智能模型</h5>
+								<font>3D模型社团</font>
+								<p>我的智能小机器人是由我们团队所有成员努力设计的第一个机器人作品，他可以帮助我们清扫地面，也可以为我们搬运东西。我们的付出得到了回报，我们非常高兴。</p>
+								<section>
+									<span>2017-05-21 10:44</span>
+									<span><img src="${ctxPath}/static/front/chuangke/img/small_eye.png"> 8500</span>
+								</section>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="school_works_content.html">
+							<div><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/content1.png" /></div>
+							<div>
+								<h5>灯管智能模型</h5>
+								<font>3D模型社团</font>
+								<p>我的智能小机器人是由我们团队所有成员努力设计的第一个机器人作品，他可以帮助我们清扫地面，也可以为我们搬运东西。我们的付出得到了回报，我们非常高兴。</p>
+								<section>
+									<span>2017-05-21 10:44</span>
+									<span><img src="${ctxPath}/static/front/chuangke/img/small_eye.png"> 8500</span>
+								</section>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="school_works_content.html">
+							<div><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/content1.png" /></div>
+							<div>
+								<h5>灯管智能模型</h5>
+								<font>3D模型社团</font>
+								<p>我的智能小机器人是由我们团队所有成员努力设计的第一个机器人作品，他可以帮助我们清扫地面，也可以为我们搬运东西。我们的付出得到了回报，我们非常高兴。</p>
+								<section>
+									<span>2017-05-21 10:44</span>
+									<span><img src="${ctxPath}/static/front/chuangke/img/small_eye.png"> 8500</span>
+								</section>
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="school_works_content.html">
+							<div><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/content1.png" /></div>
+							<div>
+								<h5>灯管智能模型</h5>
+								<font>3D模型社团</font>
+								<p>我的智能小机器人是由我们团队所有成员努力设计的第一个机器人作品，他可以帮助我们清扫地面，也可以为我们搬运东西。我们的付出得到了回报，我们非常高兴。</p>
+								<section>
+									<span>2017-05-21 10:44</span>
+									<span><img src="${ctxPath}/static/front/chuangke/img/small_eye.png"> 8500</span>
+								</section>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--第四部分-广告-->
+		<div class="content content4 content_ad">
+			<a>
+				<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/ad2.png" />
+			</a>
+		</div>
+		<!--第五部分-课程-->
+		<div class="content content5">
+			<div class="left_con">
+				<div class="con_tit">
+					<div>
+						<img src="${ctxPath}/static/front/chuangke/img/s_l_1.png" />最新课程
+					</div>
+					<a class="more" href="school_lessons_list.html">更多+</a>
+				</div>
+				<div class="box">
+					<ul>
+						<li>
+							<a href="school_lesson_content.html">
+								<label><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+								<Span>智能机器人初级教学智能机器人初级教学</Span>
+							</a>
+							<div>
+								<span>发布时间：2017-05-21 10:14</span>
+								<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+							</div>
+						</li>
+						<li>
+							<a href="school_lesson_content.html">
+								<label><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+								<Span>智能机器人初级教学智能机器人初级教学</Span>
+							</a>
+							<div>
+								<span>发布时间：2017-05-21 10:14</span>
+								<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+							</div>
+						</li>
+						<li>
+							<a href="school_lesson_content.html">
+								<label><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+								<Span>智能机器人初级教学智能机器人初级教学</Span>
+							</a>
+							<div>
+								<span>发布时间：2017-05-21 10:14</span>
+								<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="right_con">
+				<div class="con_tit">
+					<div>
+						<img src="${ctxPath}/static/front/chuangke/img/s_l_1.png" />热门课程排行
+					</div>
+					<a class="more" href="school_lessons_list.html">更多+</a>
+				</div>
+				<div class="box">
+					<ul>
+						<li>
+							<a href="school_lesson_content.html"><mark class="top">1</mark><em>机器人编程</em></a><span>2526次 播放</span></li>
+						<li>
+							<a href="school_lesson_content.html"><mark class="top">2</mark><em>机器人编程</em></a><span>1986次 播放</span></li>
+						<li>
+							<a href="school_lesson_content.html"><mark class="top">3</mark><em>机器人编程</em></a><span>6次 播放</span></li>
+						<li>
+							<a href="school_lesson_content.html"><mark>4</mark><em>机器人编程</em></a><span>1986次 播放</span></li>
+						<li>
+							<a href="school_lesson_content.html"><mark>5</mark><em>机器人编程</em></a><span>6次 播放</span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!--第六部分-社会风采-->
+		<div class="content content6">
+			<#cms_category  categoryId="${stId!}" isParent="0" var="bean">
+			<div class="con_tit">
+				<div>
+					<img src="${ctxPath}/static/front/chuangke/img/s_l_6.png" />${bean.categoryName!}
+				</div>
+				<a class="more" href="${bean.url!}">更多+</a>
+			</div>
+			</#cms_category>
+			<div class="box">
+				<div class="ladyScroll">
+					<a class="prev" href="javascript:void(0)"></a>
+					<div class="scrollWrap">
+						<div class="dlList">
+
+							<#cms_content_list  siteId="${site.siteId}" categoryId="${stId!}" target="1" orderBy="1" isHot="0" hasChild="0" size="10"   titleLen="5"   var="bean">
+							<dl>
+								<div>
+									<dt><a target="_blank" href="${bean.url!}"><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${bean.thumb!}"></a></dt>
+									<dd>
+										<a target="_blank" href="${bean.url!}">${bean.title!}</a>
+									</dd>
+								</div>
+							</dl>
+							</#cms_content_list>
+						</div>
+
+					</div>
+					<a class="next" href="javascript:void(0)"></a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!--侧边工具栏-->
+	<div class="toolbar">
+		<a href="###" class="toolbar-item toolbar-item-weixin">
+			<span class="toolbar-layer"></span>
+		</a>
+		<a href="response.html" class="toolbar-item toolbar-item-feedback"></a>
+		<a href="###" class="toolbar-item toolbar-item-app">
+			<span class="toolbar-layer"></span>
+		</a>
+		<a href="javascript:void(0)" id="top" class="toolbar-item toolbar-item-top"></a>
+	</div>
+
+	<footer>
+		<div class="center width1200">
+			<img src="${ctxPath}/static/front/chuangke/image/content1.png" />
+			<div>
+				<span>技术运营：河南众诚信息科技股份有限公司</span>
+				<span>豫ICP备 05010997号 郑州市教育局 版权所有</span>
+				<span>地址：河南省郑州市中原西路40号  邮政编码：450007 电话：0371-66976696 E-Mail：zzsjyj#zzedu.net.cn</span>
+			</div>
+		</div>
+	</footer>
+
+</div>
+
+<!--浏览器处理-->
+<div class="browser_div">
+	<a href="https://www.zhiliao.ha.cn/www/chuangke/soft/ChromeStandalone_58.0.3029.110_Setup.exe"></a>
+	<img src="${ctxPath}/static/front/chuangke/img/browser.png" style="display: none;" />
+	<img src="${ctxPath}/static/front/chuangke/img/browser_act.png" style="display: none;" />
+</div>
+</body>
+
+</html>

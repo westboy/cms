@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/zui/1.6.0/css/zui.min.css">
+</head>
+<body>
+<div style="padding: 50px 20% 30PX 20%">
+    <form action="${ctxPath}/doRegister" method="post">
+        ${token!}
+        <fieldset>
+            <legend>用户注册</legend>
+            <div class="form-group">
+                <label for="exampleInputAccount3">账号</label>
+                <input type="text" class="form-control" data-rule="required;remote(${ctxPath}/validate/username)" name="username" id="exampleInputAccount3" placeholder="用户名">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputAccount4">密码</label>
+                <input type="text" class="form-control" data-rule="required;length(6~16)" name="password" id="exampleInputAccount4" placeholder="密码">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputAccount00">重复密码</label>
+                <input type="text" class="form-control"  data-rule="确认密码: match(password);" id="exampleInputAccount00" placeholder="密码">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputAccount7">邮箱</label>
+                <input type="text" class="form-control"  data-rule="required;email;remote(${ctxPath}/validate/email)" name="email" id="exampleInputAccount7" placeholder="邮箱">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputAccount8">联系人</label>
+                <input type="text" class="form-control" data-rule="required;" name="linkman"  id="exampleInputAccount8" placeholder="联系人">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputAccount9">手机号</label>
+                <input type="text" class="form-control" data-rule="required;mobile" name="mobile" id="exampleInputAccount9" placeholder="手机号">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputAccount6">验证码</label>
+                <input data-rule="required;remote(${ctxPath}/verify/validate)" name="verifyCode" type="text" class="form-control" id="exampleInputAccount6" placeholder="验证码">
+                <img style="padding: 5px" src="${ctxPath}/verify">
+            </div>
+        </fieldset>
+        <button type="submit" class="btn">登陆</button>
+    </form>
+</div>
+<!-- ZUI Javascript 依赖 jQuery -->
+<script src="http://cdn.bootcss.com/zui/1.6.0/lib/jquery/jquery.js"></script>
+<!-- ZUI 标准版压缩后的 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/zui/1.6.0/js/zui.min.js"></script>
+<script src="${ctxPath}/static/nice-validator/jquery.validator.js?local=zh-CN"></script>
+</body>
+</html>

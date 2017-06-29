@@ -1,0 +1,102 @@
+#pbOverlay, #pbImage, #pbBottom, #pbCloseBtn {
+	position: fixed;
+	z-index: 9999;
+}
+#pbOverlay {
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	cursor: pointer;
+}
+#pbCloseBtn {
+	top: 0;
+	right: 0;
+	display: block;
+	width: 50px;
+	height: 50px;
+	background: url(../img/closebutton.png) no-repeat top left;
+}
+.pbLoading {
+	background: #000 url(../img/loading.gif) no-repeat center !important;
+}
+#pbImage {
+	border: none;
+	background: #000 no-repeat;
+	-moz-box-shadow: 0 0 40px #000;
+	-webkit-box-shadow: 0 0 40px #000;
+	box-shadow: 0 0 40px #000;
+	cursor: move;
+}
+#pbBottom {
+	font-family: Verdana, Arial, Geneva, Helvetica, sans-serif;
+	font-size: 10px;
+	text-align: center;
+	color: #EEE;
+	line-height: 1.4em;
+	left: 50%;
+	bottom: 10px;
+	width: 400px;
+	margin-left: -200px; /* half the width */
+}
+#pbCaption {
+	font-weight: bold;
+	padding: 4px;
+	display: inline-block;
+ *display: inline; /* IE 7 */
+	background-color: rgba(0, 0, 0, 0.7);
+ filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#B0000000, EndColorStr=#B0000000);
+	zoom: 1;
+}
+#pbNav {
+	display: block;
+	width: 282px;
+	height: 70px;
+	margin: auto;
+	margin-top: 5px;
+}
+#pbPrevBtn, #pbNextBtn, #pbZoomBtn, #pbLeftBtn, #pbRightBtn {
+	display: inline-block;
+	height: 70px;
+	outline: none;
+	text-indent: -9000px;
+	background: url(../img/navbtns.png) no-repeat;
+}
+#pbPrevBtn {
+	background-position: -223px 0;
+	width: 40px;
+	float: left;
+}
+#pbPrevBtn.pbgreyed {
+	background-position: -521px 0;
+}
+#pbNextBtn {
+	background-position: -337px 0;
+	width: 40px;
+	float: right;
+}
+#pbNextBtn.pbgreyed {
+	background-position: -560px;
+}
+#pbZoomBtn {
+	width: 74px;
+	background-position: -263px 0;
+	float: left;
+}
+#pbZoomBtn.pbgreyed {
+	background-position: -74px 0;
+}
+#pbZoomBtn.pbzoomed {
+	background-position: 0 0;
+}
+#pbLeftBtn {
+	background-position: -159px 0;
+	width: 64px;
+	float: left;
+}
+#pbRightBtn {
+	background-position: -377px 0;
+	width: 64px;
+	float: right;
+}

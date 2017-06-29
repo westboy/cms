@@ -1,0 +1,184 @@
+<style>
+    hr{
+        margin-top: 3px!important;
+        margin-bottom: 3px!important;
+    }
+</style>
+<script>
+
+    $(function() {
+        $("#filedClass").change(function(){
+            SelectChange();
+        });
+        function SelectChange() {
+            var selectValue = $("#filedClass").val();
+            appendFliedclassValue(selectValue);
+        }
+        function appendFliedclassValue(selectValue) {
+            var content = $("#configContent");
+            if(selectValue=='input'){
+
+                content.html("<input type='text' class='form-control'  name='filedValue' size='30' placeholder='默认值'>");
+            }
+            if(selectValue=='textarea'){
+
+                content.html("<textarea type='text' class='form-control'  name='filedValue' size='30' placeholder='默认值'></textarea>");
+            }
+            if(selectValue=='radio'){
+
+                content.html("<textarea type='text' class='form-control'  name='filedValue' size='30' placeholder='选项值用“#”隔开'></textarea>");
+            }
+            if(selectValue=='checkbox'){
+
+                content.html("<textarea type='text' class='form-control'  name='filedValue' size='30' placeholder='多个选项值用“#”隔开'></textarea>");
+            }
+            if(selectValue=='select'){
+
+                content.html("<textarea type='text' class='form-control'  name='filedValue' size='30' placeholder='多个子菜单用“#”隔开'></textarea>");
+            }
+            if(selectValue=='editor'){
+
+                content.html("<textarea type='text' class='form-control' name='filedValue' size='30' placeholder='默认值'></textarea>");
+            }
+            if(selectValue=='file'){
+
+                content.html("<input type='text' class='form-control'  name='filedValue' size='30' placeholder='允许上传的文件类型，如：txt#zip'>");
+            }
+            if(selectValue=='image'){
+
+                content.html("<input type='text' class='form-control'  name='filedValue' size='30' placeholder='允许上传的文件类型，如：img#png'>");
+            }
+
+            if(selectValue=='dateInput'){
+
+                content.html("<input type='text' class='form-control'  data-toggle='datepicker'  name='filedValue' size='30' placeholder='请输入日期格式：yyyy/MM/dd hh:mm:ss'>");
+            }
+
+        }
+
+        $("#filedType").change(function(){
+            SelectChangeType();
+
+        });
+
+        function SelectChangeType(){
+            var selectValue = $("#filedType").val();
+            appendFliedtype(selectValue);
+        }
+
+        function appendFliedtype(type){
+
+            var content = $("#typeContent");
+            if(type=='INT_TYPE'){
+
+                content.html("<input type='text' class='form-control'  name='filedLength' size='30' data-rule='required;range(1~11);integer[+]'  value='11' placeholder='长度'>");
+            }
+//            if(type=='DECIMAL_TYPE'){
+//
+//                content.html("<input type='text' class='form-control'  name='filedLength' size='30'  value='11' data-rule='required;range(1-11);integer[+]' placeholder='长度'>");
+//            }
+            if(type=='DATE_TYPE'){
+
+                content.html("date");
+             }
+            if(type=='CHAR_TYPE'){
+
+                content.html("<input type='text' class='form-control' name='filedLength' size='30' value='16' data-rule='required;range(1~16);integer[+]' placeholder='长度'>");
+            }
+            if(type=='VARCHAR_TYPE'){
+
+                content.html("<input type='text' class='form-control' name='filedLength' size='30' value='50' data-rule='required;range(1~255);integer[+]' placeholder='长度'>");
+            }
+            if(type=='TEXT_TYPE'){
+
+                content.html("text");
+            }
+            if(type=='MEDIUM_TEXT_TYPE'){
+
+                content.html("medium_text");
+            }
+            if(type=='LONG_TEXT_TYPE'){
+
+                content.html("long_text");
+            }
+        }
+
+    });
+</script>
+<div class="bjui-pageContent">
+    <form method="post" action="${ctxPath}/system/cms/model/filed/save" id="j_model_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
+        <input TYPE="hidden" name="modelId" value="${modelId!}">
+        <hr>
+        <div class="form-group">
+            <label for="j_username" class="control-label x85">字段名称：</label>
+            <input type="text" name="filedName" id="j_username"  placeholder="字段名称" size="24" data-rule="required;remote(${ctxPath}/system/cms/model/filed/checkFiledName)" >
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="filedClass" class="control-label x85">字段类别：</label>
+            <select id="filedClass" data-toggle="selectpicker"  data-rule="required"  name="filedClass">
+                <option value="" >请选择</option>
+                <option value="input">单行文本</option>
+                <option value="textarea">多行文本</option>
+                <option value="dateInput">日期输入</option>
+                <option value="editor">文本编辑器</option>
+                <option value="radio">单选框</option>
+                <option value="checkbox">多选框</option>
+                <option value="select">菜单</option>
+                <option value="image">图片上传</option>
+                <option value="file">文件上传</option>
+            </select>
+        </div>
+        <hr>
+        <div  class="form-group">
+            <label for="configContent" class="control-label x85">类型参数：</label>
+            <span  id="configContent">
+                请选择
+            </span>
+
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="filedType" class="control-label x85">字段类型：</label>
+            <select id="filedType"  data-toggle="selectpicker"  name="filedType">
+                <option value="">——</option>
+                <option value="INT_TYPE">整型</option>
+                <!--<option value="DECIMAL_TYPE">小数类型</option>-->
+                <option value="DATE_TYPE">日期类型</option>
+                <option value="CHAR_TYPE">字符类型</option>
+                <option value="VARCHAR_TYPE">文字类型</option>
+                <option value="TEXT_TYPE">小文本类型</option>
+                <option value="MEDIUM_TEXT_TYPE">中文本类型</option>
+                <option value="LONG_TEXT_TYPE">大长文本类型</option>
+            </select>
+            <span><font COLOR="#ff6347"> 可选 </font>请确保您对Mysql字段类型有初步了解，否则会导致字段创建失败！</span>
+        </div>
+        <hr>
+        <div  class="form-group">
+            <label for="typeContent" class="control-label x85">字段长度：</label>
+            <span  id="typeContent">
+                字段类别参数长度不能越界，存储类型必须一致
+            </span>
+
+        </div>
+        <hr>
+        <div  class="form-group">
+            <label  class="control-label x85">允许空：</label>
+            <select  data-toggle="selectpicker"  data-rule="required"  name="notNull">
+                <option value="0">允许空</option>
+                <option value="1">不允许空</option>
+            </select>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="j_desc" class="control-label x85">描述：</label>
+            <textarea  name="alias" id="j_desc"  placeholder="描述" data-rule="required"></textarea>
+        </div>
+    </form>
+    </div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+        <li><button type="submit" class="btn-default"  data-icon="save">保存</button></li>
+    </ul>
+</div>
