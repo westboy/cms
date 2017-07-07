@@ -100,14 +100,6 @@ public class IndexController {
         model.addAttribute("keyword",site.getKeyword());
         model.addAttribute("description",site.getDescription());
         model.addAttribute("site",site);
-        if(siteId!=0){
-           /*todo 此处需要加个查询子站点栏目*/
-            String[] cats = {"xyzxId#xiaoyuanzixun","tzggId#tongzhigonggao","xyrzId#xiaoyuanrizhi","stId#shetuanfengcai","rzId#xiaoyuanrizhi"};
-            for(String c:cats){
-                String[] tmp = c.split("#");
-                model.addAttribute(tmp[0],categoryService.findfindByAliasAndSiteId(tmp[1],siteId).getCategoryId());
-            }
-        }
         if(StrUtil.isBlank(site.getTemplate()))
             return view(CmsDict.INDEX_TPL);
         return view(site.getTemplate(),CmsDict.INDEX_TPL);

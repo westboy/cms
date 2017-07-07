@@ -5,15 +5,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.zhiliao.common.annotation.FormToken;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.shiro.DefaultUsernamePasswordToken;
-import com.zhiliao.common.shiro.pac4j.Pac4jPrincipal;
-import com.zhiliao.common.shiro.pac4j.SsoInfo;
 import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.module.web.client.service.ClientUserService;
 import com.zhiliao.mybatis.mapper.master.TSysLogMapper;
 import com.zhiliao.mybatis.model.master.TClientUser;
-import com.zhiliao.mybatis.model.master.TSysLog;
+import io.buji.pac4j.subject.Pac4jPrincipal;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.pac4j.core.profile.CommonProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -28,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -52,7 +50,6 @@ public class LoginController {
     @RequestMapping("/cas")
     @ResponseBody
     public String index() throws UnsupportedEncodingException {
-        SsoInfo profile=null;
         final PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
         String object = JSON.toJSONString(principals.getPrimaryPrincipal());
         JSONObject object1 = JSON.parseObject(object);
@@ -60,14 +57,8 @@ public class LoginController {
        JSONObject object3 = object2.getJSONObject("attributes");
         final Pac4jPrincipal principal = principals.oneByType(Pac4jPrincipal.class);
         if (principal != null) {
-            profile =  principal.getProfile();
+           CommonProfile profile =  principal.getProfile();
         }
-        TSysLog log = new TSysLog();
-        log.setType(new String(object3.get("usertype").toString().getBytes("iso8859_1"),"GBK"));
-        log.setContent((String) object3.get("unitname"));
-        log.setCreatetime(new Date());
-        log.setUsername((String) object3.get("username"));
-        sysLogMapper.insert(log);
         return  object3.get("usertype").toString();
     }
 

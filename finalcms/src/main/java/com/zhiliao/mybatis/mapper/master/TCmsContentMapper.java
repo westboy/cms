@@ -30,11 +30,11 @@ public interface TCmsContentMapper extends Mapper<TCmsContent> {
                                                                @Param("isHot") Integer isHot
                                                                );
 
-    @Select("SELECT * FROM t_cms_content WHERE content_id = (SELECT max(content_id) FROM t_cms_content WHERE content_id < #{contentId} AND category_id =#{categoryId})")
+    @Select("SELECT * FROM t_cms_content WHERE content_id = (SELECT max(content_id) FROM t_cms_content WHERE content_id < #{contentId} AND category_id =#{categoryId}  and status =1)")
     @ResultMap("BaseResultMap")
     TCmsContent selectPrevContentByContentIdAndCategoryId(@Param("contentId") Long contentId,@Param("categoryId")Long categoryId);
 
-    @Select("SELECT * FROM t_cms_content WHERE content_id = (SELECT min(content_id) FROM t_cms_content WHERE content_id > #{contentId} AND category_id =#{categoryId})")
+    @Select("SELECT * FROM t_cms_content WHERE content_id = (SELECT min(content_id) FROM t_cms_content WHERE content_id > #{contentId} AND category_id =#{categoryId}  and status =1)")
     @ResultMap("BaseResultMap")
     TCmsContent selectNextContentByContentIdAndCategoryId(@Param("contentId")Long contentId,@Param("categoryId")Long categoryId);
 

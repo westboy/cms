@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.zhiliao</groupId>
-    <artifactId>cms</artifactId>
+    <artifactId>finalcms</artifactId>
     <version>0.1</version>
     <packaging>war</packaging>
 
-    <name>cms</name>
-    <description>知了cms系统</description>
+    <name>finalcms</name>
+    <description>This an content manage system</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -151,6 +151,20 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
         </dependency>
         <!-- Shiro -->
         <dependency>

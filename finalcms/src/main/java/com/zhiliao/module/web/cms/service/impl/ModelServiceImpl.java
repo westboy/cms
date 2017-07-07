@@ -43,10 +43,14 @@ public class ModelServiceImpl implements ModelService{
 
    @CacheEvict(cacheNames = "cms-model-cache",allEntries = true)
    @Override
-    public String save(TCmsModel pojo) throws SQLException {
+    public String save(TCmsModel pojo) {
        String tableName = PinyinUtil.convertLower(pojo.getTableName());
        pojo.setTableName(tableName);
-       dbTableAssistant.createDbtable(tableName);
+       try {
+           dbTableAssistant.createDbtable(tableName);
+       } catch (SQLException e) {
+           throw  new SystemException(e.getMessage());
+       }
        if (modelMapper.insertSelective(pojo)>0)
         return JsonUtil.toSUCCESS("操作成功","model-tab",true);
        return  JsonUtil.toERROR("操作失败");
@@ -61,7 +65,7 @@ public class ModelServiceImpl implements ModelService{
     }
 
     @Override
-    public String delete(Integer[] ids) throws SQLException {
+    public String delete(Integer[] ids){
        if(ids!=null) {
            for (Integer id : ids) {
 
@@ -73,7 +77,11 @@ public class ModelServiceImpl implements ModelService{
                    throw new CmsException("当前模型关联多个栏目[size:"+categorys.size()+"],请先删除栏目！");
                /*删除数据库中的模型表*/
                TCmsModel model =modelMapper.selectByPrimaryKey(id);
-               dbTableAssistant.deleteDbtable(model.getTableName());
+               try {
+                   dbTableAssistant.deleteDbtable(model.getTableName());
+               } catch (SQLException e) {
+                   throw  new SystemException(e.getMessage());
+               }
                modelMapper.deleteByPrimaryKey(id);
                /*清空与当前模型相关的字段*/
                TCmsModelFiled modelFiled = new TCmsModelFiled();

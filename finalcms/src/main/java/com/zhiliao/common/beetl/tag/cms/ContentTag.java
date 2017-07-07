@@ -23,8 +23,8 @@ import java.util.Map;
 @Scope("prototype")
 public class ContentTag extends GeneralVarTagBinding {
 
-     @Autowired
-     private TCmsContentMapper contentMapper;
+    @Autowired
+    private TCmsContentMapper contentMapper;
 
     @Value("${system.http.protocol}")
     private String httpProtocol;
@@ -43,25 +43,25 @@ public class ContentTag extends GeneralVarTagBinding {
 
     private void wrapRender(Long categoryId, Long contentId, Integer titleLen) {
         Map  result = Maps.newHashMap();
-        String prevContent="没有前一页了";
-        String nextContent="没有后一页了";
+        String prevContent="没有前一篇了";
+        String nextContent="没有后一篇了";
         TCmsContent prev = contentMapper.selectPrevContentByContentIdAndCategoryId(contentId,categoryId);
         TCmsContent next = contentMapper.selectNextContentByContentIdAndCategoryId(contentId,categoryId);
         if(!CmsUtil.isNullOrEmpty(prev)) {
             int length = prev.getTitle().length();
             if (length > titleLen) {
-                prev.setTitle(prev.getTitle().substring(0, titleLen) + "...");
+                prev.setTitle(prev.getTitle().substring(0, titleLen));
             }
             prevContent = "<a href=\""+httpProtocol+"://"+ControllerUtil.getDomain()+"/front/"+prev.getSiteId()+"/"+prev.getCategoryId()+"/"+prev.getContentId();
-            prevContent+=siteSubfix+"\">"+prev.getTitle()+"</a>";
+            prevContent+=siteSubfix+"\">"+prev.getTitle()+ "...</a>";
         }
         if(!CmsUtil.isNullOrEmpty(next)) {
             int length = next.getTitle().length();
             if (length > titleLen) {
-                next.setTitle(next.getTitle().substring(0, titleLen) + "...");
+                next.setTitle(next.getTitle().substring(0, titleLen));
             }
             nextContent = "<a href=\""+httpProtocol+"://"+ControllerUtil.getDomain()+"/front/"+next.getSiteId()+"/"+next.getCategoryId()+"/"+next.getContentId();
-            nextContent+=siteSubfix+"\">"+next.getTitle()+"</a>";
+            nextContent+=siteSubfix+"\">"+next.getTitle()+ "...</a>";
         }
         result.put("prev",prevContent);
         result.put("next",nextContent);

@@ -635,6 +635,43 @@
             editor.config.uploadImgUrl= uploadUrl;
             editor.config.hideLinkImg = true;
             editor.config.uploadImgFileName='file';
+            editor.config.menus =  [
+                'source',
+                '|',
+                'bold',
+                'underline',
+                'italic',
+                'strikethrough',
+                'eraser',
+                'forecolor',
+                'bgcolor',
+                '|',
+                'quote',
+                'fontfamily',
+                'fontsize',
+                'lineheight',
+                'indent',
+                'head',
+                'unorderlist',
+                'orderlist',
+                'alignleft',
+                'aligncenter',
+                'alignright',
+                '|',
+                'link',
+                'unlink',
+                'table',
+                'emotion',
+                '|',
+                'img',
+                'video',
+                'location',
+                'insertcode',
+                '|',
+                'undo',
+                'redo',
+                'fullscreen'
+            ];
             editor.config.fontsizes = {
                 // 格式：'value': 'title'
                 1: '10px',

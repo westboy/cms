@@ -40,7 +40,7 @@ public class DbTableKit {
                     f.setM(M.VARCHAR_TYPE);
                     f.setLength(128);
                }
-               f.setDefaultValue(defaultValue);
+               f.setDefaultValue(null);
           }
 
           if (filedClass.equals("image")){

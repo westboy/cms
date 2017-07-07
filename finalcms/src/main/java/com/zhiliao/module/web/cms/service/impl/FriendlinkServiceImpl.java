@@ -11,7 +11,6 @@ import com.zhiliao.mybatis.model.master.TCmsFriendlinkGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class FriendlinkServiceImpl implements FriendlinkService{
     private TCmsFriendlinkGroupMapper groupMapper;
 
     @Override
-    public String save(TCmsFriendlink pojo) throws SQLException {
+    public String save(TCmsFriendlink pojo) {
         if (friendlinkMapper.insertSelective(pojo)>0)
             return JsonUtil.toSUCCESS("操作成功","friendlink-tab",true);
         return  JsonUtil.toERROR("操作失败");
@@ -44,7 +43,7 @@ public class FriendlinkServiceImpl implements FriendlinkService{
     }
 
     @Override
-    public String delete(Integer[] ids) throws SQLException {
+    public String delete(Integer[] ids) {
         if(ids!=null&&ids.length>0)
             for(Integer id :ids)
                 friendlinkMapper.deleteByPrimaryKey(id);

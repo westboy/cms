@@ -248,8 +248,9 @@ public class ContentServiceImpl implements ContentService{
                 exeSql = "UPDATE t_cms_content_" + tableName.trim() + " set ";
                       /*遍历Map保存扩展数据表,代码有些复杂*/
                 for (TCmsModelFiled filed : cmsModelFileds) {
+                    if(CmsUtil.isNullOrEmpty(formParam.get(filed.getFiledName()))) continue;
                     exeSql += "`" + filed.getFiledName() + "`";
-                    if (!CmsUtil.isNullOrEmpty(formParam.get(filed.getFiledName())) && (formParam.get(filed.getFiledName()) instanceof Integer)) {
+                    if (formParam.get(filed.getFiledName()) instanceof Integer) {
                         exeSql += "=" + formParam.get(filed.getFiledName()) + ", ";
                     } else if (!CmsUtil.isNullOrEmpty(formParam.get(filed.getFiledName())) && formParam.get(filed.getFiledName()).getClass().isArray()) {
                     /*遍历字符数组，数组来源为checkbox和多图上传*/
@@ -262,7 +263,7 @@ public class ContentServiceImpl implements ContentService{
                             exeSql += "='" + tmp.substring(0, tmp.length() - 1) + "', ";
                         }
                     } else {
-                        exeSql += "='" + (CmsUtil.isNullOrEmpty(formParam.get(filed.getFiledName())) ? null : formParam.get(filed.getFiledName())) + "', ";
+                        exeSql += "='" + formParam.get(filed.getFiledName()) + "', ";
                     }
                 }
                 /*截取最后面的空格和英文逗号，并加上‘;’*/

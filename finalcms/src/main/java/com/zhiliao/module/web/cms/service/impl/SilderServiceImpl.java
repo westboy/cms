@@ -9,7 +9,6 @@ import com.zhiliao.mybatis.model.master.TCmsAdSilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ public class SilderServiceImpl implements SilderService {
     private TCmsAdSilderMapper silderMapper;
 
     @Override
-    public String save(TCmsAdSilder pojo) throws SQLException {
+    public String save(TCmsAdSilder pojo) {
         if (silderMapper.insertSelective(pojo)>0)
             return JsonUtil.toSUCCESS("操作成功","friendlink-tab",true);
         return  JsonUtil.toERROR("操作失败");
@@ -39,7 +38,7 @@ public class SilderServiceImpl implements SilderService {
     }
 
     @Override
-    public String delete(Integer[] ids) throws SQLException {
+    public String delete(Integer[] ids) {
         if(ids!=null&&ids.length>0)
             for(Integer id :ids)
                 silderMapper.deleteByPrimaryKey(id);

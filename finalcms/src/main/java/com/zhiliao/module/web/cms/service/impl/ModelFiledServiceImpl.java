@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.db.DbTableAssistantService;
 import com.zhiliao.common.db.kit.DbTableKit;
 import com.zhiliao.common.db.vo.FiledTypeVo;
+import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.HtmlKit;
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.common.utils.PinyinUtil;
@@ -45,7 +46,7 @@ public class ModelFiledServiceImpl implements ModelFiledService{
 
     @Override
     @Transactional(transactionManager = "masterTransactionManager",propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
-    public String save(TCmsModelFiled pojo) throws SQLException {
+    public String save(TCmsModelFiled pojo) {
         pojo.setFiledName(PinyinUtil.convertLower(HtmlKit.getText(pojo.getFiledName())));
         FiledTypeVo filedTypeVo = DbTableKit.getFiledTypeVo(pojo.getFiledClass(),pojo.getFiledType(),pojo.getFiledLength(),pojo.getFiledValue());
         pojo.setFiledLength(filedTypeVo.getLength());
@@ -53,7 +54,11 @@ public class ModelFiledServiceImpl implements ModelFiledService{
         if (filedMapper.insertSelective(pojo)>0) {
             TCmsModel model = modelMapper.selectByPrimaryKey(pojo.getModelId());
             /* 根据模型表名添加数据库字段 */
-            dbTableAssistant.addDbTableColumn(model.getTableName(),pojo.getFiledName(),filedTypeVo.getM(),filedTypeVo.getLength(),false,filedTypeVo.getDefaultValue(),pojo.getNotNull(),false);
+            try {
+                dbTableAssistant.addDbTableColumn(model.getTableName(),pojo.getFiledName(),filedTypeVo.getM(),filedTypeVo.getLength(),false,filedTypeVo.getDefaultValue(),pojo.getNotNull(),false);
+            } catch (SQLException e) {
+                throw  new SystemException(e.getMessage());
+            }
             return JsonUtil.toSUCCESS("操作成功", "", "model-filed-tab",true);
         }
         return  JsonUtil.toERROR("操作失败");
@@ -67,14 +72,18 @@ public class ModelFiledServiceImpl implements ModelFiledService{
     }
 
     @Override
-    public String delete(Integer[] ids) throws SQLException {
+    public String delete(Integer[] ids) {
         if(ids!=null) {
             for (Integer id : ids) {
                 TCmsModelFiled filed =filedMapper.selectByPrimaryKey(id);
                 TCmsModel model =modelMapper.selectByPrimaryKey(filed.getModelId());
                 /* 根据模型表名删除表字段 */
                 if(model!=null) {
-                    dbTableAssistant.deleteDbTableColumn(model.getTableName(), filed.getFiledName(), false);
+                    try {
+                        dbTableAssistant.deleteDbTableColumn(model.getTableName(), filed.getFiledName(), false);
+                    } catch (SQLException e) {
+                        throw  new SystemException(e.getMessage());
+                    }
                 }
                 filedMapper.deleteByPrimaryKey(id);
             }

@@ -3,15 +3,14 @@ package com.zhiliao.common.base;
 import com.github.pagehelper.PageInfo;
 
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 
 public interface BaseService<T,I extends Serializable> {
 
-    String save(T pojo) throws SQLException;
+    String save(T pojo);
     String update(T pojo);
-    String delete(I[] ids) throws SQLException;
+    String delete(I[] ids);
     T findById(I id);
     List<T> findList(T pojo);
     List<T> findAll();
