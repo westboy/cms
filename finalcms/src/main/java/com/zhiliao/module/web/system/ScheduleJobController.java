@@ -1,10 +1,14 @@
 package com.zhiliao.module.web.system;
 
 import com.zhiliao.common.base.BaseController;
+import com.zhiliao.module.web.system.service.ScheduleJobService;
 import com.zhiliao.mybatis.model.master.TSysScheduleJob;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-import java.sql.SQLException;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Description:
@@ -12,24 +16,51 @@ import java.sql.SQLException;
  * @author Jin
  * @create 2017-07-07
  **/
+@Controller
+@RequestMapping("/system/schedule")
 public class ScheduleJobController extends BaseController<TSysScheduleJob>{
+
+    @Autowired private ScheduleJobService scheduleJobService;
+
+
+    @RequestMapping
     @Override
-    public String index(Integer pageNumber, Integer pageSize, TSysScheduleJob pojo, Model model) {
-        return null;
+    public String index(@RequestParam(value = "pageCurrent",defaultValue = "1") Integer pageNumber,
+                        @RequestParam(value = "pageSize",defaultValue = "50")Integer pageSize,
+                        TSysScheduleJob pojo, Model model) {
+        model.addAttribute("model",scheduleJobService.page(pageNumber,pageSize,pojo));
+        return "system/schedule_list";
     }
 
+    @RequestMapping("/input")
     @Override
-    public String input(Integer Id, Model model) {
-        return null;
+    public String input(@RequestParam(value = "id",required = false) Integer Id,
+                        Model model) {
+        if(Id!=null)
+            model.addAttribute("pojo",scheduleJobService.findById(Id));
+        return "system/schedule_input";
     }
 
+    @RequestMapping("/save")
+    @ResponseBody
     @Override
-    public String save(TSysScheduleJob pojo) throws SQLException {
-        return null;
+    public String save(TSysScheduleJob pojo){
+        if(pojo.getId()!=null)
+            return scheduleJobService.update(pojo);
+        return scheduleJobService.save(pojo);
     }
 
+    @RequestMapping("/delete")
+    @ResponseBody
     @Override
-    public String delete(Integer[] ids) throws SQLException {
-        return null;
+    public String delete(@RequestParam(value = "ids",required = false) Integer[] ids) {
+        return scheduleJobService.delete(ids);
+    }
+
+    @RequestMapping("/change")
+    @ResponseBody
+    public String change(@RequestParam(value = "id",required = false) Integer Id,
+                         @RequestParam(value = "status",required = false) String status){
+       return scheduleJobService.changeStatus(Id,status);
     }
 }

@@ -1,14 +1,14 @@
 package com.zhiliao.mybatis.model.master;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "t_sys_schedule_job")
 public class TSysScheduleJob implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
-    private String id;
+    private Integer id;
 
     /**
      * cron表达式
@@ -92,14 +92,14 @@ public class TSysScheduleJob implements Serializable {
     /**
      * @return id
      */
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

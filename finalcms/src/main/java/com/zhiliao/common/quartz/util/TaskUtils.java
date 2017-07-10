@@ -1,12 +1,12 @@
 package com.zhiliao.common.quartz.util;
 
+import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.quartz.job.ScheduleJob;
 import com.zhiliao.common.utils.SpringContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 
@@ -20,7 +20,7 @@ public class TaskUtils {
 	 */
 	public static void invokMethod(ScheduleJob scheduleJob) {
 		Object object = null;
-		Class<?> clazz = null;
+		Class<?> clazz;
 		if (StringUtils.isNotBlank(scheduleJob.getSpringBean())) {
 			object = SpringContextHolder.getBean(scheduleJob.getSpringBean());
 		} else if (StringUtils.isNotBlank(scheduleJob.getBeanClass())) {
@@ -28,7 +28,7 @@ public class TaskUtils {
 				clazz = Class.forName(scheduleJob.getBeanClass());
 				object = clazz.newInstance();
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new SystemException(e.getMessage());
 			}
 		}
 		if (object == null) {
@@ -47,12 +47,8 @@ public class TaskUtils {
 		if (method != null) {
 			try {
 				method.invoke(object);
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
+			} catch (Exception e) {
+				throw new SystemException(e.getMessage());
 			}
 		}
 	}

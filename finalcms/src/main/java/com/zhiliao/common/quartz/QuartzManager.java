@@ -1,12 +1,15 @@
 package com.zhiliao.common.quartz;
 
+import com.zhiliao.common.dict.Const;
+import com.zhiliao.common.quartz.Factory.DisallowConcurrentExecutionQuartzJobFactory;
+import com.zhiliao.common.quartz.Factory.QuartzJobFactory;
 import com.zhiliao.common.quartz.job.ScheduleJob;
-import com.zhiliao.common.utils.SpringContextHolder;
 import org.assertj.core.util.Lists;
 import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+
 @Service
 public class QuartzManager {
+
     public final Logger log = LoggerFactory.getLogger(QuartzManager.class);
-	private SchedulerFactoryBean schedulerFactoryBean= SpringContextHolder.getBean(SchedulerFactoryBean.class);
+
+	@Autowired
+	private SchedulerFactoryBean schedulerFactoryBean;
+
 
 	/**
 	 * 添加任务
@@ -26,7 +34,7 @@ public class QuartzManager {
 	 * @throws SchedulerException
 	 */
 	public void addJob(ScheduleJob job) throws SchedulerException {
-		if (job == null || !ScheduleJob.STATUS_RUNNING.equals(job.getJobStatus())) {
+		if (job == null || !Const.STATUS_RUNNING.equals(job.getJobStatus())) {
 			return;
 		}
 		Scheduler scheduler = schedulerFactoryBean.getScheduler();
@@ -37,8 +45,8 @@ public class QuartzManager {
 
 		/*不存在，创建一个*/
 		if (null == trigger) {
-			Class<? extends Job> clazz = ScheduleJob.CONCURRENT_IS.equals(job.getIsConcurrent())
-					? QuartzJobFactory.class : QuartzJobFactory.class;
+			Class<? extends Job> clazz = Const.CONCURRENT_IS.equals(job.getIsConcurrent())
+					? QuartzJobFactory.class : DisallowConcurrentExecutionQuartzJobFactory.class;
 
 			JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(job.getJobName(), job.getJobGroup()).build();
 
@@ -180,15 +188,10 @@ public class QuartzManager {
 	 */
 	public void updateJobCron(ScheduleJob scheduleJob) throws SchedulerException {
 		Scheduler scheduler = schedulerFactoryBean.getScheduler();
-
 		TriggerKey triggerKey = TriggerKey.triggerKey(scheduleJob.getJobName(), scheduleJob.getJobGroup());
-
 		CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
-
 		CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression());
-
 		trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
-
 		scheduler.rescheduleJob(triggerKey, trigger);
 	}
 }

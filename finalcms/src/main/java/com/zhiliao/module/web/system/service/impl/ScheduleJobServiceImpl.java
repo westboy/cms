@@ -2,20 +2,26 @@ package com.zhiliao.module.web.system.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zhiliao.common.dict.Const;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.quartz.QuartzManager;
-import com.zhiliao.common.quartz.job.ScheduleJob;
+import com.zhiliao.common.quartz.util.PojoToScheduleJob;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.module.web.system.service.ScheduleJobService;
 import com.zhiliao.mybatis.mapper.master.TSysScheduleJobMapper;
+import com.zhiliao.mybatis.model.master.TCmsSite;
 import com.zhiliao.mybatis.model.master.TSysScheduleJob;
+import org.apache.commons.lang3.StringUtils;
 import org.quartz.CronExpression;
 import org.quartz.SchedulerException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.PostConstruct;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,19 +34,19 @@ import java.util.List;
 public class ScheduleJobServiceImpl implements ScheduleJobService{
 
     @Autowired
-    QuartzManager quartzManager;
+    private QuartzManager quartzManager;
 
-    @Autowired private TSysScheduleJobMapper scheduleJobMapper;
+    @Autowired
+    private TSysScheduleJobMapper scheduleJobMapper;
 
+    @Lazy
+    @PostConstruct
     @Override
     public void initSchedule(){
-        quartzManager = new QuartzManager();
         List<TSysScheduleJob> jobList = this.findAll();
         for (TSysScheduleJob pojo : jobList) {
-            ScheduleJob scheduleJob=new ScheduleJob();
-            BeanUtils.copyProperties(scheduleJob,pojo);
             try {
-                quartzManager.addJob(scheduleJob);
+                quartzManager.addJob(PojoToScheduleJob.convert(pojo));
             } catch (SchedulerException e) {
                 throw  new SystemException(e.getMessage());
             }
@@ -49,49 +55,54 @@ public class ScheduleJobServiceImpl implements ScheduleJobService{
     }
 
     @Override
-    public void changeStatus(String jobId, String cmd)  {
+    public String changeStatus(int id, String status)  {
 
-        TSysScheduleJob pojo = this.findById(Integer.parseInt(jobId));
-        if (pojo== null) return;
+        TSysScheduleJob pojo = this.findById(id);
+        if (pojo== null)  throw new SystemException("任务 ["+id+"] 不存在");
         try {
-        ScheduleJob scheduleJob=new ScheduleJob();
-        if ("stop".equals(cmd)) {
-            BeanUtils.copyProperties(scheduleJob,pojo);
-            quartzManager.deleteJob(scheduleJob);
-            pojo.setJobStatus(ScheduleJob.STATUS_NOT_RUNNING);
-        } else if ("start".equals(cmd)) {
-            pojo.setJobStatus(ScheduleJob.STATUS_RUNNING);
-            BeanUtils.copyProperties(scheduleJob,pojo);
-            quartzManager.addJob(scheduleJob);
-        }
+            if ("stop".equals(status)) {
+                quartzManager.deleteJob(PojoToScheduleJob.convert(pojo));
+                pojo.setJobStatus(Const.STATUS_NOT_RUNNING);
+            } else if ("start".equals(status)) {
+                pojo.setJobStatus(Const.STATUS_RUNNING);
+                quartzManager.addJob(PojoToScheduleJob.convert(pojo));
+            }
         } catch (SchedulerException e) {
-            e.printStackTrace();
+            throw new SystemException(e.getMessage());
         }
-        this.scheduleJobMapper.updateByPrimaryKey(pojo);
+        if(this.scheduleJobMapper.updateByPrimaryKey(pojo)>0)
+            return JsonUtil.toSUCCESS("添加成功！","schedule-tab",false);
+        return JsonUtil.toERROR("添加失败！");
     }
-
-
 
     @Override
     public String save(TSysScheduleJob pojo) {
         if (!CronExpression.isValidExpression(pojo.getCronExpression())) return JsonUtil.toERROR("表达式不正确！");
-        if(scheduleJobMapper.insertSelective(pojo)>0)
-          return JsonUtil.toSUCCESS("添加成功！","schedule-tab",true);
+        pojo.setCreateDate(new Date());
+        pojo.setJobStatus("0");
+        if(scheduleJobMapper.insertSelective(pojo)>0) {
+            try {
+                quartzManager.addJob(PojoToScheduleJob.convert(pojo));
+            } catch (SchedulerException e) {
+                throw new SystemException(e.getMessage());
+            }
+            return JsonUtil.toSUCCESS("添加成功！", "schedule-tab", true);
+        }
         return JsonUtil.toERROR("添加失败！");
     }
 
     @Override
     public String update(TSysScheduleJob pojo) {
-        if (ScheduleJob.STATUS_RUNNING.equals(pojo.getJobStatus())) {
-            ScheduleJob scheduleJob=new ScheduleJob();
-            BeanUtils.copyProperties(scheduleJob,pojo);
+        if (Const.STATUS_RUNNING.equals(pojo.getJobStatus())) {
             try {
-                quartzManager.updateJobCron(scheduleJob);
+                quartzManager.updateJobCron(PojoToScheduleJob.convert(pojo));
             } catch (SchedulerException e) {
                 throw  new SystemException(e.getMessage());
             }
         }
-        return JsonUtil.toSUCCESS("添加成功！","schedule-tab",false);
+        if(scheduleJobMapper.updateByPrimaryKeySelective(pojo)>0)
+            return JsonUtil.toSUCCESS("更新成功！","schedule-tab",false);
+        return JsonUtil.toERROR("更新失败！");
     }
 
     @Override
@@ -102,15 +113,13 @@ public class ScheduleJobServiceImpl implements ScheduleJobService{
             TSysScheduleJob pojo = scheduleJobMapper.selectByPrimaryKey(id);
             if(CmsUtil.isNullOrEmpty(pojo)) throw new SystemException("操作失败!");
             try {
-                ScheduleJob scheduleJob=new ScheduleJob();
-                BeanUtils.copyProperties(scheduleJob,pojo);
-                quartzManager.deleteJob(scheduleJob);
+                quartzManager.deleteJob(PojoToScheduleJob.convert(pojo));
             } catch (SchedulerException e) {
                 throw  new SystemException(e.getMessage());
             }
             scheduleJobMapper.deleteByPrimaryKey(id);
         }
-        return JsonUtil.toSUCCESS("添加成功！","schedule-tab",false);
+        return JsonUtil.toSUCCESS("操作成功！","schedule-tab",false);
     }
 
     @Override
@@ -131,7 +140,13 @@ public class ScheduleJobServiceImpl implements ScheduleJobService{
     @Override
     public PageInfo<TSysScheduleJob> page(Integer pageNumber, Integer pageSize, TSysScheduleJob pojo) {
         PageHelper.startPage(pageNumber,pageSize);
-        return new PageInfo<>(this.findList(pojo));
+        if(StringUtils.isBlank(pojo.getJobName()))
+            return new PageInfo<>(this.findList(pojo));
+        Example example = new Example(TCmsSite.class);
+        example.createCriteria()
+                .andCondition("job_name like '"+pojo.getJobName()+"'");
+        return new PageInfo<>(scheduleJobMapper.selectByExample(example));
+
     }
 
     @Override

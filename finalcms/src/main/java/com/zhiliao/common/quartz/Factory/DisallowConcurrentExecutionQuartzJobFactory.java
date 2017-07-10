@@ -1,4 +1,4 @@
-package com.zhiliao.common.quartz;
+package com.zhiliao.common.quartz.Factory;
 
 import com.zhiliao.common.quartz.job.ScheduleJob;
 import com.zhiliao.common.quartz.util.TaskUtils;
@@ -12,13 +12,14 @@ import org.quartz.JobExecutionException;
  * 
 */
 @DisallowConcurrentExecution
-public class QuartzJobFactory implements Job{
+public class DisallowConcurrentExecutionQuartzJobFactory implements Job{
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-         ScheduleJob scheduleJob = (ScheduleJob)context.getMergedJobDataMap().get("scheduleJob");
-         System.out.println("任务名称 = [" + scheduleJob.getJobName() + "]");
-         TaskUtils.invokMethod(scheduleJob);
+         Object scheduleJob =context.getMergedJobDataMap().get("scheduleJob");
+         System.out.println(scheduleJob);
+//         System.out.println("任务名称 = [" + scheduleJob.getJobName() + "]");
+         TaskUtils.invokMethod( (ScheduleJob)scheduleJob);
     }
 
 }

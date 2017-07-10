@@ -2,12 +2,8 @@ package com.zhiliao.common.quartz.job;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class ScheduleJob implements Serializable {
-
-    public static final String STATUS_RUNNING = "1";
-    public static final String STATUS_NOT_RUNNING = "0";
-    public static final String CONCURRENT_IS = "1";
-    public static final String CONCURRENT_NOT = "0";
 
     /*任务名称*/
     private String jobName;
@@ -92,14 +88,6 @@ public class ScheduleJob implements Serializable {
         this.isConcurrent = isConcurrent;
     }
 
-    public String getMethodName() {
-        return methodName;
-    }
-
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
-    }
-
     public String getSpringBean() {
         return springBean;
     }
@@ -108,4 +96,11 @@ public class ScheduleJob implements Serializable {
         this.springBean = springBean;
     }
 
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
 }

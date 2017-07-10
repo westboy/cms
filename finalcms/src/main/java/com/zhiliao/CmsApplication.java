@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class CmsApplication {
 
 	public static void main(String[] args) throws Exception{
+		System.out.println("Hello world!");
 		SpringApplication.run(CmsApplication.class, args);
 	}
 }

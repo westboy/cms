@@ -5,7 +5,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="cron_expression" jdbcType="VARCHAR" property="cronExpression" />
     <result column="method_name" jdbcType="VARCHAR" property="methodName" />
     <result column="is_concurrent" jdbcType="VARCHAR" property="isConcurrent" />
