@@ -31,10 +31,16 @@ public class BeetlConfiguration {
     @Value("${system.dev.model}")
     private String devModel;
 
+    @Value("${system.http.protocol}")
+    private String httpProtocol;
+
+    @Value("${system.http.host}")
+    private String host;
 
     public Map<String,Object> sharedVars(){
         Map<String,Object> sharedVars =  Maps.newHashMap();
         sharedVars.put("siteName",siteName);
+        sharedVars.put("baseURL",httpProtocol+"://"+ host);
         sharedVars.put("devModel",Boolean.valueOf(devModel));
         return sharedVars;
     }

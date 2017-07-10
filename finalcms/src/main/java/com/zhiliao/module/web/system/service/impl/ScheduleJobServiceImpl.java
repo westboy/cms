@@ -8,11 +8,11 @@ import com.zhiliao.common.quartz.QuartzManager;
 import com.zhiliao.common.quartz.util.PojoToScheduleJob;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.JsonUtil;
+import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.module.web.system.service.ScheduleJobService;
 import com.zhiliao.mybatis.mapper.master.TSysScheduleJobMapper;
 import com.zhiliao.mybatis.model.master.TCmsSite;
 import com.zhiliao.mybatis.model.master.TSysScheduleJob;
-import org.apache.commons.lang3.StringUtils;
 import org.quartz.CronExpression;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,8 +140,8 @@ public class ScheduleJobServiceImpl implements ScheduleJobService{
     @Override
     public PageInfo<TSysScheduleJob> page(Integer pageNumber, Integer pageSize, TSysScheduleJob pojo) {
         PageHelper.startPage(pageNumber,pageSize);
-        if(StringUtils.isBlank(pojo.getJobName()))
-            return new PageInfo<>(this.findList(pojo));
+        if(StrUtil.isBlank(pojo.getJobName()))
+            return new PageInfo<>(this.findAll());
         Example example = new Example(TCmsSite.class);
         example.createCriteria()
                 .andCondition("job_name like '"+pojo.getJobName()+"'");
