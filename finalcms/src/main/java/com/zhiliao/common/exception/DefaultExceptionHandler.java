@@ -6,6 +6,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +22,7 @@ import java.util.Date;
  * @author Jin
  * @create 2017-04-09
  **/
-//@ControllerAdvice
+@ControllerAdvice
 public class DefaultExceptionHandler {
 
 
@@ -76,6 +77,7 @@ public class DefaultExceptionHandler {
      * @param e
      * @return
      */
+    @ExceptionHandler({Exception.class})
     public ModelAndView DefaultException(Exception e,HttpServletRequest request,HttpServletResponse response) {
         if (ControllerUtil.isAjaxRequest(request)) {
              /* 输出JSON */
