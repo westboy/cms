@@ -71,6 +71,7 @@
 <script  src="${ctxPath}/static/BJUI/plugins/webuploader/webuploader.js"></script>
 <!-- colorpicker -->
 <script src="${ctxPath}/static/BJUI/plugins/colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="${ctxPath}/static/js/ZeroClipboard/ZeroClipboard.js"></script>
 <!-- ztree -->
 <script src="${ctxPath}/static/BJUI/plugins/ztree/jquery.ztree.all-3.5.js"></script>
 <!-- nice validate -->
@@ -206,7 +207,8 @@ function MainMenuClick(event, treeId, treeNode) {
                 <li class="datetime"><div><span id="bjui-date"></span> <span id="bjui-clock"></span></div></li>
                 <!--<li><a href="#">消息 <span class="badge">4</span></a></li>-->
                 <li><a>你好,${session.SysUser.username!}</a></li>
-                <li ><a target="_blank" href="${ctxPath}/front/${session.SysUser.siteId!}" data-id="siteInfo">[${session.SysUser.siteName!}]</a></li>
+                <li><a target="_blank" href="${ctxPath}/front/${session.SysUser.siteId!}" data-id="siteInfo"><span class="glyphicon glyphicon-home"></span> ${session.SysUser.siteId==1?"前台首页":session.SysUser.siteName!}</a></li>
+                <li><a target="_blank" href="${ctxPath}/system/cache/clear/all" data-toggle="doajax" data-confirm-msg="清理缓存"><span class="glyphicon glyphicon-refresh"></span> 清理缓存</a></li>
                 <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">切换站点 <span class="fa fa-exchange"></span> </a>-->
                     <!--<ul class="dropdown-menu" role="menu">-->
                         <!--<li><a href="${ctxPath}/system/changePassword" data-toggle="dialog" data-id="changepwd_page" data-mask="true" data-width="400" data-height="260">&nbsp;<span class="glyphicon glyphicon-lock"></span> 修改密码&nbsp;</a></li>-->
@@ -218,7 +220,9 @@ function MainMenuClick(event, treeId, treeNode) {
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">我的账户 <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="${ctxPath}/system/changePassword" data-toggle="dialog" data-id="changepwd_page" data-mask="true" data-width="400" data-height="260">&nbsp;<span class="glyphicon glyphicon-lock"></span> 修改密码&nbsp;</a></li>
-                        <li><a href="#">&nbsp;<span class="glyphicon glyphicon-user"></span> 我的资料</a></li>
+                        <li>
+                            <a href="${ctxPath}/system/member/sysUserInput?userId=${session.SysUser.userId!}" data-toggle="dialog" data-maxable="false" data-resizable="false" data-width="550" data-height="450" data-id="edit-admin-user" data-title="用户修改">
+                            &nbsp;<span class="glyphicon glyphicon-user"></span> 我的资料</a></li>
                         <li class="divider"></li>
                         <li><a href="${ctxPath}/logout" class="red">&nbsp;<span class="glyphicon glyphicon-off"></span> 注销登陆</a></li>
                     </ul>
@@ -283,7 +287,7 @@ function MainMenuClick(event, treeId, treeNode) {
                                 <li data-id="32" data-pid="3" data-url="${ctxPath}/druid/index.html" data-tabid="druid" data-external="true" data-faicon="dashboard">实时监控</li>
                                 <li data-id="31" data-pid="3" data-url="${ctxPath}/sys/log" data-tabid="datagrid-convertable" data-faicon="globe">日志列表</li>
                                 <li data-id="2" data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">系统维护</li>
-                                <li data-id="20" data-pid="2" data-url="${ctxPath}/system/cache/clear/all" data-tabid="cache-tab" data-faicon="leaf">缓存清理</li>
+                                <li data-id="20" data-pid="2" data-url="${ctxPath}/system/cache" data-tabid="cache-tab" data-faicon="leaf">缓存清理</li>
                                 <li data-id="22" data-pid="2" data-url="${ctxPath}/system/cms/site" data-tabid="site-tab" data-faicon="desktop">站点管理</li>
                                 <!--<li data-id="33" data-pid="3" data-url="${ctxPath}/swagger-ui.html" data-tabid="swagger" data-external="true" data-faicon="tint">接口列表</li>-->
                             </ul>

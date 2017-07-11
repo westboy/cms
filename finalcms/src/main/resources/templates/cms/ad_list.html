@@ -64,7 +64,7 @@
             <td align="center">${ad.groupId!,xss}</td>
             <td  align="center"><input type="checkbox" name="ids" data-toggle="icheck" value="${ad.id!}"></td>
             <td  align="center">
-                <a  data-clipboard-text='<script language="JavaScript" src="${baselURL}/ad/js/${ad.id!}" type="text/javascript"></script>' class="btn btn-default copy" title="复制广告地址" >复制</a>
+                <a  data-clipboard-text='<script language="JavaScript" src="${baseURL}/ad/js/${ad.id!}" type="text/javascript"></script>' class="btn btn-default copy" title="复制广告地址" >复制</a>
                 <a href="${ctxPath}/system/cms/ad/input?id=${ad.id!}" class="btn btn-green"  data-toggle="dialog" title="编辑广告"  data-resizable="false"  data-width="800" data-height="600" data-id="edit-ad-tab"  data-title="广告修改">编辑</a>
                 <a href="${ctxPath}/system/cms/ad/delete?ids=${ad.id!}" class="btn btn-red" data-toggle="doajax" title="删除广告" data-confirm-msg="确定要删除该行信息吗？">删</a>
             </td>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,8 +28,9 @@ public class CacheController {
     private String[] caches={"cms-site-cache","cms-category-cache","cms-content-cache","cms-model-cache"};
 
     @RequestMapping
-    public String index(){
-        return "cms/cache";
+    public String index(Model model){
+        model.addAttribute("caches",caches);
+        return "system/cache";
     }
 
     @RequestMapping("/clear/{cacheNames}")
@@ -36,10 +38,10 @@ public class CacheController {
     public  String clear(@PathVariable("cacheNames") String cacheNames){
         if(StrUtil.isBlank(cacheNames))
             throw new SystemException("缓存名称不能为空！");
-          Cache cache = springEhCacheManager.getCache(cacheNames);
-          cache.clear();
-          return JsonUtil.toSUCCESS("清理成功！");
-     }
+        Cache cache = springEhCacheManager.getCache(cacheNames);
+        cache.clear();
+        return JsonUtil.toSUCCESS("清理成功！");
+    }
 
     @RequestMapping("/clear/all")
     @ResponseBody

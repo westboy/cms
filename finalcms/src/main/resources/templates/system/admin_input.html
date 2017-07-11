@@ -9,7 +9,7 @@
     }
 </script>
 <div class="bjui-pageContent">
-    <form method="post" action="${ctxPath}/system/member/sysUserUpdate" id="j_client_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
+    <form method="post" action="${ctxPath}/system/member/sysUserUpdate" id="j_client_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false"  size="20">
         <input TYPE="hidden" name="userId" value="${user.userId!}">
         <table class="table table-condensed table-hover" width="100%">
             <tbody>
@@ -18,10 +18,10 @@
 
                     @if(isEmpty(user)){
                     <label for="j_username" class="control-label x85">用户名：</label>
-                    <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;remote(${ctxPath}/system/member/sysUsername)" >
+                    <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;remote(${ctxPath}/system/member/sysUsername)"  size="20">
                     @}else{
                     <label for="j_username" class="control-label x85">用户名：</label>
-                    <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;" >
+                    <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;"  size="20">
                     @}
                 </td>
             </tr>
@@ -50,10 +50,10 @@
                 <td>
                     @if(isEmpty(user)){
                     <label for="j_password" class="control-label x85">新密码：</label>
-                    <input type="text" name="password" id="j_password" value=""  data-rule="required">
+                    <input type="text" name="password" id="j_password" value=""  data-rule="required"  size="20">
                     @}else{
                     <label for="j_password" class="control-label x85">密码：</label>
-                    <input type="text" name="password" id="j_password" value="">
+                    <input type="text" name="password" id="j_password" value=""  size="20">
                     @}
 
                 </td>
@@ -62,15 +62,15 @@
             <tr>
                 <td>
                     <label for="j_password2" class="control-label x85">确认密码：</label>
-                    <input type="text" id="j_password2"  data-rule="确认密码: match(password);">
+                    <input type="text" id="j_password2"  data-rule="确认密码: match(password);"  size="20">
                 </td>
             </tr>
             @}
             <tr>
                 <td>
-                    <input type="hidden" name="pid" value="${role.roleId!}" size="5">
+                    <input type="hidden" name="pid" value="${role.roleId!}" >
                     <label class="control-label x85">用户角色：</label>
-                    <input type="text" data-toggle="lookup" data-url="${ctxPath}/system/member/roleCheck/0" value="${role.rolename!}"  data-rule="required" data-resizable="false" data-maxable="false" name="name" size="10">
+                    <input type="text" data-toggle="lookup" data-url="${ctxPath}/system/member/roleCheck/0" value="${role.rolename!}"  data-rule="required" data-resizable="false" data-maxable="false" name="name" size="20">
                 </td>
             </tr>
             <tr>
@@ -92,8 +92,8 @@
             </tr>
             <tr>
                 <td>
-                    <label for="j_linkman" class="control-label x85">描述：</label>
-                    <input type="text" name="des" id="j_linkman" value="${user.des!,xss}" data-rule="required" >
+                    <label for="j_des" class="control-label x85">描述：</label>
+                    <textarea  name="des" id="j_des"  data-rule="required" ROWS="3" COLS="20" >${user.des!,xss}</textarea>
                 </td>
             </tr>
             </tbody>
