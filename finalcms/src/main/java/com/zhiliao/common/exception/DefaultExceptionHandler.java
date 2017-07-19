@@ -66,8 +66,7 @@ public class DefaultExceptionHandler {
                 ControllerUtil.renderErrorJson(e.getMessage(),response);
                 return null;
             } else {
-                ControllerUtil.renderErrorHtml("系统异常",e.getMessage(),request,response);
-                return null;
+                return this.renderErrorView(500,"HTTP-Internal Server Error",e.getMessage());
             }
     }
 
@@ -77,7 +76,7 @@ public class DefaultExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler({Exception.class})
+    @ExceptionHandler({NullPointerException.class})
     public ModelAndView DefaultException(Exception e,HttpServletRequest request,HttpServletResponse response) {
         if (ControllerUtil.isAjaxRequest(request)) {
              /* 输出JSON */

@@ -200,6 +200,12 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryMapper.selectOne(category);
     }
 
+    @Cacheable(key = "'find-page-size-'+#p0")
+    @Override
+    public Integer findPageSize(Long categoryId) {
+        return this.categoryMapper.selectByPrimaryKey(categoryId).getPageSize();
+    }
+
     @Cacheable(key = "'find-alias-'+#p0+'-siteId-'+#p1")
     @Override
     public TCmsCategory findfindByAliasAndSiteId(String alias, Integer siteId) {

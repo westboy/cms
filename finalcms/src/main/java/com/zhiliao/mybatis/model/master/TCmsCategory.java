@@ -1,7 +1,7 @@
 package com.zhiliao.mybatis.model.master;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Table(name = "t_cms_category")
 public class TCmsCategory implements Serializable {
@@ -61,6 +61,19 @@ public class TCmsCategory implements Serializable {
      */
     @Column(name = "content_tpl")
     private String contentTpl;
+
+
+    @Column(name = "page_size")
+    private Integer pageSize;
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
 
     /**
      * 导航

@@ -41,7 +41,7 @@ public class DruidConfiguration {
     public BeanNameAutoProxyCreator beanNameAutoProxyCreator() {
                 BeanNameAutoProxyCreator creator = new BeanNameAutoProxyCreator();
                 creator.setProxyTargetClass(true);
-                creator.setBeanNames("*Service","*ServiceImpl","*Controller");
+                creator.setBeanNames("*Service","*ServiceImpl");
                 creator.setInterceptorNames("druidStatInterceptor");
                 return creator;
             }

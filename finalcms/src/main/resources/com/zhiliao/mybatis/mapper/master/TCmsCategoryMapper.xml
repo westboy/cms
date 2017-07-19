@@ -19,6 +19,7 @@
     <result column="is_common" jdbcType="BIT" property="isCommon" />
     <result column="allow_front_submit" jdbcType="BIT" property="allowFrontSubmit" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="page_size" jdbcType="INTEGER" property="pageSize" />
   </resultMap>
 
 </mapper>

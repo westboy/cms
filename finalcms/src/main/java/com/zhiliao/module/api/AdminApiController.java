@@ -7,8 +7,10 @@ import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.module.web.system.service.SysUserService;
 import com.zhiliao.mybatis.model.master.TSysUser;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,8 +27,10 @@ public class AdminApiController {
     @Autowired
     private SysUserService userService;
 
+
+    @ApiOperation(value="获取用户列表", notes="123123")
     @ApiValidate
-    @RequestMapping("/save")
+    @RequestMapping(value = "/save",method= RequestMethod.GET)
     public String update(@RequestParam(value = "username",required = false) String username,
                          @RequestParam(value = "password",required = false) String password,
                          @RequestParam(value = "type",required = false) Integer type){

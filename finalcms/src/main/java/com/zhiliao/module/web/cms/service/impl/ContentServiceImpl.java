@@ -46,9 +46,6 @@ public class ContentServiceImpl implements ContentService{
     @Value("${system.http.protocol}")
     private String httpProtocol;
 
-    @Value("${system.site.page.size}")
-    private String pageSize;
-
     @Autowired
     private TCmsContentMapper contentMapper;
 
@@ -279,7 +276,7 @@ public class ContentServiceImpl implements ContentService{
 
     @Override
     public PageInfo<TCmsContent> findContentListByModelFiledValue(int pageNumber,Long categoryId, String tableName, Map<String, Object> param) {
-        PageHelper.startPage(pageNumber,Integer.parseInt(pageSize));
+        PageHelper.startPage(pageNumber,this.categoryService.findPageSize(categoryId));
         return new PageInfo<>(contentMapper.selectByTableNameAndMap(tableName,categoryId,param));
     }
 
@@ -311,7 +308,7 @@ public class ContentServiceImpl implements ContentService{
     @Override
     public PageInfo<TCmsContent> page(Integer pageNumber,Integer siteId, Long categoryId) {
         /* 判断当前分类下有没有内容,如果有内容就直接返回*/
-        PageHelper.startPage(pageNumber,Integer.parseInt(this.pageSize));
+        PageHelper.startPage(pageNumber,this.categoryService.findPageSize(categoryId));
         List<TCmsContent> list =contentMapper.selectByCategoyId(categoryId,siteId);
         if(!CmsUtil.isNullOrEmpty(list)&&list.size()>0)
             return new PageInfo<>(list);
@@ -322,13 +319,13 @@ public class ContentServiceImpl implements ContentService{
             throw new CmsException("栏目["+categoryId+"]不存在！");
 
         /*查询父类列表*/
-        PageHelper.startPage(pageNumber,Integer.parseInt(this.pageSize));
+        PageHelper.startPage(pageNumber,this.categoryService.findPageSize(categoryId));
         list = contentMapper.selectByCategoyId(category.getParentId(),siteId);
         if(!CmsUtil.isNullOrEmpty(list)&&list.size()>0)
             return new PageInfo<>(list);
 
         /*查询当前栏目的子类*/
-        PageHelper.startPage(pageNumber,Integer.parseInt(this.pageSize));
+        PageHelper.startPage(pageNumber,this.categoryService.findPageSize(categoryId));
         return new PageInfo<>(contentMapper.selectByCategoyParentId(category.getCategoryId(),siteId));
     }
 
