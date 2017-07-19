@@ -246,24 +246,25 @@ function MainMenuClick(event, treeId, treeNode) {
                         <div class="items hide" data-noinit="true">
                             <ul id="bjui-hnav-tree3" class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="check-square-o">
                                 <li data-id="1" data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">内容管理</li>
-                                <li data-id="10" data-pid="1" data-url="${ctxPath}/system/cms/content" data-tabid="content-tab" data-faicon="flag">内容管理</li>
-                                <li data-id="21" data-pid="1" data-url="javascript:;" data-tabid="form-input" data-faicon="hand-o-up">专题管理</li>
+                                <li data-id="10" data-pid="1" data-url="${ctxPath}/system/cms/content" data-tabid="content-tab" data-faicon="file">内容管理</li>
+                                <li data-id="21" data-pid="1" data-url="javascript:;" data-tabid="form-input" data-faicon="bookmark">专题管理</li>
+                                <li data-id="22" data-pid="1" data-url="${ctxPath}/system/cms/category" data-tabid="category-tab" data-faicon="quote-left">栏目管理</li>
                             </ul>
                         </div>
-                       <li><a href="javascript:;" data-toggle="slidebar"><i class="fa fa-retweet"></i> 功能管理</a>
+                       <li><a href="javascript:;" data-toggle="slidebar"><i class="fa fa-retweet"></i> 功能维护</a>
                        <div class="items hide" data-noinit="true">
-                       <ul id="bjui-hnav-tree1" class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="check-square-o">
-                        <li data-id="1"  data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">广告相关</li>
-                        <li data-id="11" data-pid="1" data-url="${ctxPath}/system/cms/ad/silder" data-tabid="ad-silder-tab" data-faicon="bell">首页幻灯</li>
-                        <li data-id="11" data-pid="1" data-url="${ctxPath}/system/cms/ad" data-tabid="ad-tab" data-faicon="bell">广告管理</li>
-                        <li data-id="12" data-pid="1" data-url="${ctxPath}/system/cms/friendlink" data-tabid="friendlink-tab" data-faicon="globe">友情链接</li>
-                        <li data-id="13" data-pid="1" data-url="${ctxPath}/system/schedule" data-tabid="schedule-tab" data-faicon="leaf">计划任务</li>
-                        <li data-id="2"  data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">内容相关</li>
-                        <li data-id="20" data-pid="2" data-url="javascript:;" data-tabid="form-button" data-faicon="th-large">TAG管理</li>
-                        <li data-id="21" data-pid="2" data-url="${ctxPath}/system/cms/linkage" data-tabid="linkage-tab" data-faicon="road">联动菜单</li>
-                        <li data-id="22" data-pid="2" data-url="javascript:;" data-tabid="form-input" data-faicon="search">搜索管理</li>
-                        <li data-id="20" data-pid="2" data-url="${ctxPath}/system/cache" data-tabid="cache-tab" data-faicon="leaf">缓存清理</li>
-                       </ul>
+                          <ul id="bjui-hnav-tree1" class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="check-square-o">
+                              <li data-id="1"  data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">功能维护</li>
+                              <li data-id="13" data-pid="1" data-url="${ctxPath}/system/cms/tag" data-tabid="form-button" data-faicon="tags">TAG管理</li>
+                              <li data-id="14" data-pid="1" data-url="${ctxPath}/system/cms/linkage" data-tabid="linkage-tab" data-faicon="road">联动菜单</li>
+                              <li data-id="15" data-pid="1" data-url="javascript:;" data-tabid="form-input" data-faicon="search">搜索管理</li>
+                              <li data-id="16" data-pid="1" data-url="${ctxPath}/system/cache" data-tabid="cache-tab" data-faicon="leaf">缓存清理</li>
+                              <li data-id="17" data-pid="1" data-url="${ctxPath}/system/schedule" data-tabid="schedule-tab" data-faicon="dashboard">计划任务</li>
+                              <li data-id="2"  data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">运营相关</li>
+                              <li data-id="21" data-pid="2" data-url="${ctxPath}/system/cms/ad/silder" data-tabid="ad-silder-tab" data-faicon="th-large">首页幻灯</li>
+                              <li data-id="21" data-pid="2" data-url="${ctxPath}/system/cms/ad" data-tabid="ad-tab" data-faicon="bell">广告管理</li>
+                              <li data-id="22" data-pid="2" data-url="${ctxPath}/system/cms/friendlink" data-tabid="friendlink-tab" data-faicon="globe">友情链接</li>
+                         </ul>
                        </div>
                        </li>
                     </li>
@@ -273,23 +274,23 @@ function MainMenuClick(event, treeId, treeNode) {
                             <ul id="bjui-hnav-tree2" class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="table">
                                 <li data-id="2" data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">用户管理</li>
                                 <li data-id="20" data-pid="2" data-url="${ctxPath}/system/member/clientUser" data-tabid="client"  data-faicon="user">前台用户</li>
-                                <li data-id="21" data-pid="2" data-url="${ctxPath}/system/member/sysUser" data-tabid="sysUser" data-faicon="user-secret">后台用户</li>
+                                <li data-id="21" data-pid="2" data-url="${ctxPath}/system/member/sysUser" data-tabid="sysUser" data-faicon="user-secret">系统用户</li>
+                                <li data-id="21" data-pid="2" data-url="${ctxPath}/system/member/sysUser" data-tabid="sysUser" data-faicon="flag">机构管理</li>
                                 <li data-id="22" data-pid="2" data-url="${ctxPath}/system/role" data-tabid="role" data-faicon="key">角色管理</li>
                                 <li data-id="23" data-pid="2" data-url="${ctxPath}/system/permission" data-tabid="permission" data-faicon="star">权限管理</li>
                             </ul>
                         </div>
                     </li>
-                    <li><a href="javascript:;" data-toggle="slidebar"><i class="fa fa-line-chart"></i> 系统相关</a>
+                    <li><a href="javascript:;" data-toggle="slidebar"><i class="fa fa-line-chart"></i> 系统管理</a>
                         <div class="items hide" data-noinit="true">
                             <ul id="bjui-hnav-tree-datagrid" class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="table">
+                                <li data-id="2" data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">系统管理</li>
+                                <li data-id="21" data-pid="2" data-url="${ctxPath}/system/cms/site" data-tabid="site-tab" data-faicon="desktop">站点管理</li>
+                                <li data-id="23" data-pid="2" data-url="${ctxPath}/system/cms/model" data-tabid="model-tab" data-faicon="fire">模型管理</li>
+                                <li data-id="24" data-pid="2" data-url="${ctxPath}/swagger-ui.html" data-tabid="swagger" data-external="true" data-faicon="tint">接口列表</li>
                                 <li data-id="3" data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">系统监控</li>
                                 <li data-id="32" data-pid="3" data-url="${ctxPath}/druid/index.html" data-tabid="druid" data-external="true" data-faicon="dashboard">实时监控</li>
                                 <li data-id="31" data-pid="3" data-url="${ctxPath}/sys/log" data-tabid="datagrid-convertable" data-faicon="globe">日志列表</li>
-                                <li data-id="2" data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">系统维护</li>
-                                <li data-id="21" data-pid="2" data-url="${ctxPath}/system/cms/site" data-tabid="site-tab" data-faicon="desktop">站点管理</li>
-                                <li data-id="22" data-pid="2" data-url="${ctxPath}/system/cms/category" data-tabid="category-tab" data-faicon="quote-left">栏目管理</li>
-                                <li data-id="23" data-pid="2" data-url="${ctxPath}/system/cms/model" data-tabid="model-tab" data-faicon="fire">模型管理</li>
-                                <li data-id="24" data-pid="2" data-url="${ctxPath}/swagger-ui.html" data-tabid="swagger" data-external="true" data-faicon="tint">接口列表</li>
                             </ul>
                         </div>
                     </li>
@@ -333,7 +334,7 @@ function MainMenuClick(event, treeId, treeNode) {
             </div>
         </div>
     </div>
-    <footer id="bjui-footer">&copy; 2017 zhiLiao with <span class="heartbeat"></span><a href="#" target="_blank"></a>　
+    <footer id="bjui-footer">&copy; 2017 - 2018 <span class="heartbeat"></span><a href="#" target="_blank"></a>　
     </footer>
     </div>
 </body>

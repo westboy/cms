@@ -27,7 +27,7 @@ public class TagController{
     public String index(@RequestParam(value = "pageCurrent",defaultValue = "1") Integer pageNumber,
                         @RequestParam(value = "pageSize",defaultValue = "100") Integer pageSize, Model model) {
         model.addAttribute("model",tagService.page(pageNumber,pageSize));
-        return "train/tag_list";
+        return "cms/tag_list";
     }
 
     @RequestMapping("/json")

@@ -9,20 +9,20 @@
             <select name="status" data-toggle="selectpicker">
                 @if(isEmpty(pojo.status)){
                 <option value=""  selected>所有</option>
-                <option value="-1"> 回收站</option>
-                <option value="0"> 审核</option>
+                <option value="-1"> 删除</option>
+                <option value="0"> 草稿</option>
                 <option value="1"> 发布 </option>
                 @}else if(pojo.status==0){
-                <option value="-1"> 回收站</option>
-                <option value="0" selected> 审核</option>
+                <option value="-1"> 删除</option>
+                <option value="0" selected> 草稿</option>
                 <option value="1"> 发布 </option>
                 @}else if(pojo.status==1){
-                <option value="-1"> 回收站</option>
+                <option value="-1"> 删除</option>
                 <option value="0"> 审核</option>
                 <option value="1"  selected> 发布 </option>
                 @}else if(pojo.status==-1){
-                <option value="-1"   selected> 回收站</option>
-                <option value="0"> 审核</option>
+                <option value="-1"   selected> 删除</option>
+                <option value="0"> 草稿</option>
                 <option value="1"> 发布 </option>
                 @}
             </select>&nbsp;
@@ -80,7 +80,7 @@
                     @if(content.status==-1){
                     <span style="font-weight: 500;color: red">回收站</span>
                     @}else if(content.status==0){
-                    <span style="font-weight: 500;color:#4A8CDB"> 审核</span>
+                    <span style="font-weight: 500;color:#4A8CDB"> 草稿</span>
                     @}else if(content.status==1){
                     <span style="font-weight: 500;color:green"> 发布</span>
                     @}
@@ -96,7 +96,7 @@
                     <a href="${ctxPath}/system/cms/content/input?categoryId=${content.categoryId!}&contentId=${content.contentId!}" class="btn btn-green"  data-toggle="ajaxload" data-target="#layout-content"    data-title="编辑">编辑</a>
                     <a href="${ctxPath}/system/cms/content/recovery?ids=${content.contentId!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要放入回收站？">删</a>
                     @}else{
-                    <a href="${ctxPath}/system/cms/content/input?categoryId=${content.categoryId!}&contentId=${content.contentId!}" class="btn btn-blue"  data-toggle="ajaxload" data-target="#layout-content"  data-title="审核">审核</a>
+                    <a href="${ctxPath}/system/cms/content/input?categoryId=${content.categoryId!}&contentId=${content.contentId!}" class="btn btn-blue"  data-toggle="ajaxload" data-target="#layout-content"  data-title="编辑">编辑</a>
                     <a href="${ctxPath}/system/cms/content/delete?ids=${content.contentId!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定彻底删除此条信息？">删</a>
                     @}
                 </td>
