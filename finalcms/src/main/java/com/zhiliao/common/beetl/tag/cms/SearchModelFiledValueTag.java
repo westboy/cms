@@ -4,7 +4,7 @@ package com.zhiliao.common.beetl.tag.cms;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.ControllerUtil;
-import com.zhiliao.common.vo.ModelFiledVo;
+import com.zhiliao.module.web.cms.vo.ModelFiledVo;
 import com.zhiliao.module.web.cms.service.ModelFiledService;
 import com.zhiliao.module.web.cms.service.SiteService;
 import com.zhiliao.mybatis.model.master.TCmsModelFiled;

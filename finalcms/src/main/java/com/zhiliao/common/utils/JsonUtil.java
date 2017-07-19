@@ -4,7 +4,7 @@ package com.zhiliao.common.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
-import com.zhiliao.common.vo.ApiResult;
+import com.zhiliao.module.api.vo.ApiResult;
 
 import java.util.List;
 import java.util.Map;
@@ -50,6 +50,20 @@ public class JsonUtil {
         obj.put("dialogid",dialogid);
         obj.put("closeCurrent",closeCurrent);
         obj.put("divid",divid);
+        obj.put("forwardConfirm","");
+        return obj.toJSONString();
+    }
+
+    /*后台框架请求成功JSON*/
+    public static String toSUCCESS(String message,String tabId,String dialogid,String divid,String forward,boolean closeCurrent){
+        JSONObject obj = new JSONObject();
+        obj.put("statusCode","200");
+        obj.put("message",message);
+        obj.put("tabid",tabId);
+        obj.put("dialogid",dialogid);
+        obj.put("closeCurrent",closeCurrent);
+        obj.put("divid",divid);
+        obj.put("forward",forward);
         obj.put("forwardConfirm","");
         return obj.toJSONString();
     }

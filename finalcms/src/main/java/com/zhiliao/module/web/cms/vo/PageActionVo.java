@@ -1,4 +1,4 @@
-package com.zhiliao.common.vo;
+package com.zhiliao.module.web.cms.vo;
 
 public class PageActionVo {
 	

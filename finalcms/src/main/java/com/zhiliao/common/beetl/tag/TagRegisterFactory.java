@@ -96,6 +96,14 @@ public class TagRegisterFactory {
         return  springBeanTagFactory;
     }
 
+    /* 分页标签 */
+    @Bean(name = "indexSilderTagFactory")
+    public SpringBeanTagFactory indexSilderTagFactory(){
+        SpringBeanTagFactory springBeanTagFactory = new SpringBeanTagFactory();
+        springBeanTagFactory.setName("lucenePaginationTag");
+        return  springBeanTagFactory;
+    }
+
     /* TagFactory */
     @Bean(name = "tagFactory")
     public Map<String,TagFactory> Tag(@Qualifier("contentListTagFactory") SpringBeanTagFactory contentListTag,
@@ -107,7 +115,8 @@ public class TagRegisterFactory {
                                       @Qualifier("searchModelFiledValueTagFactory") SpringBeanTagFactory SearchModelFiledValueTag,
                                       @Qualifier("printSitePositionTagFactory") SpringBeanTagFactory printSitePositionTagFactory,
                                       @Qualifier("lucenePageTagFactory") SpringBeanTagFactory lucenePageTagFactory,
-                                      @Qualifier("lucenePaginationTagFactory") SpringBeanTagFactory lucenePaginationTagFactory
+                                      @Qualifier("lucenePaginationTagFactory") SpringBeanTagFactory lucenePaginationTagFactory,
+                                      @Qualifier("indexSilderTagFactory") SpringBeanTagFactory indexSilderTagFactory
 
     ){
         Map<String,TagFactory> tag = Maps.newHashMap();
@@ -121,6 +130,7 @@ public class TagRegisterFactory {
         tag.put("cms_site_pos",printSitePositionTagFactory);
         tag.put("cms_lucene_page",lucenePageTagFactory);
         tag.put("cms_lucene_pagination",lucenePaginationTagFactory);
+        tag.put("cms_index_silder",indexSilderTagFactory);
         return  tag;
     }
 

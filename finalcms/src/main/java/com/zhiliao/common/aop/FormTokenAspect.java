@@ -1,6 +1,6 @@
 package com.zhiliao.common.aop;
 
-import com.zhiliao.common.utils.ControllerUtil;
+import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.StrUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -61,12 +61,7 @@ public class FormTokenAspect {
 		if (!StrUtil.isBlank("requestFlag")&&sessionFlag != null && sessionFlag.equals(requestFlag)) {
 			session.removeAttribute(tokenFlag);
 		}else {
-			/* 判断是否为ajax请求 */
-			if(ControllerUtil.isAjaxRequest(request)){
-				ControllerUtil.renderErrorJson("不能重复提交表单！",response);
-			} else{
-                ControllerUtil.renderErrorHtml("非法操作","不能重复提交表单！",request,response);
-			}
+			throw new SystemException("不能重复提交表单！");
 		}
 		return joinPoint.proceed();
 	}

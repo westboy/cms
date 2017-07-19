@@ -5,8 +5,9 @@
 
             zTree.expandNode(treeNode)
         }
-        $(event.target).bjuiajax('doLoad', {url:treeNode.url, target:treeNode.divid})
 
+        $("#layout-content").data("url",treeNode.url);
+        $(event.target).bjuiajax('doLoad', {url:treeNode.url, target:treeNode.divid})
         event.preventDefault()
     }
 </script>

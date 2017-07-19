@@ -1,4 +1,4 @@
-package com.zhiliao.common.vo;
+package com.zhiliao.module.api.vo;
 
 /**
  * Description:json
