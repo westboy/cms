@@ -87,7 +87,7 @@ public class SysUserServiceImpl implements SysUserService{
                 /*设置session*/
                 session.setAttribute(CmsDict.SITE_USER_SESSION_KEY,userVo);
                 result.put("success", true);
-                result.put("msg", "登录成功！");
+                result.put("message", "登录成功！");
             }else {
                 List<TCmsSite> sites = siteMapper.selectSitesByUserId(userVo.getUserId());
                 if (!CmsUtil.isNullOrEmpty(sites)) {
@@ -100,22 +100,22 @@ public class SysUserServiceImpl implements SysUserService{
                 /*设置session*/
                     session.setAttribute(CmsDict.SITE_USER_SESSION_KEY, userVo);
                     result.put("success", true);
-                    result.put("msg", "登录成功！");
+                    result.put("message", "登录成功！");
                 } else {
                 /*当前用户没有可以管理的站点*/
-                    result.put("msg", "当前用户没有可以管理的站点！");
+                    result.put("message", "当前用户没有可以管理的站点！");
                 }
             }
         } catch (UnknownAccountException e) {
-            result.put("msg", "账号输入错误！");
+            result.put("message", "账号输入错误！");
         } catch (IncorrectCredentialsException e){
-            result.put("msg", "密码输入错误！");
+            result.put("message", "密码输入错误！");
         } catch (LockedAccountException e){
-            result.put("msg", "当前账号已被停用！");
+            result.put("message", "当前账号已被停用！");
         } catch (AuthenticationException ae) {
-            result.put("msg", "账号或者密码输入错误！");
+            result.put("message", "账号或者密码输入错误！");
         }catch (Exception e){
-            result.put("msg", "发生了一个错误！");
+            result.put("message", "发生了一个错误！");
         }
         return result;
     }

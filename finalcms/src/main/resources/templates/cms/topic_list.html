@@ -1,0 +1,94 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="${ctxPath}/system/cms/topic" method="post">
+        <input type="hidden" name="pageSize" value="${model.pageSize!}">
+        <input type="hidden" name="pageCurrent" value="${model.pageNum!}">
+        <div class="bjui-searchBar">
+            <label>状态:</label>
+            <select name="isRecommend" data-toggle="selectpicker">
+                @if(isEmpty(pojo.isRecommend)){
+                <option value=""  selected>所有</option>
+                <option value="1"> 推荐</option>
+                <option value="0"> 未推 </option>
+                @}else if(!pojo.isRecommend){
+                <option value="">所有</option>
+                <option value="1" selected> 推荐</option>
+                <option value="0"> 未推 </option>
+                @}else{
+                <option value="">所有</option>
+                <option value="1"> 推荐</option>
+                <option value="0"  selected> 未推 </option>
+                @}
+            </select>&nbsp;
+            <label>专题名称：</label><input type="text"  value="${pojo.topicName!}" name="topicName" class="form-control" size="15">&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+            &nbsp;
+            <a   href="${ctxPath}/system/cms/topic/input" class="btn btn-green" data-icon="plus" data-toggle="dialog" data-maxable="false" data-resizable="true"  data-width="650" data-height="600" data-id="add-topic"  data-title="添加专题">添加专题</a>
+            <div class="pull-right">
+                <!--<button type="button" class="btn-blue" data-url="ajaxDone2.html?id={#bjui-selected}" data-toggle="doajax" data-confirm-msg="确定要删除选中项吗？" data-icon="remove" title="可以在控制台(network)查看被删除ID">删除选中行</button>&nbsp;-->
+                <div class="btn-group">
+                    <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown" data-icon="copy">复选框-批量操作<span class="caret"></span></button>
+                    <ul class="dropdown-menu right" role="menu">
+                        <!--<li><a href="book1.xlsx" data-toggle="doexport" data-confirm-msg="确定要导出信息吗？">导出<span style="color: green;">当前页</span></a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <li><a href="${ctxPath}/system/cms/topic/delete" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="clientId" data-group="ids">删除<font COLOR="#ff6347">选中</font>行</a></li>
+                        <!--<li><a href="ajaxDone2.html" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="delids" data-group="ids">删除选中</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+            <tr>
+                <th align="center"  width="25">No</th>
+                <th align="center"  width="150">专题名称</th>
+                <th align="center" width="100">简称</th>
+                <th align="center"  width="80">关键字</th>
+                <th align="center" width="80">推荐</th>
+                <th align="center"  width="80">排序</th>
+                <th align="center" width="26" ><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+                <th align="center"  width="80">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(topic in model.list){
+            <tr data-id="${topicLP.index}">
+                <td align="center">${topic.topicId!}</td>
+                <td align="center"><a TARGET="_blank" HREF="${ctxPath}/topic/${topic.topicId!}">${topic.topicName!,xss}</a></td>
+                <td align="center">${topic.shortName!,xss}</td>
+                <td align="center">${topic.keywords!"N/A",xss}</td>
+                @if(topic.isRecommend){
+                <td align="center" style="color:green">是</td>
+                @}else{
+                <td align="center" style="color:red">否</td>
+                @}
+                <td align="center">${topic.sortId!"N/A",xss}</td>
+                <td  align="center"><input type="checkbox" name="ids" data-toggle="icheck" value="${content.contentId!}"></td>
+                <td  align="center">
+                    <a href="${ctxPath}/system/cms/topic/input?id=${topic.topicId!}" class="btn btn-green"  data-toggle="dialog" title="编辑专题" data-maxable="false" data-resizable="false"  data-width="650" data-height="600" data-id="edit-site-tab"  data-title="编辑专题">编辑</a>
+                    <a href="${ctxPath}/system/cms/topic/delete?ids=${topic.topicId!}" class="btn btn-red" data-toggle="doajax" title="删除站点" data-confirm-msg="确定要删除该行信息吗？">删</a>
+                </td>
+            </tr>
+        @}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages">
+        <span>每页&nbsp;</span>
+        <div class="selectPagesize">
+            <select data-toggle="selectpicker" data-toggle-change="changepagesize">
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="120">120</option>
+                <option value="150">150</option>
+            </select>
+        </div>
+        <span>&nbsp;条，共 ${model.total!} 条</span>
+    </div>
+    <div class="pagination-box" data-toggle="pagination" data-total="${model.total!}" data-page-size="30" data-page-current="1">
+    </div>
+</div>

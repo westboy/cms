@@ -2,6 +2,7 @@ package com.zhiliao.common.base;
 
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.common.utils.UploadUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,9 +16,12 @@ import java.util.Map;
 @RequestMapping("/upload")
 public class UploadController {
 
+    @Autowired
+    private UploadUtil uploadUtil;
+
     @RequestMapping
     public String upload(@RequestParam("file") MultipartFile multipartFile,
-                         HttpServletRequest request,UploadUtil uploadUtil) throws Exception {
+                         HttpServletRequest request) throws Exception {
         Map result = uploadUtil.uploadFile(multipartFile,request);
         if ((Boolean) result.get("success"))
             return JsonUtil.toUploadSUCCESS("上传成功！", (String) result.get("fileName"));
@@ -27,7 +31,7 @@ public class UploadController {
 
     @RequestMapping("/wangEditorUpload")
     public String kindEditorUpload(@RequestParam("file") MultipartFile multipartFile,
-                         HttpServletRequest request,UploadUtil uploadUtil) throws Exception {
+                         HttpServletRequest request) throws Exception {
         Map result = uploadUtil.uploadFile(multipartFile,request);
         if ((Boolean) result.get("success"))
             return (String) result.get("fileName");

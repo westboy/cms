@@ -35,7 +35,6 @@ public class UploadUtil {
     private String qiniuUpload;
 
     public Map uploadFile(MultipartFile multipartFile, HttpServletRequest request){
-
         Map resultMap = Maps.newHashMap();
         resultMap.put("success", false);
         JDateTime jt = new JDateTime();

@@ -33,12 +33,12 @@ $(function() {
 				success : function(data) {
 					var obj = eval(data);
 					if (!obj.success) {
-						show_err_msg(obj.msg);
+						show_err_msg(obj.message);
                         setTimeout(function(){
                             location.reload();
                         },3000);
 					} else {
-						show_msg(obj.msg, $("#system").val());
+						show_msg(obj.message, $("#system").val());
 					}
 				},
 				error : function(XmlHttpRequest, textStatus, errorThrown) {
