@@ -25,7 +25,7 @@ public class Swagger2Configuration {
     }
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("FinalCms Api 接口")
+                .title("Cicadas Cms Api 接口")
                 .description("")
                 .contact(new Contact("Jin","","jin@westboy.net"))
                 .version("1.0")
