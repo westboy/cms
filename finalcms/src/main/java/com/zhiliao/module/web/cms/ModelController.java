@@ -30,7 +30,7 @@ public class ModelController extends BaseController<TCmsModel> {
     @Autowired
     private ModelService modelService;
 
-    @RequiresPermissions({"model"})
+    @RequiresPermissions({"model:admin"})
     @RequestMapping
     @Override
     public String index(@RequestParam(value = "pageCurrent",defaultValue = "1") Integer pageNumber,

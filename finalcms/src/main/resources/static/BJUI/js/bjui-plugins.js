@@ -1297,7 +1297,7 @@
         $echarts.each(function(){
             var $element = $(this)
             var options  = $element.data()
-            var theme    = options.theme ? options.theme : 'default'
+            var theme    = options.theme ? options.theme : 'blue'
             var typeArr  = options.type.split(',')
 
             require.config({

@@ -26,7 +26,7 @@ public class PermissionController {
 
 
 
-    @RequiresPermissions({"permission"})
+    @RequiresPermissions({"permission:admin"})
     @RequestMapping
     public String index(){
         return "system/permission";

@@ -2,7 +2,7 @@ package com.zhiliao.module.web.cms;
 
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
-import com.zhiliao.common.dict.CmsDict;
+import com.zhiliao.common.dict.CmsConst;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.CmsUtil;
@@ -74,7 +74,7 @@ public class IndexController {
         log.debug("网站首页[{}]",domain);
         TCmsSite site = siteService.findByDomain(domain);
         if(CmsUtil.isNullOrEmpty(site))
-            throw new CmsException(CmsDict.SITE_NOT_FOUND);
+            throw new CmsException(CmsConst.SITE_NOT_FOUND);
         if(!StrUtil.isBlank(keyword))
             return new ModelAndView( "forward:/front/search");
         return new ModelAndView( "forward:/front/"+site.getSiteId());
@@ -93,16 +93,16 @@ public class IndexController {
         log.debug("首页");
         TCmsSite site = siteService.findById(siteId);
         if(CmsUtil.isNullOrEmpty(site))
-            throw new CmsException(CmsDict.SITE_NOT_FOUND);
+            throw new CmsException(CmsConst.SITE_NOT_FOUND);
         if(!site.getStatus())
-            throw new SystemException(CmsDict.SITE_LOCKED);
+            throw new SystemException(CmsConst.SITE_LOCKED);
         model.addAttribute("title",site.getTitle());
         model.addAttribute("keyword",site.getKeyword());
         model.addAttribute("description",site.getDescription());
         model.addAttribute("site",site);
         if(StrUtil.isBlank(site.getTemplate()))
-            return view(CmsDict.INDEX_TPL);
-        return view(site.getTemplate(),CmsDict.INDEX_TPL);
+            return view(CmsConst.INDEX_TPL);
+        return view(site.getTemplate(),CmsConst.INDEX_TPL);
     }
 
 
@@ -113,10 +113,10 @@ public class IndexController {
         log.debug("分类");
         TCmsSite site = siteService.findById(siteId);
         if(CmsUtil.isNullOrEmpty(site))
-            throw new CmsException(CmsDict.SITE_NOT_FOUND);
+            throw new CmsException(CmsConst.SITE_NOT_FOUND);
         TCmsCategory category = categoryService.findById(categoryId);
         if(CmsUtil.isNullOrEmpty(category))
-            throw new CmsException(CmsDict.CATEGORY_NOT_FOUND);
+            throw new CmsException(CmsConst.CATEGORY_NOT_FOUND);
         PageInfo page = contentService.page(1,siteId,category.getCategoryId());
         model.addAttribute("title",category.getCategoryName());
         model.addAttribute("keyword",site.getKeyword());
@@ -138,12 +138,12 @@ public class IndexController {
         log.debug("列表");
         TCmsSite site = siteService.findById(siteId);
         if(CmsUtil.isNullOrEmpty(site))
-            throw new CmsException(CmsDict.SITE_NOT_FOUND);
+            throw new CmsException(CmsConst.SITE_NOT_FOUND);
         TCmsCategory category = categoryService.findById(categoryId);
         if(CmsUtil.isNullOrEmpty(category))
-            throw new CmsException(CmsDict.CATEGORY_NOT_FOUND);
+            throw new CmsException(CmsConst.CATEGORY_NOT_FOUND);
         if(CmsUtil.isNullOrEmpty(pageNumber))
-            throw new CmsException(CmsDict.PAGE_NOT_FOUND);
+            throw new CmsException(CmsConst.PAGE_NOT_FOUND);
         PageInfo page = contentService.page(pageNumber,siteId,category.getCategoryId());
         model.addAttribute("title",category.getCategoryName());
         model.addAttribute("keyword",site.getKeyword());
@@ -164,16 +164,16 @@ public class IndexController {
                                  Model model){
         TCmsSite site = siteService.findById(siteId);
         if(CmsUtil.isNullOrEmpty(site))
-            throw new CmsException(CmsDict.SITE_NOT_FOUND);
+            throw new CmsException(CmsConst.SITE_NOT_FOUND);
         TCmsCategory category = categoryService.findById(categoryId);
         if(CmsUtil.isNullOrEmpty(category))
-            throw new CmsException(CmsDict.CATEGORY_NOT_FOUND);
+            throw new CmsException(CmsConst.CATEGORY_NOT_FOUND);
         TCmsModel contentModel = modelService.findById(category.getModelId());
         if(CmsUtil.isNullOrEmpty(category))
-            throw new CmsException(CmsDict.PAGE_NOT_FOUND);
+            throw new CmsException(CmsConst.PAGE_NOT_FOUND);
         Map content = contentService.findContentByContentIdAndTableName(contentId,contentModel.getTableName());
         if(CmsUtil.isNullOrEmpty(content))
-            throw new CmsException(CmsDict.CONTENT_NOT_FOUND);
+            throw new CmsException(CmsConst.CONTENT_NOT_FOUND);
         contentService.viewUpdate(contentId);
         model.addAttribute("title",content.get("title"));
         model.addAttribute("keyword",content.get("keywords"));
@@ -198,13 +198,13 @@ public class IndexController {
         log.debug("搜索");
         TCmsSite site = siteService.findById(siteId);
         if(CmsUtil.isNullOrEmpty(site))
-            throw new CmsException(CmsDict.SITE_NOT_FOUND);
+            throw new CmsException(CmsConst.SITE_NOT_FOUND);
         if (modelId > 0 && catId > 0) {
             String action = httpProtocol + "://" + ControllerUtil.getDomain();
             action += "/front/search?m=" + modelId + "&c=" + catId;
             TCmsCategory category = categoryService.findById(catId);
             if(CmsUtil.isNullOrEmpty(category))
-                throw new CmsException(CmsDict.CATEGORY_NOT_FOUND);
+                throw new CmsException(CmsConst.CATEGORY_NOT_FOUND);
             TCmsModel model = modelService.findById(modelId);
             Map<String, Object> param = Maps.newHashMap();
             List<TCmsModelFiled> modelFileds = modelFiledService.findModelFiledListByModelId(modelId);
@@ -229,14 +229,14 @@ public class IndexController {
         }else{
             String action = httpProtocol + "://" + ControllerUtil.getDomain();
             if(StrUtil.isBlank(keyword))
-                throw new CmsException(CmsDict.SEARCH_KEYWORD_NOT_FOUND);
+                throw new CmsException(CmsConst.SEARCH_KEYWORD_NOT_FOUND);
             action +="/front/search?keyword="+keyword;
             PageInfo page =luceneService.page(pageNumber,Integer.parseInt(this.pageSize),keyword);
             request.setAttribute("page",page);
             request.setAttribute("site",site);
             request.setAttribute("action", action);
             request.setAttribute("keyword", keyword);
-            return view(site.getTemplate(), CmsDict.SEARCH_TPL);
+            return view(site.getTemplate(), CmsConst.SEARCH_TPL);
         }
     }
 
@@ -248,9 +248,5 @@ public class IndexController {
     private String view(String theme,String viewName){
         return "front/"+theme.trim()+"/"+viewName.trim();
     }
-
-    @RequestMapping("/test")
-    public String test(){
-          return "front/res/res";
-    }
+    
 }

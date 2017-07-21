@@ -69,10 +69,11 @@ public class ContentListTag extends GeneralVarTagBinding {
         Long categoryId=  (this.getAttributeValue("categoryId") instanceof String)?Long.parseLong((String) this.getAttributeValue("categoryId")):(Long) this.getAttributeValue("categoryId");
         Integer hasChild=  Integer.parseInt((String) this.getAttributeValue("hasChild"));
         String target =  (String) this.getAttributeValue("target");
+        String isPic =  (String) this.getAttributeValue("isPic");
         Integer orderBy =  Integer.parseInt((String) this.getAttributeValue("orderBy"));
         Integer size =  Integer.parseInt((String) this.getAttributeValue("size"));
         Integer isHot =  Integer.parseInt((String) this.getAttributeValue("isHot"));
-        PageInfo<TCmsContent> pageInfo = contentService.findContentListBySiteIdAndCategoryId(siteId,categoryId,orderBy,size,hasChild,isHot);
+        PageInfo<TCmsContent> pageInfo = contentService.findContentListBySiteIdAndCategoryId(siteId, categoryId, orderBy, size, hasChild, isHot, isPic);
         if(CmsUtil.isNullOrEmpty(pageInfo.getList()))
             log.debug("没有查询到数据！[siteId:{},categoryId:{}]",siteId,categoryId);
         try {
@@ -82,9 +83,9 @@ public class ContentListTag extends GeneralVarTagBinding {
         }
     }
 
-    private void wrapRender(List<TCmsContent>  contents, int titleLen, int siteId) throws Exception {
+    private void wrapRender(List<TCmsContent>  contentList, int titleLen, int siteId) throws Exception {
         int i = 1;
-        for (TCmsContent content : contents) {
+        for (TCmsContent content : contentList) {
             String title = content.getTitle();
             int length = title.length();
             if (length > titleLen) {

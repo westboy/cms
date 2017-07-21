@@ -137,7 +137,7 @@ public class JsonUtil {
     public static Map toMAP(boolean success, String msg){
         Map obj = Maps.newHashMap();
         obj.put("success",success);
-        obj.put("msg",msg);
+        obj.put("message",msg);
         return obj;
     }
 

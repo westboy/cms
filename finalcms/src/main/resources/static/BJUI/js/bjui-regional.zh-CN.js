@@ -145,7 +145,7 @@
         BJUI.setRegional('uititle', 'B-JUI')
         
         /* 主navtab标题 */
-        BJUI.setRegional('maintab', '系统首页')
+        BJUI.setRegional('maintab', '后台首页')
         
         /**
          * 

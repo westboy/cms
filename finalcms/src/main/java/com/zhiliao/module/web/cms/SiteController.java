@@ -36,7 +36,7 @@ public class SiteController{
     @Autowired
     private SiteService siteService;
 
-    @RequiresPermissions("site")
+    @RequiresPermissions("site:admin")
     @RequestMapping
     public String index(@RequestParam(value = "pageCurrent",defaultValue = "1") Integer pageNumber,
                         @RequestParam(value = "pageSize",defaultValue = "100") Integer pageSize,

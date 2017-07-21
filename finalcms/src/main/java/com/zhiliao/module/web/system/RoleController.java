@@ -23,7 +23,7 @@ public class RoleController {
     @Autowired
     RoleService roleService;
 
-    @RequiresPermissions({"role"})
+    @RequiresPermissions({"role:admin"})
     @RequestMapping
     public String index(Model model){
         model.addAttribute("sroles",roleService.findByTypeId(0));

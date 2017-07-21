@@ -287,7 +287,8 @@ public class ContentServiceImpl implements ContentService{
                                                                       Integer orderBy,
                                                                       Integer size,
                                                                       Integer hasChild,
-                                                                      Integer isHot) {
+                                                                      Integer isHot,
+                                                                      String isPic) {
         PageHelper.startPage(1, size);
         String inExpress =String.valueOf(categoryId);
         /*如果包含子类栏目*/
@@ -301,7 +302,7 @@ public class ContentServiceImpl implements ContentService{
             }
             inExpress+=","+tmp.substring(0,tmp.length()-1);
         }
-        return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryId(siteId,categoryId,inExpress,orderBy,isHot));
+        return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryId(siteId,categoryId,inExpress,orderBy,isHot,isPic));
     }
 
     @Cacheable(key = "'page-pageNumber-'+#p0+'-siteId-'+#p1+'-categoryId-'+#p2")

@@ -66,7 +66,7 @@ public class ContentController{
     }
 
 
-    @RequiresPermissions("content")
+    @RequiresPermissions("content:admin")
     @RequestMapping("/page")
     public String page(@RequestParam(value = "pageCurrent",defaultValue = "1") Integer pageNumber,
                         @RequestParam(value = "pageSize",defaultValue = "50") Integer pageSize,

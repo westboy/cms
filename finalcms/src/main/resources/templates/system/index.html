@@ -232,8 +232,8 @@ function MainMenuClick(event, treeId, treeNode) {
                         <li><a href="javascript:;" class="theme_default" data-toggle="theme" data-theme="default">&nbsp;<i class="fa fa-tree"></i> 黑白分明&nbsp;&nbsp;</a></li>
                         <li><a href="javascript:;" class="theme_orange" data-toggle="theme" data-theme="orange">&nbsp;<i class="fa fa-tree"></i> 橘子红了</a></li>
                         <li><a href="javascript:;" class="theme_purple" data-toggle="theme" data-theme="purple">&nbsp;<i class="fa fa-tree"></i> 紫罗兰</a></li>
-                        <li class="active"><a href="javascript:;" class="theme_blue" data-toggle="theme" data-theme="blue">&nbsp;<i class="fa fa-tree"></i> 天空蓝</a></li>
-                        <li><a href="javascript:;" class="theme_green" data-toggle="theme" data-theme="green">&nbsp;<i class="fa fa-tree"></i> 绿草如茵</a></li>
+                        <li><a href="javascript:;" class="theme_blue" data-toggle="theme" data-theme="blue">&nbsp;<i class="fa fa-tree"></i> 天空蓝</a></li>
+                        <li  class="active"><a href="javascript:;" class="theme_green" data-toggle="theme" data-theme="green">&nbsp;<i class="fa fa-tree"></i> 绿草如茵</a></li>
                     </ul>
                 </li>
             </ul>
@@ -245,10 +245,15 @@ function MainMenuClick(event, treeId, treeNode) {
                    <li  class="active"><a href="javascript:;"  data-toggle="slidebar"><i class="fa fa-file "></i> 内容管理</a>
                         <div class="items hide" data-noinit="true">
                             <ul id="bjui-hnav-tree3" class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="check-square-o">
+
                                 <li data-id="1" data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">内容管理</li>
+                                @if(shiro.hasPermission("content:admin")){
                                 <li data-id="10" data-pid="1" data-url="${ctxPath}/system/cms/content" data-tabid="content-tab" data-faicon="file">内容管理</li>
+                                @}
                                 <li data-id="21" data-pid="1" data-url="${ctxPath}/system/cms/topic" data-tabid="topic-tab" data-faicon="bookmark">专题管理</li>
+                                @if(shiro.hasPermission("category:admin")){
                                 <li data-id="22" data-pid="1" data-url="${ctxPath}/system/cms/category" data-tabid="category-tab" data-faicon="quote-left">栏目管理</li>
+                                @}
                             </ul>
                         </div>
                        <li><a href="javascript:;" data-toggle="slidebar"><i class="fa fa-retweet"></i> 功能维护</a>
@@ -275,7 +280,7 @@ function MainMenuClick(event, treeId, treeNode) {
                                 <li data-id="2" data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">用户管理</li>
                                 <li data-id="20" data-pid="2" data-url="${ctxPath}/system/member/clientUser" data-tabid="client"  data-faicon="user">前台用户</li>
                                 <li data-id="21" data-pid="2" data-url="${ctxPath}/system/member/sysUser" data-tabid="sysUser" data-faicon="user-secret">系统用户</li>
-                                <li data-id="21" data-pid="2" data-url="${ctxPath}/system/member/sysUser" data-tabid="sysUser" data-faicon="flag">机构管理</li>
+                                <!--<li data-id="21" data-pid="2" data-url="${ctxPath}/system/member/sysUser" data-tabid="sysUser" data-faicon="flag">机构管理</li>-->
                                 <li data-id="22" data-pid="2" data-url="${ctxPath}/system/role" data-tabid="role" data-faicon="key">角色管理</li>
                                 <li data-id="23" data-pid="2" data-url="${ctxPath}/system/permission" data-tabid="permission" data-faicon="star">权限管理</li>
                             </ul>

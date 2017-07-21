@@ -33,7 +33,8 @@ public interface  ContentService extends BaseService<TCmsContent,Long> {
                                                                Integer orderBy,
                                                                Integer size,
                                                                Integer hasChild,
-                                                               Integer isHot);
+                                                               Integer isHot,
+                                                               String isPic);
 
     PageInfo<TCmsContent> page(Integer pageNumber,Integer siteId,Long categoryId);
 

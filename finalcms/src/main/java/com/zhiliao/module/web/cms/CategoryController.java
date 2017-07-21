@@ -37,7 +37,7 @@ public class CategoryController {
     @Autowired
     private ModelService modelService;
 
-    @RequiresPermissions("category")
+    @RequiresPermissions("category:admin")
     @RequestMapping
     public String index(){
         return "cms/category";

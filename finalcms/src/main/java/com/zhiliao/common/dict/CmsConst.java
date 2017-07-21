@@ -6,7 +6,7 @@ package com.zhiliao.common.dict;
  * @author Jin
  * @create 2017-06-01
  **/
-public class CmsDict {
+public class CmsConst {
 
     public static  final String SITE_NOT_FOUND ="站点不存在或已经被删除，请与系统管理员联系！";
 

@@ -112,6 +112,12 @@
             <if test="inExpress!=null">
               AND  category_id in (#{inExpress})
             </if>
+            <if test="isPic!=null and isPic=='1'">
+                AND
+                thumb is not null
+                OR
+                thumb!=''
+            </if>
             AND  status=1
         </trim>
         <choose>

@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.zhiliao</groupId>
-    <artifactId>finalcms</artifactId>
+    <artifactId>cms</artifactId>
     <version>0.1</version>
     <packaging>war</packaging>
 
-    <name>finalcms</name>
+    <name>cms</name>
     <description>This an content manage system</description>
 
     <parent>
