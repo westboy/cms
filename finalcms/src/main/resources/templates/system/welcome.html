@@ -16,7 +16,7 @@
         position: relative;
         display: block;
         margin-bottom: 20px;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
     }
     .small-box > .inner {
         padding: 10px;
@@ -96,11 +96,11 @@
                         <!-- small box -->
                         <div class="small-box bg-aqua">
                             <div class="inner">
-                                <h3>150</h3>
-                                <p> 发布内容</p>
+                                <h3>${contentCount!0}</h3>
+                                <p> 内容数量</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-bag"></i>
+                                <i class="fa fa-send"></i>
                             </div>
                             <!--<a href="#" class="small-box-footer">更多 <i class="fa fa-arrow-circle-right"></i></a>-->
                         </div>
@@ -110,9 +110,9 @@
                         <!-- small box -->
                         <div class="small-box bg-green">
                             <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup>
-                                </h3>
-                                <p> 栏目分类</p>
+                                <!--<h3>53<sup style="font-size: 20px">%</sup>-->
+                                <h3>${categoryCount!0}</h3>
+                                <p> 栏目数量</p>
                             </div>
                             <div class="icon">
                                 <i class="fa fa-retweet"></i>
@@ -129,7 +129,7 @@
                                 <p> 注册用户</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-person-add"></i>
+                                <i class="fa fa-users"></i>
                             </div>
                             <!--<a href="#" class="small-box-footer">更多<i class="fa fa-arrow-circle-right"></i></a>-->
                         </div>
@@ -139,11 +139,11 @@
                         <!-- small box -->
                         <div class="small-box bg-red">
                             <div class="inner">
-                                <h3>65</h3>
-                                <p>独立访客</p>
+                                <h3>${topicCount!0}</h3>
+                                <p>专题数量</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
+                                <i class="fa fa-cloud"></i>
                             </div>
                             <!--<a href="#" class="small-box-footer">更多 <i class="fa fa-arrow-circle-right"></i></a>-->
                         </div>
@@ -152,9 +152,9 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <div class="panel panel-default">
+                <div class="panel panel-success" style="box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);">
                     <div class="panel-body">
-                        <div style="mini-width:400px;height:350px" data-toggle="echarts" data-type="bar,line" data-url="echarts-barData.html"></div>
+                        <div style="mini-width:400px;height:350px" data-toggle="echarts" data-type="bar,line" data-url="${ctxPath}/system/AllMonthCharts"></div>
                     </div>
                 </div>
             </div>

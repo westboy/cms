@@ -195,8 +195,7 @@ public class ShiroConfig {
         //后台路径
 		chains.put(loginPath+"/login", "anon");
 		chains.put(loginPath+"/doLogin", "anon");
-		chains.put(loginPath+"/logout", "logout");
-		chains.put("/system/**", "auth,perms");
+		chains.put("/system/**", "auth,perms[\"system\"]");
 		bean.setFilterChainDefinitionMap(chains);
 		return bean;
 	}

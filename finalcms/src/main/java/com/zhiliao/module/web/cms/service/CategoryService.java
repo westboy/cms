@@ -21,4 +21,6 @@ public interface CategoryService extends BaseService<TCmsCategory,Long>{
     Integer findPageSize(Long categoryId);
 
     TCmsCategory findfindByAliasAndSiteId(String alias,Integer siteId);
+
+    Integer AllCount();
 }

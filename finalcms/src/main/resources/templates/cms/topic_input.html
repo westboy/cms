@@ -45,6 +45,7 @@
 <div class="bjui-pageContent">
     <form method="post" action="${ctxPath}/system/cms/topic/save" id="j_topic_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
         <input TYPE="hidden" name="topicId" value="${topic.topicId!}">
+        <input TYPE="hidden" name="siteId" value="${session.SysUser.siteId!}">
         <table class="table table-condensed table-hover" width="100%">
             <tbody>
             <tr>

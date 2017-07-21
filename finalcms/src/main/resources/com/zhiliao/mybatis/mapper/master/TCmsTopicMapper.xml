@@ -15,6 +15,7 @@
     <result column="content_img" jdbcType="VARCHAR" property="contentImg" />
     <result column="topic_tpl" jdbcType="VARCHAR" property="topicTpl" />
     <result column="sort_id" jdbcType="INTEGER" property="sortId" />
+    <result column="site_id" jdbcType="INTEGER" property="siteId" />
     <result column="is_recommend" jdbcType="BIT" property="isRecommend" />
   </resultMap>
 </mapper>

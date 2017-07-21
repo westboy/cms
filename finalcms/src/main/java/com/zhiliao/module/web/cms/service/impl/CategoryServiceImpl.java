@@ -2,7 +2,7 @@ package com.zhiliao.module.web.cms.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhiliao.common.dict.CmsDict;
+import com.zhiliao.common.dict.CmsConst;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.utils.HtmlKit;
 import com.zhiliao.common.utils.JsonUtil;
@@ -51,15 +51,15 @@ public class CategoryServiceImpl implements CategoryService{
             categoryMapper.updateByPrimaryKeySelective(parentCategory);
              /*判断当前栏目是否需要继承父类模板*/
             if(StrUtil.isBlank(pojo.getContentTpl()))
-                pojo.setContentTpl(StrUtil.isBlank(parentCategory .getContentTpl()) ? CmsDict.CONTENT_TPL : parentCategory .getContentTpl());
+                pojo.setContentTpl(StrUtil.isBlank(parentCategory .getContentTpl()) ? CmsConst.CONTENT_TPL : parentCategory .getContentTpl());
             if(StrUtil.isBlank(pojo.getIndexTpl()))
-                pojo.setIndexTpl(StrUtil.isBlank(parentCategory .getIndexTpl()) ? CmsDict.CATEGORY_INDEX_TPL: parentCategory .getIndexTpl());
+                pojo.setIndexTpl(StrUtil.isBlank(parentCategory .getIndexTpl()) ? CmsConst.CATEGORY_INDEX_TPL: parentCategory .getIndexTpl());
             if(StrUtil.isBlank(pojo.getListTpl()))
-                pojo.setListTpl(StrUtil.isBlank(parentCategory .getListTpl()) ? CmsDict.CATEGORY_LIST_TPL :parentCategory .getListTpl());
+                pojo.setListTpl(StrUtil.isBlank(parentCategory .getListTpl()) ? CmsConst.CATEGORY_LIST_TPL :parentCategory .getListTpl());
         }else {
-            pojo.setContentTpl(StrUtil.isBlank(pojo.getContentTpl()) ? CmsDict.CONTENT_TPL : pojo.getContentTpl());
-            pojo.setIndexTpl(StrUtil.isBlank(pojo.getIndexTpl()) ? CmsDict.CATEGORY_INDEX_TPL : pojo.getIndexTpl());
-            pojo.setListTpl(StrUtil.isBlank(pojo.getListTpl()) ? CmsDict.CATEGORY_LIST_TPL : pojo.getListTpl());
+            pojo.setContentTpl(StrUtil.isBlank(pojo.getContentTpl()) ? CmsConst.CONTENT_TPL : pojo.getContentTpl());
+            pojo.setIndexTpl(StrUtil.isBlank(pojo.getIndexTpl()) ? CmsConst.CATEGORY_INDEX_TPL : pojo.getIndexTpl());
+            pojo.setListTpl(StrUtil.isBlank(pojo.getListTpl()) ? CmsConst.CATEGORY_LIST_TPL : pojo.getListTpl());
         }
         if(categoryMapper.insert(pojo)>0){
             return JsonUtil.toSUCCESS("分类添加成功！","category-tab",true);
@@ -85,15 +85,15 @@ public class CategoryServiceImpl implements CategoryService{
             categoryMapper.updateByPrimaryKey(parentCategory);
             /*判断当前栏目是否需要继承父类模板*/
             if(StrUtil.isBlank(pojo.getContentTpl()))
-               pojo.setContentTpl(StrUtil.isBlank(parentCategory .getContentTpl()) ? CmsDict.CONTENT_TPL : parentCategory .getContentTpl());
+               pojo.setContentTpl(StrUtil.isBlank(parentCategory .getContentTpl()) ? CmsConst.CONTENT_TPL : parentCategory .getContentTpl());
             if(StrUtil.isBlank(pojo.getIndexTpl()))
-               pojo.setIndexTpl(StrUtil.isBlank(parentCategory .getIndexTpl()) ? CmsDict.INDEX_TPL : parentCategory .getIndexTpl());
+               pojo.setIndexTpl(StrUtil.isBlank(parentCategory .getIndexTpl()) ? CmsConst.INDEX_TPL : parentCategory .getIndexTpl());
             if(StrUtil.isBlank(pojo.getListTpl()))
-              pojo.setListTpl(StrUtil.isBlank(parentCategory .getListTpl()) ? CmsDict.CATEGORY_LIST_TPL :parentCategory .getListTpl());
+              pojo.setListTpl(StrUtil.isBlank(parentCategory .getListTpl()) ? CmsConst.CATEGORY_LIST_TPL :parentCategory .getListTpl());
         }else {
-            pojo.setContentTpl(StrUtil.isBlank(pojo.getContentTpl()) ? CmsDict.CONTENT_TPL : pojo.getContentTpl());
-            pojo.setIndexTpl(StrUtil.isBlank(pojo.getIndexTpl()) ? CmsDict.INDEX_TPL : pojo.getIndexTpl());
-            pojo.setListTpl(StrUtil.isBlank(pojo.getListTpl()) ? CmsDict.CATEGORY_LIST_TPL : pojo.getListTpl());
+            pojo.setContentTpl(StrUtil.isBlank(pojo.getContentTpl()) ? CmsConst.CONTENT_TPL : pojo.getContentTpl());
+            pojo.setIndexTpl(StrUtil.isBlank(pojo.getIndexTpl()) ? CmsConst.INDEX_TPL : pojo.getIndexTpl());
+            pojo.setListTpl(StrUtil.isBlank(pojo.getListTpl()) ? CmsConst.CATEGORY_LIST_TPL : pojo.getListTpl());
         }
         if(categoryMapper.updateByPrimaryKeySelective(pojo)>0)
             return JsonUtil.toSUCCESS("分类更新成功！","category-tab",false);
@@ -213,6 +213,11 @@ public class CategoryServiceImpl implements CategoryService{
         category.setAlias(alias);
         category.setSiteId(siteId);
         return categoryMapper.selectOne(category);
+    }
+
+    @Override
+    public Integer AllCount() {
+        return this.categoryMapper.selectCount(new TCmsCategory());
     }
 
 }

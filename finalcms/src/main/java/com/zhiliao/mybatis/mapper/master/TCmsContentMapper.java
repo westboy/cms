@@ -1,10 +1,7 @@
 package com.zhiliao.mybatis.mapper.master;
 
 import com.zhiliao.mybatis.model.master.TCmsContent;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -47,4 +44,21 @@ public interface TCmsContentMapper extends Mapper<TCmsContent> {
     @ResultMap("BaseResultMap")
     List<TCmsContent> selectByCategoyParentId(@Param("parentId") Long parentId,@Param("siteId") Integer siteId);
 
+    @Select(" select " +
+            "sum(case month(inputdate) when '1' then 1 else 0 end) as 一月份, " +
+            "sum(case month(inputdate) when '2' then 1 else 0 end) as 二月份, " +
+            "sum(case month(inputdate) when '3' then 1 else 0 end) as 三月份, " +
+            "sum(case month(inputdate) when '4' then 1 else 0 end) as 四月份, " +
+            "sum(case month(inputdate) when '5' then 1 else 0 end) as 五月份, " +
+            "sum(case month(inputdate) when '6' then 1 else 0 end) as 六月份, " +
+            "sum(case month(inputdate) when '7' then 1 else 0 end) as 七月份, " +
+            "sum(case month(inputdate) when '8' then 1 else 0 end) as 八月份, " +
+            "sum(case month(inputdate) when '9' then 1 else 0 end) as 九月份, " +
+            "sum(case month(inputdate) when '10' then 1 else 0 end) as 十月份," +
+            "sum(case month(inputdate) when '11' then 1 else 0 end) as 十一月份, " +
+            "sum(case month(inputdate) when '12' then 1 else 0 end) as 十二月份  " +
+            "from t_cms_content " +
+            "where year(inputdate)=year(now());")
+    @ResultType(Map.class)
+    Map selectAllMonthCount();
 }

@@ -66,6 +66,7 @@
                 </td>
             </tr>
             @}
+            @if(shiro.hasRole("superAdmin")){
             <tr>
                 <td>
                     <input type="hidden" name="pid" value="${role.roleId!}" >
@@ -73,6 +74,7 @@
                     <input type="text" data-toggle="lookup" data-url="${ctxPath}/system/member/roleCheck/0" value="${role.rolename!}"  data-rule="required" data-resizable="false" data-maxable="false" name="name" size="20">
                 </td>
             </tr>
+            @}
             <tr>
                 <td>
                     <label for="j_status" class="control-label x85"  data-toggle="selectpicker">用户状态：</label>

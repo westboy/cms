@@ -4,15 +4,15 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.zhiliao.common.annotation.SysLog;
-import com.zhiliao.common.dict.CmsDict;
+import com.zhiliao.common.dict.CmsConst;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.shiro.DefaultUsernamePasswordToken;
 import com.zhiliao.common.shiro.PasswordKit;
 import com.zhiliao.common.utils.*;
+import com.zhiliao.module.web.system.service.SysUserService;
 import com.zhiliao.module.web.system.vo.UserVo;
 import com.zhiliao.mybatis.mapper.master.*;
 import com.zhiliao.mybatis.model.master.*;
-import com.zhiliao.module.web.system.service.SysUserService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -85,7 +85,7 @@ public class SysUserServiceImpl implements SysUserService{
                 userVo.setSiteId(0);
                 userVo.setSiteName(siteName);
                 /*设置session*/
-                session.setAttribute(CmsDict.SITE_USER_SESSION_KEY,userVo);
+                session.setAttribute(CmsConst.SITE_USER_SESSION_KEY,userVo);
                 result.put("success", true);
                 result.put("message", "登录成功！");
             }else {
@@ -98,7 +98,7 @@ public class SysUserServiceImpl implements SysUserService{
                         break;
                     }
                 /*设置session*/
-                    session.setAttribute(CmsDict.SITE_USER_SESSION_KEY, userVo);
+                    session.setAttribute(CmsConst.SITE_USER_SESSION_KEY, userVo);
                     result.put("success", true);
                     result.put("message", "登录成功！");
                 } else {
@@ -206,7 +206,7 @@ public class SysUserServiceImpl implements SysUserService{
     @Transactional
     public String Delete(Integer[] ids) {
         boolean flag_ = false;
-        UserVo userVo = ((UserVo) ControllerUtil.getHttpSession().getAttribute(CmsDict.SITE_USER_SESSION_KEY));
+        UserVo userVo = ((UserVo) ControllerUtil.getHttpSession().getAttribute(CmsConst.SITE_USER_SESSION_KEY));
         if(CmsUtil.isNullOrEmpty(userVo))
             throw  new UnauthenticatedException();
         if(ids.length>0){

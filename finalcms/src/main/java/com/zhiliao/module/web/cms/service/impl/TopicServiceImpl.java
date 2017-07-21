@@ -8,6 +8,9 @@ import com.zhiliao.module.web.cms.service.TopicService;
 import com.zhiliao.mybatis.mapper.master.TCmsTopicMapper;
 import com.zhiliao.mybatis.model.master.TCmsTopic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +22,13 @@ import java.util.List;
  * @create 2017-07-19
  **/
 @Service
+@CacheConfig(cacheNames = "cms-topic-cache")
 public class TopicServiceImpl implements TopicService {
 
     @Autowired
     private TCmsTopicMapper topicMapper;
 
+    @CacheEvict(cacheNames ="cms-topic-cache",allEntries = true)
     @Override
     public String save(TCmsTopic pojo) {
         if(topicMapper.insertSelective(pojo)>0)
@@ -31,6 +36,7 @@ public class TopicServiceImpl implements TopicService {
         return JsonUtil.toERROR("操作失败！");
     }
 
+    @CacheEvict(cacheNames ="cms-topic-cache",allEntries = true)
     @Override
     public String update(TCmsTopic pojo) {
         if(topicMapper.updateByPrimaryKeySelective(pojo)>0)
@@ -38,6 +44,7 @@ public class TopicServiceImpl implements TopicService {
         return JsonUtil.toERROR("操作失败！");
     }
 
+    @CacheEvict(cacheNames ="cms-topic-cache",allEntries = true)
     @Override
     public String delete(Integer[] ids) {
         if(CmsUtil.isNullOrEmpty(ids))
@@ -47,6 +54,7 @@ public class TopicServiceImpl implements TopicService {
         return JsonUtil.toSUCCESS("操作成功！","topic-tab",false);
     }
 
+    @Cacheable(key = "'topicId-'+#p0")
     @Override
     public TCmsTopic findById(Integer id) {
         return topicMapper.selectByPrimaryKey(id);
@@ -72,5 +80,21 @@ public class TopicServiceImpl implements TopicService {
     public PageInfo<TCmsTopic> page(Integer pageNumber, Integer pageSize) {
         PageHelper.startPage(pageNumber,pageSize);
         return new PageInfo<>(this.findAll());
+    }
+
+    @Cacheable(key = "'allCount'")
+    @Override
+    public Integer AllCount() {
+        return this.topicMapper.selectCount(new TCmsTopic());
+    }
+
+    @Cacheable(key = "'recommend-list'+#p0+#p1+#p2")
+    @Override
+    public List<TCmsTopic> findByRecommendList(Integer siteId,boolean isRecommend, Integer pageSize) {
+        PageHelper.startPage(1,pageSize);
+        TCmsTopic topic = new TCmsTopic();
+        topic.setSiteId(siteId);
+        topic.setIsRecommend(isRecommend);
+        return this.topicMapper.select(topic);
     }
 }

@@ -2,7 +2,7 @@ package com.zhiliao.module.web.cms;
 
 import com.google.common.collect.Maps;
 import com.zhiliao.common.annotation.SysLog;
-import com.zhiliao.common.dict.CmsDict;
+import com.zhiliao.common.dict.CmsConst;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.ControllerUtil;
@@ -72,7 +72,7 @@ public class ContentController{
                         @RequestParam(value = "pageSize",defaultValue = "50") Integer pageSize,
                        TCmsContentVo content,
                         Model model){
-        UserVo userVo = ((UserVo)ControllerUtil.getHttpSession().getAttribute(CmsDict.SITE_USER_SESSION_KEY));
+        UserVo userVo = ((UserVo)ControllerUtil.getHttpSession().getAttribute(CmsConst.SITE_USER_SESSION_KEY));
         if(CmsUtil.isNullOrEmpty(userVo))
             throw  new UnauthenticatedException();
         content.setSiteId(userVo.getSiteId());

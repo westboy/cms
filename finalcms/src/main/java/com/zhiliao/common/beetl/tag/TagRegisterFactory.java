@@ -104,6 +104,21 @@ public class TagRegisterFactory {
         return  springBeanTagFactory;
     }
 
+
+    @Bean(name = "topicListTagFactory")
+    public SpringBeanTagFactory topicListTagFactory(){
+        SpringBeanTagFactory springBeanTagFactory = new SpringBeanTagFactory();
+        springBeanTagFactory.setName("topicListTag");
+        return  springBeanTagFactory;
+    }
+
+    @Bean(name = "topicContentTagFactory")
+    public SpringBeanTagFactory topicContentTagFactory(){
+        SpringBeanTagFactory springBeanTagFactory = new SpringBeanTagFactory();
+        springBeanTagFactory.setName("topicContentTag");
+        return  springBeanTagFactory;
+    }
+
     /* TagFactory */
     @Bean(name = "tagFactory")
     public Map<String,TagFactory> Tag(@Qualifier("contentListTagFactory") SpringBeanTagFactory contentListTag,
@@ -116,7 +131,10 @@ public class TagRegisterFactory {
                                       @Qualifier("printSitePositionTagFactory") SpringBeanTagFactory printSitePositionTagFactory,
                                       @Qualifier("lucenePageTagFactory") SpringBeanTagFactory lucenePageTagFactory,
                                       @Qualifier("lucenePaginationTagFactory") SpringBeanTagFactory lucenePaginationTagFactory,
-                                      @Qualifier("indexSilderTagFactory") SpringBeanTagFactory indexSilderTagFactory
+                                      @Qualifier("indexSilderTagFactory") SpringBeanTagFactory indexSilderTagFactory,
+                                      @Qualifier("topicListTagFactory") SpringBeanTagFactory topicListTagFactory,
+                                      @Qualifier("topicContentTagFactory") SpringBeanTagFactory topicContentTagFactory
+
 
     ){
         Map<String,TagFactory> tag = Maps.newHashMap();
@@ -131,6 +149,8 @@ public class TagRegisterFactory {
         tag.put("cms_lucene_page",lucenePageTagFactory);
         tag.put("cms_lucene_pagination",lucenePaginationTagFactory);
         tag.put("cms_index_silder",indexSilderTagFactory);
+        tag.put("cms_topic_list",topicListTagFactory);
+        tag.put("cms_topic_content",topicContentTagFactory);
         return  tag;
     }
 

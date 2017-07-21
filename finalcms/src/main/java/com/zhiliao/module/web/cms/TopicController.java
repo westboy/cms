@@ -1,8 +1,13 @@
 package com.zhiliao.module.web.cms;
 
 import com.zhiliao.common.base.BaseController;
+import com.zhiliao.common.dict.CmsConst;
+import com.zhiliao.common.utils.CmsUtil;
+import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.module.web.cms.service.TopicService;
+import com.zhiliao.module.web.system.vo.UserVo;
 import com.zhiliao.mybatis.model.master.TCmsTopic;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +35,10 @@ public class TopicController extends BaseController<TCmsTopic>{
     public String index(@RequestParam(value = "pageCurrent",defaultValue = "1") Integer pageNumber,
                         @RequestParam(value = "pageSize",defaultValue = "50")Integer pageSize,
                         TCmsTopic pojo, Model model) {
+        UserVo userVo = ((UserVo) ControllerUtil.getHttpSession().getAttribute(CmsConst.SITE_USER_SESSION_KEY));
+        if(CmsUtil.isNullOrEmpty(userVo))
+            throw  new UnauthenticatedException();
+        pojo.setSiteId(userVo.getSiteId());
         model.addAttribute("pojo",pojo);
         model.addAttribute("model",topicService.page(pageNumber,pageSize,pojo));
         return "cms/topic_list";

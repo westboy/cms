@@ -37,11 +37,15 @@ public class BeetlConfiguration {
     @Value("${system.http.host}")
     private String host;
 
+    @Value("${system.login.path}")
+    private String loginPath;
+
     public Map<String,Object> sharedVars(){
         Map<String,Object> sharedVars =  Maps.newHashMap();
         sharedVars.put("siteName",siteName);
         sharedVars.put("baseURL",httpProtocol+"://"+ host);
         sharedVars.put("devModel",Boolean.valueOf(devModel));
+        sharedVars.put("adminLoginPath",loginPath);
         return sharedVars;
     }
 

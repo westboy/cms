@@ -3,6 +3,7 @@ package com.zhiliao.module.web.cms.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.exception.CmsException;
+import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.lucene.util.IndexObject;
 import com.zhiliao.common.utils.*;
 import com.zhiliao.module.web.cms.service.CategoryService;
@@ -338,5 +339,113 @@ public class ContentServiceImpl implements ContentService{
         content.setContentId(contentId);
         content.setViewNum(content.getViewNum()+1);
         return contentMapper.updateByPrimaryKeySelective(content);
+    }
+
+    @Override
+    public String findAllMonthCount() {
+        Map result = this.contentMapper.selectAllMonthCount();
+        if(CmsUtil.isNullOrEmpty(result))throw new SystemException("统计报表查询失败！");
+        String json = "{" +
+                "  \"tooltip\": {\n" +
+                "    \"trigger\": \"axis\"" +
+                "  },\n" +
+                "  \"legend\": {\n" +
+                "    \"data\": [\n" +
+                "      \"内容\",\n" +
+                "       \"专题\"\n" +
+                "    ]\n" +
+                "  },\n" +
+                "  \"toolbox\": {\n" +
+                "    \"show\": true,\n" +
+                "    \"feature\": {\n" +
+                "      \"magicType\": {\n" +
+                "        \"show\": true,\n" +
+                "        \"type\": [\n" +
+                "          \"line\",\n" +
+                "          \"bar\"\n" +
+                "        ]\n" +
+                "      },\n" +
+                "      \"restore\": {\n" +
+                "        \"show\": true\n" +
+                "      },\n" +
+                "      \"saveAsImage\": {\n" +
+                "        \"show\": true\n" +
+                "      }\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"calculable\": true,\n" +
+                "  \"xAxis\": [\n" +
+                "    {\n" +
+                "      \"type\": \"category\",\n" +
+                "      \"data\": [\n" +
+                "        \"1月\",\n" +
+                "        \"2月\",\n" +
+                "        \"3月\",\n" +
+                "        \"4月\",\n" +
+                "        \"5月\",\n" +
+                "        \"6月\",\n" +
+                "        \"7月\",\n" +
+                "        \"8月\",\n" +
+                "        \"9月\",\n" +
+                "        \"10月\",\n" +
+                "        \"11月\",\n" +
+                "        \"12月\"\n" +
+                "      ]\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"yAxis\": [\n" +
+                "    {\n" +
+                "      \"type\": \"value\",\n" +
+                "      \"splitArea\": {\n" +
+                "        \"show\": true\n" +
+                "      }\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"series\": [\n" +
+                "    {\n" +
+                "      \"name\": \"内容\",\n" +
+                "      \"type\": \"bar\",\n" +
+                "      \"data\": [\n" +
+                "        "+result.get("一月份")+",\n" +
+                "        "+result.get("二月份")+",\n" +
+                "        "+result.get("三月份")+",\n" +
+                "        "+result.get("四月份")+",\n" +
+                "        "+result.get("五月份")+",\n" +
+                "        "+result.get("六月份")+",\n" +
+                "        "+result.get("七月份")+",\n" +
+                "        "+result.get("八月份")+",\n" +
+                "        "+result.get("九月份")+",\n" +
+                "        "+result.get("十月份")+",\n" +
+                "        "+result.get("十一月份")+",\n" +
+                "        "+result.get("十二月份")+"\n" +
+                "      ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"name\": \"专题\",\n" +
+                "      \"type\": \"bar\",\n" +
+                "      \"data\": [\n" +
+                "        "+result.get("一月份")+",\n" +
+                "        "+result.get("二月份")+",\n" +
+                "        "+result.get("三月份")+",\n" +
+                "        "+result.get("四月份")+",\n" +
+                "        "+result.get("五月份")+",\n" +
+                "        "+result.get("六月份")+",\n" +
+                "        "+result.get("七月份")+",\n" +
+                "        "+result.get("八月份")+",\n" +
+                "        "+result.get("九月份")+",\n" +
+                "        "+result.get("十月份")+",\n" +
+                "        "+result.get("十一月份")+",\n" +
+                "        "+result.get("十二月份")+"\n" +
+                "      ]\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+        return json;
+    }
+
+    @Cacheable(key = "'content-all-count'")
+    @Override
+    public Integer AllCount() {
+        return this.contentMapper.selectCount(new TCmsContent());
     }
 }

@@ -41,4 +41,8 @@ public interface  ContentService extends BaseService<TCmsContent,Long> {
     PageInfo<TCmsContent>  findContentListByModelFiledValue(int pageNumber,Long categoryId, String tableName, Map<String, Object> param);
 
     int viewUpdate(Long contentId);
+
+    String findAllMonthCount();
+
+    Integer AllCount();
 }

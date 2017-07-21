@@ -1,12 +1,15 @@
 package com.zhiliao.module.web.system;
 
 import com.zhiliao.common.annotation.FormToken;
-import com.zhiliao.common.dict.CmsDict;
+import com.zhiliao.common.dict.CmsConst;
 import com.zhiliao.common.shiro.DefaultUsernamePasswordToken;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.common.utils.StrUtil;
+import com.zhiliao.module.web.cms.service.CategoryService;
+import com.zhiliao.module.web.cms.service.ContentService;
+import com.zhiliao.module.web.cms.service.TopicService;
 import com.zhiliao.module.web.system.service.SysUserService;
 import com.zhiliao.module.web.system.vo.UserVo;
 import org.apache.shiro.SecurityUtils;
@@ -32,6 +35,15 @@ public class SystemController {
     @Autowired
     private SysUserService userService;
 
+    @Autowired
+    private ContentService contentService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+
+    @Autowired
+    private TopicService topicService;
 
     /**
      * 后台首页地址
@@ -43,27 +55,26 @@ public class SystemController {
     }
 
 
-
-
-    @RequestMapping("/system/charts")
-    public String charts(){
-        return "system/charts";
-    }
-
-
     /**
      * 后台登陆地址
      * @return
      */
     @FormToken
     @RequestMapping("/${system.login.path}/login")
-    public String login(@Value("${system.login.path}") String loginPath,Model model){
-        model.addAttribute("loginPath",loginPath);
+    public String login(){
         Subject currentUser = SecurityUtils.getSubject();
         if(!CmsUtil.isNullOrEmpty(currentUser)&&currentUser.isAuthenticated())
             return "redirect:/system";
         return "system/login";
     }
+
+    @RequestMapping("/${system.login.path}/logout")
+    public String logout(@Value("${system.login.path}") String adminLoginPath){
+        Subject currentUser = SecurityUtils.getSubject();
+        if(!CmsUtil.isNullOrEmpty(currentUser)&&currentUser.isAuthenticated())currentUser.logout();
+        return "redirect:/"+adminLoginPath+"/login";
+    }
+
 
     /**
      *后台登陆提提交地址
@@ -118,7 +129,7 @@ public class SystemController {
      */
     @RequestMapping("/system/changePassword")
     public String changePassword(HttpSession session, Model model){
-        UserVo userVo =  (UserVo) session.getAttribute(CmsDict.SITE_USER_SESSION_KEY);
+        UserVo userVo =  (UserVo) session.getAttribute(CmsConst.SITE_USER_SESSION_KEY);
         if(CmsUtil.isNullOrEmpty(userVo))
             throw new UnauthenticatedException();
         model.addAttribute("userId",userVo.getUserId());
@@ -131,4 +142,17 @@ public class SystemController {
         return userService.changePassword(userId,op,np);
     }
 
+    @RequestMapping("/system/welcome")
+    public String welcome(Model model){
+        model.addAttribute("contentCount",contentService.AllCount());
+        model.addAttribute("categoryCount",categoryService.AllCount());
+        model.addAttribute("topicCount",topicService.AllCount());
+        return "system/welcome";
+    }
+
+    @RequestMapping("/system/AllMonthCharts")
+    @ResponseBody
+    public String charts(){
+       return contentService.findAllMonthCount();
+    }
 }

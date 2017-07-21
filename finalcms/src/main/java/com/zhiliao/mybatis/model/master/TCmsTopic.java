@@ -1,7 +1,7 @@
 package com.zhiliao.mybatis.model.master;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Table(name = "t_cms_topic")
 public class TCmsTopic implements Serializable {
@@ -58,6 +58,17 @@ public class TCmsTopic implements Serializable {
      */
     @Column(name = "sort_id")
     private Integer sortId;
+
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(Integer siteId) {
+        this.siteId = siteId;
+    }
+
+    @Column(name = "site_id")
+    private Integer siteId;
 
     /**
      * 是否推??

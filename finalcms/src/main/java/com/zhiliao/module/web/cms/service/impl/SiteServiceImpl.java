@@ -2,7 +2,7 @@ package com.zhiliao.module.web.cms.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhiliao.common.dict.CmsDict;
+import com.zhiliao.common.dict.CmsConst;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.ControllerUtil;
@@ -187,7 +187,7 @@ public class SiteServiceImpl implements SiteService{
         userVo.setSiteId(site.getSiteId());
         userVo.setSiteName(site.getSiteId()==0?this.siteName:site.getSitename());
         /*更新session*/
-        session.setAttribute(CmsDict.SITE_USER_SESSION_KEY,userVo);
+        session.setAttribute(CmsConst.SITE_USER_SESSION_KEY,userVo);
         return JsonUtil.toSUCCESS("站点切换成功，请刷新当前页面！","site-tab",false);
     }
 

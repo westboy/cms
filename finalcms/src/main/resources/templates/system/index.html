@@ -220,11 +220,11 @@ function MainMenuClick(event, treeId, treeNode) {
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">我的账户 <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="${ctxPath}/system/changePassword" data-toggle="dialog" data-id="changepwd_page" data-mask="true" data-width="400" data-height="260">&nbsp;<span class="glyphicon glyphicon-lock"></span> 修改密码&nbsp;</a></li>
-                        <li>
-                            <a href="${ctxPath}/system/member/sysUserInput?userId=${session.SysUser.userId!}" data-toggle="dialog" data-maxable="false" data-resizable="false" data-width="550" data-height="450" data-id="edit-admin-user" data-title="用户修改">
-                            &nbsp;<span class="glyphicon glyphicon-user"></span> 我的资料</a></li>
+                        <!--<li>-->
+                            <!--<a href="${ctxPath}/system/member/sysUserInput?userId=${session.SysUser.userId!}" data-toggle="dialog" data-maxable="false" data-resizable="false" data-width="550" data-height="450" data-id="edit-admin-user" data-title="用户修改">-->
+                            <!--&nbsp;<span class="glyphicon glyphicon-user"></span> 我的资料</a></li>-->
                         <li class="divider"></li>
-                        <li><a href="${ctxPath}/logout" class="red">&nbsp;<span class="glyphicon glyphicon-off"></span> 注销登陆</a></li>
+                        <li><a href="${ctxPath!}/${adminLoginPath!}/logout" class="red">&nbsp;<span class="glyphicon glyphicon-off"></span> 注销登陆</a></li>
                     </ul>
                 </li>
                 <li class="dropdown"><a href="#" class="dropdown-toggle theme blue" data-toggle="dropdown" title="切换皮肤"><i class="fa fa-tree"></i></a>
@@ -277,12 +277,19 @@ function MainMenuClick(event, treeId, treeNode) {
                     <li><a href="javascript:;" data-toggle="slidebar"><i class="fa fa-users "></i> 用户管理</a>
                         <div class="items hide" data-noinit="true">
                             <ul id="bjui-hnav-tree2" class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="table">
+
                                 <li data-id="2" data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">用户管理</li>
                                 <li data-id="20" data-pid="2" data-url="${ctxPath}/system/member/clientUser" data-tabid="client"  data-faicon="user">前台用户</li>
+                                @if(shiro.hasPermission("sysUser:admin")){
                                 <li data-id="21" data-pid="2" data-url="${ctxPath}/system/member/sysUser" data-tabid="sysUser" data-faicon="user-secret">系统用户</li>
+                                @}
                                 <!--<li data-id="21" data-pid="2" data-url="${ctxPath}/system/member/sysUser" data-tabid="sysUser" data-faicon="flag">机构管理</li>-->
+                                @if(shiro.hasPermission("role:admin")){
                                 <li data-id="22" data-pid="2" data-url="${ctxPath}/system/role" data-tabid="role" data-faicon="key">角色管理</li>
+                                @}
+                                @if(shiro.hasPermission("permission:admin")){
                                 <li data-id="23" data-pid="2" data-url="${ctxPath}/system/permission" data-tabid="permission" data-faicon="star">权限管理</li>
+                                @}
                             </ul>
                         </div>
                     </li>
@@ -320,7 +327,7 @@ function MainMenuClick(event, treeId, treeNode) {
             <div class="tabsPageHeader">
                 <div class="tabsPageHeaderContent">
                     <ul class="navtab-tab nav nav-tabs">
-                        <li data-url="${ctxPath}/system/charts"><a href="javascript:;"><span><i class="fa fa-home"></i> #maintab#</span></a></li>
+                        <li data-url="${ctxPath}/system/welcome"><a href="javascript:;"><span><i class="fa fa-home"></i> #maintab#</span></a></li>
                     </ul>
                 </div>
                 <div class="tabsLeft"><i class="fa fa-angle-double-left"></i></div>

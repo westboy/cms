@@ -1,5 +1,6 @@
 package com.zhiliao.module.api;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,16 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("/api/")
-public class ContentApiController {
+public class Content {
 
+    @ApiOperation("测试接口")
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
     @ResponseBody
     public String getContent(){
-        return "";
+        return "这是一个接口";
     }
 
-   @RequestMapping(value="", method= RequestMethod.POST)
-    @ResponseBody
-    public String postUser() {
-        return "success";
-    }
 }
