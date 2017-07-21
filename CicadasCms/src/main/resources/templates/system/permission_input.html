@@ -1,0 +1,59 @@
+<style>
+
+    td {
+        border-top: 1px solid #ddd;
+        line-height: 25px;
+        padding: 5px 5px 5px 7px;
+    }
+    .point{
+        color: #0099CC;
+        font-weight: bold;
+    }
+</style>
+
+<div class="bjui-pageContent">
+    <form method="post" action="${ctxPath}/system/permission/save" id="j_client_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
+        <input TYPE="hidden" name="permissionId" value="${per.permissionId!}">
+        <table cellspacing="1" cellpadding="6" border="0" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label for="j_username" class="control-label x85">权限标识：</label>
+                    <input type="text" name="name" id="j_username" value="${per.name!,xss}" placeholder="请填写权限名称！" data-rule="required" size="
+20" >（使用方法:Controller方法前加${'@'}RequiresPermissions("权限标识")注解,建议使用英文字母表示！）
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_username" class="control-label x85">父节点：</label>
+                    <select name="pid" data-toggle="selectpicker">
+                       ${SelectPermissionOut(per.pid!0,per.permissionId!0)}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_linkman" class="control-label x85">权限描述：</label>
+                    <TEXTAREA id="j_linkman" placeholder="请填写权限描述！" name="description"  rows="4" cols="30" data-rule="required;length(0~6)" >${per.description!,xss}</TEXTAREA>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        @if(isEmpty(per.permissionId)){
+        <li><button type="submit" class="btn-default"  data-icon="save">保存</button></li>
+        @}else{
+        <li><button onclick="del(this)" type="button" class="btn-close" data-icon="close">删除</button></li>
+        <li><button type="submit" class="btn-default"  data-icon="save">更新</button></li>
+        @}
+    </ul>
+</div>
+<script>
+    function del(obj) {
+        $(obj).bjuiajax('doAjax', {url:'${ctxPath}/system/permission/delete?permissionId=${per.permissionId!}',confirmMsg:'子节点也会被删除，确定要删除该吗？'});
+    }
+    </script>

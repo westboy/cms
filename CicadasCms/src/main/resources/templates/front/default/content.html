@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>${content.title}</title>
+</head>
+<body>
+${content.content!}
+
+<#cms_content  contentId="${content.content_id!}" categoryId="${category.categoryId!}" titleLen="5" var="content">
+    <br>
+    ${content.prev!}<br>
+    ----------------------------------------
+    ${content.next!}<br>
+    <br>
+</#cms_content>
+</body>
+</html>

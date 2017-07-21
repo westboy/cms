@@ -1,0 +1,40 @@
+<script type="text/javascript">
+    function do_open_layout(event, treeId, treeNode) {
+        if (treeNode.isParent) {
+            var zTree = $.fn.zTree.getZTreeObj(treeId)
+
+            zTree.expandNode(treeNode)
+            return
+        }
+        $(event.target).bjuiajax('doLoad', {url:treeNode.url, target:treeNode.divid})
+
+        event.preventDefault()
+    }
+</script>
+<div class="bjui-pageContent">
+    <div style="float:left; width:250px; height:100%; overflow:auto;">
+        <fieldset  style="width:240px; min-height:99.9%;height:auto;padding: 0px;margin: 0">
+        <ul id="role-tree" class="ztree" data-toggle="ztree" data-expand-all="true" data-on-click="do_open_layout">
+            <li data-id="1" data-pid="0">系统角色</li>
+            <li data-id="10" data-pid="1" data-url="${ctxPath}/system/role/input?roleType=0" data-divid="#layout-01" data-divid="#layout-01">+增加角色</li>
+           @for(role in sroles){
+            <li data-id="1${roleLP.index}" data-pid="1" data-url="${ctxPath}/system/role/input?roleId=${role.roleId}&roleType=0" data-divid="#layout-01">-${role.rolename}</li>
+           @}
+            <li data-id="2" data-pid="0">前台角色</li>
+            <li data-id="20" data-pid="2" data-url="${ctxPath}/system/role/input?roleType=1" data-divid="#layout-01">+增加角色</li>
+            @for(role in uroles){
+            <li data-id="2${roleLP.index}" data-pid="2" data-url="${ctxPath}/system/role/input?roleId=${role.roleId}&roleType=1" data-divid="#layout-01">-${role.rolename}</li>
+            @}
+        </ul>
+       </fieldset>
+    </div>
+    <div style="margin-left:180px; height:99.9%; overflow:hidden;" >
+        <div style="height:100%; overflow:hidden;">
+            <fieldset style="height:100%;">
+                <div id="layout-01"  data-url="${ctxPath}/system/role/input?roleType=0" data-toggle="autoajaxload" style="height:99%; overflow:hidden;">
+
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

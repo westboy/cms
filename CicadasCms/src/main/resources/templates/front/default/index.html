@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>${siteName!}</title>
+</head>
+<body>
+   <#cms_content_list  siteId="${site.siteId}" categoryId="44" target="1" orderBy="1" isHot="0" hasChild="0" size="10"   titleLen="5"   var="content">
+      <br>
+       <a href="${content.url!}">${content.title!}</a>
+      <br>
+   </#cms_content_list>
+
+   <#cms_content_list  siteId="${site.siteId}" categoryId="43" target="1" orderBy="1" isHot="0" hasChild="0" size="5"   titleLen="5"   var="content">
+       <br>
+       <a href="${content.url!}">${content.title!}</a>
+       <br>
+   </#cms_content_list>
+<BR>-------------------------------------<BR>
+   <#cms_category_list  siteId="${site.siteId}" categoryId="0" isNav="0"   var="category">
+       <br>
+       <a href="${category.url!}">${category.categoryName!}</a>
+       <br>
+   </#cms_category_list>
+
+
+</body>
+</html>

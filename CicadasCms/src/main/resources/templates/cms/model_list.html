@@ -1,0 +1,96 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="${ctxPath}/system/cms/model" method="post">
+        <input type="hidden" name="pageSize" value="${model.pageSize!}">
+        <input type="hidden" name="pageCurrent" value="${model.pageNum!}">
+        <div class="bjui-searchBar">
+            <label>模型状态:</label>
+            <select name="status" data-toggle="selectpicker">
+                @if(isEmpty(pojo.status)){
+                <option value="" >所有</option>
+                <option value="1"> 启用</option>
+                <option value="0"> 禁用</option>
+                @}else if(pojo.status){
+                <option value="" >所有</option>
+                <option value="1"  selected> 启用</option>
+                <option value="0"> 禁用 </option>
+                @}else{
+                <option value="" >所有</option>
+                <option value="1"> 启用</option>
+                <option value="0"  selected> 禁用 </option>
+                @}
+            </select>&nbsp;
+            <!--<label>站点:</label>-->
+            <!--<select name="status" data-toggle="selectpicker">-->
+                <!--<option value=""  selected>所有</option>-->
+                <!--<option value="0"> 启用</option>-->
+                <!--<option value="1"> 禁用</option>-->
+            <!--</select>&nbsp;-->
+           <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
+            &nbsp;
+            <a href="${ctxPath}/system/cms/model/input" class="btn btn-green" data-icon="plus" data-toggle="dialog" data-maxable="false" data-resizable="true"  data-width="500" data-height="330" data-id="model-add-tab"  data-title="新增模型">新增模型</a>
+
+            <div class="pull-right">
+                <!--<button type="button" class="btn-blue" data-url="ajaxDone2.html?id={#bjui-selected}" data-toggle="doajax" data-confirm-msg="确定要删除选中项吗？" data-icon="remove" title="可以在控制台(network)查看被删除ID">删除选中行</button>&nbsp;-->
+                <div class="btn-group">
+                    <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown" data-icon="copy">复选框-批量操作<span class="caret"></span></button>
+                    <ul class="dropdown-menu right" role="menu">
+                        <!--<li><a href="book1.xlsx" data-toggle="doexport" data-confirm-msg="确定要导出信息吗？">导出<span style="color: green;">当前页</span></a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <li><a href="${ctxPath}/system/cms/model/delete" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="clientId" data-group="ids">删除<font COLOR="#ff6347">选中</font>行</a></li>
+                        <!--<li><a href="ajaxDone2.html" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="delids" data-group="ids">删除选中</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+            <tr>
+                <th align="center"  width="25">No</th>
+                <th align="center"  width="100">模型名称</th>
+                <th align="center" width="30">数据表名</th>
+                <th align="center"  width="180">描述</th>
+                <th align="center"  width="50">状态</th>
+                <th align="center" width="26" ><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+                <th align="center"  width="50">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(m in model.list){
+            <tr data-id="${mLP.index}">
+                <td align="center">${m.modelId!}</td>
+                <td align="center">${m.modelName!,xss}</td>
+                <td align="center">t_cms_content_${m.tableName!,xss}</td>
+                <td align="center">${m.des!,xss}</td>
+                <td align="center">${m.status?'<span style="font-weight: 500;color:green">启用</span>':'<span style="font-weight: 500;color: red">禁用</span>'}
+                </td>
+                <td  align="center"><input type="checkbox" name="ids" data-toggle="icheck" value="${m.modelId!}"></td>
+                <td  align="center">
+                    <a href="${ctxPath}/system/cms/model/input?id=${m.modelId!}" class="btn btn-green"  data-toggle="dialog" data-maxable="false" data-resizable="false"  data-width="500" data-height="330" data-id="edit-model-tab"  data-title="编辑模型">编辑</a>
+                    <a href="${ctxPath}/system/cms/model/filed?modelId=${m.modelId!}" class="btn btn-blue"  data-toggle="dialog"  data-width="800" data-height="450" data-id="model-filed-tab"   data-title="模型字段">模型字段</a>
+                    <a href="${ctxPath}/system/cms/model/delete?ids=${m.modelId!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删</a>
+                </td>
+            </tr>
+        @}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages">
+        <span>每页&nbsp;</span>
+        <div class="selectPagesize">
+            <select data-toggle="selectpicker" data-toggle-change="changepagesize">
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="120">120</option>
+                <option value="150">150</option>
+            </select>
+        </div>
+        <span>&nbsp;条，共 ${model.total!} 条</span>
+    </div>
+    <div class="pagination-box" data-toggle="pagination" data-total="${model.total!}" data-page-size="30" data-page-current="1">
+    </div>
+</div>

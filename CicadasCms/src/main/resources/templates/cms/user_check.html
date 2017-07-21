@@ -1,0 +1,79 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="${ctxPath}/system/cms/site/userCheck" method="post">
+        <input type="hidden" name="pageSize" value="${model.pageSize!}">
+        <input type="hidden" name="pageCurrent" value="${model.pageNum!}">
+        <div class="bjui-searchBar">
+            <label>用户状态:</label>
+            <select name="status" data-toggle="selectpicker">
+                @if(isEmpty(user.status)){
+                <option value=""  selected>所有</option>
+                <option value="0"> 禁用</option>
+                <option value="1"> 正常 </option>
+                @}else if(!user.status){
+                <option value="">所有</option>
+                <option value="0" selected> 禁用</option>
+                <option value="1"> 正常 </option>
+                @}else{
+                <option value="" >所有</option>
+                <option value="0"> 禁用</option>
+                <option value="1"  selected> 正常 </option>
+                @}
+
+            </select>&nbsp;
+            <label>用户名：</label><input type="text"  value="${user.username!}" name="username" class="form-control" size="10">&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>
+            <div class="pull-right">
+              <input type="checkbox" name="lookupType" value="1" data-toggle="icheck" data-label="追加">
+                &nbsp;
+              <button type="button" class="btn-blue" data-toggle="lookupback" data-lookupid="ids" data-warn="请至少选择一项职业" data-icon="check-square-o">选择选中</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr>
+            <th align="center"  width="25">No</th>
+            <th align="center"  width="50">用户名</th>
+            <th align="center"  width="100">描述</th>
+            <th align="center"  width="80">状态</th>
+            <!--<th align="center">支付方式</th>-->
+            <th align="center" width="150">创建时间</th>
+            <th align="center" width="26" ><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+            <th align="center"  width="60">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for(user in model.list){
+        <tr data-id="${userLP.index}">
+            <td align="center">${user.userId!}</td>
+            <td align="center">${user.username!,xss}</td>
+            <td align="center">${user.des!,xss}</td>
+            <td align="center">${user.status?'正常':'禁用'}</td>
+            <td align="center">${user.createTime!"N/A",dateFormat="yyyy-MM-dd HH:mm:dd"}</td>
+            <td  align="center"><input type="checkbox" name="ids" data-toggle="icheck" value="{userIds:'${user.userId!}', userNames:'${user.username!}'}"></td>
+            <td  align="center">
+                <a href="javascript:;" data-toggle="lookupback" data-args="{userIds:'${user.userId!}', userNames:'${user.username!}'}" class="btn btn-blue" title="选择本项" data-icon="check">选择</a>
+            </td>
+        </tr>
+        @}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages">
+        <span>每页&nbsp;</span>
+        <div class="selectPagesize">
+            <select data-toggle="selectpicker" data-toggle-change="changepagesize">
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="120">120</option>
+                <option value="150">150</option>
+            </select>
+        </div>
+        <span>&nbsp;条，共 ${model.total!} 条</span>
+    </div>
+    <div class="pagination-box" data-toggle="pagination" data-total="${model.total!}" data-page-size="30" data-page-current="1">
+    </div>
+</div>

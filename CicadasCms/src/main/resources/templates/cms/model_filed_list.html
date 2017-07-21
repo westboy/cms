@@ -1,0 +1,84 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="${ctxPath}/system/cms/model/filed?modelId=${pojo.modelId!}" method="post">
+        <input type="hidden" name="pageSize" value="${model.pageSize!}">
+        <input type="hidden" name="pageCurrent" value="${model.pageNum!}">
+        <div class="bjui-searchBar">
+            <!--</select>&nbsp;-->
+            <!--<label>站点:</label>-->
+            <!--<select name="status" data-toggle="selectpicker">-->
+                <!--<option value=""  selected>所有</option>-->
+                <!--<option value="0"> 启用</option>-->
+                <!--<option value="1"> 禁用</option>-->
+            <!--</select>&nbsp;-->
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">刷新数据</a>
+            &nbsp;
+            <a href="${ctxPath}/system/cms/model/filed/input?modelId=${pojo.modelId!}" class="btn btn-green" data-icon="plus" data-toggle="dialog" data-maxable="false" data-resizable="true"  data-width="750" data-height="450" data-id="model-filed-add-tab"  data-title="新增字段">新增字段</a>
+
+            <div class="pull-right">
+                <!--<button type="button" class="btn-blue" data-url="ajaxDone2.html?id={#bjui-selected}" data-toggle="doajax" data-confirm-msg="确定要删除选中项吗？" data-icon="remove" title="可以在控制台(network)查看被删除ID">删除选中行</button>&nbsp;-->
+                <div class="btn-group">
+                    <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown" data-icon="copy">复选框-批量操作<span class="caret"></span></button>
+                    <ul class="dropdown-menu right" role="menu">
+                        <!--<li><a href="book1.xlsx" data-toggle="doexport" data-confirm-msg="确定要导出信息吗？">导出<span style="color: green;">当前页</span></a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <li><a href="${ctxPath}/system/cms/model/filed/delete" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="ids" data-group="ids">删除<font COLOR="#ff6347">选中</font>行</a></li>
+                        <!--<li><a href="ajaxDone2.html" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="delids" data-group="ids">删除选中</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+            <tr>
+                <th align="center"  width="25">No</th>
+                <th align="center"  width="100">字段名称</th>
+                <th align="center"  width="100">字段描述</th>
+                <th align="center" width="70">字段类型</th>
+                <th align="center"  width="70">字段类别</th>
+                <th align="center"  width="70">字段长度</th>
+                <th align="center"  width="180">(类型参数/默认值）</th>
+                <th align="center"  width="50">允许空</th>
+                <th align="center" width="26" ><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+                <th align="center"  width="100">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(f in model.list){
+            <tr data-id="${fLP.index}">
+                <td align="center">${f.filedId!}</td>
+                <td align="center">${f.filedName!,xss}</td>
+                <td align="center">${f.alias!,xss}</td>
+                <td align="center">${printModelFiledClass(f.filedClass)}</td>
+                <td align="center">${f.filedType!,xss}</td>
+                <td align="center">${f.filedLength!,xss}</td>
+                <td align="center">${f.filedValue!"N/A"}</td>
+                <td align="center">${f.notNull?'不允许':'允许'}</td>
+                <td  align="center"><input type="checkbox" name="ids" data-toggle="icheck" value="${f.filedId!}"></td>
+                <td  align="center">
+                    <!--<a href="${ctxPath}/system/cms/model/filed/input?id=${f.filedId!}" class="btn btn-green"  data-toggle="dialog" data-maxable="false" data-resizable="false"  data-width="500" data-height="330" data-id="edit-model-tab"  data-title="编辑模型">编辑</a>-->
+                    <a href="${ctxPath}/system/cms/model/filed/delete?ids=${f.filedId!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删</a>
+                </td>
+            </tr>
+        @}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages">
+        <span>每页&nbsp;</span>
+        <div class="selectPagesize">
+            <select data-toggle="selectpicker" data-toggle-change="changepagesize">
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="120">120</option>
+                <option value="150">150</option>
+            </select>
+        </div>
+        <span>&nbsp;条，共 ${model.total!} 条</span>
+    </div>
+    <div class="pagination-box" data-toggle="pagination" data-total="${model.total!}" data-page-size="30" data-page-current="1">
+    </div>
+</div>

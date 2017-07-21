@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>${title!}</title>
+</head>
+<body>
+<#cms_content_page  siteId="${site.siteId!}"  titleLen="5" page="${page!}"  var="content">
+<br>
+${content.title!}<br>
+----------------------------------------
+<br>
+</#cms_content_page>
+<br>
+<#cms_pagination siteId="${site.siteId!}" categoryId="${category.categoryId!}" page="${page!}"  var="page" >
+    ${page.last}
+    @for( change in page.changePage){
+    @if(!change.isLink){
+    ${change.value!}
+    @}else{
+    ${change.url!}
+    @}
+    @}
+    ${page.next}
+</#cms_pagination>
+<br>
+ceshi：
+<#cms_modelfiled_find siteId="${site.siteId!}"   categoryId="46" modelId="79" filedName="ceshi" param="${param!}"  var="filed">
+     <a href="${filed.url!}">${filed.name!}</a>&nbsp;&nbsp;
+</#cms_modelfiled_find>
+<br>
+hahah：
+<#cms_modelfiled_find siteId="${site.siteId!}"   categoryId="46" modelId="79" filedName="hahah" param="${param!}"  var="filed">
+    <a href="${filed.url!}">${filed.name!}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+</#cms_modelfiled_find>
+<br>
+</body>
+</html>

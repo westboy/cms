@@ -1,0 +1,26 @@
+.subquote {
+	color:#2E7BB8;
+}
+::-moz-selection{ 
+	background:#2E7BB8; color:#fff; 
+}
+::selection { 
+	background:#2E7BB8; color:#fff; 
+}
+a:hover, ul.links li a {
+	color: #2E7BB8; 
+}
+#error {
+	background:transparent url('../img/blue/error.png') right 35px no-repeat;
+}
+#error #pacman {
+
+	background:transparent url('../img/blue/pacman_eats.png') 0 0 no-repeat;
+}
+.pacman_eats {
+	background:transparent url('../img/blue/pacman_eats.png') 0 -207px no-repeat!important;
+}
+input[type="text"]:focus{
+    border:1px solid #2E7BB8;
+    box-shadow:0 0 3px rgba(46, 123, 184, 1);
+}

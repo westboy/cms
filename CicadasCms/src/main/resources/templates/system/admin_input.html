@@ -1,0 +1,110 @@
+<script type="text/javascript">
+    function pic_upload_success(file, data) {
+        var json = $.parseJSON(data)
+        $(this).bjuiajax('ajaxDone', json)
+        if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
+            $('#j_custom_pic').val(json.filename).trigger('validate')
+            $('#j_custom_span_pic').html('<img src="'+ json.filename +'" WIDTH="200" HEIGHT="120"/>')
+        }
+    }
+</script>
+<div class="bjui-pageContent">
+    <form method="post" action="${ctxPath}/system/member/sysUserUpdate" id="j_client_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false"  size="20">
+        <input TYPE="hidden" name="userId" value="${user.userId!}">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+
+                    @if(isEmpty(user)){
+                    <label for="j_username" class="control-label x85">用户名：</label>
+                    <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;remote(${ctxPath}/system/member/sysUsername)"  size="20">
+                    @}else{
+                    <label for="j_username" class="control-label x85">用户名：</label>
+                    <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;"  size="20">
+                    @}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x85">头像：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <div id="j_custom_pic_up" data-toggle="upload" data-uploader="${ctxPath}/upload"
+                             data-file-size-limit="1024000000"
+                             data-file-type-exts="*.jpg;*.png;*.gif;*.mpg"
+                             data-multi="false"
+                             data-on-upload-success="pic_upload_success"
+                             data-icon="cloud-upload"></div>
+                        <input type="hidden" name="avatar" value="${user.avatar!}" id="j_custom_pic">
+                        <span id="j_custom_span_pic">
+                    @if(isNotEmpty(user.avatar)){
+                    <IMG WIDTH="200" HEIGHT="120" src="${user.avatar!}">
+                    @}
+                        </span>
+                    </div>
+                    <br>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if(isEmpty(user)){
+                    <label for="j_password" class="control-label x85">新密码：</label>
+                    <input type="text" name="password" id="j_password" value=""  data-rule="required"  size="20">
+                    @}else{
+                    <label for="j_password" class="control-label x85">密码：</label>
+                    <input type="text" name="password" id="j_password" value=""  size="20">
+                    @}
+
+                </td>
+            </tr>
+            @if(isEmpty(user)){
+            <tr>
+                <td>
+                    <label for="j_password2" class="control-label x85">确认密码：</label>
+                    <input type="text" id="j_password2"  data-rule="确认密码: match(password);"  size="20">
+                </td>
+            </tr>
+            @}
+            @if(shiro.hasRole("superAdmin")){
+            <tr>
+                <td>
+                    <input type="hidden" name="pid" value="${role.roleId!}" >
+                    <label class="control-label x85">用户角色：</label>
+                    <input type="text" data-toggle="lookup" data-url="${ctxPath}/system/member/roleCheck/0" value="${role.rolename!}"  data-rule="required" data-resizable="false" data-maxable="false" name="name" size="20">
+                </td>
+            </tr>
+            @}
+            <tr>
+                <td>
+                    <label for="j_status" class="control-label x85"  data-toggle="selectpicker">用户状态：</label>
+                    <select name="status" id="j_status"  data-rule="required"  data-toggle="selectpicker">
+                        @if(isEmpty(user)){
+                        <option value="1">正常</option>
+                        <option value="0">禁用</option>
+                        @}else if(!user.status){
+                        <option value="1">正常</option>
+                        <option value="0" selected>禁用</option>
+                        @}else{
+                        <option value="1" selected>正常</option>
+                        <option value="0">禁用</option>
+                        @}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_des" class="control-label x85">描述：</label>
+                    <textarea  name="des" id="j_des"  data-rule="required" ROWS="3" COLS="20" >${user.des!,xss}</textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    </div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+        <li><button type="submit" class="btn-default"  data-icon="save">保存</button></li>
+    </ul>
+</div>

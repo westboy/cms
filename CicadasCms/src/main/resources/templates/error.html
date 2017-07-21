@@ -1,0 +1,42 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="zh"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="zh"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="zh"> <![endif]-->
+<!--[if gt IE 8]><!--> 
+<html class="no-js" lang="zh"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	
+	<title>${status!} - ${error!}</title>
+	<meta name="description" content="${status!}，${message!}">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	
+	<!-- CSS: implied media=all -->
+
+	<link rel="stylesheet" href="${ctxPath}/static/common/error/css/style.css">
+	@if(status==404){
+	<link rel="stylesheet" href="${ctxPath}/static/common/error/css/404.css">
+	@}else if(status==500){
+	<link rel="stylesheet" href="${ctxPath}/static/common/error/css/500.css">
+	@}else if(status==401){
+	<link rel="stylesheet" href="${ctxPath}/static/common/error/css/401.css">
+	@}else{
+	<link rel="stylesheet" href="${ctxPath}/common/error/css/blue.css">
+	@}
+	<script src="${ctxPath}/static/common/jquery/jquery-1.6.2.min.js"></script>
+	<script src="${ctxPath}/static/common/error/js/script.js"></script>
+</head>
+<body>
+	<div id="error-container">
+		<div id="error">
+			<div id="pacman"></div>
+		</div>		
+		<div>
+			<div  style="padding:25px 10px 0px 10px">
+				<p class="no-top" style="text-align: center;font-size: 30px;padding: 5PX;">${status!} - ${!devModel?error!:message!}</p>
+				<p class="no-top" style="text-align: center;font-size: 18px;padding: 5PX;">${timestamp!,dateFormat="yyyy-MM-dd HH:mm:ss"}</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

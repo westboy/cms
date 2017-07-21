@@ -1,0 +1,109 @@
+<script type="text/javascript">
+    //上传图片完成回调
+    function silder_pic_upload_success(file, data,$upload) {
+        var json = $.parseJSON(data)
+        if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
+            $upload.next().val(json.filename).next().html('<img src="'+ json.filename +'" width="80" />')
+        }
+    }
+    //删除回调
+    $('#silder').on('afterdelete.bjui.tabledit', function(e) {
+        var $tbody = $(e.relatedTarget)
+        console.log('你删除了一条数据，还有['+ $tbody.find('> tr').length +']条数据！')
+    })
+</script>
+<div class="bjui-pageHeader">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="${ctxPath}/system/cms/ad/silder" method="post">
+        <input type="hidden" name="pageSize" value="${model.pageSize!}">
+        <input type="hidden" name="pageCurrent" value="${model.pageNum!}">
+        <div class="bjui-searchBar">
+            <label>状态:</label>
+            <select name="status" data-toggle="selectpicker">
+                @if(isEmpty(pojo.status)){
+                <option value=""  selected>所有</option>
+                <option value="0"> 禁用</option>
+                <option value="1"> 正常 </option>
+                @}else if(!pojo.status){
+                <option value="">所有</option>
+                <option value="0" selected> 禁用</option>
+                <option value="1"> 正常 </option>
+                @}else{
+                <option value="">所有</option>
+                <option value="0"> 禁用</option>
+                <option value="1"  selected> 正常 </option>
+                @}
+            </select>
+            &nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true)" data-icon="undo">清空查询</a>&nbsp;
+            <button type="button" class="btn-green" data-toggle="tableditadd" data-target="#silder" data-num="1" data-icon="plus">添加幻灯</button>&nbsp;
+         </div>
+    </form>
+</div>
+<div class="bjui-pageContent tableContent">
+    <form  id="silder_form" class="pageForm" data-toggle="validate" method="post">
+        <table id="silder" class="table table-bordered table-hover table-top" data-toggle="tabledit" data-initnum="0" data-action="${ctxPath}/system/cms/ad/silder/save" data-single-noindex="true">
+            <thead>
+            <tr style="text-align: center">
+                <th align="center"  title="No"></th>
+                <th align="center"   title="广告名称"><input type="text" name="sildeName" data-rule="required"  size="5"></th>
+                <th  align="center"  title="友链地址"><input type="text" name="sildeUrl" data-rule="url"  size="5"></th>
+                <th   align="center" title="排序"><input type="text" name="sortId"  data-rule="required" value="" size="3"></th>
+                <th  align="center"  title="状态"><select name="status" data-toggle="selectpicker" data-rule="required"><option value="true">可用</option><option value="false">禁用</option></select></th>
+                <th   align="center" title="广告图片">
+                    <div id="fileInput-[#index#]"
+                         data-toggle="upload"
+                         data-uploader="${ctxPath}/upload"
+                         data-file-size-limit="1024000000"
+                         data-file-type-exts="*.jpg;*.png;*.gif;"
+                         data-multi="false"
+                         data-on-upload-success="silder_pic_upload_success"></div>
+                    <input type="hidden" name="img"><span class="pic-box"></span>
+                </th>
+                <th  align="center" title="操作" data-addtool="false" width="100">
+                    <a href="javascript:;" class="btn btn-green" data-toggle="dosave">保存</a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @for(silde in model.list){
+            <tr data-id="${silde.id!}">
+                <td align="center" data-noedit="true">${silde.id!}</td>
+                <td align="center"   >${silde.sildeName!}</td>
+                <td  align="center" data-val="${silde.sildeUrl!}"></td>
+                <td  align="center" >${silde.sortId!}</td>
+                <td align="center" data-val="${silde.status!}"></td>
+                <td align="center">
+                    @if(isNotEmpty(silde.img)){
+                    <span class="pic-box" style="margin-top:10px;">
+                    <img src="${silde.img!}" height="25" width="80">
+                    </span>
+                    @}
+                </td>
+                <td  align="center"  data-noedit="true">
+                    <button type="button" class="btn-green" data-toggle="doedit">编辑</button>
+                    <a href="${ctxPath}/system/cms/ad/silder/delete?ids=${silde.id!}" class="btn btn-red row-del" data-confirm-msg="确定要删除该行信息吗？">删</a>
+                </td>
+            </tr>
+            @}
+
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages">
+        <span>每页&nbsp;</span>
+        <div class="selectPagesize">
+            <select data-toggle="selectpicker" data-toggle-change="changepagesize">
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="120">120</option>
+                <option value="150">150</option>
+            </select>
+        </div>
+        <span>&nbsp;条，共 ${model.total!} 条</span>
+    </div>
+    <div class="pagination-box" data-toggle="pagination" data-total="${model.total!}" data-page-size="30" data-page-current="1">
+    </div>
+</div>

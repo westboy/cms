@@ -1,0 +1,25 @@
+<div class="bjui-pageContent">
+    <table data-toggle="tablefixed" data-width="100%">
+        <thead>
+        <tr>
+            <th data-order-field="id">No.</th>
+            <th data-order-field="name">角色名称</th>
+            <th data-order-field="note">描述</th>
+            <th width="74">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for(role in list){
+        <tr>
+            <td>${role.roleId!}</td>
+            <td>${role.rolename!,xss}</td>
+            <td>${role.description!,xss}</td>
+            <td>
+                <!--<a href="javascript:;" data-toggle="lookupback" data-args="{pid:'${role.roleId!}', name:'${role.description!}'}" class="btn btn-blue" title="选择本项" data-icon="check">选择</a>-->
+                <a href="javascript:;" data-toggle="lookupback" data-args="{pid:'${role.roleId!}', name:'${role.rolename!}'}" class="btn btn-blue" title="选择本项" data-icon="check">选择</a>
+            </td>
+        </tr>
+        @}
+        </tbody>
+    </table>
+</div>

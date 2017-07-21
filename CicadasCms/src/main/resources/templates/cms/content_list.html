@@ -1,0 +1,123 @@
+<div class="bjui-pageHeader">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="${ctxPath}/system/cms/content/page?categoryId=${pojo.categoryId!}" method="post">
+        <input type="hidden" name="pageSize" value="${model.pageSize!}">
+        <input type="hidden" name="pageCurrent" value="${model.pageNum!}">
+        <input type="hidden" name="orderField" value="${pojo.orderField!}">
+        <input type="hidden" name="orderDirection" value="${pojo.orderDirection!}">
+        <div class="bjui-searchBar">
+            <label>状态:</label>
+            <select name="status" data-toggle="selectpicker">
+                @if(isEmpty(pojo.status)){
+                <option value=""  selected>所有</option>
+                <option value="-1"> 删除</option>
+                <option value="0"> 草稿</option>
+                <option value="1"> 发布 </option>
+                @}else if(pojo.status==0){
+                <option value="-1"> 删除</option>
+                <option value="0" selected> 草稿</option>
+                <option value="1"> 发布 </option>
+                @}else if(pojo.status==1){
+                <option value="-1"> 删除</option>
+                <option value="0"> 审核</option>
+                <option value="1"  selected> 发布 </option>
+                @}else if(pojo.status==-1){
+                <option value="-1"   selected> 删除</option>
+                <option value="0"> 草稿</option>
+                <option value="1"> 发布 </option>
+                @}
+            </select>&nbsp;
+            <label>标题：</label><input type="text"  value="${pojo.title!}" name="title" class="form-control" size="15">&nbsp;
+            <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
+            <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">刷新全部</a>
+            &nbsp;
+            @if(isNotEmpty(pojo.categoryId)){
+            <a href="${ctxPath}/system/cms/content/input?categoryId=${pojo.categoryId!}" class="btn btn-green" data-icon="plus" data-toggle="ajaxload" data-target="#layout-content" >发布内容</a>
+            <!--<a href="${ctxPath}/system/cms/content/input?categoryId=${content.categoryId!}" class="btn btn-green"  data-toggle="dialog"   data-width="850" data-height="650" data-id="post-content" data-icon="plus"  data-title="发布内容">发布内容</a>-->
+
+            @}
+            <div class="pull-right">
+                <!--<button type="button" class="btn-blue" data-url="ajaxDone2.html?id={#bjui-selected}" data-toggle="doajax" data-confirm-msg="确定要删除选中项吗？" data-icon="remove" title="可以在控制台(network)查看被删除ID">删除选中行</button>&nbsp;-->
+                <div class="btn-group">
+                    <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown" data-icon="copy">复选框-批量操作<span class="caret"></span></button>
+                    <ul class="dropdown-menu right" role="menu">
+                        <!--<li><a href="book1.xlsx" data-toggle="doexport" data-confirm-msg="确定要导出信息吗？">导出<span style="color: green;">当前页</span></a></li>-->
+                        <!--<li class="divider"></li>-->
+                        <li><a href="${ctxPath}/system/cms/content/delete" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="ids" data-group="ids">删除<span style="color:red;">选中</span></a></li>
+                        <!--<li><a href="ajaxDone2.html" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="delids" data-group="ids">删除选中</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageContent tableContent">
+    <table data-toggle="tablefixed" data-width="100%" data-nowrap="true" class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+            <tr>
+                <th align="center" data-order-field="content_id" width="20">No</th>
+                <th align="center"  width="150">标题</th>
+                <th align="center" data-order-field="view_num" width="30">浏览</th>
+                <th align="center" data-order-field="inputdate" width="50">发布日期</th>
+                <th align="center"  width="50">状态</th>
+                <!--<th align="center"  width="50">排序</th>-->
+                <th align="center" width="26" ><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+                <th align="center"  width="50">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(content in model.list){
+            <tr data-id="${contentLP.index}">
+                <td align="center">${content.contentId!,xss}</td>
+                <td align="left" style="padding-left: 5px">
+                    @if(isNotEmpty(content.thumb)){
+                    <span style="color: red;padding: 0;margin: 0">[图]</span>
+                    @}
+                    <a target="_blank" href="${ctxPath}/front/${content.siteId}/${content.categoryId}/${content.contentId}">${content.title!,xss}</a>
+                </td>
+                <td align="center">${content.viewNum!,xss}</td>
+                <td align="center">${content.inputdate!"N/A",dateFormat="yyyy/MM/dd HH:mm"}</td>
+                <td align="center">
+                    @if(content.status==-1){
+                    <span style="font-weight: 500;color: red">回收站</span>
+                    @}else if(content.status==0){
+                    <span style="font-weight: 500;color:#4A8CDB"> 草稿</span>
+                    @}else if(content.status==1){
+                    <span style="font-weight: 500;color:green"> 发布</span>
+                    @}
+
+                </td>
+                <!--<td align="center"></td>-->
+                <td  align="center"><input type="checkbox" name="ids" data-toggle="icheck" value="${content.contentId!}"></td>
+                <td  align="center">
+                    @if(content.status==-1){
+                    <a href="${ctxPath}/system/cms/content/recovery?ids=${content.contentId!}" class="btn btn-green"  data-toggle="doajax" data-confirm-msg="确定恢复此条信息？">恢复</a>
+                    <a href="${ctxPath}/system/cms/content/delete?ids=${content.contentId!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定彻底删除此条信息？">删</a>
+                    @}else if(content.status==1){
+                    <a href="${ctxPath}/system/cms/content/input?categoryId=${content.categoryId!}&contentId=${content.contentId!}" class="btn btn-green"  data-toggle="ajaxload" data-target="#layout-content"    data-title="编辑">编辑</a>
+                    <a href="${ctxPath}/system/cms/content/recovery?ids=${content.contentId!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要放入回收站？">删</a>
+                    @}else{
+                    <a href="${ctxPath}/system/cms/content/input?categoryId=${content.categoryId!}&contentId=${content.contentId!}" class="btn btn-blue"  data-toggle="ajaxload" data-target="#layout-content"  data-title="编辑">编辑</a>
+                    <a href="${ctxPath}/system/cms/content/delete?ids=${content.contentId!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定彻底删除此条信息？">删</a>
+                    @}
+                </td>
+            </tr>
+        @}
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <div class="pages">
+        <span>每页&nbsp;</span>
+        <div class="selectPagesize">
+            <select data-toggle="selectpicker" data-toggle-change="changepagesize">
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="120">120</option>
+                <option value="150">150</option>
+            </select>
+        </div>
+        <span>&nbsp;条，共 ${model.total!} 条</span>
+    </div>
+    <div class="pagination-box" data-toggle="pagination" data-total="${model.total!}" data-page-size="30" data-page-current="1">
+    </div>
+</div>

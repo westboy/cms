@@ -1,0 +1,160 @@
+<script type="text/javascript">
+
+    function pic_title_upload_success(file, data) {
+        var json = $.parseJSON(data)
+        $(this).bjuiajax('ajaxDone', json)
+        if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
+            $('#j_title_pic').val(json.filename).trigger('validate')
+            $('#j_title_span_pic').html('<img src="'+ json.filename +'" WIDTH="200" HEIGHT="120"/>')
+        }
+    }
+
+    function pic_content_upload_success(file, data) {
+        var json = $.parseJSON(data)
+        $(this).bjuiajax('ajaxDone', json)
+        if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
+            $('#j_content_pic').val(json.filename).trigger('validate')
+            $('#j_content_span_pic').html('<img src="'+ json.filename +'" WIDTH="200" HEIGHT="120"/>')
+        }
+    }
+
+    //选择事件
+    function P_NodeCheck(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj(treeId),
+            nodes = zTree.getCheckedNodes(true)
+        var ids = '', names = ''
+
+        for (var i = 0; i < nodes.length; i++) {
+            ids   += ','+ nodes[i].id
+            names += ','+ nodes[i].name
+        }
+        if (ids.length > 0) {
+            ids = ids.substr(1)
+        }
+        $("#categoryIds").val(ids);
+    }
+    //单击事件
+    function P_NodeClick(event, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj(treeId)
+
+        zTree.checkNode(treeNode, !treeNode.checked, true, true)
+
+        event.preventDefault()
+    }
+</script>
+<div class="bjui-pageContent">
+    <form method="post" action="${ctxPath}/system/cms/topic/save" id="j_topic_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
+        <input TYPE="hidden" name="topicId" value="${topic.topicId!}">
+        <input TYPE="hidden" name="siteId" value="${session.SysUser.siteId!}">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label for="topicName" class="control-label x85">专题名称：</label>
+                    <input type="text" name="topicName" id="topicName" value="${topic.topicName!,xss}" placeholder="专题名称" data-rule="required;" size="25">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="shortName" class="control-label x85">专题简称：</label>
+                    <input type="text" name="shortName" id="shortName" value="${topic.shortName!,xss}" placeholder="专题简称" data-rule="required;"  size="25">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x85">标题图：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <div id="j_title_pic_up" data-toggle="upload" data-uploader="${ctxPath}/upload"
+                             data-file-size-limit="1024000000"
+                             data-file-type-exts="*.jpg;*.png;*.gif;*.mpg"
+                             data-multi="false"
+                             data-on-upload-success="pic_title_upload_success"
+                             data-icon="cloud-upload"></div>
+                        <input type="hidden" name="titleImg" value="${topic.titleImg!}" id="j_title_pic">
+                        <span id="j_title_span_pic">
+                          @if(isNotEmpty(topic.titleImg)){
+                          <IMG WIDTH="300" HEIGHT="120"  style="margin: 5px 0 5px 0" src="${topic.titleImg!}">
+                          @}
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x85">内容图：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <div id="j_content_pic_up" data-toggle="upload" data-uploader="${ctxPath}/upload"
+                             data-file-size-limit="1024000000"
+                             data-file-type-exts="*.jpg;*.png;*.gif;*.mpg"
+                             data-multi="false"
+                             data-on-upload-success="pic_content_upload_success"
+                             data-icon="cloud-upload"></div>
+                        <input type="hidden" name="contentImg" value="${topic.contentImg!}" id="j_content_pic">
+                        <span id="j_content_span_pic">
+                         @if(isNotEmpty(topic.contentImg)){
+                          <IMG WIDTH="300" HEIGHT="120"  style="margin: 5px 0 5px 0" src="${topic.contentImg!}">
+                         @}
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="control-label x85">包含栏目：</label>
+                    <ul id="j_select_categoryIds" style="margin-left: 15%" class="ztree" data-toggle="ztree" data-expand-all="false" data-check-enable="true" data-on-check="P_NodeCheck" data-on-click="P_NodeClick">
+                        ${TopicCatagoryOut("1","0",topic.categoryIds!)}
+                    </ul>
+                    <input type="hidden" name="categoryIds" id="categoryIds" size="100">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="topic_tpl" class="control-label x85">专题模板：</label>
+                    <input type="text" name="topicTpl" id="topic_tpl" value="${topic.topicTpl!,xss}" placeholder="专题模板" data-rule="required;"  size="25">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="sort_id" class="control-label x85">排序：</label>
+                    <input type="text" name="sortId" id="sort_id" value="${topic.sortId!,xss}" placeholder="排序" data-rule="required;"  size="25">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_status" class="control-label x85"  data-toggle="selectpicker">是否推荐：</label>
+                    <select name="status" id="j_status"  data-rule="required"  data-toggle="selectpicker">
+                        @if(isEmpty(topic.isRecommend)){
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                        @}else if(!topic.isRecommend){
+                        <option value="1">是</option>
+                        <option value="0" selected>否</option>
+                        @}else{
+                        <option value="1" selected>是</option>
+                        <option value="0">否</option>
+                        @}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="keywords" class="control-label x85">关键字：</label>
+                    <input type="text" name="keywords" id="keywords" value="${topic.keywords!,xss}" placeholder="关键字" data-rule="required;"  size="25">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_des" class="control-label x85">描述：</label>
+                    <textarea  name="description" id="j_des"  data-rule="required" ROWS="3" COLS="25" >${topic.description!,xss}</textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    </div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+        <li><button type="submit" class="btn-default"  data-icon="save">保存</button></li>
+    </ul>
+</div>

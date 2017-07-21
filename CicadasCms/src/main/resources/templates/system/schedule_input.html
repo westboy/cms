@@ -1,0 +1,65 @@
+<div class="bjui-pageContent">
+    <form method="post" action="${ctxPath}/system/schedule/save" id="j_schedule_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
+        <input TYPE="hidden" name="id" value="${pojo.id!}">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label for="jobName" class="control-label x85">任务名称：</label>
+                    <input type="text" name="jobName" id="jobName" value="${pojo.jobName!}" placeholder="任务名称" data-rule="required;"  size="25" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_group" class="control-label x85">任务分组：</label>
+                    <input type="text" name="jobGroup" id="j_group" value="${pojo.jobGroup!,xss}" data-rule="required;"   placeholder="任务分组"  size="25">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_cronExpression" class="control-label x85">cron表达式：</label>
+                    <input type="text" name="cronExpression" id="j_cronExpression" value="${pojo.cronExpression!,xss}" placeholder="cron表达式" data-rule="required"   size="25">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_beanClass"  class="control-label x85">类路径：</label>
+                    <input type="text"  data-rule="required;"  id="j_beanClass"  name="beanClass"   value="${pojo.beanClass!}" placeholder="类路径"  size="25">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_methodName"  class="control-label x85">方法名：</label>
+                    <input type="text" id="j_methodName"  data-rule="required;"   name="methodName"   placeholder="方法名"   value="${pojo.methodName!}"  size="25">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_status" class="control-label x85"  data-toggle="selectpicker">是否同步：</label>
+                    <select name="isConcurrent" id="j_status"  data-rule="required">
+                        @if(isNotEmpty(pojo.isConcurrent)&&pojo.isConcurrent!="1"){
+                        <option value="1">同步</option>
+                        <option value="0" selected>不同步</option>
+                        @}else{
+                        <option value="1" selected>同步</option>
+                        <option value="0">不同步</option>
+                        @}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_mobile" class="control-label x85">描述：</label>
+                    <textarea name="description" id="j_mobile" value="${pojo.description!,xss}"  rows="7" cols="25"  placeholder="描述">${pojo.description!}</textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    </div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+        <li><button type="submit" class="btn-default"  data-icon="save">保存</button></li>
+    </ul>
+</div>

@@ -1,0 +1,102 @@
+<style>
+
+    td {
+        border-top: 1px solid #ddd;
+        line-height: 25px;
+        padding: 5px 5px 5px 7px;
+    }
+    .point{
+        color: #0099CC;
+        font-weight: bold;
+    }
+</style>
+<script type="text/javascript">
+
+    //选择事件
+    function P_NodeCheck(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj(treeId),
+            nodes = zTree.getCheckedNodes(true)
+        var ids = '', names = ''
+
+        for (var i = 0; i < nodes.length; i++) {
+            ids   += ','+ nodes[i].id
+            names += ','+ nodes[i].name
+        }
+        if (ids.length > 0) {
+            ids = ids.substr(1)
+        }
+        $("#permissionId").val(ids);
+    }
+    //单击事件
+    function P_NodeClick(event, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj(treeId)
+
+        zTree.checkNode(treeNode, !treeNode.checked, true, true)
+
+        event.preventDefault()
+    }
+    </script>
+<div class="bjui-pageContent">
+    <form method="post" action="${ctxPath}/system/role/save" id="j_client_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
+        <input TYPE="hidden" name="roleId" value="${role.roleId!}">
+        <input TYPE="hidden" name="roleType" value="${roleType!}">
+        <table cellspacing="1" cellpadding="6" border="0" width="100%">
+            <tbody>
+            <tr class="point" >
+                <td colspan="3"><a>角色信息（${roleType==0?'系统角色':'用户角色'}）</a></td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_username" class="control-label x85">角色标识：</label>
+                    <input type="text" name="rolename" id="j_username" value="${role.rolename!,xss}" placeholder="请填写角色名称！" data-rule="required" size="
+20" >（使用方法:Controller方法前加${'@'}RequiresRoles("权限标识")注解,建议使用英文字母表示！）
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_linkman" class="control-label x85">角色描述：</label>
+                    <TEXTAREA id="j_linkman" placeholder="请填写角色描述！" name="description"  rows="4" cols="30" data-rule="required" >${role.description!,xss}</TEXTAREA>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table  width="100%" cellspacing="1" cellpadding="6" border="0">
+            <tbody>
+            <tr class="point">
+                <td colspan="3"><a>角色权限</a>
+                    <!--<input type="checkbox" class="checkboxCtrl" data-group="psId" data-toggle="icheck"  data-label="全选">-->
+                </td>
+            </tr>
+            <tr>
+                <td valign="middle" width="8%" >
+                    <label class="control-label x85">权限：</label>
+                </td>
+                <td valign="middle" align="left">
+                    <ul id="j_select_permission" class="ztree" data-toggle="ztree" data-expand-all="false" data-check-enable="true" data-on-check="P_NodeCheck" data-on-click="P_NodeClick">
+                        @for(permission in permissions){
+                        ${PermissionOut(permission.permissionId,role.roleId!0)}
+                        @}
+                    </ul>
+                    <input type="hidden" name="permissionId" id="permissionId" size="100">
+                </td>
+            </tr>
+
+
+            </tbody></table>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        @if(isEmpty(role.roleId)){
+        <li><button type="submit" class="btn-default"  data-icon="save">保存</button></li>
+        @}else{
+        <li><button onclick="del(this)" type="button" class="btn-close" data-icon="close">删除</button></li>
+        <li><button type="submit" class="btn-default"  data-icon="save">更新</button></li>
+        @}
+    </ul>
+</div>
+<script>
+    function del(obj) {
+        $(obj).bjuiajax('doAjax', {url:'${ctxPath}/system/role/delete?roleId=${role.roleId!}',confirmMsg:'确定要删除该行信息吗？'});
+    }
+</script>

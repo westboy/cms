@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    function do_open_layout11(event, treeId, treeNode) {
+        if (treeNode.isParent) {
+            var zTree = $.fn.zTree.getZTreeObj(treeId)
+
+            zTree.expandNode(treeNode)
+        }
+        $(event.target).bjuiajax('doLoad', {url:treeNode.url, target:treeNode.divid})
+
+        event.preventDefault()
+    }
+</script>
+<div class="bjui-pageContent">
+    <div style="float:left; width:250px; height:100%; overflow:auto;">
+        <fieldset  style="width:240px;  min-height:99.9%;height:auto;padding: 0px;margin: 0">
+        <ul id="category-tree" class="ztree" data-toggle="ztree" data-expand-all="true" data-on-click="do_open_layout11">
+            <!--输出分类tree列表-->
+            ${TreeCategoryOut(0,session.SysUser.siteId!0)}
+            <li data-id="10" data-pid="0" data-faicon="plus" data-url="${ctxPath}/system/cms/category/input" data-divid="#layout-11">增加栏目</li>
+
+        </ul>
+        </fieldset>
+    </div>
+    <div style="margin-left:180px; height:99.9%; overflow:hidden;" >
+        <div style="height:100%; overflow:hidden;">
+            <fieldset style="height:100%;">
+                <div id="layout-11"  data-url="${ctxPath}/system/cms/category/input" data-toggle="autoajaxload" style="height:99%; overflow:hidden;">
+
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

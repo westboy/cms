@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link href="${ctxPath}/static/front/chuangke/css/common.css" type="text/css" rel="stylesheet" />
+		<link href="${ctxPath}/static/front/chuangke/css/style.css" type="text/css" rel="stylesheet" />
+		<link href="${ctxPath}/static/front/chuangke/css/animate.min.css" type="text/css" rel="stylesheet" />
+		<script src="${ctxPath}/static/front/chuangke/js/jquery-1.8.3.min.js"></script>
+		<script src="${ctxPath}/static/front/chuangke/js/jquery.SuperSlide.2.1.1.js"></script>
+		<script src="${ctxPath}/static/front/chuangke/js/imgscroll.js"></script>
+		<script src="${ctxPath}/static/front/chuangke/js/plugin.js"></script>
+		<script src="${ctxPath}/static/front/chuangke/js/jquery.pagination.min.js"></script>
+		<script src="${ctxPath}/static/front/chuangke/js/Browser.js"></script>
+	</head>
+
+	<body>
+		<div class="container">
+			<header>
+				<div class="center width1200">
+					<div>
+						<a href="${ctxPath}/"><img src="${ctxPath}/static/front/chuangke/img/logo.png"></a>
+						<nav>
+							<a href="${ctxPath}/" class="active">首页</a>
+							<a href="#">学习</a>
+							<a href="#">活动大赛</a>
+							<a href="zone.html">创客空间</a>
+						</nav>
+					</div>
+					<a href="index.html" class="login hide">
+						<img src="${ctxPath}/static/front/chuangke/img/login.png" /> 请登录
+					</a>
+					<a href="index.html" class="login hide">
+						<img src="${ctxPath}/static/front/chuangke/img/news.png" />
+					</a>
+				</div>
+			</header>
+			<div class="banner">
+				<div class="banner_container">
+					<div class="center width1200">
+						<div class="login_win">
+							<div class="login_container">
+								<form action="">
+									<div class="login_tit">
+										登录
+									</div>
+									<label class="user">
+										<img src="${ctxPath}/static/front/chuangke/img/user.png"/><input type="text" placeholder="用户名/学号/手机号/邮箱"/>
+									</label>
+									<label class="psd">
+										<img src="${ctxPath}/static/front/chuangke/img/password.png"/><input type="password" placeholder="请输入密码"/>
+									</label>
+									<label class="yzm">
+										<input type="text" placeholder="请输入验证码" />
+										<span>这里验证码</span>
+									</label>
+									<label class="check">
+										<input type="checkbox"/><span>记住密码</span>
+									</label>
+									<img src="${ctxPath}/static/front/chuangke/img/btn.png" style="display: none;"/>
+									<img src="${ctxPath}/static/front/chuangke/img/btn_act.png" style="display: none;"/>
+									<button type="submit"></button>
+								</form>
+								<div class="user_panel" style="display: none;">
+									<div class="login_tit">
+										登录成功
+									</div>
+									<a class="go_ucenter">
+										<img src="${ctxPath}/static/front/chuangke/img/touxiang.png" />
+										<span>个人中心</span>
+									</a>
+									<a>
+										<img src="${ctxPath}/static/front/chuangke/img/panel_news.png" />您有新的消息
+									</a>
+									<span style="display: none;">
+										<img src="${ctxPath}/static/front/chuangke/img/panel_nonews.png"/>暂无消息哦~
+									</span>
+									<img src="${ctxPath}/static/front/chuangke/img/logout.png" style="display: none;"/>
+									<img src="${ctxPath}/static/front/chuangke/img/logout_active.png" style="display: none;"/>
+									<button></button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="center width1200 content_box">
+				<div class="content content1">
+					<div class="left_con slideTxtBox">
+						<div class="con_tit">
+							<#cms_category  categoryId="45" isParent="0" var="bean">
+							<div>
+								<img src="${ctxPath}/static/front/chuangke/img/c_1_l.png" />${bean.categoryName!}
+								<div class="hd">
+									<ul>
+									<#cms_category_list  siteId="${site.siteId}" categoryId="45" isNav="0"   var="bean">
+									<li>${bean.categoryName!}</li>
+									</#cms_category_list>
+									</ul>
+								</div>
+
+							</div>
+							<a href="${bean.url!}" class="for_more"></a>
+							</#cms_category>
+						</div>
+						<div class="bd">
+							<ul>
+								<!--"_src"为真实图片地址，旨在解决图片加载慢（http://www.superslide2.com/otherDemo/T2.5/switchLoad.html）-->
+								<a><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"></a>
+
+								<ul>
+								<#cms_content_list  siteId="${site.siteId}" categoryId="46" target="1" orderBy="6" isHot="0" hasChild="0" size="7" isPic="1"   titleLen="15"   var="content">
+									<li>
+										<span><mark>新闻</mark><a href="${content.url!}" target="_blank">${content.title!}</a></span><time>${content.inputdate!,dateFormat="MM/dd"}</time>
+									</li>
+								</#cms_content_list>
+								</ul>
+							</ul>
+							<ul>
+								<a><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"></a>
+								<ul>
+									<#cms_content_list  siteId="${site.siteId}" categoryId="47" target="1" orderBy="6" isHot="0" hasChild="0" size="7"   titleLen="15"   var="content">
+									<li>
+										<span><mark>新闻</mark><a href="${content.url!}" target="_blank">${content.title!}</a></span><time>${content.inputdate!,dateFormat="MM/dd"}</time>
+									</li>
+									</#cms_content_list>
+								</ul>
+							</ul>
+							<ul>
+								<a><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"></a>
+								<ul>
+									<#cms_content_list  siteId="${site.siteId}" categoryId="50" target="1" orderBy="6" isHot="0" hasChild="0" size="7"   titleLen="15"   var="content">
+										<li>
+											<span><mark>新闻</mark><a href="${content.url!}" target="_blank">${content.title!}</a></span><time>${content.inputdate!,dateFormat="MM/dd"}</time>
+										</li>
+									</#cms_content_list>
+								</ul>
+							</ul>
+						</div>
+					</div>
+					<div class="right_con">
+						<div class="con_tit">
+							<#cms_category  categoryId="49" isParent="0" var="bean">
+							<div>
+								<img src="${ctxPath}/static/front/chuangke/img/c_1_r.png" />${bean.categoryName!}
+							</div>
+
+							<a class="more" HREF="${bean.url!}"></a>
+							</#cms_category>
+						</div>
+						<div class="box">
+							<ul class="box_li">
+
+								<#cms_content_list  siteId="${site.siteId}" categoryId="49" target="1" orderBy="6" isHot="0" hasChild="0" size="7"   titleLen="15"   var="content">
+								<li>
+									<span><a href="${content.url!}" target="_blank">${content.title!}</a></span><time>${content.inputdate!,dateFormat="MM/dd"}</time>
+								</li>
+								</#cms_content_list>
+							</ul>
+							<ul class="sta_stage">
+								<li>
+									<div>
+										<p>注册</p>
+										<p>用户数</p>
+									</div>
+									<section><span>10086</span></section>
+								</li>
+								<li>
+									<div>
+										<p>平台</p>
+										<p>使用量</p>
+									</div>
+									<section><span>10086</span></section>
+								</li>
+								<li>
+									<div>
+										<p>资源</p>
+										<p>使用量</p>
+									</div>
+									<section><span>10086</span></section>
+								</li>
+								<li>
+									<div>
+										<p>作品</p>
+										<p>上传数</p>
+									</div>
+									<section><span>10086</span></section>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!--第二部分-->
+				<div class="content content2">
+					<div class="left_con slideTxtBox">
+						<div class="con_tit">
+							<div>
+								<img src="${ctxPath}/static/front/chuangke/img/c_2_l.png" />热门课程
+								<div class="hd">
+									<ul>
+										<li>3D打印</li>
+										<li>机器人编程</li>
+										<li>手工制作</li>
+										<li>3D模型</li>
+									</ul>
+								</div>
+							</div>
+							<a class="for_more"></a>
+						</div>
+						<div class="bd">
+							<ul>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>1</span>
+									</div>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>2</span>
+									</div>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>3</span>
+									</div>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img src="${ctxPath}/static/front/chuangke/img/blank.png" _src="${ctxPath}/static/front/chuangke/image/content1.png"/><i></i></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>4</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="right_con">
+						<div class="con_tit">
+							<div>
+								<img src="${ctxPath}/static/front/chuangke/img/c_2_r.png" />学校资源贡献榜
+							</div>
+							<a class="more"></a>
+						</div>
+						<div class="box">
+							<ul>
+								<li class="num1"><mark>1</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li class="num1"><mark>2</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li class="num1"><mark>3</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li><mark>4</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li><mark>5</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li><mark>6</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li><mark>7</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li><mark>8</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li><mark>9</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li><mark>10</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!--第三部分-->
+				<div class="content content3">
+					<div class="left_con">
+						<div class="con_tit">
+							<div>
+								<img src="${ctxPath}/static/front/chuangke/img/c_3_l.png" />创客活动
+							</div>
+							<a class="for_more"></a>
+						</div>
+						<ul>
+							<!--
+								<i class="enroll"></i> 报名中
+								<i class="ing"></i>	进行中
+								<i class="ed"></i> 已结束
+							-->
+							<li>
+								<a href="#">
+									<label><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="image/content1.png"/><i class="enroll"></i><!--<i class="ing"></i><i class="ed"></i>--></label>
+									<Span>2017年中小学“挑战杯”创客大赛在郑州市郑州科技馆进行，号召各校各..</Span>
+								</a>
+								<p>2017年中小学“挑战杯”创客大赛在郑州市郑州科技馆进行，号召各校各..</p>
+								<div>
+									<img src="${ctxPath}/static/front/chuangke/img/clock.png" />2017-05-04 至 2017-06-04
+								</div>
+							</li>
+							<li>
+								<a href="#">
+									<label><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="image/content1.png"/><i class="ing"></i><!--<i class="scroll"></i><i class="ed"></i>--></label>
+									<Span>2017年中小学“挑战杯”创客大赛在郑州市郑州科技馆进行，号召各校各..</Span>
+								</a>
+								<p>2017年中小学“挑战杯”创客大赛在郑州市郑州科技馆进行，号召各校各..</p>
+								<div>
+									<img src="${ctxPath}/static/front/chuangke/img/clock.png" />2017-05-04 至 2017-06-04
+								</div>
+							</li>
+							<li>
+								<a href="#">
+									<label><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="image/content1.png"/><i class="ed"></i><!--<i class="ing"></i><i class="scroll"></i>--></label>
+									<Span>2017年中小学“挑战杯”创客大赛在郑州市郑州科技馆进行，号召各校各..</Span>
+								</a>
+								<p>2017年中小学“挑战杯”创客大赛在郑州市郑州科技馆进行，号召各校各..</p>
+								<div>
+									<img src="${ctxPath}/static/front/chuangke/img/clock.png" />2017-05-04 至 2017-06-04
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="right_con picScroll-top" id="picScroll-top-4">
+						<div class="con_tit">
+							<div>
+								<img src="${ctxPath}/static/front/chuangke/img/c_3_r.png" />大赛动态
+							</div>
+							<a class="more"></a>
+						</div>
+						<div class="box bd">
+							<ul class="time_con">
+								<li>
+									<div class="time_line">刚刚</div>
+									<a><img src="image/pic.png" /></a>
+									<div class="con">
+										<span class="racer_name"><a>李文涛</a></span>
+										<label>上传作品：<span class="racer_art"><a>《我的智能机器人》</a></span></label>
+										<label>所属大赛：<span class="race"><a>智能机器人大赛</a></span></label>
+									</div>
+								</li>
+								<li>
+									<div class="time_line">1分钟前</div>
+									<a><img src="image/pic.png" /></a>
+									<div class="con">
+										<span class="racer_name"><a>李文涛</a></span>
+										<label>上传作品：<span class="racer_art"><a>《我的智能机器人》</a></span></label>
+										<label>所属大赛：<span class="race"><a>智能机器人大赛</a></span></label>
+									</div>
+								</li>
+								<li>
+									<div class="time_line">2分钟前</div>
+									<a><img src="image/pic.png" /></a>
+									<div class="con">
+										<span class="racer_name"><a>李文涛</a></span>
+										<label>上传作品：<span class="racer_art"><a>《我的智能机器人》</a></span></label>
+										<label>所属大赛：<span class="race"><a>智能机器人大赛</a></span></label>
+									</div>
+								</li>
+								<li>
+									<div class="time_line">3分钟前</div>
+									<a><img src="image/pic.png" /></a>
+									<div class="con">
+										<span class="racer_name"><a>李文涛</a></span>
+										<label>上传作品：<span class="racer_art"><a>《我的智能机器人》</a></span></label>
+										<label>所属大赛：<span class="race"><a>智能机器人大赛</a></span></label>
+									</div>
+								</li>
+								<li>
+									<div class="time_line">11分钟前</div>
+									<a><img src="image/pic.png" /></a>
+									<div class="con">
+										<span class="racer_name"><a>李文涛</a></span>
+										<label>上传作品：<span class="racer_art"><a>《我的智能机器人》</a></span></label>
+										<label>所属大赛：<span class="race"><a>智能机器人大赛</a></span></label>
+									</div>
+								</li>
+								<li>
+									<div class="time_line">23分钟前</div>
+									<a><img src="image/pic.png" /></a>
+									<div class="con">
+										<span class="racer_name"><a>李文涛</a></span>
+										<label>上传作品：<span class="racer_art"><a>《我的智能机器人》</a></span></label>
+										<label>所属大赛：<span class="race"><a>智能机器人大赛</a></span></label>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!--第四部分 广告-->
+				<div class="content content4 content_ad">
+					<a>
+						<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="image/ad.png" />
+					</a>
+				</div>
+				<!--第五部分-->
+				<div class="content content2 content5">
+					<div class="left_con">
+						<div class="con_tit">
+							<div>
+								<img src="${ctxPath}/static/front/chuangke/img/c_5_l.png" />创客作品
+							</div>
+							<a class="for_more"></a>
+						</div>
+						<div class="bd">
+							<ul>
+								<li>
+									<a href="#">
+										<label><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="image/content1.png"/></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="image/content1.png"/></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+								<li>
+									<a href="#">
+										<label><img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="image/content1.png"/></label>
+										<Span>智能机器人初级教学智能机器人初级教学</Span>
+									</a>
+									<div>
+										<span><img src="${ctxPath}/static/front/chuangke/img/pep.png"/> <a href="#">陈清泉</a> / 郑州市第一小学</span>
+										<span><img src="${ctxPath}/static/front/chuangke/img/eye.png"/>8500</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="right_con">
+						<div class="con_tit">
+							<div>
+								<img src="${ctxPath}/static/front/chuangke/img/c_5_r.png" />学校作品排行榜
+							</div>
+							<a class="more"></a>
+						</div>
+						<div class="box">
+							<ul>
+								<li class="num1"><mark>1</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li class="num1"><mark>2</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li class="num1"><mark>3</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li><mark>4</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+								<li><mark>5</mark><label><a>郑州外国语中学</a></label><span>652份</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!--第六部分 -->
+				<div class="content6">
+					<div class="left_con">
+						<div class="con_tit">
+							<div>
+								<img src="${ctxPath}/static/front/chuangke/img/c_6_l.png" />创客空间
+							</div>
+							<a class="for_more"></a>
+						</div>
+						<div class="box shake">
+							<ul>
+								<li>
+									<a>
+										<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="img/school.png" />
+										<p>郑州市实验中学</p>
+										<div>
+											<div class="box_l">
+												<span>258</span>
+												<p>课程数</p>
+											</div>
+											<div class="box_c"></div>
+											<div class="box_r">
+												<span>258</span>
+												<p>作品数</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a>
+										<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="img/school.png" />
+										<p>郑州市实验中学</p>
+										<div>
+											<div class="box_l">
+												<span>258</span>
+												<p>课程数</p>
+											</div>
+											<div class="box_c"></div>
+											<div class="box_r">
+												<span>258</span>
+												<p>作品数</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a>
+										<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="img/school.png" />
+										<p>郑州市实验中学</p>
+										<div>
+											<div class="box_l">
+												<span>258</span>
+												<p>课程数</p>
+											</div>
+											<div class="box_c"></div>
+											<div class="box_r">
+												<span>258</span>
+												<p>作品数</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a>
+										<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="img/school.png" />
+										<p>郑州市实验中学</p>
+										<div>
+											<div class="box_l">
+												<span>258</span>
+												<p>课程数</p>
+											</div>
+											<div class="box_c"></div>
+											<div class="box_r">
+												<span>258</span>
+												<p>作品数</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a>
+										<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="img/school.png" />
+										<p>郑州市实验中学</p>
+										<div>
+											<div class="box_l">
+												<span>258</span>
+												<p>课程数</p>
+											</div>
+											<div class="box_c"></div>
+											<div class="box_r">
+												<span>258</span>
+												<p>作品数</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a>
+										<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="img/school.png" />
+										<p>郑州市实验中学</p>
+										<div>
+											<div class="box_l">
+												<span>258</span>
+												<p>课程数</p>
+											</div>
+											<div class="box_c"></div>
+											<div class="box_r">
+												<span>258</span>
+												<p>作品数</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a>
+										<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="img/school.png" />
+										<p>郑州市实验中学</p>
+										<div>
+											<div class="box_l">
+												<span>258</span>
+												<p>课程数</p>
+											</div>
+											<div class="box_c"></div>
+											<div class="box_r">
+												<span>258</span>
+												<p>作品数</p>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a>
+										<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="img/school.png" />
+										<p>郑州市实验中学</p>
+										<div>
+											<div class="box_l">
+												<span>258</span>
+												<p>课程数</p>
+											</div>
+											<div class="box_c"></div>
+											<div class="box_r">
+												<span>258</span>
+												<p>作品数</p>
+											</div>
+										</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="right_con">
+						<div class="con_tit">
+							<div>
+								<img src="${ctxPath}/static/front/chuangke/img/c_6_r.png" />空间统计
+							</div>
+							<a class="more"></a>
+						</div>
+						<div class="sta_stage">
+							<div class="sta_total">
+								已有 <big class="sta_num">35487</big>人来访
+							</div>
+							<ul>
+								<li><img src="${ctxPath}/static/front/chuangke/img/sta_b_1.png">学校空间<span><big>1754</big>个</span></li>
+								<li><img src="${ctxPath}/static/front/chuangke/img/sta_b_2.png">发表日志<span><big>1754</big>篇</span></li>
+								<li><img src="${ctxPath}/static/front/chuangke/img/sta_b_3.png">上传图片<span><big>1754</big>份</span></li>
+								<li><img src="${ctxPath}/static/front/chuangke/img/sta_b_4.png">上传资源<span><big>1754</big>条</span></li>
+								<li><img src="${ctxPath}/static/front/chuangke/img/sta_b_5.png">发表作品<span><big>1754</big>个</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!--友情链接-->
+			<div class="links content">
+				<div class="center width1200">
+					<div class="link_tit">
+						<img src="${ctxPath}/static/front/chuangke/img/border_left.png" />友情链接
+					</div>
+					<div class="links_stage">
+						<ul>
+							<li><big>课件网</big></li>
+							<li>
+								<a>幼儿课件网</a>
+							</li>
+							<li>
+								<a>新闻网</a>
+							</li>
+						</ul>
+						<ul>
+							<li><big>课件网</big></li>
+							<li>
+								<a>幼儿课件网</a>
+							</li>
+							<li>
+								<a>新闻网</a>
+							</li>
+						</ul>
+						<ul>
+							<li><big>课件网</big></li>
+							<li>
+								<a>幼儿课件网</a>
+							</li>
+							<li>
+								<a>新闻网</a>
+							</li>
+						</ul>
+						<ul>
+							<li><big>课件网</big></li>
+							<li>
+								<a>幼儿课件网</a>
+							</li>
+							<li>
+								<a>新闻网</a>
+							</li>
+							<li>
+								<a>百度</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!--侧边工具栏-->
+			<div class="toolbar">
+				<a href="###" class="toolbar-item toolbar-item-weixin">
+					<span class="toolbar-layer"></span>
+				</a>
+				<a href="response.html" class="toolbar-item toolbar-item-feedback"></a>
+				<a href="###" class="toolbar-item toolbar-item-app">
+					<span class="toolbar-layer"></span>
+				</a>
+				<a href="javascript:void(0)" id="top" class="toolbar-item toolbar-item-top"></a>
+			</div>
+
+			<footer>
+				<div class="center width1200">
+					<img src="image/content1.png" />
+					<div>
+						<span>技术运营：河南众诚信息科技股份有限公司</span>
+						<span>豫ICP备 05010997号 郑州市教育局 版权所有</span>
+						<span>地址：河南省郑州市中原西路40号  邮政编码：450007 电话：0371-66976696 E-Mail：zzsjyj#zzedu.net.cn</span>
+					</div>
+				</div>
+			</footer>
+
+		</div>
+
+		<!--浏览器处理-->
+		<div class="browser_div">
+			<a href="https://www.zhiliao.ha.cn/www/chuangke/soft/ChromeStandalone_58.0.3029.110_Setup.exe"></a>
+			<img src="${ctxPath}/static/front/chuangke/img/browser.png" style="display: none;" />
+			<img src="${ctxPath}/static/front/chuangke/img/browser_act.png" style="display: none;" />
+		</div>
+
+	</body>
+
+</html>

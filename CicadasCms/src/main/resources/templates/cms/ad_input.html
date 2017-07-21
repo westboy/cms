@@ -1,0 +1,51 @@
+<div class="bjui-pageContent">
+    <form method="post" action="${ctxPath}/system/cms/ad/save" id="j_ad_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
+        <input TYPE="hidden" name="id" value="${ad.id!}">
+        <table class="table table-condensed table-hover" width="100%">
+            <tbody>
+            <tr>
+                <td>
+                    <label for="j_username" class="control-label x85">广告名称：</label>
+                    <input type="text" name="adName" id="j_username" value="${ad.adName!,xss}" size="15" placeholder="广告名称" data-rule="required;" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="control-label x85">分组：</label>
+                    <input type="text" data-toggle="lookup" data-rule="required;" size="15" data-url="${ctxPath}/system/cms/ad/groupCheck" name="groupId"   data-maxable="false" data-resizable="false"  data-width="750" data-height="430" data-id="ad-group-tab"  value="${ad.groupId!}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_startDate" class="control-label x85">开始时间：</label>
+                    <input type="text" data-toggle="datepicker" name="startDate" id="j_startDate" size="15" value="${ad.startDate!,dateFormat="yyyy-MM-dd"}" placeholder="开始时间" data-rule="required" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_startDate" class="control-label x85">结束时间：</label>
+                    <input type="text" data-toggle="datepicker" name="endDate" id="j_startDate" size="15" value="${ad.endDate!,dateFormat="yyyy-MM-dd"}" placeholder="结束时间"  data-rule="required">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label for="j_mobile" class="control-label x85">排序编号：</label>
+                    <input type="text" name="sortId" id="j_mobile" value="${ad.sortId!,xss}" size="15" placeholder="排序编号"  data-rule="required;integer">
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <textarea  data-toggle="wangEditor"  data-upload="${ctxPath}/upload/wangEditorUpload"   style="height:450px;max-height:500px;margin:10px 0 0 0" name="adBody">${ad.adBody!,xss="escape"}</textarea></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    </div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+        <li><button type="submit" class="btn-default"  data-icon="save">保存</button></li>
+    </ul>
+</div>

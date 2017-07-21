@@ -1,0 +1,29 @@
+<div class="bjui-pageHeader">
+        <div class="bjui-searchBar">
+            &nbsp;
+            <a  href="${ctxPath}/system/cache/clear/all" class="btn btn-orange"  class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要清除全部缓存？" data-icon="undo">清理全部</a>
+        </div>
+
+</div>
+<div class="bjui-pageContent tableContent">
+    <table class="table table-bordered table-hover table-striped table-top" data-selected-multi="true">
+        <thead>
+        <tr>
+            <th align="center"  width="100">No</th>
+            <th align="center" width="150" >缓存名称</th>
+            <th align="center"  width="100">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for(cache in caches){
+        <tr data-id="${cacheLP.index}">
+            <td align="center">${cacheLP.index}</td>
+            <td align="center">${cache}</td>
+           <td  align="center">
+               <a href="${ctxPath}/system/cache/clear/${cache!}" class="btn btn-green" data-toggle="doajax" data-confirm-msg="确定要清理[${cache!}]？">清理</a>
+            </td>
+        </tr>
+        @}
+        </tbody>
+    </table>
+</div>
