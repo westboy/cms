@@ -6,14 +6,14 @@
 		<title></title>
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<link href="${ctxPath}/static/front/chuangke/css/common.css" type="text/css" rel="stylesheet" />
-		<link href="${ctxPath}/static/front/chuangke/css/style.css" type="text/css" rel="stylesheet" />
-		<script src="${ctxPath}/static/front/chuangke/js/jquery-1.8.3.min.js"></script>
-		<script src="${ctxPath}/static/front/chuangke/js/jquery.SuperSlide.2.1.1.js"></script>
-		<script src="${ctxPath}/static/front/chuangke/js/imgscroll.js"></script>
-		<script src="${ctxPath}/static/front/chuangke/js/plugin.js"></script>
-		<script src="${ctxPath}/static/front/chuangke/js/Browser.js"></script>
-		<script src="${ctxPath}/static/front/chuangke/js/jquery.pagination.min.js"></script>
+		<link href="${ctxPath}/static/www/chuangke/css/common.css" type="text/css" rel="stylesheet" />
+		<link href="${ctxPath}/static/www/chuangke/css/style.css" type="text/css" rel="stylesheet" />
+		<script src="${ctxPath}/static/www/chuangke/js/jquery-1.8.3.min.js"></script>
+		<script src="${ctxPath}/static/www/chuangke/js/jquery.SuperSlide.2.1.1.js"></script>
+		<script src="${ctxPath}/static/www/chuangke/js/imgscroll.js"></script>
+		<script src="${ctxPath}/static/www/chuangke/js/plugin.js"></script>
+		<script src="${ctxPath}/static/www/chuangke/js/Browser.js"></script>
+		<script src="${ctxPath}/static/www/chuangke/js/jquery.pagination.min.js"></script>
 		<style>
 			.info_stage .info_list {
 	padding: 0 20px;
@@ -47,7 +47,7 @@
 			<header>
 				<div class="center width1200">
 					<div>
-						<a href="${ctxPath}/front/${site.siteId!}"><img src="${ctxPath}/static/front/chuangke/image/school_logo1.png" class="school_logo"><div>${site.sitename!}</div></a>
+						<a href="${ctxPath}/front/${site.siteId!}"><img src="${ctxPath}/static/www/chuangke/image/school_logo1.png" class="school_logo"><div>${site.sitename!}</div></a>
 						<nav>
 							<a href="${ctxPath}/front/${site.siteId!}">学校主页</a>
 							<a href="#">创客作品</a>
@@ -57,26 +57,26 @@
 						</nav>
 					</div>
 					<a href="index.html" class="login">
-						<img src="${ctxPath}/static/front/chuangke/img/login.png" /> 请登录
+						<img src="${ctxPath}/static/www/chuangke/img/login.png" /> 请登录
 					</a>
 					<a href="index.html" class="login hide">
-						<img src="${ctxPath}/static/front/chuangke/img/news.png" />
+						<img src="${ctxPath}/static/www/chuangke/img/news.png" />
 					</a>
 				</div>
 			</header>
 
 			<div class="zone_banner">
-				<img class="scrollLoading" src="${ctxPath}/static/front/chuangke/img/blank.png" data-url="${ctxPath}/static/front/chuangke/image/school_index.png" />
+				<img class="scrollLoading" src="${ctxPath}/static/www/chuangke/img/blank.png" data-url="${ctxPath}/static/www/chuangke/image/school_index.png" />
 			</div>
 
 			<div class="search_box1">
 				<div class="width1200 center">
 					<div class="bread_nav">
-						<img src="${ctxPath}/static/front/chuangke/img/pos.png" />您当前位置：<label><a href="${ctxPath}/front/${site.siteId!}">首页</a><span>></span><a href="school_info.html">校园资讯</a></label>
+						<img src="${ctxPath}/static/www/chuangke/img/pos.png" />您当前位置：<label><a href="${ctxPath}/front/${site.siteId!}">首页</a><span>></span><a href="school_info.html">校园资讯</a></label>
 					</div>
 					<form action="${ctxPath}/front/search">
 						<input NAME="s" type="hidden" value="${site.siteId!}">
-						<img src="${ctxPath}/static/front/chuangke/img/search.png" />
+						<img src="${ctxPath}/static/www/chuangke/img/search.png" />
 						<input name="keyword" type="search" placeholder="请搜索您想找的资源" VALUE="${keyword!}" />
 						<button type="submit">搜索</button>
 					</form>
@@ -86,7 +86,7 @@
 			<div class="center width1200 school_info content">
 				<div class="info_nav">
 					<div class="nav_tit">
-						<img src="${ctxPath}/static/front/chuangke/img/zx.png" />相关栏目
+						<img src="${ctxPath}/static/www/chuangke/img/zx.png" />相关栏目
 					</div>
 					<ul>
 						<#cms_category_list  siteId="${site.siteId}" categoryId="0" isNav="0"   var="bean">
@@ -156,7 +156,7 @@
 
 			<footer>
 				<div class="center width1200">
-					<img src="${ctxPath}/static/front/chuangke/image/content1.png" />
+					<img src="${ctxPath}/static/www/chuangke/image/content1.png" />
 					<div>
 						<span>技术运营：河南众诚信息科技股份有限公司</span>
 						<span>豫ICP备 05010997号 郑州市教育局 版权所有</span>
@@ -170,8 +170,8 @@
 		<!--浏览器处理-->
 		<div class="browser_div">
 			<a href="https://www.zhiliao.ha.cn/www/chuangke/soft/ChromeStandalone_58.0.3029.110_Setup.exe"></a>
-			<img src="${ctxPath}/static/front/chuangke/img/browser.png" style="display: none;" />
-			<img src="${ctxPath}/static/front/chuangke/img/browser_act.png" style="display: none;" />
+			<img src="${ctxPath}/static/www/chuangke/img/browser.png" style="display: none;" />
+			<img src="${ctxPath}/static/www/chuangke/img/browser_act.png" style="display: none;" />
 		</div>
 	</body>
 

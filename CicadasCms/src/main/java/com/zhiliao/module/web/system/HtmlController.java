@@ -1,6 +1,5 @@
 package com.zhiliao.module.web.system;
 
-import com.github.pagehelper.PageInfo;
 import com.zhiliao.module.web.cms.service.CategoryService;
 import com.zhiliao.module.web.cms.service.ContentService;
 import com.zhiliao.module.web.cms.service.HtmlStaticService;
@@ -55,20 +54,17 @@ public class HtmlController {
         List<TCmsCategory> categoryList = categoryService.findCategoryListBySiteId(siteId);
         for (TCmsCategory category: categoryList) {
             htmlStaticService.category(siteId,category.getCategoryId(),1,false);
-            this.generateCategoryPage(siteId,category.getCategoryId(),category.getPageSize());
+            this.generateCategoryPage(siteId,category.getCategoryId());
             this.generateContent(siteId,category.getCategoryId());
         }
     }
 
-    private void generateCategoryPage(Integer siteId,Long categoryId,Integer pageSize){
-        TCmsCategory bean = new TCmsCategory();
-        bean.setCategoryId(categoryId);
-        PageInfo<TCmsCategory> page = categoryService.page(1,pageSize,bean);
-        for(TCmsCategory category :page.getList()) {
-            for (int i = 1; i <= page.getPages(); i++) {
-                htmlStaticService.category(siteId, category.getCategoryId(), i, true);
+    private void generateCategoryPage(Integer siteId,Long categoryId){
+            int pages = contentService.page(1, siteId, categoryId).getPages();
+            for (int pageNumber = 1; pageNumber <= pages; pageNumber++) {
+                htmlStaticService.category(siteId, categoryId, pageNumber, true);
             }
-        }
+
 
     }
 

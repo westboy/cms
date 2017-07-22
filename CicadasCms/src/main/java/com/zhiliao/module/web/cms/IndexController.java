@@ -5,10 +5,8 @@ import com.google.common.collect.Maps;
 import com.zhiliao.common.dict.CmsConst;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.exception.SystemException;
-import com.zhiliao.common.utils.CmsUtil;
-import com.zhiliao.common.utils.ControllerUtil;
-import com.zhiliao.common.utils.HtmlKit;
-import com.zhiliao.common.utils.StrUtil;
+import com.zhiliao.common.thread.HtmlThread;
+import com.zhiliao.common.utils.*;
 import com.zhiliao.module.web.cms.service.*;
 import com.zhiliao.module.web.cms.service.impl.HtmlStaticServiceImpl;
 import com.zhiliao.mybatis.model.master.TCmsCategory;
@@ -25,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +67,9 @@ public class IndexController {
     @Value("${system.site.subfix}")
     private String siteSubfix;
 
+    @Value("${system.site.static}")
+    private String siteStatic;
+
     /*网站首页*/
     @GetMapping
     public ModelAndView index(@RequestParam(value = "keyword",required = false) String keyword){
@@ -92,6 +94,10 @@ public class IndexController {
     public String index(@PathVariable("siteId") Integer siteId,
                         Model model){
         log.debug("首页");
+        /*判断是否开启静态*/
+        File file = new File(PathUtil.getWebRootPath() +File.separator+ "html" + File.separator+ siteId + File.separator+"index.html");
+        if (file.exists() && Boolean.parseBoolean(siteStatic)&& HtmlThread.size()<=0)
+            return "redirect:/html/"+ siteId + "/index.html";
         TCmsSite site = siteService.findById(siteId);
         if(CmsUtil.isNullOrEmpty(site))
             throw new CmsException(CmsConst.SITE_NOT_FOUND);

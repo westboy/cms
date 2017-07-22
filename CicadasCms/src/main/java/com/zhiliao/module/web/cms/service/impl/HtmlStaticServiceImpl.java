@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.Map;
 
 
@@ -76,7 +77,7 @@ public class HtmlStaticServiceImpl implements HtmlStaticService{
         if (!isPageList) {
             beetlHtmlUtil.create(request, siteId, categoryId.toString(), attr, (StrUtil.isBlank(site.getTemplate()) ? "default" : site.getTemplate()), StrUtil.isBlank(category.getIndexTpl()) ? CmsConst.CATEGORY_INDEX_TPL : category.getIndexTpl());
         }else {
-            beetlHtmlUtil.create(request, siteId, categoryId.toString() + "/index_" + pageNumber.toString(), attr, (StrUtil.isBlank(site.getTemplate()) ? "default" : site.getTemplate()), StrUtil.isBlank(category.getListTpl()) ? CmsConst.CATEGORY_LIST_TPL : category.getListTpl());
+            beetlHtmlUtil.create(request, siteId, categoryId.toString() + File.separator+"index_" + pageNumber.toString(), attr, (StrUtil.isBlank(site.getTemplate()) ? "default" : site.getTemplate()), StrUtil.isBlank(category.getListTpl()) ? CmsConst.CATEGORY_LIST_TPL : category.getListTpl());
         }
     }
 

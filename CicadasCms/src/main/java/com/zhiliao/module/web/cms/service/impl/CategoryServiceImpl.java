@@ -133,9 +133,7 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public PageInfo<TCmsCategory> page(Integer pageNumber, Integer pageSize, TCmsCategory pojo) {
         PageHelper.startPage(pageNumber,pageSize);
-        PageInfo<TCmsCategory> pageInfo = new PageInfo();
-        pageInfo.setList(categoryMapper.select(pojo));
-        return pageInfo;
+        return new PageInfo(categoryMapper.select(pojo));
     }
 
     @Override

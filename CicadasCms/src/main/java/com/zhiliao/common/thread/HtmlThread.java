@@ -46,6 +46,10 @@ public class HtmlThread implements InitializingBean,DisposableBean, Runnable {
 		htmlQueue.offer(htmlObj);
 	}
 
+	public static int size() {
+		return htmlQueue.size();
+	}
+
 	public static void main(String[] args) {
 		for (int i = 0; i < 10000; i++) {
 			HtmlObject h = new HtmlObject();
