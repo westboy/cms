@@ -3,11 +3,13 @@ package com.zhiliao.common.beetl.tag.cms;
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.utils.CmsUtil;
-import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.common.utils.Pojo2MapUtil;
 import com.zhiliao.common.utils.StrUtil;
+import com.zhiliao.module.web.cms.service.SiteService;
 import com.zhiliao.mybatis.model.master.TCmsContent;
+import com.zhiliao.mybatis.model.master.TCmsSite;
 import org.beetl.core.GeneralVarTagBinding;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -25,8 +27,15 @@ import java.util.Map;
 @Scope("prototype")
 public class ContentPageTag extends GeneralVarTagBinding {
 
+
+    @Autowired
+    private SiteService siteService;
+
     @Value("${system.http.protocol}")
     private String httpProtocol;
+
+    @Value("${system.http.host}")
+    private String httpHost;
 
     @Value("${system.site.subfix}")
     private String siteSubfix;
@@ -63,7 +72,9 @@ public class ContentPageTag extends GeneralVarTagBinding {
             if (length > titleLen)
                 content.setTitle(title.substring(0, titleLen) + "...");
             if (StrUtil.isBlank(content.getUrl())) {
-                String url = httpProtocol + "://" + ControllerUtil.getDomain() + "/front/"+siteId+"/";
+                TCmsSite site = siteService.findById(siteId);
+                if(CmsUtil.isNullOrEmpty(site)) throw new CmsException("站点不存在[siteId:"+siteId+"]");
+                String url = httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/front/"+siteId+"/";
                 url+=content.getCategoryId()+"/"+content.getContentId();
                 content.setUrl(url+siteSubfix);
             }

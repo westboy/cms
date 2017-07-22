@@ -2,9 +2,11 @@ package com.zhiliao.common.beetl.tag.cms;
 
 import com.google.common.collect.Maps;
 import com.zhiliao.common.utils.CmsUtil;
-import com.zhiliao.common.utils.ControllerUtil;
+import com.zhiliao.common.utils.StrUtil;
+import com.zhiliao.module.web.cms.service.SiteService;
 import com.zhiliao.mybatis.mapper.master.TCmsContentMapper;
 import com.zhiliao.mybatis.model.master.TCmsContent;
+import com.zhiliao.mybatis.model.master.TCmsSite;
 import org.beetl.core.GeneralVarTagBinding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +28,14 @@ public class ContentTag extends GeneralVarTagBinding {
     @Autowired
     private TCmsContentMapper contentMapper;
 
+    @Autowired
+    private SiteService siteService;
+
     @Value("${system.http.protocol}")
     private String httpProtocol;
+
+    @Value("${system.http.host}")
+    private String httpHost;
 
     @Value("${system.site.subfix}")
     private String siteSubfix;
@@ -43,24 +51,26 @@ public class ContentTag extends GeneralVarTagBinding {
 
     private void wrapRender(Long categoryId, Long contentId, Integer titleLen) {
         Map  result = Maps.newHashMap();
-        String prevContent="没有前一篇了";
-        String nextContent="没有后一篇了";
+        String prevContent="没有了",nextContent="没有了";
         TCmsContent prev = contentMapper.selectPrevContentByContentIdAndCategoryId(contentId,categoryId);
         TCmsContent next = contentMapper.selectNextContentByContentIdAndCategoryId(contentId,categoryId);
+
         if(!CmsUtil.isNullOrEmpty(prev)) {
+            TCmsSite site = siteService.findById(prev.getSiteId());
             int length = prev.getTitle().length();
             if (length > titleLen) {
                 prev.setTitle(prev.getTitle().substring(0, titleLen));
             }
-            prevContent = "<a href=\""+httpProtocol+"://"+ControllerUtil.getDomain()+"/front/"+prev.getSiteId()+"/"+prev.getCategoryId()+"/"+prev.getContentId();
+            prevContent = "<a href=\""+httpProtocol+"://"+(StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain())+"/front/"+prev.getSiteId()+"/"+prev.getCategoryId()+"/"+prev.getContentId();
             prevContent+=siteSubfix+"\">"+prev.getTitle()+ "...</a>";
         }
         if(!CmsUtil.isNullOrEmpty(next)) {
+            TCmsSite site = siteService.findById(next.getSiteId());
             int length = next.getTitle().length();
             if (length > titleLen) {
                 next.setTitle(next.getTitle().substring(0, titleLen));
             }
-            nextContent = "<a href=\""+httpProtocol+"://"+ControllerUtil.getDomain()+"/front/"+next.getSiteId()+"/"+next.getCategoryId()+"/"+next.getContentId();
+            nextContent = "<a href=\""+httpProtocol+"://"+(StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain())+"/front/"+next.getSiteId()+"/"+next.getCategoryId()+"/"+next.getContentId();
             nextContent+=siteSubfix+"\">"+next.getTitle()+ "...</a>";
         }
         result.put("prev",prevContent);

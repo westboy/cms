@@ -12,6 +12,8 @@ public interface CategoryService extends BaseService<TCmsCategory,Long>{
 
     List<TCmsCategory> findCategoryListByPid(Long pid);
 
+    List<TCmsCategory> findCategoryListBySiteId(Integer siteId);
+
     List<TCmsCategory> findCategoryListByPid(Long pid,Integer siteId);
 
     List<TCmsCategory> findCategoryListByPidAndIsNav(Long pid,Integer siteId,Boolean isNav);

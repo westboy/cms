@@ -45,4 +45,6 @@ public interface  ContentService extends BaseService<TCmsContent,Long> {
     String findAllMonthCount();
 
     Integer AllCount();
+
+    List<TCmsContent> findByCategoryId(Long categoryId);
 }

@@ -10,6 +10,7 @@ import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.common.utils.HtmlKit;
 import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.module.web.cms.service.*;
+import com.zhiliao.module.web.cms.service.impl.HtmlStaticServiceImpl;
 import com.zhiliao.mybatis.model.master.TCmsCategory;
 import com.zhiliao.mybatis.model.master.TCmsModel;
 import com.zhiliao.mybatis.model.master.TCmsModelFiled;
@@ -20,10 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,6 +58,9 @@ public class IndexController {
 
     @Autowired
     private LuceneService luceneService;
+
+    @Autowired
+    private HtmlStaticServiceImpl htmlStaticService;
 
     @Value("${system.http.protocol}")
     private String httpProtocol;
@@ -238,6 +239,16 @@ public class IndexController {
             request.setAttribute("keyword", keyword);
             return view(site.getTemplate(), CmsConst.SEARCH_TPL);
         }
+    }
+
+
+
+
+    @RequestMapping("/h")
+    @ResponseBody
+    public String getPageSize() {
+        htmlStaticService.index(1);
+        return "123";
     }
 
     private String view(String viewName){

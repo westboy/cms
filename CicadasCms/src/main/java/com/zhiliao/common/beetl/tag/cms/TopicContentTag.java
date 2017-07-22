@@ -2,9 +2,11 @@ package com.zhiliao.common.beetl.tag.cms;
 
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.utils.CmsUtil;
-import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.common.utils.Pojo2MapUtil;
+import com.zhiliao.common.utils.StrUtil;
+import com.zhiliao.module.web.cms.service.SiteService;
 import com.zhiliao.module.web.cms.service.TopicService;
+import com.zhiliao.mybatis.model.master.TCmsSite;
 import com.zhiliao.mybatis.model.master.TCmsTopic;
 import org.beetl.core.GeneralVarTagBinding;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,14 @@ public class TopicContentTag extends GeneralVarTagBinding {
 	@Autowired
 	private TopicService topicService;
 
+	@Autowired
+	private SiteService siteService;
+
 	@Value("${system.http.protocol}")
 	private String httpProtocol;
+
+	@Value("${system.http.host}")
+	private String httpHost;
 
 	@Value("${system.site.subfix}")
 	private String siteSubfix;
@@ -51,11 +59,13 @@ public class TopicContentTag extends GeneralVarTagBinding {
 	private void wrapRender(Integer siteId,boolean isRecommend,Integer size) throws Exception {
 
 		List<TCmsTopic> topicList = topicService.findByRecommendList(siteId,isRecommend,size);
+		TCmsSite site = siteService.findById(siteId);
+		if(CmsUtil.isNullOrEmpty(site)) throw new CmsException("站点不存在[siteId:"+siteId+"]");
         int i = 1;
 		if(CmsUtil.isNullOrEmpty(topicList)) return;
         for (TCmsTopic topic : topicList){
 			Map result = Pojo2MapUtil.toMap(topic);
-			result.put("url",httpProtocol + "://" + ControllerUtil.getDomain() + "/front/" + topic.getSiteId() + "/topic/" + topic.getTopicId());
+			result.put("url",httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/front/" + topic.getSiteId() + "/topic/" + topic.getTopicId());
 			result.put("index",i);
         	this.binds(result);
 			this.doBodyRender();

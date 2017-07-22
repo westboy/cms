@@ -421,7 +421,7 @@ public class ContentServiceImpl implements ContentService{
                 "      ]\n" +
                 "    },\n" +
                 "    {\n" +
-                "      \"name\": \"专题\",\n" +
+                "      \"name\": \"已发货\",\n" +
                 "      \"type\": \"bar\",\n" +
                 "      \"data\": [\n" +
                 "        "+result.get("一月份")+",\n" +
@@ -447,5 +447,12 @@ public class ContentServiceImpl implements ContentService{
     @Override
     public Integer AllCount() {
         return this.contentMapper.selectCount(new TCmsContent());
+    }
+
+    @Override
+    public List<TCmsContent> findByCategoryId(Long categoryId) {
+        TCmsContent content = new TCmsContent();
+        content.setCategoryId(categoryId);
+        return this.contentMapper.select(content);
     }
 }

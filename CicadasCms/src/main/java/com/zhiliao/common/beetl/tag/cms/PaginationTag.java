@@ -3,12 +3,15 @@ package com.zhiliao.common.beetl.tag.cms;
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.utils.CmsUtil;
-import com.zhiliao.common.utils.ControllerUtil;
+import com.zhiliao.common.utils.StrUtil;
+import com.zhiliao.module.web.cms.service.SiteService;
 import com.zhiliao.module.web.cms.vo.PageActionVo;
 import com.zhiliao.module.web.cms.vo.PaginateVo;
 import com.zhiliao.mybatis.model.master.TCmsContent;
+import com.zhiliao.mybatis.model.master.TCmsSite;
 import org.assertj.core.util.Lists;
 import org.beetl.core.GeneralVarTagBinding;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -25,8 +28,15 @@ import java.util.List;
 @Scope("prototype")
 public class PaginationTag extends GeneralVarTagBinding {
 
+
+    @Autowired
+    private SiteService siteService;
+
     @Value("${system.http.protocol}")
     private String httpProtocol;
+
+    @Value("${system.http.host}")
+    private String httpHost;
 
     @Value("${system.site.subfix}")
     private String siteSubfix;
@@ -42,10 +52,11 @@ public class PaginationTag extends GeneralVarTagBinding {
         Long categoryId = (Long) this.getAttributeValue("categoryId");
         if(CmsUtil.isNullOrEmpty(categoryId))
             throw new CmsException("[分页标签]栏目Id不能为空！");
-
+        TCmsSite site = siteService.findById(siteId);
+        if(CmsUtil.isNullOrEmpty(site)) throw new CmsException("站点不存在[siteId:"+siteId+"]");
         String action = (String) this.getAttributeValue("action");
         if(CmsUtil.isNullOrEmpty(action)) {
-            action = httpProtocol + "://" + ControllerUtil.getDomain() + "/front/" + siteId + "/";
+            action = httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/front/" + siteId + "/";
             action += categoryId + "/index_{pageNumber}" + siteSubfix;
         }else {
             action += "&p={pageNumber}";

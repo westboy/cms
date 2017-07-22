@@ -173,6 +173,13 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryMapper.select(category);
     }
 
+    @Override
+    public List<TCmsCategory> findCategoryListBySiteId(Integer siteId) {
+        TCmsCategory category = new TCmsCategory();
+        category.setSiteId(siteId);
+        return categoryMapper.select(category);
+    }
+
     @Cacheable(key = "'find-list-pid-'+#p0+'-siteId-'+#p1")
     @Override
     public List<TCmsCategory> findCategoryListByPid(Long pid,Integer siteId) {

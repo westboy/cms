@@ -4,7 +4,6 @@ import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.CmsUtil;
-import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.common.utils.Pojo2MapUtil;
 import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.module.web.cms.service.ContentService;
@@ -43,6 +42,9 @@ public class ContentListTag extends GeneralVarTagBinding {
 
     @Value("${system.site.subfix}")
     private String siteSubfix;
+
+    @Value("${system.http.host}")
+    private String httpHost;
 
     private  Logger log = LoggerFactory.getLogger(ContentListTag.class);
 
@@ -93,7 +95,8 @@ public class ContentListTag extends GeneralVarTagBinding {
             }
             if (StrUtil.isBlank(content.getUrl())) {
                 TCmsSite site = siteService.findById(siteId);
-                String url = httpProtocol + "://" + ControllerUtil.getDomain() + "/front/"+site.getSiteId()+"/";
+                if(CmsUtil.isNullOrEmpty(site)) throw new CmsException("站点不存在[siteId:"+siteId+"]");
+                String url = httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/front/"+site.getSiteId()+"/";
                 url+=content.getCategoryId()+"/"+content.getContentId();
                 content.setUrl(url+siteSubfix);
             }

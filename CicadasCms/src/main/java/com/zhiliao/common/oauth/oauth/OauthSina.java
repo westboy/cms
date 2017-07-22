@@ -5,11 +5,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.zhiliao.common.oauth.util.StrKit;
 import com.zhiliao.common.oauth.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
+@Component
 public class OauthSina extends Oauth {
 	private static final String AUTH_URL = "https://api.weibo.com/oauth2/authorize";
 	private static final String TOKEN_URL = "https://api.weibo.com/oauth2/access_token";
