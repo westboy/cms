@@ -1,4 +1,3 @@
-# CicadasCms
 springboot+mybatis+beetl开发的一款CMS，支持自定义内容模型、模板标签、全站静态化等功能
 # Quick Start
 ##### 1、将sql目录下db.sql导入本地数据库，修改resources目录下的plication.properties配置文件。
@@ -18,4 +17,4 @@ springboot+mybatis+beetl开发的一款CMS，支持自定义内容模型、模�
 3、[beetl](http://www.ibeetl.com "beetl")
 4、shiro
 5、[通用mapper](http://git.oschina.net/free/Mapper "通用mapper")（整合maven方式代码生成）
-6、七牛云存储（[七牛免费存储申请](https://portal.qiniu.com/signup?code=3lb7ah8vdj0ia "七牛免费存储申请")）
+6、[七牛云存储](https://portal.qiniu.com/signup?code=3lb7ah8vdj0ia "七牛云存储")
