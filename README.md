@@ -12,7 +12,7 @@ springboot+mybatis+beetl开发的一款CMS，支持自定义内容模型、模�
 ###### 后台：http://demo.westboy.net/admin/login
 # Other
 ##### 相关技术
-> 、springboot
+> springboot
 、mybatis
 、[beetl](http://www.ibeetl.com "beetl")
 、shiro
