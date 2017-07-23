@@ -3,7 +3,7 @@
 <mapper namespace="com.zhiliao.mybatis.mapper.master.TCmsSiteMapper">
   <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.master.TCmsSite">
     <id column="site_id" jdbcType="INTEGER" property="siteId" />
-    <result column="sitename" jdbcType="VARCHAR" property="sitename" />
+    <result column="site_name" jdbcType="VARCHAR" property="siteName" />
     <result column="domain" jdbcType="VARCHAR" property="domain" />
     <result column="language" jdbcType="CHAR" property="language" />
     <result column="template" jdbcType="VARCHAR" property="template" />

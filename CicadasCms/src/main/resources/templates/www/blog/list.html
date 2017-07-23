@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>${category.categoryName!} - ${site.siteName!}</title>
+    <meta name="keywords" content="${site.keyword!}" />
+    <meta name="description" content="${site.description!}" />
+    <link href="${resPath}/blog/css/base.css" rel="stylesheet">
+    <link href="${resPath}/blog/css/style.css" rel="stylesheet">
+    <link href="${resPath}/blog/css/media.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="${resPath}/blog/js/modernizr.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="ibody">
+    <header>
+        <h1>${site.siteName!}</h1>
+        <h2>${site.description!}....</h2>
+        <div class="logo"><a href="${baseURL!}"></a></div>
+        <nav id="topnav">
+            <a href="${frontPath}/${site.siteId}/">首页</a>
+            <#cms_category_list  siteId="${site.siteId}" categoryId="0" isNav="0"   var="bean">
+                <a href="${bean.url!}">${bean.categoryName!}</a>
+            </#cms_category_list>
+        </nav>
+    </header>
+    <article>
+        <#cms_site_pos  site="${site}" category="${category}"  var="bean">
+           <h2 class="about_h">您现在的位置是：${bean.baseURL}>${bean.catURL}</h2>
+        </#cms_site_pos>
+        <div class="bloglist">
+            <#cms_content_page  siteId="${site.siteId!}"  titleLen="15" page="${page!}"  var="content">
+            <div class="newblog">
+                <ul>
+                    <h3><a href="${content.url!}">${content.title!}</a></h3>
+                    <div class="autor">
+                        <span>作者：${content.author!}</span>
+                    <#cms_category  categoryId="${content.categoryId}" isParent="0" var="bean">
+                    <span>分类：[<a href="${bean.url!}">${bean.categoryName!}</a>]</span>
+                    </#cms_category>
+                        <span>浏览（<a href="${content.url!}">${content.viewNum!}</a>）</span>
+                    </div>
+                    <p>${content.description!}</p>
+                </ul>
+                @if(isEmpty(content.thumb)){
+                <figure><img src="${resPath}/blog/images/01.jpg" ></figure>
+                @}else{
+                <figure><img src="${content.thumb}" ></figure>
+                @}
+                <div class="dateview">${content.inputdate!,dateFormat="yyyy-MM-dd"}</div>
+            </div>
+            </#cms_content_page>
+
+        </div>
+        <div class="page">
+            <a title="Total record">
+            <b>${page.total!}</b></a>
+            <#cms_pagination siteId="${site.siteId}" categoryId="${category.categoryId}" page="${page}"  var="page" >
+                @//${page.last}上一页
+                @for( change in page.changePage){
+                @if(!change.isLink){
+                <b>${change.value!}</b>
+                @}else{
+                ${change.url!}
+                @}
+                @}
+                @//${page.next}下一页
+            </#cms_pagination>
+        </div>
+    </article>
+    <aside>
+        <div class="rnav">
+            <#cms_category_list  siteId="${site.siteId}" categoryId="${category.categoryId!}" isNav="0"   var="bean">
+                @if(bean.categoryId==category.categoryId){
+                <li class="active rnav${bean.index!}" >
+                    @}else{
+                <li class="rnav${bean.index!}">
+                    @}
+                    <a href="${bean.url!}">${bean.categoryName!}</a>
+                </li>
+            </#cms_category_list>
+        </div>
+        <div class="ph_news">
+            <h2>
+                <p>点击排行</p>
+            </h2>
+            <ul class="ph_n">
+                <#cms_content_list  siteId="${site.siteId}" categoryId="${category.categoryId!}" target="1" orderBy="2" isHot="1" hasChild="1" isRecommend="0"  size="9"   titleLen="15"   var="content">
+                   @if(content.index<3){
+                    <li><span class="num${content.index}">${content.index}</span>
+                        <a href="${content.url!}">${content.title!}</a></li>
+                    @}else{
+                    <li><span>${content.index}</span>
+                        <a href="${content.url!}">${content.title!}</a></li>
+                    @}
+                </#cms_content_list>
+            </ul>
+            <h2>
+                <p>栏目推荐</p>
+            </h2>
+            <ul>
+                <#cms_content_list  siteId="${site.siteId}" categoryId="${category.categoryId!}" target="1" orderBy="2" isHot="0" hasChild="1" isRecommend="1" size="9"   titleLen="15"   var="content">
+                    @if(content.index<3){
+                    <li><span class="num${content.index}">${content.index}</span>
+                        <a href="${content.url!}">${content.title!}</a></li>
+                    @}
+                </#cms_content_list>
+            </ul>
+            <!--<h2>-->
+                <!--<p>最新评论</p>-->
+            <!--</h2>-->
+            <!--<ul class="pl_n">-->
+                <!--<dl>-->
+                    <!--<dt><img src="images/s8.jpg"> </dt>-->
+                    <!--<dt> </dt>-->
+                    <!--<dd>DanceSmile-->
+                        <!--<time>49分钟前</time>-->
+                    <!--</dd>-->
+                    <!--<dd><a href="/">文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</a></dd>-->
+                <!--</dl>-->
+                <!--<dl>-->
+                    <!--<dt><img src="images/s7.jpg"> </dt>-->
+                    <!--<dt> </dt>-->
+                    <!--<dd>yisa-->
+                        <!--<time>2小时前</time>-->
+                    <!--</dd>-->
+                    <!--<dd><a href="/">我手机里面也有这样一个号码存在</a></dd>-->
+                <!--</dl>-->
+                <!--<dl>-->
+                    <!--<dt><img src="images/s6.jpg"> </dt>-->
+                    <!--<dt> </dt>-->
+                    <!--<dd>小林博客-->
+                        <!--<time>8月7日</time>-->
+                    <!--</dd>-->
+                    <!--<dd><a href="/">博客色彩丰富，很是好看</a></dd>-->
+                <!--</dl>-->
+                <!--<dl>-->
+                    <!--<dt><img src="images/003.jpg"> </dt>-->
+                    <!--<dt> </dt>-->
+                    <!--<dd>DanceSmile-->
+                        <!--<time>49分钟前</time>-->
+                    <!--</dd>-->
+                    <!--<dd><a href="/">文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</a></dd>-->
+                <!--</dl>-->
+                <!--<dl>-->
+                    <!--<dt><img src="images/002.jpg"> </dt>-->
+                    <!--<dt> </dt>-->
+                    <!--<dd>yisa-->
+                        <!--<time>2小时前</time>-->
+                    <!--</dd>-->
+                    <!--<dd><a href="/">我手机里面也有这样一个号码存在</a></dd>-->
+                <!--</dl>-->
+            <!--</ul>-->
+            <!--<h2>-->
+                <!--<p>最近访客</p>-->
+                <!--<ul>-->
+                    <!--<img src="images/vis.jpg">&lt;!&ndash; 直接使用“多说”插件的调用代码 &ndash;&gt;-->
+                <!--</ul>-->
+            <!--</h2>-->
+        </div>
+        <div class="copyright">
+            <ul>
+                <p> Design by <a href="/">DanceSmile</a></p>
+                <p>蜀ICP备11002373号-1</p>
+            </ul>
+        </div>
+    </aside>
+    <script src="${resPath}/blog/js/silder.js"></script>
+    <div class="clear"></div>
+    <!-- 清除浮动 -->
+</div>
+</body>
+</html>

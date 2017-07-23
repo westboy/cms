@@ -34,7 +34,8 @@ public interface  ContentService extends BaseService<TCmsContent,Long> {
                                                                Integer size,
                                                                Integer hasChild,
                                                                Integer isHot,
-                                                               String isPic);
+                                                               String isPic,
+                                                               String isRecommend);
 
     PageInfo<TCmsContent> page(Integer pageNumber,Integer siteId,Long categoryId);
 

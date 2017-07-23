@@ -37,6 +37,9 @@ public class BeetlConfiguration {
     @Value("${system.http.host}")
     private String host;
 
+    @Value("${system.site.prefix}")
+    private String sitePrefix;
+
     @Value("${system.login.path}")
     private String loginPath;
 
@@ -44,8 +47,11 @@ public class BeetlConfiguration {
         Map<String,Object> sharedVars =  Maps.newHashMap();
         sharedVars.put("siteName",siteName);
         sharedVars.put("baseURL",httpProtocol+"://"+ host);
+        sharedVars.put("resPath",httpProtocol+"://"+ host+"/"+"static"+"/"+"www");
         sharedVars.put("devModel",Boolean.valueOf(devModel));
         sharedVars.put("adminLoginPath",loginPath);
+        sharedVars.put("sitePrefix",sitePrefix);
+        sharedVars.put("frontPath",httpProtocol+"://"+ host+"/"+sitePrefix);
         return sharedVars;
     }
 
@@ -86,7 +92,7 @@ public class BeetlConfiguration {
         functionPackages.put("ContentSelectCategoryFunction",contentSelectCategoryFunction);
         /*输出自定义模型字段类型名称*/
         functionPackages.put("printModelFiledClass",new PrintModelFiledClassFunction());
-                /*输出自定义模型字段类型名称*/
+        /*输出自定义模型字段类型名称*/
         functionPackages.put("TopicCatagoryOut",treeTopicCatagoryFunction);
         return functionPackages;
     }

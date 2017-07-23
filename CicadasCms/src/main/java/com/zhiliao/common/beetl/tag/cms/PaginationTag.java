@@ -41,6 +41,9 @@ public class PaginationTag extends GeneralVarTagBinding {
     @Value("${system.site.subfix}")
     private String siteSubfix;
 
+    @Value("${system.site.prefix}")
+    private String sitePrefix;
+
     @Override
     public void render() {
         PageInfo<TCmsContent> contentPage = (PageInfo<TCmsContent>) this.getAttributeValue("page");
@@ -56,7 +59,7 @@ public class PaginationTag extends GeneralVarTagBinding {
         if(CmsUtil.isNullOrEmpty(site)) throw new CmsException("站点不存在[siteId:"+siteId+"]");
         String action = (String) this.getAttributeValue("action");
         if(CmsUtil.isNullOrEmpty(action)) {
-            action = httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/front/" + siteId + "/";
+            action = httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/"+sitePrefix+"/" + siteId + "/";
             action += categoryId + "/index_{pageNumber}" + siteSubfix;
         }else {
             action += "&p={pageNumber}";

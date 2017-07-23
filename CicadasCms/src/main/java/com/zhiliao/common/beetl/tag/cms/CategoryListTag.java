@@ -39,6 +39,9 @@ public class CategoryListTag extends GeneralVarTagBinding {
 	@Value("${system.http.host}")
 	private String httpHost;
 
+	@Value("${system.site.prefix}")
+	private String sitePrefix;
+
 	@Value("${system.site.subfix}")
 	private String siteSubfix;
 
@@ -69,7 +72,7 @@ public class CategoryListTag extends GeneralVarTagBinding {
 		}
         for (TCmsCategory category : cats){
         	if(StrUtil.isBlank(category.getUrl()))
-        		category.setUrl(httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/front/" + category.getSiteId() + "/" + category.getCategoryId()+siteSubfix);
+        		category.setUrl(httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/"+sitePrefix+"/" + category.getSiteId() + "/" + category.getCategoryId()+siteSubfix);
 			Map result = Pojo2MapUtil.toMap(category);
 			result.put("index",i);
         	this.binds(result);

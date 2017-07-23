@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>${content.title!} - ${site.siteName!}</title>
+    <meta name="keywords" content="${content.keywords!}" />
+    <meta name="description" content="${content.description!}" />
+    <link href="${resPath}/blog/css/base.css" rel="stylesheet">
+    <link href="${resPath}/blog/css/style.css" rel="stylesheet">
+    <link href="${resPath}/blog/css/media.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="${resPath}/blog/js/modernizr.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="ibody">
+    <header>
+        <h1>${site.siteName!}</h1>
+        <h2>${site.description!}....</h2>
+        <div class="logo"><a href="${baseURL!}"></a></div>
+        <nav id="topnav">
+            <a href="${frontPath}/${site.siteId}/">首页</a>
+            <#cms_category_list  siteId="${site.siteId}" categoryId="0" isNav="0"   var="bean">
+                <a href="${bean.url!}">${bean.categoryName!}</a>
+            </#cms_category_list>
+        </nav>
+    </header>
+    <article>
+        <#cms_site_pos  site="${site}" category="${category}"  var="bean">
+           <h2 class="about_h">您现在的位置是：${bean.baseURL}>${bean.catURL}</h2>
+        </#cms_site_pos>
+        <div class="index_about">
+            <h2 class="c_titile">${content.title!}</h2>
+            <p class="box_c"><span class="d_time">发布时间：${content.inputdate!,dateFormat="yyyy-MM-dd HH:mm"}</span><span>编辑：${content.author!}</span><span>浏览（${content.viewNum!}）</span></p>
+            <ul class="infos">
+                <p>
+                    @//这个字段是从自定义模型表里获取的
+                    ${content.content!}
+                </p>
+            </ul>
+            <div class="keybq">
+                <p><span>关键字词</span>：${content.keywords!}</p>
+            </div>
+            <div class="nextinfo">
+                <#cms_content  contentId="${content.content_id!}" categoryId="${category.categoryId!}" titleLen="5" var="content">
+                    <p>上一篇：${content.prev!}</p>
+                    <p>下一篇：${content.next!}</p>
+                </#cms_content>
+
+            </div>
+
+        </div>
+
+    </article>
+    <aside>
+        <div class="rnav">
+            <#cms_category_list  siteId="${site.siteId}" categoryId="${category.categoryId!}" isNav="0"   var="bean">
+                @if(bean.categoryId==category.categoryId){
+                <li class="active rnav${bean.index!}" >
+                    @}else{
+                <li class="rnav${bean.index!}">
+                    @}
+                    <a href="${bean.url!}">${bean.categoryName!}</a>
+                </li>
+            </#cms_category_list>
+        </div>
+        <div class="ph_news">
+            <h2>
+                <p>点击排行</p>
+            </h2>
+            <ul class="ph_n">
+                <#cms_content_list  siteId="${site.siteId}" categoryId="${category.categoryId}" target="1" orderBy="2" isHot="1" hasChild="0" isRecommend="0" size="9"   titleLen="15"   var="content">
+                   @if(content.index<3){
+                    <li><span class="num${content.index}">${content.index}</span>
+                        <a href="${content.url!}">${content.title!}</a></li>
+                    @}else{
+                    <li><span>${content.index}</span>
+                        <a href="${content.url!}">${content.title!}</a></li>
+                    @}
+                </#cms_content_list>
+            </ul>
+            <h2>
+                <p>栏目推荐</p>
+            </h2>
+            <ul>
+                <li><a href="/">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
+                <#cms_content_list  siteId="${site.siteId}" categoryId="${category.categoryId}" target="1" orderBy="2" isHot="1" hasChild="0" isRecommend="1" size="9"   titleLen="15"   var="content">
+                    @if(content.index<3){
+                    <li><span class="num${content.index}">${content.index}</span>
+                        <a href="${content.url!}">${content.title!}</a></li>
+                    @}
+                </#cms_content_list>
+            </ul>
+            <!--<h2>-->
+                <!--<p>最新评论</p>-->
+            <!--</h2>-->
+            <!--<ul class="pl_n">-->
+                <!--<dl>-->
+                    <!--<dt><img src="images/s8.jpg"> </dt>-->
+                    <!--<dt> </dt>-->
+                    <!--<dd>DanceSmile-->
+                        <!--<time>49分钟前</time>-->
+                    <!--</dd>-->
+                    <!--<dd><a href="/">文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</a></dd>-->
+                <!--</dl>-->
+                <!--<dl>-->
+                    <!--<dt><img src="images/s7.jpg"> </dt>-->
+                    <!--<dt> </dt>-->
+                    <!--<dd>yisa-->
+                        <!--<time>2小时前</time>-->
+                    <!--</dd>-->
+                    <!--<dd><a href="/">我手机里面也有这样一个号码存在</a></dd>-->
+                <!--</dl>-->
+                <!--<dl>-->
+                    <!--<dt><img src="images/s6.jpg"> </dt>-->
+                    <!--<dt> </dt>-->
+                    <!--<dd>小林博客-->
+                        <!--<time>8月7日</time>-->
+                    <!--</dd>-->
+                    <!--<dd><a href="/">博客色彩丰富，很是好看</a></dd>-->
+                <!--</dl>-->
+                <!--<dl>-->
+                    <!--<dt><img src="images/003.jpg"> </dt>-->
+                    <!--<dt> </dt>-->
+                    <!--<dd>DanceSmile-->
+                        <!--<time>49分钟前</time>-->
+                    <!--</dd>-->
+                    <!--<dd><a href="/">文章非常详细，我很喜欢.前端的工程师很少，我记得几年前yahoo花高薪招聘前端也招不到</a></dd>-->
+                <!--</dl>-->
+                <!--<dl>-->
+                    <!--<dt><img src="images/002.jpg"> </dt>-->
+                    <!--<dt> </dt>-->
+                    <!--<dd>yisa-->
+                        <!--<time>2小时前</time>-->
+                    <!--</dd>-->
+                    <!--<dd><a href="/">我手机里面也有这样一个号码存在</a></dd>-->
+                <!--</dl>-->
+            <!--</ul>-->
+            <!--<h2>-->
+                <!--<p>最近访客</p>-->
+                <!--<ul>-->
+                    <!--<img src="images/vis.jpg">&lt;!&ndash; 直接使用“多说”插件的调用代码 &ndash;&gt;-->
+                <!--</ul>-->
+            <!--</h2>-->
+        </div>
+        <div class="copyright">
+            <ul>
+                <p> Design by DanceSmile</p>
+                <p>陇ICP备14000352号-1</p>
+                </p>
+            </ul>
+        </div>
+    </aside>
+    <script src="${resPath}/blog/js/silder.js"></script>
+    <div class="clear"></div>
+    <!-- 清除浮动 -->
+</div>
+</body>
+</html>

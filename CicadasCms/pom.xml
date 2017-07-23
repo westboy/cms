@@ -38,11 +38,43 @@
         <slaveTargetModelPackage>com.zhiliao.mybatis.model.slave</slaveTargetModelPackage>
         <slaveTargetResourcesProject>${basedir}/src/main/resources</slaveTargetResourcesProject>
         <slaveTargetXMLPackage>com.zhiliao.mybatis.mapper.slave</slaveTargetXMLPackage>
-
-
     </properties>
 
-
+    <!--<repositories>-->
+        <!--<repository>-->
+            <!--<id>sonatype-nexus-snapshots</id>-->
+            <!--<name>Sonatype Nexus Snapshots</name>-->
+            <!--<url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
+            <!--<releases>-->
+                <!--<enabled>false</enabled>-->
+            <!--</releases>-->
+            <!--<snapshots>-->
+                <!--<enabled>true</enabled>-->
+            <!--</snapshots>-->
+        <!--</repository>-->
+        <!--<repository>-->
+            <!--<id>apache-snapshots</id>-->
+            <!--<name>Apache Snapshots</name>-->
+            <!--<url>https://repository.apache.org/snapshots/</url>-->
+            <!--<releases>-->
+                <!--<enabled>false</enabled>-->
+            <!--</releases>-->
+            <!--<snapshots>-->
+                <!--<enabled>true</enabled>-->
+            <!--</snapshots>-->
+        <!--</repository>-->
+        <!--&lt;!&ndash;repository>-->
+            <!--<id>apache-staging-repo</id>-->
+            <!--<name>Apache Staging Repository</name>-->
+            <!--<url>https://repository.apache.org/content/repositories/orgapacheshiro-1018/</url>-->
+            <!--<releases>-->
+                <!--<enabled>true</enabled>-->
+            <!--</releases>-->
+            <!--<snapshots>-->
+                <!--<enabled>false</enabled>-->
+            <!--</snapshots>-->
+        <!--</repository&ndash;&gt;-->
+    <!--</repositories>-->
 
 
     <dependencies>

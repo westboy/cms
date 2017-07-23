@@ -53,7 +53,8 @@
             <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
             <a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true)" data-icon="undo">清空查询</a>&nbsp;
             <button type="button" class="btn-green" data-toggle="tableditadd" data-target="#friendLink" data-num="1" data-icon="plus">添加链接</button>&nbsp;
-         </div>
+            <button type="button" class="btn-red"  data-toggle="dialog"   data-url="${ctxPath}/system/cms/friendlink/group/list"   data-maxable="false" data-resizable="false"  data-width="800" data-height="600" data-id="friend-group-tab"  data-icon="plus">管理分组</button>&nbsp;
+        </div>
     </form>
 </div>
 <div class="bjui-pageContent tableContent">
@@ -65,6 +66,13 @@
                 <th align="center"   title="友链名称"><input type="text" name="linkName" data-rule="required"  size="5"></th>
                 <th align="center"  title="友链类型">
                     <select  name="linkType" data-toggle="selectpicker" data-rule="required"><option value="0">文字</option><option value="1">图片</option></select>
+                </th>
+                <th align="center"  title="分组">
+                    <select  name="groupId" data-toggle="selectpicker" data-rule="required">
+                        @for(group in groups){
+                        <option value="${group.id!}">${group.groupName!}</option>
+                        @}
+                    </select>
                 </th>
                 <th  align="center"  title="友链地址"><input type="text" name="linkUrl" data-rule="url"  size="5"></th>
                 <th   align="center" title="排序"><input type="text" name="sortId"  data-rule="required" value="" size="3"></th>
@@ -90,6 +98,7 @@
                 <td align="center" data-noedit="true">${link.id!}</td>
                 <td align="center"   >${link.linkName!}</td>
                 <td  align="center" data-val="${link.linkType!}" ></td>
+                <td  align="center" data-val="${link.groupId!}" ></td>
                 <td  align="center" data-val="${link.linkUrl!}"></td>
                 <td  align="center" >${link.sortId!}</td>
                 <td align="center" data-val="${link.status!}"></td>

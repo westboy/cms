@@ -13,10 +13,19 @@ public class TCmsSite implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     private Integer siteId;
 
+    public String getSiteName() {
+        return siteName;
+    }
+
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
+    }
+
     /**
      * 站点名称
      */
-    private String sitename;
+    @Column(name = "site_name")
+    private String siteName;
 
     /**
      * 域名
@@ -82,23 +91,6 @@ public class TCmsSite implements Serializable {
         this.siteId = siteId;
     }
 
-    /**
-     * 获取站点名称
-     *
-     * @return sitename - 站点名称
-     */
-    public String getSitename() {
-        return sitename;
-    }
-
-    /**
-     * 设置站点名称
-     *
-     * @param sitename 站点名称
-     */
-    public void setSitename(String sitename) {
-        this.sitename = sitename;
-    }
 
     /**
      * 获取域名

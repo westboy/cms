@@ -21,11 +21,11 @@ public interface TCmsContentMapper extends Mapper<TCmsContent> {
                                       @Param("tableName") String tableName);
 
     List<TCmsContent> selectByContentListBySiteIdAndCategoryId(@Param("siteId") Integer siteId,
-                                                               @Param("categoryId") Long categoryId,
-                                                               @Param("inExpress") String inExpress,
+                                                               @Param("categoryIds") Long[] categoryIds,
                                                                @Param("orderBy") Integer orderBy,
                                                                @Param("isHot") Integer isHot,
-                                                               @Param("isPic") String isPic
+                                                               @Param("isPic") String isPic,
+                                                               @Param("isRecommend") String isRecommend
                                                                );
 
     @Select("SELECT * FROM t_cms_content WHERE content_id = (SELECT max(content_id) FROM t_cms_content WHERE content_id < #{contentId} AND category_id =#{categoryId}  and status =1)")

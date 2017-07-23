@@ -31,6 +31,10 @@ public class SearchModelFiledValueTag extends GeneralVarTagBinding {
 	@Autowired
 	private ModelFiledService modelFiledService;
 
+
+	@Value("${system.site.prefix}")
+	private String sitePrefix;
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void render() {
@@ -43,7 +47,7 @@ public class SearchModelFiledValueTag extends GeneralVarTagBinding {
 		if(CmsUtil.isNullOrEmpty(modelFiled)){
 			throw new CmsException("模型字段不存在！");
 		}
-		String url = httpProtocol + "://" + ControllerUtil.getDomain() + "/front/search?s="+siteId+"&m=" + modelId + "&c=" + catId + "&"
+		String url = httpProtocol + "://" + ControllerUtil.getDomain() + "/search?s="+siteId+"&m=" + modelId + "&c=" + catId + "&"
 				+ filedName + "={filedValue}";
 		String[] values = modelFiled.getFiledValue().split("#");
 		String str = "";
@@ -65,7 +69,7 @@ public class SearchModelFiledValueTag extends GeneralVarTagBinding {
 					}
 				}
 				if (flag) {
-					mfv.setUrl(httpProtocol + "://" + ControllerUtil.getDomain() + "/front/search?m=" + modelId + "&c="
+					mfv.setUrl(httpProtocol + "://" + ControllerUtil.getDomain() + "/search?m=" + modelId + "&c="
 							+ catId + str);
 					mfv.setName("全部");
 					this.binds(mfv);

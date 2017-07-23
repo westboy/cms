@@ -119,6 +119,15 @@ public class TagRegisterFactory {
         return  springBeanTagFactory;
     }
 
+
+    /* 友情链接标签 */
+    @Bean(name = "friendLinkListTagFactory")
+    public SpringBeanTagFactory friendLinkListTagFactory(){
+        SpringBeanTagFactory springBeanTagFactory = new SpringBeanTagFactory();
+        springBeanTagFactory.setName("friendLinkListTag");
+        return  springBeanTagFactory;
+    }
+
     /* TagFactory */
     @Bean(name = "tagFactory")
     public Map<String,TagFactory> Tag(@Qualifier("contentListTagFactory") SpringBeanTagFactory contentListTag,
@@ -133,7 +142,8 @@ public class TagRegisterFactory {
                                       @Qualifier("lucenePaginationTagFactory") SpringBeanTagFactory lucenePaginationTagFactory,
                                       @Qualifier("indexSilderTagFactory") SpringBeanTagFactory indexSilderTagFactory,
                                       @Qualifier("topicListTagFactory") SpringBeanTagFactory topicListTagFactory,
-                                      @Qualifier("topicContentTagFactory") SpringBeanTagFactory topicContentTagFactory
+                                      @Qualifier("topicContentTagFactory") SpringBeanTagFactory topicContentTagFactory,
+                                      @Qualifier("friendLinkListTagFactory") SpringBeanTagFactory friendLinkListTagFactory
 
 
     ){
@@ -151,6 +161,7 @@ public class TagRegisterFactory {
         tag.put("cms_index_silder",indexSilderTagFactory);
         tag.put("cms_topic_list",topicListTagFactory);
         tag.put("cms_topic_content",topicContentTagFactory);
+        tag.put("cms_friendlink",friendLinkListTagFactory);
         return  tag;
     }
 

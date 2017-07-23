@@ -38,6 +38,9 @@ public class CategoryTag extends GeneralVarTagBinding {
 	@Value("${system.http.host}")
 	private String httpHost;
 
+	@Value("${system.site.prefix}")
+	private String sitePrefix;
+
 	@Value("${system.site.subfix}")
 	private String siteSubfix;
 
@@ -54,8 +57,8 @@ public class CategoryTag extends GeneralVarTagBinding {
 			category = categoryService.findById(category.getParentId());
 		result.put("categoryId",category.getCategoryId());
 		result.put("categoryName",category.getCategoryName());
-		result.put("url", !StrUtil.isBlank(category.getUrl())?category.getUrl():httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/front/" + category.getSiteId() + "/" + category.getCategoryId()+siteSubfix);
-		result.put("more", !StrUtil.isBlank(category.getUrl())?category.getUrl():httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/front/" + category.getSiteId() + "/" + category.getCategoryId()+"/index_1"+siteSubfix);
+		result.put("url", !StrUtil.isBlank(category.getUrl())?category.getUrl():httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/"+sitePrefix+"/" + category.getSiteId() + "/" + category.getCategoryId()+siteSubfix);
+		result.put("more", !StrUtil.isBlank(category.getUrl())?category.getUrl():httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/"+sitePrefix+"/" + category.getSiteId() + "/" + category.getCategoryId()+"/index_1"+siteSubfix);
 		this.binds(result);
 		this.doBodyRender();
 	}

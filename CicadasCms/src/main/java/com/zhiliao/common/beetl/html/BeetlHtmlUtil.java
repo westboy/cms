@@ -32,13 +32,15 @@ public class BeetlHtmlUtil {
 	@Value("${system.site.subfix}")
 	private String siteSubfix;
 
+	@Value("${system.site.prefix}")
+	private String sitePrefix;
 
 
 	private final String STATIC_SUFFIX = ".html";
 
 
 	public void create(HttpServletRequest request,Integer siteId, String action, Map<String, Object> attr, String theme, String tpl) {
-		String view = "front"+File.separator + theme + File.separator + tpl+STATIC_SUFFIX;
+		String view = "www"+File.separator + theme + File.separator + tpl+STATIC_SUFFIX;
 		Template template = groupTemplate.getTemplate(view);
 		StringWriter writer = new StringWriter();
 		template.binding("request", request);
@@ -53,7 +55,7 @@ public class BeetlHtmlUtil {
 	}
      
 	private String format(String page){
-		return page.replace("/front/","/html/").replace(siteSubfix, STATIC_SUFFIX);
+		return page.replace("/"+sitePrefix+"/","/html/").replace(siteSubfix, STATIC_SUFFIX);
 	}
 
 }

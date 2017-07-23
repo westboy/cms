@@ -26,7 +26,11 @@ public class PrintSitePositionTag extends GeneralVarTagBinding {
     @Value("${system.http.protocol}")
     private String httpProtocol;
 
+    @Value("${system.site.subfix}")
+    private String siteSubfix;
 
+    @Value("${system.site.prefix}")
+    private String sitePrefix;
 
     @Override
     public void render() {
@@ -37,12 +41,12 @@ public class PrintSitePositionTag extends GeneralVarTagBinding {
         TCmsSite site = (TCmsSite) this.getAttributeValue("site");
         if(CmsUtil.isNullOrEmpty(site))
             throw new CmsException("面包屑导航出错[site参数必须为site对象]");
-        baseURL+=url+"/front/"+site.getSiteId();
+        baseURL+=url+"/"+sitePrefix+"/"+site.getSiteId()+"/";
         reult.put("baseURL","<a href=\""+baseURL+"\">首页</a>");
         TCmsCategory category = (TCmsCategory) this.getAttributeValue("category");
         if(CmsUtil.isNullOrEmpty(site))
             throw new CmsException("面包屑导航出错[category参数必须为category对象]");
-        catURL+=baseURL+"/"+category.getCategoryId();
+        catURL+=baseURL+category.getCategoryId()+siteSubfix;
         reult.put("catURL","<a href=\""+catURL+"\">"+category.getCategoryName()+"</a>");
         this.binds(reult);
         this.doBodyRender();

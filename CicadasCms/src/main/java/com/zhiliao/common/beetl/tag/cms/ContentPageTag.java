@@ -39,6 +39,9 @@ public class ContentPageTag extends GeneralVarTagBinding {
 
     @Value("${system.site.subfix}")
     private String siteSubfix;
+
+    @Value("${system.site.prefix}")
+    private String sitePrefix;
     /**
      *
      * 内容分页标签
@@ -74,7 +77,7 @@ public class ContentPageTag extends GeneralVarTagBinding {
             if (StrUtil.isBlank(content.getUrl())) {
                 TCmsSite site = siteService.findById(siteId);
                 if(CmsUtil.isNullOrEmpty(site)) throw new CmsException("站点不存在[siteId:"+siteId+"]");
-                String url = httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/front/"+siteId+"/";
+                String url = httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/"+sitePrefix+"/"+siteId+"/";
                 url+=content.getCategoryId()+"/"+content.getContentId();
                 content.setUrl(url+siteSubfix);
             }

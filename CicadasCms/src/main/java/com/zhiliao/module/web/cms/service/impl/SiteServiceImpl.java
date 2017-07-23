@@ -70,9 +70,7 @@ public class SiteServiceImpl implements SiteService{
     public String delete(Integer[] ids) {
         if(ids!=null){
            for (Integer id :ids) {
-               if(id==0){
-                   return  JsonUtil.toERROR("主站点不能删除");
-               }
+               if(id==1)return  JsonUtil.toERROR("主站点不能删除");
                /*删除一切与当前站点相关联的内容*/
                siteMapper.deleteByPrimaryKey(id);
                userSiteMapper.deleteBySiteId(id);
@@ -185,7 +183,7 @@ public class SiteServiceImpl implements SiteService{
         if(CmsUtil.isNullOrEmpty(site))
             return JsonUtil.toERROR("当前站点不存在！");
         userVo.setSiteId(site.getSiteId());
-        userVo.setSiteName(site.getSiteId()==0?this.siteName:site.getSitename());
+        userVo.setSiteName(site.getSiteId()==0?this.siteName:site.getSiteName());
         /*更新session*/
         session.setAttribute(CmsConst.SITE_USER_SESSION_KEY,userVo);
         return JsonUtil.toSUCCESS("站点切换成功，请刷新当前页面！","site-tab",false);

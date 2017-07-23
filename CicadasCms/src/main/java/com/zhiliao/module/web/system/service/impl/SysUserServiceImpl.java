@@ -94,7 +94,7 @@ public class SysUserServiceImpl implements SysUserService{
                 /*取出列表中第一个站点的Id,当作此登陆站点的标识*/
                     for (TCmsSite site : sites) {
                         userVo.setSiteId(site.getSiteId());
-                        userVo.setSiteName(site.getSitename());
+                        userVo.setSiteName(site.getSiteName());
                         break;
                     }
                 /*设置session*/
@@ -211,6 +211,8 @@ public class SysUserServiceImpl implements SysUserService{
             throw  new UnauthenticatedException();
         if(ids.length>0){
             for(int id :ids){
+                if(id == 1)
+                    throw new SystemException("不能删除超级管理员！");
                 if(id == userVo.getUserId())
                     throw new SystemException("你不能删除自己！");
                 if(sysUserMapper.deleteByPrimaryKey(id)>0) {

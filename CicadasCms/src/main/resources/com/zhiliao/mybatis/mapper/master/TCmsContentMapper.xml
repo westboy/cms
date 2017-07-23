@@ -109,16 +109,23 @@
             <if test="siteId!=null">
                 site_id = #{siteId}
             </if>
-            <if test="inExpress!=null">
-              AND  category_id in (#{inExpress})
+            <if test="categoryIds!=null">
+               AND
+                   category_id in
+                 <foreach item="item" index="index" collection="categoryIds" open="(" separator="," close=")">
+                   #{item}
+                 </foreach>
             </if>
-            <if test="isPic!=null and isPic=='1'">
+            <if test='isRecommend!=null and isRecommend=="1"'>
                 AND
-                thumb is not null
-                OR
-                thumb!=''
+                    recommend = 1
             </if>
-            AND  status=1
+            <if test='isPic!=null and isPic=="1"'>
+                AND
+                   thumb is not null  OR thumb!=''
+            </if>
+        AND
+            status=1
         </trim>
         <choose>
             <when test="orderBy==1">

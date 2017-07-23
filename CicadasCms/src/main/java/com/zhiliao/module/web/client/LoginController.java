@@ -62,28 +62,13 @@ public class LoginController {
         return  object3.get("usertype").toString();
     }
 
-//    @FormToken
-//    @RequestMapping("/login")
-//    public String login(HttpServletRequest request){
-//        SsoInfoImpl principal = (SsoInfoImpl)request.getUserPrincipal();
-//        Map<String,Object> ssoInfo=(principal!=null?principal.getAttributes():null);
-//
-//        return "client/login";
-//    }
-
+    @FormToken
     @RequestMapping("/login")
-    @ResponseBody
-    public String test(HttpServletRequest request){
-        final PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
-        if (principals != null) {
-            final Map principal = principals.oneByType(Map.class);
-            principal.forEach((key,value)->
-               System.out.println("key"+key+" ->  value"+value)
-            );
-        }
-
-        return "no message";
+    public String login(HttpServletRequest request){
+        return "client/login";
     }
+
+
 
     @RequestMapping("/unauthorized")
     public void unauthorized(HttpServletRequest request, HttpServletResponse response) throws IOException {

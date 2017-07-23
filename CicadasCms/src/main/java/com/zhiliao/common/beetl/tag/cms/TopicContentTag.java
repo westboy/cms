@@ -42,6 +42,8 @@ public class TopicContentTag extends GeneralVarTagBinding {
 	@Value("${system.site.subfix}")
 	private String siteSubfix;
 
+	@Value("${system.site.prefix}")
+	private String sitePrefix;
 
 	@Override
 	public void render() {
@@ -65,7 +67,7 @@ public class TopicContentTag extends GeneralVarTagBinding {
 		if(CmsUtil.isNullOrEmpty(topicList)) return;
         for (TCmsTopic topic : topicList){
 			Map result = Pojo2MapUtil.toMap(topic);
-			result.put("url",httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/front/" + topic.getSiteId() + "/topic/" + topic.getTopicId());
+			result.put("url",httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/"+sitePrefix+"/" + topic.getSiteId() + "/topic/" + topic.getTopicId());
 			result.put("index",i);
         	this.binds(result);
 			this.doBodyRender();

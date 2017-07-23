@@ -46,6 +46,9 @@ public class ContentListTag extends GeneralVarTagBinding {
     @Value("${system.http.host}")
     private String httpHost;
 
+    @Value("${system.site.prefix}")
+    private String sitePrefix;
+
     private  Logger log = LoggerFactory.getLogger(ContentListTag.class);
 
     /**
@@ -72,10 +75,11 @@ public class ContentListTag extends GeneralVarTagBinding {
         Integer hasChild=  Integer.parseInt((String) this.getAttributeValue("hasChild"));
         String target =  (String) this.getAttributeValue("target");
         String isPic =  (String) this.getAttributeValue("isPic");
+        String isRecommend =  (String) this.getAttributeValue("isRecommend");
         Integer orderBy =  Integer.parseInt((String) this.getAttributeValue("orderBy"));
         Integer size =  Integer.parseInt((String) this.getAttributeValue("size"));
         Integer isHot =  Integer.parseInt((String) this.getAttributeValue("isHot"));
-        PageInfo<TCmsContent> pageInfo = contentService.findContentListBySiteIdAndCategoryId(siteId, categoryId, orderBy, size, hasChild, isHot, isPic);
+        PageInfo<TCmsContent> pageInfo = contentService.findContentListBySiteIdAndCategoryId(siteId, categoryId, orderBy, size, hasChild, isHot, isPic,isRecommend);
         if(CmsUtil.isNullOrEmpty(pageInfo.getList()))
             log.debug("没有查询到数据！[siteId:{},categoryId:{}]",siteId,categoryId);
         try {
@@ -96,7 +100,7 @@ public class ContentListTag extends GeneralVarTagBinding {
             if (StrUtil.isBlank(content.getUrl())) {
                 TCmsSite site = siteService.findById(siteId);
                 if(CmsUtil.isNullOrEmpty(site)) throw new CmsException("站点不存在[siteId:"+siteId+"]");
-                String url = httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/front/"+site.getSiteId()+"/";
+                String url = httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/"+sitePrefix+"/"+site.getSiteId()+"/";
                 url+=content.getCategoryId()+"/"+content.getContentId();
                 content.setUrl(url+siteSubfix);
             }

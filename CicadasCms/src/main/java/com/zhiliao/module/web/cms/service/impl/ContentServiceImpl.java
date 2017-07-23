@@ -289,21 +289,29 @@ public class ContentServiceImpl implements ContentService{
                                                                       Integer size,
                                                                       Integer hasChild,
                                                                       Integer isHot,
-                                                                      String isPic) {
+                                                                      String isPic,
+                                                                      String isRecommend) {
         PageHelper.startPage(1, size);
-        String inExpress =String.valueOf(categoryId);
+        Long[] categoryIds;
         /*如果包含子类栏目*/
         if(hasChild==1) {
-            String tmp ="";
             List<TCmsCategory> cats =categoryService.findCategoryListByPid(categoryId);
-            if(CmsUtil.isNullOrEmpty(cats))
-                throw new CmsException("标签调用出错,当前栏目下没有子栏目！");
-            for(TCmsCategory cat :cats){
-                tmp+=cat.getCategoryId()+",";
+            /*如果子栏目没有内容就查询当前自身*/
+            if(CmsUtil.isNullOrEmpty(cats)){
+                categoryIds =new Long[]{categoryId};
+            }else{
+                categoryIds =new Long[cats.size()+1];
+                categoryIds[0]=categoryId;
+                int i= 1;
+                for(TCmsCategory cat :cats){
+                    categoryIds[i]=cat.getCategoryId();
+                    i++;
+                }
             }
-            inExpress+=","+tmp.substring(0,tmp.length()-1);
+        }else{
+            categoryIds =new Long[]{categoryId};
         }
-        return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryId(siteId,categoryId,inExpress,orderBy,isHot,isPic));
+        return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryId(siteId,categoryIds,orderBy,isHot,isPic,isRecommend));
     }
 
     @Cacheable(key = "'page-pageNumber-'+#p0+'-siteId-'+#p1+'-categoryId-'+#p2")

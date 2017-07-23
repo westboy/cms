@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>${category.categoryName!} - ${site.siteName!}</title>
+    <meta name="keywords" content="${site.keyword!}" />
+    <meta name="description" content="${site.description!}" />
+    <link href="${resPath}/blog/css/base.css" rel="stylesheet">
+    <link href="${resPath}/blog/css/about.css" rel="stylesheet">
+    <link href="${resPath}/blog/css/media.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="${resPath}/blog/js/modernizr.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="ibody">
+    <header>
+        <h1>${site.siteName!}</h1>
+        <h2>${site.description!}....</h2>
+        <div class="logo"><a href="${baseURL!}"></a></div>
+        <nav id="topnav">
+            <a href="${frontPath}/${site.siteId}/">首页</a>
+            <#cms_category_list  siteId="${site.siteId}" categoryId="0" isNav="0"   var="bean">
+                <a href="${bean.url!}">${bean.categoryName!}</a>
+            </#cms_category_list>
+        </nav>
+    </header>
+    <article>
+        <#cms_site_pos  site="${site}" category="${category}"  var="bean">
+            <h3 class="about_h">您现在的位置是：${bean.baseURL}>${bean.catURL}</h3>
+        </#cms_site_pos>
+        <div class="about">
+            <h2>Just about me</h2>
+            <ul>
+                <p>
+                    ${category.content!}
+                </p>
+            </ul>
+            <h2>About my blog</h2>
+            <ul class="blog_a">
+                <p>域  名： <a href="http://www.net.cn/domain/" class="blog_link" target="_blank">注册域名</a><a class="blog_link" href="http://koubei.baidu.com/womc/s/www.yangqq.com" target="_blank">邀你点评</a></p>
+                <p>服务器：阿里云服务器<a href="http://www.aliyun.com/product/ecs/?ali_trackid=2:mm_11085263_4976026_15602229:1389838528_3k2_34164590" class="blog_link" target="_blank">购买空间</a><a href="/jstt/web/2014-01-18/644.html" target="_blank" class="blog_link" >参考我的空间配置</a></p>
+                <p>程  序：PHP 帝国CMS7.0</p>
+                <p>微信公众号：wwwyangqqcom</p>
+            </ul>
+        </div>
+    </article>
+    <aside>
+        <div class="avatar"><a href="${frontPath}/${site.siteId}/"><span>about westBoy</span></a></div>
+        <div class="topspaceinfo">
+            <h1>执子之手，与子偕老</h1>
+            <p>于千万人之中，我遇见了我所遇见的人....</p>
+        </div>
+        <div class="about_c">
+            <p>网名：westBoy</p>
+            <p>职业：无业游民 </p>
+            <p>籍贯：甘肃省-兰州市</p>
+            <p>QQ：154232101</p>
+            <p>邮箱：jin#westboy.net</p>
+            <p><a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=HHh9cn95b3F1cHVye1xtbTJ-c3E" ><img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_22.png" alt="杨青个人博客网站"></a></p>
+         </div>
+    </aside>
+    <script src="${resPath}/blog/js/silder.js"></script>
+    <div class="clear"></div>
+    <!-- 清除浮动 -->
+</div>
+</body>
+</html>

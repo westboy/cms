@@ -72,7 +72,7 @@
                     @if(isNotEmpty(content.thumb)){
                     <span style="color: red;padding: 0;margin: 0">[图]</span>
                     @}
-                    <a target="_blank" href="${ctxPath}/front/${content.siteId}/${content.categoryId}/${content.contentId}">${content.title!,xss}</a>
+                    <a target="_blank" href="${ctxPath}/${sitePrefix}/${content.siteId}/${content.categoryId}/${content.contentId}">${content.title!,xss}</a>
                 </td>
                 <td align="center">${content.viewNum!,xss}</td>
                 <td align="center">${content.inputdate!"N/A",dateFormat="yyyy/MM/dd HH:mm"}</td>

@@ -64,6 +64,9 @@ public class IndexController {
     @Value("${system.http.protocol}")
     private String httpProtocol;
 
+    @Value("${system.site.prefix}")
+    private String sitePrefix;
+
     @Value("${system.site.subfix}")
     private String siteSubfix;
 
@@ -79,8 +82,8 @@ public class IndexController {
         if(CmsUtil.isNullOrEmpty(site))
             throw new CmsException(CmsConst.SITE_NOT_FOUND);
         if(!StrUtil.isBlank(keyword))
-            return new ModelAndView( "forward:/front/search");
-        return new ModelAndView( "forward:/front/"+site.getSiteId());
+            return new ModelAndView( "forward:/"+sitePrefix+"/search");
+        return new ModelAndView( "forward:/"+sitePrefix+"/"+site.getSiteId());
     }
 
 
@@ -90,7 +93,7 @@ public class IndexController {
      * @param model
      * @return
      */
-    @GetMapping("/front/{siteId}")
+    @GetMapping("/${system.site.prefix}/{siteId}")
     public String index(@PathVariable("siteId") Integer siteId,
                         Model model){
         log.debug("首页");
@@ -113,7 +116,7 @@ public class IndexController {
     }
 
 
-    @GetMapping("/front/{siteId}/{categoryId}")
+    @GetMapping("/${system.site.prefix}/{siteId}/{categoryId}")
     public String category(@PathVariable("siteId") Integer siteId,
                            @PathVariable("categoryId") Long categoryId,
                            Model model){
@@ -137,7 +140,7 @@ public class IndexController {
     }
 
     /*网站栏目列表页*/
-    @GetMapping("/front/{siteId}/{categoryId}/index_{pageNumber}")
+    @GetMapping("/${system.site.prefix}/{siteId}/{categoryId}/index_{pageNumber}")
     public String page(@PathVariable("siteId") Integer siteId,
                              @PathVariable("categoryId") Long categoryId,
                              @PathVariable(value = "pageNumber") Integer pageNumber,
@@ -164,7 +167,7 @@ public class IndexController {
     }
 
     /*网站内容页*/
-    @GetMapping("/front/{siteId}/{categoryId}/{contentId}")
+    @GetMapping("/${system.site.prefix}/{siteId}/{categoryId}/{contentId}")
     public String content(@PathVariable("siteId") Integer siteId,
                                 @PathVariable("categoryId") Long categoryId,
                                 @PathVariable("contentId") Long contentId,
@@ -194,7 +197,7 @@ public class IndexController {
     }
 
     /*网站首页*/
-    @RequestMapping("/front/search")
+    @RequestMapping("/search")
     public String search(@RequestParam(value = "keyword",required = false) String keyword,
                          @RequestParam(value = "m",defaultValue = "0") Integer modelId,
                          @RequestParam(value = "s",defaultValue = "0") Integer siteId,
@@ -208,7 +211,7 @@ public class IndexController {
             throw new CmsException(CmsConst.SITE_NOT_FOUND);
         if (modelId > 0 && catId > 0) {
             String action = httpProtocol + "://" + ControllerUtil.getDomain();
-            action += "/front/search?m=" + modelId + "&c=" + catId;
+            action += "/search?m=" + modelId + "&c=" + catId;
             TCmsCategory category = categoryService.findById(catId);
             if(CmsUtil.isNullOrEmpty(category))
                 throw new CmsException(CmsConst.CATEGORY_NOT_FOUND);
@@ -237,7 +240,7 @@ public class IndexController {
             String action = httpProtocol + "://" + ControllerUtil.getDomain();
             if(StrUtil.isBlank(keyword))
                 throw new CmsException(CmsConst.SEARCH_KEYWORD_NOT_FOUND);
-            action +="/front/search?keyword="+keyword;
+            action +="/search?keyword="+keyword;
             PageInfo page =luceneService.page(pageNumber,Integer.parseInt(this.pageSize),keyword);
             request.setAttribute("page",page);
             request.setAttribute("site",site);
@@ -248,22 +251,13 @@ public class IndexController {
     }
 
 
-
-
-    @RequestMapping("/h")
-    @ResponseBody
-    public String getPageSize() {
-        htmlStaticService.index(1);
-        return "123";
-    }
-
     private String view(String viewName){
-        return  "front/default/"+viewName.trim();
+        return  "www/default/"+viewName.trim();
     }
 
 
     private String view(String theme,String viewName){
-        return "front/"+theme.trim()+"/"+viewName.trim();
+        return "www/"+theme.trim()+"/"+viewName.trim();
     }
     
 }
