@@ -22,7 +22,11 @@
         <nav id="topnav">
             <a href="${frontPath}/${site.siteId}/">首页</a>
             <#cms_category_list  siteId="${site.siteId}" categoryId="0" isNav="0"   var="bean">
+                @if(isNotEmpty(category)&&category.categoryId==bean.categoryId){
+                <a id="topnav_current" href="${bean.url!}">${bean.categoryName!}</a>
+                @}else{
                 <a href="${bean.url!}">${bean.categoryName!}</a>
+                @}
             </#cms_category_list>
         </nav>
     </header>
