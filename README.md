@@ -7,7 +7,7 @@ springboot+mybatis+beetl开发的一款CMS，支持自定义内容模型、模�
 
 ![后台首页](https://raw.githubusercontent.com/westboy/CicadasCms/master/CicadasCms/doc/index.png "后台首页")
 
-##### 3、 演示地址（账号testdemo1，密码：testdemo1）
+##### 3、 演示地址（账号：testdemo1，密码：testdemo1）
 ###### 前台：http://demo.westboy.net 
 ###### 后台：http://demo.westboy.net/admin/login
 # Other
