@@ -16,5 +16,6 @@ springboot+mybatis+beetl开发的一款CMS，支持自定义内容模型、模�
 、mybatis
 、[beetl](http://www.ibeetl.com "beetl")
 、shiro
-、[通用mapper](http://git.oschina.net/free/Mapper "通用mapper")（整合maven方式代码生成）
+、[mybatis通用mapper](http://git.oschina.net/free/Mapper "通用mapper")（整合maven方式代码生成）
 、[七牛云存储](https://portal.qiniu.com/signup?code=3lb7ah8vdj0ia "七牛云存储")
+、[B-JUI v1.2](http://www.b-jui.com/download/ "B-JUI v1.2")
