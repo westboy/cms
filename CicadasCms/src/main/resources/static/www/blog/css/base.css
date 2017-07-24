@@ -1,0 +1,33 @@
+@charset "gb2312";
+/* 共用css */
+* { margin: 0; padding: 0 }
+body { font: 12px "宋体", Arial, Helvetica, sans-serif; background: #f5f5f5 }
+img { border: 0; display: block }
+ul { list-style: none; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
+a { outline: none; }
+a:link, a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+.clear { clear: both; }
+.blank { height: 5px; overflow: hidden; width: 100%; margin: auto; clear: both }
+/* 头部信息 */
+.ibody { background: url(../images/bg.png) repeat-y; width: 1000px; margin: auto; box-shadow: -2px -1px 5px #666; }
+header { position: relative; background: url(../images/ibodybg.png) top right no-repeat }
+header h1 { padding: 15px 0 0 80px; font-size: 22px; font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif; }
+header h2 { margin: 20px 80px; color: #8e8d8d }
+/* logo */
+.logo { background: url(../images/logo.png) no-repeat #000 center; width: 145px; height: 145px; border-radius: 50%; position: absolute; left: -72px; top: 40px; box-shadow: 0px 2px 2px #414141; }
+.logo:hover { background: url(../images/home.png) no-repeat #000 center; }
+.logo a { width: 100%; height: 100%; display: block }
+/* 导航 */
+nav { background: rgba(0,0,0,0.8); height: 48px; line-height: 48px; padding-left: 80px; filter: progid:DXImageTransform.Microsoft.gradient(gradientType = 0, startColorstr = #3333333, endColorstr = #3333333);
+}/* 兼容IE6 透明 */
+nav a { display: inline-block; font-size: 18px; font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif; color: #FFF; padding: 0 20px; -webkit-transition: all 1s; -moz-transition: all 1s; -o-transition: all 1s; transition: all 1s; }
+nav a:hover { background: #e41635; }
+#topnav_current { background: #e41635 }/* 高亮选中颜色 */
+article { width: 73%; float: left; background: url(../images/ibodybg.png) 560px -147px no-repeat; }/* 左侧栏 */
+aside { width: 27%; background: url(../images/ibodybg.png) -170px -147px no-repeat #000; float: right; }/* 右侧栏 */
+/* 版权信息 */
+.copyright { background: #0d0d0d; border-radius: 50%; text-align: center; color: #d8d8d8; padding: 20px; margin: 60px 20px 0 20px; border: #1b1a1a 1px solid; }
+.copyright p { line-height: 26px; text-shadow: #000 1px 1px 1px }
+.copyright p a { color: #d8d8d8; }

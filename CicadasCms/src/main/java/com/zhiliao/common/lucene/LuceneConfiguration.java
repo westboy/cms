@@ -20,7 +20,7 @@ public class LuceneConfiguration {
     @Bean
     public LuceneDao luceneUtil() throws IOException {
         LuceneDao luceneDao = new LuceneDao();
-        luceneDao.setIndexDer(PathUtil.getWebRootPath()+ File.separator+"lucene");
+        luceneDao.setIndexDer(PathUtil.getRootClassPath()+ File.separator+"lucene");
         return luceneDao;
     }
 

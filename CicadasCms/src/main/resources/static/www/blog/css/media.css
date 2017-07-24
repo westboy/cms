@@ -1,0 +1,49 @@
+@charset "gb2312";
+/* media css Document */
+@media screen and (max-width:823px) {
+.ibody { background: url(../images/ms8.png) top right no-repeat #FFF; width: 90%; margin: auto; box-shadow: 0px 2px 5px #666; }
+article { float: none; width: 100% }
+article { background: #fff }
+header { background: url(../images/ms8.png) top right no-repeat #FFF; }
+aside, .dateview { display: none }
+nav { padding-left: 0; text-align: center }
+nav a { padding: 0 5px; }
+.banner { background-size: auto; height: 130px; font-size: 12px; font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif; }
+.texts { line-height: 36px; padding: 20px 0 0 10px; text-shadow: 1px 1px rgba(255,255,255,0.3); }
+.blogs::after { background: none }
+.autor span { margin: 0 5px; }
+.blogs figure { width: 35%; }
+.blogs ul { width: 62%; }
+}
+@media screen and (max-width:598px) {
+.ibody { background: url(../images/ms8.png) top right no-repeat #FFF; width: 90%; margin: auto; box-shadow: 0px 2px 5px #666; }
+article { float: none; width: 100% }
+article { background: #fff }
+header { background: url(../images/ms8.png) top right no-repeat #FFF; }
+aside, header h1, header h2, .dateview { display: none }
+nav { height: auto; line-height: 40px; text-align: center; background: #FFF; padding-left: 0px }
+nav a { display: block; background: #323232; clear: both; margin-bottom: 2px }
+.logo { position: static; margin: 0 auto 10px }
+.banner { background-size: auto; height: 130px; font-size: 12px; font-family: "Microsoft Yahei", Arial, Helvetica, sans-serif; }
+.texts { line-height: 36px; padding: 20px 0 0 10px; text-shadow: 1px 1px rgba(255,255,255,0.3); }
+.blogs::after { background: none }
+.autor span { margin: 0 5px; }
+.blogs figure { width: 35%; }
+.blogs ul { width: 62%; }
+}
+@media screen and (max-width:480px) {
+.ibody { width: 90%; margin: auto; box-shadow: 0px 2px 5px #666; }
+article { float: none; width: 100% }
+article { background: #fff }
+header { background: url(../images/ms8.png) top right no-repeat #FFF; }
+aside, header h1, header h2, .dateview, .banner, .bloglist h2, .blogs figure img, .newblog figure img, .newblog .autor { display: none }
+nav { height: auto; line-height: 40px; text-align: center; background: #FFF; padding-left: 0px }
+nav a { display: block; background: #323232; clear: both; margin-bottom: 2px }
+.logo { position: static; margin: 0 auto 10px }
+.texts { line-height: 36px; padding: 20px 0 0 10px; text-shadow: 1px 1px rgba(255,255,255,0.3); }
+.blogs::after, .newblog::after { background: none }
+.autor span { margin: 0; }
+.blogs figure { width: 100%; float: none; }
+.blogs ul, .newblog ul { width: 100%; float: none; }
+.blogs { margin: 0 10px 10px 10px; }
+}

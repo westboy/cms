@@ -1,0 +1,19 @@
+@charset "gb2312";
+/* CSS Document */
+#main { overflow: hidden }
+.about_h { font-size: 12px; color: #666; line-height: 30px; height: 30px; border-bottom: #d7d7d7 1px solid; padding-left: 60px; margin: 20px; background: url(../images/5849.png) 40px 5px no-repeat; }
+.about_h a { color: #666; margin: 0 5px; }
+.about_h a:hover { color: #e41635 }
+.about { line-height: 22px; margin: 20px; }
+.about h2 { font-size: 22px; font-family: cursive; margin-bottom: 20px; color: #f16b17 }
+.about p { margin-bottom: 15px }
+.about ul { color: #333 }
+a.blog_link { color: #0f9c7c; margin: 0 20px }
+.avatar { margin: 10px auto; width: 160px; height: 160px; border-radius: 100%; overflow: hidden; }
+.avatar a { display: block; padding-top: 100px; width: 160px; background: url(../images/photos.jpg) no-repeat; background-size: 160px 160px; }
+.avatar a span { display: block; margin-top: 63px; padding-top: 8px; width: 160px; height: 55px; text-align: center; line-height: 20px; color: #fff; background: rgba(0, 0, 0, .5); -webkit-transition: margin-top .2s ease-in-out; -moz-transition: margin-top .2s ease-in-out; -o-transition: margin-top .2s ease-in-out; transition: margin-top .2s ease-in-out; }
+.avatar a:hover span { display: block; margin-top: 0; }
+.topspaceinfo { background: #e41635; padding: 40px 20px; color: #fff; text-shadow: 1px 1px rgba(0,0,0,.3); }
+.topspaceinfo h1 { font-size: 16px; line-height: 40px; font-weight: bold; }
+.about_c { margin: 10px 0; color: #fff; line-height: 22px; }
+.about_c p { display: block; padding-left: 20px; margin-bottom: 5px }
