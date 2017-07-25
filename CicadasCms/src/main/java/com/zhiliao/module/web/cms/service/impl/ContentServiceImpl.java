@@ -314,6 +314,20 @@ public class ContentServiceImpl implements ContentService{
         return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryId(siteId,categoryIds,orderBy,isHot,isPic,isRecommend));
     }
 
+    @Cacheable(key = "'find-siteid-'+#p0+'-categoryids-'+#p1+'-orderby-'+#p2+'-size-'+#p3+'-hasChild-'+#p4+'-isHot-'+#p5")
+    @Override
+    public PageInfo<TCmsContent> findContentListBySiteIdAndCategoryIds(Integer siteId,
+                                                                      Long[] categoryIds,
+                                                                      Integer orderBy,
+                                                                      Integer size,
+                                                                      Integer hasChild,
+                                                                      Integer isHot,
+                                                                      String isPic,
+                                                                      String isRecommend) {
+        PageHelper.startPage(1, size);
+        return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryId(siteId,categoryIds,orderBy,isHot,isPic,isRecommend));
+    }
+
     @Cacheable(key = "'page-pageNumber-'+#p0+'-siteId-'+#p1+'-categoryId-'+#p2")
     @Override
     public PageInfo<TCmsContent> page(Integer pageNumber,Integer siteId, Long categoryId) {

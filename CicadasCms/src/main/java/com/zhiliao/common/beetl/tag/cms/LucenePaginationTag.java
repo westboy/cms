@@ -34,8 +34,7 @@ public class LucenePaginationTag extends GeneralVarTagBinding {
     public void render() {
 
         PageInfo<IndexObject> contentPage = (PageInfo<IndexObject>) this.getAttributeValue("page");
-        if(CmsUtil.isNullOrEmpty(contentPage))
-            throw new CmsException("[分页标签]此标签只能和内容分页标签!");
+        if(CmsUtil.isNullOrEmpty(contentPage))throw new CmsException("[分页标签]此标签只能和内容分页标签!");
         String action = (String) this.getAttributeValue("action");
         action += "&p={pageNumber}";
         PaginateVo page = paging(contentPage.getPageNum(), Integer.parseInt(String.valueOf(contentPage.getPages())),contentPage.getPageNum(), action);

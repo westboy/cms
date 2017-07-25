@@ -36,10 +36,8 @@ public class FriendLinkListTag extends GeneralVarTagBinding {
         if(CmsUtil.isNullOrEmpty(size))
         	throw  new CmsException("[友链标签]:size不能为空");
         TCmsFriendlink friendlink = new TCmsFriendlink();
-		if(!CmsUtil.isNullOrEmpty(type))
-			friendlink.setLinkType(Integer.parseInt(type));
-		if(!CmsUtil.isNullOrEmpty(groupId))
-			friendlink.setGroupId(Integer.parseInt(groupId));
+		if(!CmsUtil.isNullOrEmpty(type))friendlink.setLinkType(Integer.parseInt(type));
+		if(!CmsUtil.isNullOrEmpty(groupId))friendlink.setGroupId(Integer.parseInt(groupId));
 		PageInfo<TCmsFriendlink> page = friendlinkService.page(1,Integer.parseInt(size),friendlink);
 		try {
 			this.wrapRender(page.getList());

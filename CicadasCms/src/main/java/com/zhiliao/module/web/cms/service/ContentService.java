@@ -37,6 +37,15 @@ public interface  ContentService extends BaseService<TCmsContent,Long> {
                                                                String isPic,
                                                                String isRecommend);
 
+    PageInfo<TCmsContent> findContentListBySiteIdAndCategoryIds(Integer siteId,
+                                                                Long[] categoryIds,
+                                                                Integer orderBy,
+                                                                Integer size,
+                                                                Integer hasChild,
+                                                                Integer isHot,
+                                                                String isPic,
+                                                                String isRecommend);
+
     PageInfo<TCmsContent> page(Integer pageNumber,Integer siteId,Long categoryId);
 
     PageInfo<TCmsContent>  findContentListByModelFiledValue(int pageNumber,Long categoryId, String tableName, Map<String, Object> param);

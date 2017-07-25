@@ -72,8 +72,7 @@ public class ContentPageTag extends GeneralVarTagBinding {
         for (TCmsContent content : contents) {
             String title = content.getTitle();
             int length = title.length();
-            if (length > titleLen)
-                content.setTitle(title.substring(0, titleLen) + "...");
+            if (length > titleLen) content.setTitle(title.substring(0, titleLen) + "...");
             if (StrUtil.isBlank(content.getUrl())) {
                 TCmsSite site = siteService.findById(siteId);
                 if(CmsUtil.isNullOrEmpty(site)) throw new CmsException("站点不存在[siteId:"+siteId+"]");

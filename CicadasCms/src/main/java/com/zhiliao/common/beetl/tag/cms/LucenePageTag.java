@@ -30,10 +30,8 @@ public class LucenePageTag extends GeneralVarTagBinding {
     @Override
     public void render() {
         PageInfo<IndexObject> pageInfo = (PageInfo) this.getAttributeValue("page");
-        if (CmsUtil.isNullOrEmpty(pageInfo))
-            throw  new CmsException("[查询分页标签]标签调用出错！");
-        if (CmsUtil.isNullOrEmpty(pageInfo))
-            throw  new CmsException("[查询分页标签]分页信息不存在！");
+        if (CmsUtil.isNullOrEmpty(pageInfo))throw  new CmsException("[查询分页标签]标签调用出错！");
+        if (CmsUtil.isNullOrEmpty(pageInfo)) throw  new CmsException("[查询分页标签]分页信息不存在！");
         wrapRender(pageInfo);
     }
 

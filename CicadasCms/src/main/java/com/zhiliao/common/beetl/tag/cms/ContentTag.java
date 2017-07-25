@@ -61,18 +61,15 @@ public class ContentTag extends GeneralVarTagBinding {
         if(!CmsUtil.isNullOrEmpty(prev)) {
             TCmsSite site = siteService.findById(prev.getSiteId());
             int length = prev.getTitle().length();
-            if (length > titleLen) {
-                prev.setTitle(prev.getTitle().substring(0, titleLen));
-            }
+            if (length > titleLen) prev.setTitle(prev.getTitle().substring(0, titleLen));
+
             prevContent = "<a href=\""+httpProtocol+"://"+(StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain())+"/"+sitePrefix+"/"+prev.getSiteId()+"/"+prev.getCategoryId()+"/"+prev.getContentId();
             prevContent+=siteSubfix+"\">"+prev.getTitle()+ "...</a>";
         }
         if(!CmsUtil.isNullOrEmpty(next)) {
             TCmsSite site = siteService.findById(next.getSiteId());
             int length = next.getTitle().length();
-            if (length > titleLen) {
-                next.setTitle(next.getTitle().substring(0, titleLen));
-            }
+            if (length > titleLen)  next.setTitle(next.getTitle().substring(0, titleLen));
             nextContent = "<a href=\""+httpProtocol+"://"+(StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain())+"/"+sitePrefix+"/"+next.getSiteId()+"/"+next.getCategoryId()+"/"+next.getContentId();
             nextContent+=siteSubfix+"\">"+next.getTitle()+ "...</a>";
         }

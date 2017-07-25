@@ -48,9 +48,7 @@ public class IndexSilderTag extends GeneralVarTagBinding {
         for (TCmsAdSilder silder : silderList) {
             String title = silder.getSildeName();
             int length = title.length();
-            if (length > titleLen) {
-                silder.setSildeName(title.substring(0, titleLen) + "...");
-            }
+            if (length > titleLen) silder.setSildeName(title.substring(0, titleLen) + "...");
             Map result = Pojo2MapUtil.toMap(silder);
             result.put("index",i);
             this.binds(result);

@@ -11,8 +11,6 @@ import com.zhiliao.module.web.cms.service.SiteService;
 import com.zhiliao.mybatis.model.master.TCmsContent;
 import com.zhiliao.mybatis.model.master.TCmsSite;
 import org.beetl.core.GeneralVarTagBinding;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -49,7 +47,6 @@ public class ContentListTag extends GeneralVarTagBinding {
     @Value("${system.site.prefix}")
     private String sitePrefix;
 
-    private  Logger log = LoggerFactory.getLogger(ContentListTag.class);
 
     /**
      * 文章列表标签
@@ -80,8 +77,7 @@ public class ContentListTag extends GeneralVarTagBinding {
         Integer size =  Integer.parseInt((String) this.getAttributeValue("size"));
         Integer isHot =  Integer.parseInt((String) this.getAttributeValue("isHot"));
         PageInfo<TCmsContent> pageInfo = contentService.findContentListBySiteIdAndCategoryId(siteId, categoryId, orderBy, size, hasChild, isHot, isPic,isRecommend);
-        if(CmsUtil.isNullOrEmpty(pageInfo.getList()))
-            log.debug("没有查询到数据！[siteId:{},categoryId:{}]",siteId,categoryId);
+        if(CmsUtil.isNullOrEmpty(pageInfo.getList())) return;
         try {
             wrapRender(pageInfo.getList(),titleLen,siteId);
         } catch (Exception e) {
