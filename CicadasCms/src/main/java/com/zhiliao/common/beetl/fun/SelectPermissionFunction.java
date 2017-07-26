@@ -45,11 +45,14 @@ public class SelectPermissionFunction implements Function{
         StringBuffer sbf = new StringBuffer();
         List<TSysPermission> permissions  = service.findPermissonByPid(spid);
         if(permissions!=null&&permissions.size()>0){
+            int flag_ = 0;
             for(TSysPermission per:permissions){
                    /**如果是自己就不输出了**/
-                   if(cid!=per.getPermissionId()&&cid!=per.getPid()||cid==0)
-                        sbf.append("<option value=\"" + per.getPermissionId() + "\" " + isSelected(per.getPermissionId(), pid) + ">" + tag + "|—" + per.getDescription()+ "</option>");
-                    sbf.append(recursion(cid,pid,per.getPermissionId(),tag));
+                if(cid!=per.getPermissionId()&&cid!=per.getPid()||cid==0) {
+                    flag_ = per.getPermissionId();
+                    sbf.append("<option value=\"" + per.getPermissionId() + "\" " + isSelected(per.getPermissionId(), pid) + ">" + tag + "|—" + per.getDescription() + "</option>");
+                }
+                if(flag_!=0)sbf.append(recursion(cid,pid,per.getPermissionId(),tag));
             }
             return  sbf.toString();
         }
