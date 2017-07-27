@@ -43,7 +43,11 @@
         <!--<javaClientGenerator targetPackage="${slaveTargetMapperPackage}" targetProject="${slaveTargetJavaProject}" type="XMLMAPPER" />-->
 
 
-        <table tableName="t_sys_schedule_job">
+        <table tableName="t_sys_org">
+            <generatedKey column="id" sqlStatement="Mysql"  />
+        </table>
+
+        <table tableName="t_sys_org_role">
             <generatedKey column="id" sqlStatement="Mysql"  />
         </table>
 

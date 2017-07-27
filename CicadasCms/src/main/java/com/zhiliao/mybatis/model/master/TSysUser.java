@@ -1,15 +1,20 @@
 package com.zhiliao.mybatis.model.master;
 
+import com.zhiliao.common.annotation.ExcelFiled;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class TSysUser implements Serializable {
+
+    @ExcelFiled(value = "用户编号")
     private Integer userId;
 
     private String username;
 
     private String password;
 
+    @ExcelFiled(value = "用户编号",dateFormat = "yyyy年MM月dd日")
     private Date createTime;
 
     private String salt;

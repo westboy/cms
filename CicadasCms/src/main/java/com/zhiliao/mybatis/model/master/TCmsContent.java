@@ -1,11 +1,16 @@
 package com.zhiliao.mybatis.model.master;
 
+import com.zhiliao.common.annotation.ExcelFiled;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "t_cms_content")
 public class TCmsContent implements Serializable {
+
+
+    @ExcelFiled("标题")
     @Id
     @Column(name = "content_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
