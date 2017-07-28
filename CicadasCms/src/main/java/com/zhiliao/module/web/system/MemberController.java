@@ -3,9 +3,9 @@ package com.zhiliao.module.web.system;
 
 import com.zhiliao.common.utils.ExcelUtil;
 import com.zhiliao.common.utils.JsonUtil;
+import com.zhiliao.module.web.client.service.ClientUserService;
 import com.zhiliao.module.web.system.service.RoleService;
 import com.zhiliao.module.web.system.service.SysUserService;
-import com.zhiliao.module.web.client.service.ClientUserService;
 import com.zhiliao.mybatis.model.master.TClientUser;
 import com.zhiliao.mybatis.model.master.TSysUser;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 
 /**
@@ -54,15 +51,9 @@ public class MemberController {
     }
 
     @RequestMapping("/excel")
-    public ModelAndView ClientUser(HttpServletResponse response){
-        try {
-            ExcelUtil.exports(response.getOutputStream(),sysUserService.findSysUserPageInfo(1,10,null).getList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public ModelAndView ClientUser(){
+       ExcelUtil.exports("123",sysUserService.findSysUserPageInfo(1,10,null).getList());
         return null;
-
     }
 
     @RequiresRoles("superadmin")

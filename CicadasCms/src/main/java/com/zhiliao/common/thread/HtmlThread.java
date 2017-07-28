@@ -1,6 +1,6 @@
 package com.zhiliao.common.thread;
 
-import com.zhiliao.common.beetl.html.HtmlObject;
+import com.zhiliao.component.beetl.html.HtmlObject;
 import com.zhiliao.common.exception.SystemException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;

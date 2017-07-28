@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.exception.SystemException;
-import com.zhiliao.common.lucene.util.IndexObject;
+import com.zhiliao.component.lucene.util.IndexObject;
 import com.zhiliao.common.utils.*;
 import com.zhiliao.module.web.cms.service.CategoryService;
 import com.zhiliao.module.web.cms.service.ContentService;

@@ -197,6 +197,12 @@ public class ControllerUtil {
         return request;
     }
 
+    public static HttpServletResponse getHttpServletResponse(){
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletResponse response = attributes.getResponse();
+        return response;
+    }
+
 
     public static HttpSession getHttpSession(){
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();

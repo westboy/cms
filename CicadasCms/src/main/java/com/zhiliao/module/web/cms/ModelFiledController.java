@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.SQLException;
 
-import static com.zhiliao.common.db.kit.DbTableKit.PREPARED_MODEL_FILED_NAME;
+import static com.zhiliao.component.db.kit.DbTableKit.PREPARED_MODEL_FILED_NAME;
 
 /**
  * Description:模型字段Controller

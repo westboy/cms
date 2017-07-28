@@ -1,8 +1,8 @@
 package com.zhiliao.module.web.cms.service.impl;
 
 import com.github.pagehelper.PageInfo;
-import com.zhiliao.common.lucene.LuceneDao;
-import com.zhiliao.common.lucene.util.IndexObject;
+import com.zhiliao.component.lucene.LuceneDao;
+import com.zhiliao.component.lucene.util.IndexObject;
 import com.zhiliao.module.web.cms.service.LuceneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;

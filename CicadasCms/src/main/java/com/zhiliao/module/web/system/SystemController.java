@@ -2,7 +2,7 @@ package com.zhiliao.module.web.system;
 
 import com.zhiliao.common.annotation.FormToken;
 import com.zhiliao.common.dict.CmsConst;
-import com.zhiliao.common.shiro.DefaultUsernamePasswordToken;
+import com.zhiliao.component.shiro.DefaultUsernamePasswordToken;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.common.utils.JsonUtil;

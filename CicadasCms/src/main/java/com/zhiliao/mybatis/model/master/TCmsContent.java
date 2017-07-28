@@ -1,6 +1,6 @@
 package com.zhiliao.mybatis.model.master;
 
-import com.zhiliao.common.annotation.ExcelFiled;
+import com.zhiliao.common.annotation.ExcelField;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import java.util.Date;
 public class TCmsContent implements Serializable {
 
 
-    @ExcelFiled("标题")
+    @ExcelField("内容编号")
     @Id
     @Column(name = "content_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
@@ -19,6 +19,7 @@ public class TCmsContent implements Serializable {
     /**
      * 站点编号
      */
+    @ExcelField("站点编号")
     @Column(name = "site_id")
     private Integer siteId;
 
@@ -31,6 +32,7 @@ public class TCmsContent implements Serializable {
     /**
      * 栏目
      */
+    @ExcelField("栏目编号")
     @Column(name = "category_id")
     private Long categoryId;
 
@@ -43,11 +45,13 @@ public class TCmsContent implements Serializable {
     /**
      * 标题
      */
+    @ExcelField("内容标题")
     private String title;
 
     /**
      * 关键字
      */
+    @ExcelField("关键字")
     private String keywords;
 
     /**
@@ -63,6 +67,7 @@ public class TCmsContent implements Serializable {
     /**
      * 封面
      */
+    @ExcelField("照片")
     private String thumb;
 
     /**

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.zhiliao.common.annotation.FormToken;
 import com.zhiliao.common.exception.SystemException;
-import com.zhiliao.common.shiro.DefaultUsernamePasswordToken;
+import com.zhiliao.component.shiro.DefaultUsernamePasswordToken;
 import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.module.web.client.service.ClientUserService;
 import com.zhiliao.mybatis.mapper.master.TSysLogMapper;

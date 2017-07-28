@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.cms.service;
 
 import com.github.pagehelper.PageInfo;
-import com.zhiliao.common.lucene.util.IndexObject;
+import com.zhiliao.component.lucene.util.IndexObject;
 
 public interface LuceneService {
 

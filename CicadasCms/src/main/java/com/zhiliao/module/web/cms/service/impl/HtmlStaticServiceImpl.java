@@ -2,7 +2,7 @@ package com.zhiliao.module.web.cms.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
-import com.zhiliao.common.beetl.html.BeetlHtmlUtil;
+import com.zhiliao.component.beetl.html.BeetlHtmlUtil;
 import com.zhiliao.common.dict.CmsConst;
 import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.module.web.cms.service.*;

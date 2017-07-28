@@ -4,10 +4,7 @@ import com.google.common.collect.Maps;
 import com.zhiliao.common.annotation.SysLog;
 import com.zhiliao.common.dict.CmsConst;
 import com.zhiliao.common.exception.CmsException;
-import com.zhiliao.common.utils.CmsUtil;
-import com.zhiliao.common.utils.ControllerUtil;
-import com.zhiliao.common.utils.StrUtil;
-import com.zhiliao.common.utils.UserUtil;
+import com.zhiliao.common.utils.*;
 import com.zhiliao.module.web.cms.service.CategoryService;
 import com.zhiliao.module.web.cms.service.ContentService;
 import com.zhiliao.module.web.cms.service.ModelFiledService;
@@ -29,6 +26,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -102,6 +100,12 @@ public class ContentController{
         return "cms/content_input";
     }
 
+
+    @RequestMapping("/excel")
+    public ModelAndView ClientUser(){
+        ExcelUtil.exports("123",contentService.page(1,20,new TCmsContentVo()).getList());
+        return null;
+    }
 
     @RequiresPermissions("content:save")
     @RequestMapping("/save")

@@ -1,8 +1,8 @@
 package com.zhiliao;
 
 import com.github.pagehelper.PageInfo;
-import com.zhiliao.common.lucene.LuceneDao;
-import com.zhiliao.common.lucene.util.IndexObject;
+import com.zhiliao.component.lucene.LuceneDao;
+import com.zhiliao.component.lucene.util.IndexObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
