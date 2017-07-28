@@ -1,7 +1,7 @@
-package com.zhiliao.component.db.impl;
+package com.zhiliao.common.db.impl;
 
-import com.zhiliao.component.db.DbTableAssistant;
-import com.zhiliao.component.db.kit.MysqlFiledUtil;
+import com.zhiliao.common.db.DbTableAssistant;
+import com.zhiliao.common.db.kit.MysqlFiledUtil;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.StrUtil;
 import org.apache.commons.lang3.StringUtils;

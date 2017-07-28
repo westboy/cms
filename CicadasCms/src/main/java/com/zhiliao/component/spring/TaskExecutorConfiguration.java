@@ -1,4 +1,4 @@
-package com.zhiliao.component.springmvc;
+package com.zhiliao.component.spring;
 
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;

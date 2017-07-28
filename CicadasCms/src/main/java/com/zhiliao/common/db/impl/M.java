@@ -1,4 +1,4 @@
-package com.zhiliao.component.db.impl;
+package com.zhiliao.common.db.impl;
 
 
 /**

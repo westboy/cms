@@ -1,6 +1,6 @@
-package com.zhiliao.component.db;
+package com.zhiliao.common.db;
 
-import com.zhiliao.component.db.impl.M;
+import com.zhiliao.common.db.impl.M;
 
 /**
  * Description:数据库建表

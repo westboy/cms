@@ -1,6 +1,6 @@
 package com.zhiliao.component.beetl.fun;
 
-import com.zhiliao.component.db.kit.DbTableKit;
+import com.zhiliao.common.db.kit.DbTableKit;
 import org.beetl.core.Context;
 import org.beetl.core.Function;
 

@@ -1,7 +1,7 @@
-package com.zhiliao.component.db;
+package com.zhiliao.common.db;
 
-import com.zhiliao.component.db.impl.M;
-import com.zhiliao.component.db.impl.MysqlDbTableAssistant;
+import com.zhiliao.common.db.impl.M;
+import com.zhiliao.common.db.impl.MysqlDbTableAssistant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static com.zhiliao.component.db.impl.M.BIG_INT_TYPE;
+import static com.zhiliao.common.db.impl.M.BIG_INT_TYPE;
 
 /**
  * Description:很神奇的一个类 哈哈

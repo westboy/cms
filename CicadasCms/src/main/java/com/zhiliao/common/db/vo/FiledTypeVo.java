@@ -1,6 +1,6 @@
-package com.zhiliao.component.db.vo;
+package com.zhiliao.common.db.vo;
 
-import com.zhiliao.component.db.impl.M;
+import com.zhiliao.common.db.impl.M;
 
 /**
  * Description:数据库字段类型VO

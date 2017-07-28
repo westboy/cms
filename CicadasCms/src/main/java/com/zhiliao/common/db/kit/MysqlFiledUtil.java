@@ -1,8 +1,8 @@
-package com.zhiliao.component.db.kit;
+package com.zhiliao.common.db.kit;
 
-import com.zhiliao.component.db.impl.M;
+import com.zhiliao.common.db.impl.M;
 
-import static com.zhiliao.component.db.impl.M.*;
+import static com.zhiliao.common.db.impl.M.*;
 
 /**
  * Description:Mysql db table filed utils

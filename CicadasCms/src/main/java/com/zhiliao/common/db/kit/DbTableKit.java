@@ -1,7 +1,7 @@
-package com.zhiliao.component.db.kit;
+package com.zhiliao.common.db.kit;
 
-import com.zhiliao.component.db.impl.M;
-import com.zhiliao.component.db.vo.FiledTypeVo;
+import com.zhiliao.common.db.impl.M;
+import com.zhiliao.common.db.vo.FiledTypeVo;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.StrUtil;
 

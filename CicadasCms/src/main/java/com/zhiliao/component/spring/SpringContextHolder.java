@@ -1,4 +1,4 @@
-package com.zhiliao.component.springmvc;
+package com.zhiliao.component.spring;
 
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;

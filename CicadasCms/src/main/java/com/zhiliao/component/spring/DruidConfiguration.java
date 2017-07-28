@@ -1,4 +1,4 @@
-package com.zhiliao.component.springmvc;
+package com.zhiliao.component.spring;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
