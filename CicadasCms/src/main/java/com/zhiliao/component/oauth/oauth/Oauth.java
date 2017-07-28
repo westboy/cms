@@ -1,9 +1,9 @@
-package com.zhiliao.common.oauth.oauth;
+package com.zhiliao.component.oauth.oauth;
 
 
-import com.zhiliao.common.oauth.util.HttpKit;
-import com.zhiliao.common.oauth.util.HttpKitExt;
-import com.zhiliao.common.oauth.util.StrKit;
+import com.zhiliao.component.oauth.util.HttpKit;
+import com.zhiliao.component.oauth.util.HttpKitExt;
+import com.zhiliao.component.oauth.util.StrKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

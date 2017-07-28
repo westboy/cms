@@ -1,9 +1,9 @@
-package com.zhiliao.common.oauth;
+package com.zhiliao.component.oauth;
 
 import com.alibaba.fastjson.JSONObject;
-import com.zhiliao.common.oauth.oauth.OauthQQ;
-import com.zhiliao.common.oauth.oauth.OauthSina;
-import com.zhiliao.common.oauth.util.TokenUtil;
+import com.zhiliao.component.oauth.oauth.OauthQQ;
+import com.zhiliao.component.oauth.oauth.OauthSina;
+import com.zhiliao.component.oauth.util.TokenUtil;
 import com.zhiliao.common.utils.StrUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

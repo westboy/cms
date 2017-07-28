@@ -2,7 +2,7 @@ package com.zhiliao.component.quartz.util;
 
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.component.quartz.job.ScheduleJob;
-import com.zhiliao.common.utils.SpringContextHolder;
+import com.zhiliao.component.springmvc.SpringContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

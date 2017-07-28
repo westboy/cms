@@ -1,6 +1,6 @@
 package com.zhiliao.module.web.system.task;
 
-import com.zhiliao.common.utils.SpringContextHolder;
+import com.zhiliao.component.springmvc.SpringContextHolder;
 import com.zhiliao.module.web.system.service.SysUserService;
 import org.springframework.stereotype.Component;
 

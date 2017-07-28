@@ -1,10 +1,10 @@
-package com.zhiliao.common.oauth.oauth;
+package com.zhiliao.component.oauth.oauth;
 
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.zhiliao.common.oauth.util.StrKit;
-import com.zhiliao.common.oauth.util.TokenUtil;
+import com.zhiliao.component.oauth.util.StrKit;
+import com.zhiliao.component.oauth.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.zhiliao.common.oauth.util;
+package com.zhiliao.component.oauth.util;
 
 import javax.net.ssl.*;
 import javax.servlet.http.HttpServletRequest;
