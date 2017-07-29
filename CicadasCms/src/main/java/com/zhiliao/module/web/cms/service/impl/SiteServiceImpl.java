@@ -122,16 +122,7 @@ public class SiteServiceImpl implements SiteService{
     public String save(TCmsSiteVo pojo) {
         String[] userIds = StrUtil.excludeRepeatStr(pojo.getUserIds());
         if (siteMapper.insertSelective(pojo)>0) {
-            if (userIds!=null&&userIds.length>0) {
-                for (String userId : userIds) {
-                    if(CmsUtil.isNullOrEmpty(sysUserMapper.selectByPrimaryKey(Integer.parseInt(userId))))
-                        throw new SystemException("管理员["+userId+"]不存在！");
-                    TCmsUserSite userSite = new TCmsUserSite();
-                    userSite.setSiteId(pojo.getSiteId());
-                    userSite.setUserId(Integer.parseInt(userId));
-                    userSiteMapper.insert(userSite);
-                }
-            }
+            this.UserSiteUpdate(userIds,pojo);
             return JsonUtil.toSUCCESS("操作成功", "site-tab", true);
         }
         return  JsonUtil.toERROR("操作失败");
@@ -139,6 +130,7 @@ public class SiteServiceImpl implements SiteService{
 
 
     @CacheEvict(value = "cms-site-cache",allEntries = true)
+    @Transactional(transactionManager = "masterTransactionManager",rollbackFor = Exception.class)
     @Override
     public String update(TCmsSiteVo pojo) {
         String[] userIds = StrUtil.excludeRepeatStr(pojo.getUserIds());
@@ -146,19 +138,23 @@ public class SiteServiceImpl implements SiteService{
             /*如果是更新就先清空当前站点与用户的关联*/
             userSiteMapper.deleteBySiteId(pojo.getSiteId());
             /*重新遍历添加*/
-            if (userIds!=null&&userIds.length>0) {
-                for (String userId : userIds) {
-                    if(CmsUtil.isNullOrEmpty(sysUserMapper.selectByPrimaryKey(Integer.parseInt(userId))))
-                        throw new SystemException("管理员["+userId+"]不存在！");
-                    TCmsUserSite userSite = new TCmsUserSite();
-                    userSite.setSiteId(pojo.getSiteId());
-                    userSite.setUserId(Integer.parseInt(userId));
-                    userSiteMapper.insert(userSite);
-                }
-            }
+            this.UserSiteUpdate(userIds,pojo);
             return JsonUtil.toSUCCESS("操作成功","site-tab",false);
         }
         return  JsonUtil.toERROR("操作失败");
+    }
+
+    private void UserSiteUpdate(String[] userIds,TCmsSiteVo pojo){
+        if (userIds!=null&&userIds.length>0) {
+            for (String userId : userIds) {
+                if(CmsUtil.isNullOrEmpty(sysUserMapper.selectByPrimaryKey(Integer.parseInt(userId))))
+                    throw new SystemException("管理员["+userId+"]不存在！");
+                TCmsUserSite userSite = new TCmsUserSite();
+                userSite.setSiteId(pojo.getSiteId());
+                userSite.setUserId(Integer.parseInt(userId));
+                userSiteMapper.insert(userSite);
+            }
+        }
     }
 
     @Override
