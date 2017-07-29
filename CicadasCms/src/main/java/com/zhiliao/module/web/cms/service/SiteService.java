@@ -11,10 +11,8 @@ import com.zhiliao.mybatis.model.master.TCmsSite;
  */
 public interface SiteService extends BaseService<TCmsSite,Integer> {
 
-    @Deprecated
     String save(TCmsSite pojo);
 
-    @Deprecated
     String update(TCmsSite pojo);
 
     String save(TCmsSiteVo pojo);
