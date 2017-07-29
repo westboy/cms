@@ -2,36 +2,33 @@
 function do_open_org(event, treeId, treeNode) {
     if (treeNode.isParent) {
         var zTree = $.fn.zTree.getZTreeObj(treeId)
-
         zTree.expandNode(treeNode)
     }
     $(event.target).bjuiajax('doLoad', {url:treeNode.url, target:treeNode.divid})
-    
     event.preventDefault()
 }
 </script>
 <div class="bjui-pageContent">
     <div style="float:left; width:250px; height:100%; overflow:auto;">
         <fieldset  style="width:240px;min-height:99.9%;height:auto;padding: 0px;margin: 0">
-        <ul id="permission-tree" class="ztree" data-toggle="ztree" data-expand-all="true" data-on-click="do_open_org">
-              <!--输出权限tree列表-->
-              ${TreePermissionOut(0)}
+        <ul id="org-tree" class="ztree" data-toggle="ztree" data-expand-all="true" data-on-click="do_open_org">
+              ${TreeOrgOut("0","system/org/input","#edit-org-layout")}
         </ul>
         </fieldset>
     </div>
     <div style="margin-left:210px; height:99.9%; overflow:hidden;">
         <div style="height:50%; overflow:hidden;">
             <fieldset style="height:100%;">
-                <legend>修改权限</legend>
-                <div id="org-layout" style="height:94%; overflow:hidden;">
-                    
+                <legend>修改部门</legend>
+                <div id="edit-org-layout" style="height:94%; overflow:hidden;">
+
                 </div>
             </fieldset>
         </div>
         <div style="height:50%; overflow:hidden;">
             <fieldset style="height:100%;">
-                <legend style="margin-top: 2px">新增权限</legend>
-                <div id="layout-02" data-url="${ctxPath}/system/permission/input/0" data-toggle="autoajaxload" style="height:94%; overflow:hidden;">
+                <legend style="margin-top: 2px">新增部门</legend>
+                <div id="input-org-layout" data-url="${ctxPath}/system/org/input/0" data-toggle="autoajaxload" style="height:94%; overflow:hidden;">
                     
                 </div>
             </fieldset>

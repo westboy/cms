@@ -12,29 +12,44 @@
 </style>
 
 <div class="bjui-pageContent">
-    <form method="post" action="${ctxPath}/system/permission/save" id="j_client_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
-        <input TYPE="hidden" name="permissionId" value="${per.permissionId!}">
+    <form method="post" action="${ctxPath}/system/org/save" id="j_org_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
+        <input TYPE="hidden" name="id" value="${org.id!}">
         <table cellspacing="1" cellpadding="6" border="0" width="100%">
             <tbody>
             <tr>
                 <td>
-                    <label for="j_username" class="control-label x85">权限标识：</label>
-                    <input type="text" name="name" id="j_username" value="${per.name!,xss}" placeholder="请填写权限名称！" data-rule="required" size="
-20" >（使用方法:Controller方法前加${'@'}RequiresPermissions("权限标识")注解,建议使用英文字母表示！）
+                    <label for="j_username" class="control-label x85">部门名称：</label>
+                    <input type="text" name="name" id="j_username" value="${org.name!,xss}" placeholder="请填写部门名称！" data-rule="required" size="
+20" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="org" class="control-label x85">部门编码：</label>
+                    <input type="text" name="org" id="org" value="${org.code!,xss}" placeholder="请填写部门名称！" data-rule="required" size="
+20" >
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="j_username" class="control-label x85">父节点：</label>
                     <select name="pid" data-toggle="selectpicker">
-                       ${SelectPermissionOut(per.pid!0,per.permissionId!0)}
+                        ${selectOrganizationOut(org.pid!0,org.id!0)}
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="j_linkman" class="control-label x85">权限描述：</label>
-                    <TEXTAREA id="j_linkman" placeholder="请填写权限描述！" name="description"  rows="4" cols="30" data-rule="required;length(0~6)" >${per.description!,xss}</TEXTAREA>
+                    <label for="telPhone" class="control-label x85">联系电话：</label>
+                    <input type="text" name="telPhone" id="telPhone" value="${org.telPhone!,xss}" placeholder="请填写部门联系电话！"  size="
+20" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="address" class="control-label x85">联系地址：</label>
+                    <input type="text" name="address" id="address" value="${org.address!,xss}" placeholder="请填写部门联系地址！"  size="
+20" >
                 </td>
             </tr>
             </tbody>
@@ -44,7 +59,7 @@
 </div>
 <div class="bjui-pageFooter">
     <ul>
-        @if(isEmpty(per.permissionId)){
+        @if(isEmpty(org.id)){
         <li><button type="submit" class="btn-default"  data-icon="save">保存</button></li>
         @}else{
         <li><button onclick="del(this)" type="button" class="btn-close" data-icon="close">删除</button></li>
@@ -54,6 +69,6 @@
 </div>
 <script>
     function del(obj) {
-        $(obj).bjuiajax('doAjax', {url:'${ctxPath}/system/permission/delete?permissionId=${per.permissionId!}',confirmMsg:'子节点也会被删除，确定要删除该吗？'});
+        $(obj).bjuiajax('doAjax', {url:'${ctxPath}/system/org/delete?permissionId=${org.id!}',confirmMsg:'子节点也会被删除，确定要删除该吗？'});
     }
     </script>

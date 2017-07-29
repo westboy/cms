@@ -22,19 +22,19 @@ public class OrganizationServiceImpl implements OrganizationService{
     private TSysOrgMapper orgMapper;
 
     @Override
-    public List<TSysOrg> findByPid(Long pid) {
+    public List<TSysOrg> findByPid(Integer pid) {
         TSysOrg pojo = new TSysOrg();
         pojo.setPid(pid);
         return orgMapper.select(pojo);
     }
 
     @Override
-    public TSysOrg findById(Long id) {
+    public TSysOrg findById(Integer id) {
         return orgMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public String delete(Long id) {
+    public String delete(Integer id) {
         if(orgMapper.deleteByPrimaryKey(id)>0)
             return JsonUtil.toSUCCESS("删除成功！","org-tab",false);
         return JsonUtil.toERROR("删除失败！");

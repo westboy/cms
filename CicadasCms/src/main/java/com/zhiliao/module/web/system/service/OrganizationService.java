@@ -12,11 +12,11 @@ import java.util.List;
  **/
 public interface OrganizationService {
 
-    List<TSysOrg> findByPid(Long pid);
+    List<TSysOrg> findByPid(Integer pid);
 
-    TSysOrg findById(Long id);
+    TSysOrg findById(Integer id);
 
-    String delete(Long id);
+    String delete(Integer id);
 
     String save(TSysOrg pojo);
 

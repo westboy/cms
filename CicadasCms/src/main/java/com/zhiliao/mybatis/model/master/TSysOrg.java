@@ -1,13 +1,13 @@
 package com.zhiliao.mybatis.model.master;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Table(name = "t_sys_org")
 public class TSysOrg implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
-    private Long id;
+    private Integer id;
 
     /**
      * 组织名称
@@ -27,7 +27,7 @@ public class TSysOrg implements Serializable {
     /**
      * 父ID
      */
-    private Long pid;
+    private Integer pid;
 
     /**
      * 联系电话
@@ -40,14 +40,14 @@ public class TSysOrg implements Serializable {
     /**
      * @return id
      */
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -110,7 +110,7 @@ public class TSysOrg implements Serializable {
      *
      * @return pid - 父ID
      */
-    public Long getPid() {
+    public Integer getPid() {
         return pid;
     }
 
@@ -119,7 +119,7 @@ public class TSysOrg implements Serializable {
      *
      * @param pid 父ID
      */
-    public void setPid(Long pid) {
+    public void setPid(Integer pid) {
         this.pid = pid;
     }
 
