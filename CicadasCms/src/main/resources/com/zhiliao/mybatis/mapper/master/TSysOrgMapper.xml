@@ -10,5 +10,6 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="tel_phone" jdbcType="VARCHAR" property="telPhone" />
   </resultMap>
 </mapper>

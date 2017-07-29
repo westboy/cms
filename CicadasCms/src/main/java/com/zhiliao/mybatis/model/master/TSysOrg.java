@@ -29,6 +29,12 @@ public class TSysOrg implements Serializable {
      */
     private Long pid;
 
+    /**
+     * 联系电话
+     */
+    @Column(name = "tel_phone")
+    private String telPhone;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -115,5 +121,23 @@ public class TSysOrg implements Serializable {
      */
     public void setPid(Long pid) {
         this.pid = pid;
+    }
+
+    /**
+     * 获取联系电话
+     *
+     * @return tel_phone - 联系电话
+     */
+    public String getTelPhone() {
+        return telPhone;
+    }
+
+    /**
+     * 设置联系电话
+     *
+     * @param telPhone 联系电话
+     */
+    public void setTelPhone(String telPhone) {
+        this.telPhone = telPhone;
     }
 }

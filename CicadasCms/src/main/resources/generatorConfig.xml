@@ -47,7 +47,7 @@
             <generatedKey column="id" sqlStatement="Mysql"  />
         </table>
 
-        <table tableName="t_sys_org_role">
+        <table tableName="t_sys_org_user">
             <generatedKey column="id" sqlStatement="Mysql"  />
         </table>
 
