@@ -63,17 +63,17 @@
                 <!--<enabled>true</enabled>-->
             <!--</snapshots>-->
         <!--</repository>-->
-        <!--repository>
-            <id>apache-staging-repo</id>
-            <name>Apache Staging Repository</name>
-            <url>https://repository.apache.org/content/repositories/orgapacheshiro-1018/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository-->
+        <!--<repository>-->
+            <!--<id>apache-staging-repo</id>-->
+            <!--<name>Apache Staging Repository</name>-->
+            <!--<url>https://repository.apache.org/content/repositories/orgapacheshiro-1018/</url>-->
+            <!--<releases>-->
+                <!--<enabled>true</enabled>-->
+            <!--</releases>-->
+            <!--<snapshots>-->
+                <!--<enabled>false</enabled>-->
+            <!--</snapshots>-->
+        <!--</repository>-->
     <!--</repositories>-->
 
 
@@ -344,9 +344,16 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.6.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
+            <version>3.10.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
             <version>3.10.1</version>
         </dependency>
 

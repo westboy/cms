@@ -103,7 +103,7 @@ public class ContentController{
 
     @RequestMapping("/excel")
     public ModelAndView ClientUser(){
-        ExcelUtil.exports("123",contentService.page(1,20,new TCmsContentVo()).getList());
+        ExcelUtil.exports2007("123",contentService.page(1,20,new TCmsContentVo()).getList());
         return null;
     }
 

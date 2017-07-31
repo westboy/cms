@@ -14,4 +14,5 @@ public @interface ExcelField {
 
     String dateFormat() default "";
 
+    boolean IsOnlyImport() default false;
 }

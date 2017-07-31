@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * Description:成员管理控制器
@@ -51,7 +53,7 @@ public class MemberController {
     }
 
     @RequestMapping("/excel")
-    public ModelAndView ClientUser(){
+    public ModelAndView ClientUser(HttpServletResponse response){
        ExcelUtil.exports("123",sysUserService.findSysUserPageInfo(1,10,null).getList());
         return null;
     }

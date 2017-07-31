@@ -95,6 +95,19 @@ public class StrUtil {
 
 	}
 
+	/*判断一个字符是否是中文*/
+	public static boolean isChinese(char c) {
+		return c >= 0x4E00 &&  c <= 0x9FA5;
+	}
+	/*判断一个字符串是否含有中文*/
+	public static boolean isChinese(String str) {
+		if (str == null) return false;
+		for (char c : str.toCharArray()) {
+			if (isChinese(c)) return true;
+		}
+		return false;
+	}
+
 	public static void  main(String args[]){
 //       System.out.println( excludeRepeatStr("1,2,1"));
 //		 System.out.println(isNotNumeric("0","46"));
