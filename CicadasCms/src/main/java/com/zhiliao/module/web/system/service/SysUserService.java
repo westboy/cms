@@ -22,19 +22,10 @@ public interface SysUserService {
 
     Map<String, Object> login(HttpServletRequest request, String username, String password, String remberMe, String loginType);
 
-    /**
-     * 保存后台用户
-     * @param user
-     * @return
-     */
-    boolean SaveSysUser(TSysUser user,Integer roleId);
 
-    /**
-     * 更新后台用户
-     * @param user
-     * @return
-     */
-    boolean UpdateSysUser(TSysUser user,Integer roleId);
+    String save(TSysUser user,Integer[] roleIds);
+
+    String update(TSysUser user,Integer[] roleIds);
 
     /**
      * 根据用户名查询用户权限

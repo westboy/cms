@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.zhiliao</groupId>
-    <artifactId>cms</artifactId>
+    <artifactId>CicadasCms</artifactId>
     <version>0.1</version>
     <packaging>war</packaging>
 
@@ -63,17 +63,17 @@
                 <!--<enabled>true</enabled>-->
             <!--</snapshots>-->
         <!--</repository>-->
-        <!--&lt;!&ndash;repository>-->
-            <!--<id>apache-staging-repo</id>-->
-            <!--<name>Apache Staging Repository</name>-->
-            <!--<url>https://repository.apache.org/content/repositories/orgapacheshiro-1018/</url>-->
-            <!--<releases>-->
-                <!--<enabled>true</enabled>-->
-            <!--</releases>-->
-            <!--<snapshots>-->
-                <!--<enabled>false</enabled>-->
-            <!--</snapshots>-->
-        <!--</repository&ndash;&gt;-->
+        <!--repository>
+            <id>apache-staging-repo</id>
+            <name>Apache Staging Repository</name>
+            <url>https://repository.apache.org/content/repositories/orgapacheshiro-1018/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository-->
     <!--</repositories>-->
 
 

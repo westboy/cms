@@ -13,7 +13,7 @@ public interface RoleService {
 
     TSysRole findByid(Integer id);
 
-    TSysRole findByIdAndTypeId(Integer id,Integer typeId);
+    List<TSysRole> findByUserIdAndTypeId(Integer userId, Integer typeId);
 
     String delete(Integer id);
 

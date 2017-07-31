@@ -27,7 +27,7 @@ public class ContentTest {
     @Autowired
     private TCmsContentMapper contentMapper;
 
-    @Test
+
     public void findContentByContentIdAndTbleName(){
       Map map =  contentService.findContentByContentIdAndTableName(1l,"ceshi");
         map.forEach((key, value) -> System.out.println(key+" --> "+value));
@@ -37,7 +37,7 @@ public class ContentTest {
         contentService.findContentListBySiteIdAndCategoryId(0,26l,10,1,0,0,"1","1");
     }
 
-    @Test
+
     public void findContentPageByTableNameAndParam(){
         Map param = Maps.newHashMap();
         param.put("nianling",25);

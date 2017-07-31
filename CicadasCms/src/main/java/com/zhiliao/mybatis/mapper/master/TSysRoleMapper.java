@@ -33,4 +33,8 @@ public interface TSysRoleMapper {
     @Select("select r.* from `t_sys_role` r join t_sys_user_role ur on  r.role_id = ur.role_id   where r.role_type = #{typeId} and ur.user_id = #{userId}")
     @ResultMap("BaseResultMap")
     TSysRole selectRoleByUidAndTypeId(@Param("userId") Integer userId,@Param("typeId") Integer typeId);
+
+    @Select("select r.* from `t_sys_role` r join t_sys_user_role ur on  r.role_id = ur.role_id   where r.role_type = #{typeId} and ur.user_id = #{userId}")
+    @ResultMap("BaseResultMap")
+    List<TSysRole> selectRoleByUseridAndTypeId(@Param("userId") Integer userId,@Param("typeId") Integer typeId);
 }

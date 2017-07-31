@@ -120,8 +120,10 @@ public class SysUserServiceImpl implements SysUserService{
         return result;
     }
 
+
+    @Transactional(transactionManager = "masterTransactionManager",rollbackFor = Exception.class)
     @Override
-    public boolean SaveSysUser(TSysUser user,Integer roleId) {
+    public String save(TSysUser user, Integer[] roleIds) {
         user.setUsername(PinyinUtil.convertLower(HtmlKit.getText(user.getUsername())));
         /* 加工password */
         if(!StrUtil.isBlank(user.getPassword().trim())) {
@@ -129,19 +131,19 @@ public class SysUserServiceImpl implements SysUserService{
             user.setPassword(PasswordKit.encodePassword(user.getPassword().trim(), salt));
             user.setSalt(salt);
         }
-        user.setCreateTime(new Date());
         if(sysUserMapper.insert(user)>0) {
-            TSysUserRole userRole = new TSysUserRole();
-            userRole.setRoleId(roleId);
-            userRole.setUserId(user.getUserId());
-            userRole.setRoleType(0);
-            return userRoleMapper.insert(userRole)>0;
+            if (CmsUtil.isNullOrEmpty(roleIds)) throw new SystemException("请选择用户角色！");
+            for (int roleId : roleIds) {
+                this.saveUserRole(user.getUserId(),roleId,0);
+            }
+            return JsonUtil.toSUCCESS("保存成功", "sysUser", true);
         }
-        return  false;
+        return JsonUtil.toERROR("更新失败！");
     }
 
+    @Transactional(transactionManager = "masterTransactionManager",rollbackFor = Exception.class)
     @Override
-    public boolean UpdateSysUser(TSysUser user,Integer roleId) {
+    public String update(TSysUser user, Integer[] roleIds) {
         user.setUsername(PinyinUtil.convertLower(HtmlKit.getText(user.getUsername())));
         /* 加工password */
         if(!StrUtil.isBlank(user.getPassword().trim())) {
@@ -150,17 +152,24 @@ public class SysUserServiceImpl implements SysUserService{
             user.setSalt(salt);
         }
         if(sysUserMapper.updateByPrimaryKey(user)>0) {
-            TSysRole role =  sysRoleMapper.selectRoleByUidAndTypeId(user.getUserId(), 0);
-            if(role!=null)
-                userRoleMapper.DeleteByUserIdAndRoleId(user.getUserId(), role.getRoleId(),0);
-            TSysUserRole userRole = new TSysUserRole();
-            userRole.setRoleId(roleId);
-            userRole.setUserId(user.getUserId());
-            userRole.setRoleType(0);
-            return userRoleMapper.insert(userRole)>0;
+            if (CmsUtil.isNullOrEmpty(roleIds)) throw new SystemException("请选择用户角色！");
+            userRoleMapper.deleteByUserIdAndTypeId(user.getUserId(),0);
+            for (Integer roleId : roleIds) {
+               this.saveUserRole(user.getUserId(),roleId,0);
+            }
+            return JsonUtil.toSUCCESS("更新成功", "sysUser", false);
         }
-        return  false;
+        return JsonUtil.toERROR("更新失败！");
     }
+
+    public void saveUserRole(Integer userId,Integer roleId,Integer typeId){
+        TSysUserRole userRole = new TSysUserRole();
+        userRole.setRoleId(roleId);
+        userRole.setUserId(userId);
+        userRole.setRoleType(typeId);//todo 这个角色类型有待删除！
+        userRoleMapper.insert(userRole);
+    }
+
 
     @Override
     public Set<String> findSysUserPermissionsByUsername(String username) {

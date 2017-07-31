@@ -66,15 +66,6 @@
                 </td>
             </tr>
             @}
-            @if(shiro.hasRole("superAdmin")){
-            <tr>
-                <td>
-                    <input type="hidden" name="pid" value="${role.roleId!}" >
-                    <label class="control-label x85">用户角色：</label>
-                    <input type="text" data-toggle="lookup" data-url="${ctxPath}/system/member/roleCheck/0" value="${role.rolename!}"  data-rule="required" data-resizable="false" data-maxable="false" name="name" size="20">
-                </td>
-            </tr>
-            @}
             <tr>
                 <td>
                     <label for="j_status" class="control-label x85"  data-toggle="selectpicker">用户状态：</label>
@@ -98,6 +89,23 @@
                     <textarea  name="des" id="j_des"  data-rule="required" ROWS="3" COLS="20" >${user.des!,xss}</textarea>
                 </td>
             </tr>
+            @if(shiro.hasRole("superAdmin")){
+            <tr>
+                <td  style="padding:5px 35px 5px 35px">
+                    @for(role in roleList){
+                         @var checked="";
+                         @if(has(userRole)){
+                            @for(ur in userRole){
+                               @if(role.roleId == ur.roleId){
+                                  @checked = "checked";
+                               @}
+                            @}
+                         @}
+                        <input type="checkbox" id="${role.rolename!}"  ${checked!}  data-toggle="icheck" data-label="${role.description!}"    name="roleId" value="${role.roleId!}" >
+                    @}
+                </td>
+            </tr>
+            @}
             </tbody>
         </table>
     </form>

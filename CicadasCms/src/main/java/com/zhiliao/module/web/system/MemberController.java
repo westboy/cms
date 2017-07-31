@@ -59,9 +59,9 @@ public class MemberController {
     @RequiresRoles("superadmin")
     @RequestMapping("/clientUserInput")
     public String ClientUserInput(@RequestParam(value = "clientId",required = false) Integer clientId, Model model){
-        if(clientId!=null)
-            model.addAttribute("user",clientUserService.findClientUserByUserId(clientId));
-        model.addAttribute("role",roleService.findByIdAndTypeId(clientId,1));
+//        if(clientId!=null)
+//            model.addAttribute("user",clientUserService.findClientUserByUserId(clientId));
+//        model.addAttribute("role",roleService.findByIdAndTypeId(clientId,1));
         return "system/client_input";
     }
 
@@ -111,26 +111,21 @@ public class MemberController {
     /* 后台用户修改 */
     @RequestMapping("/sysUserInput")
     public String SysUserInput(@RequestParam(value = "userId",required = false) Integer userId, Model model){
-        if(userId!=null)
-            model.addAttribute("user",sysUserService.findSysUserByUserId(userId));
-        model.addAttribute("role",roleService.findByIdAndTypeId(userId,0));
+        if(userId!=null) {
+            model.addAttribute("user", sysUserService.findSysUserByUserId(userId));
+            model.addAttribute("userRole", roleService.findByUserIdAndTypeId(userId,0));
+        }
+        model.addAttribute("roleList",roleService.findByTypeId(0));
         return "system/admin_input";
     }
 
     /* 后台用户更新 */
     @RequestMapping("/sysUserUpdate")
     @ResponseBody
-    public String SysUserUpdate(TSysUser user,@RequestParam("pid") Integer roleId ){
-        if(user.getUserId()!=null) {
-            if (sysUserService.UpdateSysUser(user, roleId)) {
-                return JsonUtil.toSUCCESS("更新成功", "sysUser", true);
-            }
-        }else {
-            if (sysUserService.SaveSysUser(user, roleId)) {
-                return JsonUtil.toSUCCESS("保存成功", "sysUser", true);
-            }
-        }
-        return JsonUtil.toERROR("更新失败！");
+    public String SysUserUpdate(TSysUser user,@RequestParam(value = "roleId",required = false) Integer[] roleIds ){
+        if(user.getUserId()!=null)
+            return sysUserService.update(user,roleIds);
+        return sysUserService.save(user,roleIds);
     }
 
 
