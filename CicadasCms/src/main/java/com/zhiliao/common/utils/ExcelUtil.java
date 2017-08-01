@@ -57,7 +57,7 @@ public class ExcelUtil {
                         HSSFCell cell = row.createCell(tmp);
                         ExcelField excelFiled = field.getAnnotation(ExcelField.class);
                         /*判断是否只支持导入*/
-                        if (excelFiled == null||excelFiled.IsOnlyImport()) continue;
+                        if (excelFiled == null||excelFiled.isOnlyImport()) continue;
                         cell.setCellValue(excelFiled.value());
                         tmp++;
                     }
@@ -67,13 +67,13 @@ public class ExcelUtil {
                 int tmp = 0;
                 for (Field field :fields) {
                     ExcelField excelFiled = field.getAnnotation(ExcelField.class);
-                    if (excelFiled == null||excelFiled.IsOnlyImport()){continue;}
+                    if (excelFiled == null||excelFiled.isOnlyImport()){continue;}
                     HSSFCell cell = row.createCell(tmp);
                     PropertyDescriptor pd = new PropertyDescriptor(field.getName(),clazz);
                     Method getMethod = pd.getReadMethod();
                     Object o = getMethod.invoke(obj);
                     if(!StrUtil.isBlank(excelFiled.dateFormat())&& o instanceof Date) cell.setCellValue(DateUtil.format((Date)o,excelFiled.dateFormat()));
-                    else cell.setCellValue(String.valueOf(o));
+                    else cell.setCellValue(CmsUtil.isNullOrEmpty(o)?excelFiled.isNullDefaultValue():String.valueOf(o));
                     tmp++;
                 }
             }
@@ -108,7 +108,7 @@ public class ExcelUtil {
                     for (Field field :fields) {
                         XSSFCell cell = row.createCell(tmp);
                         ExcelField excelFiled = field.getAnnotation(ExcelField.class);
-                        if (excelFiled == null||excelFiled.IsOnlyImport()) continue;
+                        if (excelFiled == null||excelFiled.isOnlyImport()) continue;
                         cell.setCellValue(excelFiled.value());
                         tmp++;
                     }
@@ -118,13 +118,13 @@ public class ExcelUtil {
                 int tmp = 0;
                 for (Field field :fields) {
                     ExcelField excelFiled = field.getAnnotation(ExcelField.class);
-                    if (excelFiled == null||excelFiled.IsOnlyImport()){continue;}
+                    if (excelFiled == null||excelFiled.isOnlyImport()){continue;}
                     XSSFCell cell = row.createCell(tmp);
                     PropertyDescriptor pd = new PropertyDescriptor(field.getName(),clazz);
                     Method getMethod = pd.getReadMethod();
                     Object o = getMethod.invoke(obj);
                     if(!StrUtil.isBlank(excelFiled.dateFormat())&& o instanceof Date) cell.setCellValue(DateUtil.format((Date)o,excelFiled.dateFormat()));
-                    else cell.setCellValue(String.valueOf(o));
+                    else cell.setCellValue(CmsUtil.isNullOrEmpty(o)?excelFiled.isNullDefaultValue():String.valueOf(o));
                     tmp++;
                 }
             }
