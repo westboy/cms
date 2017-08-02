@@ -1,6 +1,7 @@
 package com.zhiliao.module.web.system.service;
 
 import com.github.pagehelper.PageInfo;
+import com.zhiliao.module.web.system.vo.UserVo;
 import com.zhiliao.mybatis.model.master.TSysUser;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +24,9 @@ public interface SysUserService {
     Map<String, Object> login(HttpServletRequest request, String username, String password, String remberMe, String loginType);
 
 
-    String save(TSysUser user,Integer[] roleIds);
+    String save(TSysUser user,Integer[] roleIds,String orgIds);
 
-    String update(TSysUser user,Integer[] roleIds);
+    String update(TSysUser user,Integer[] roleIds,String orgIds);
 
     /**
      * 根据用户名查询用户权限
@@ -62,7 +63,7 @@ public interface SysUserService {
      * 根据条件查询系统用户分页
      * @return
      */
-    PageInfo<TSysUser> findSysUserPageInfo(Integer pageNumber,Integer pageSize, TSysUser user);
+    PageInfo<TSysUser> findSysUserPageInfo(Integer pageNumber,Integer pageSize, UserVo user);
 
 
     /**

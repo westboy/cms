@@ -3,6 +3,7 @@ package com.zhiliao.module.web.system.service.impl;
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.module.web.system.service.OrganizationService;
 import com.zhiliao.mybatis.mapper.master.TSysOrgMapper;
+import com.zhiliao.mybatis.mapper.master.TSysOrgUserMapper;
 import com.zhiliao.mybatis.model.master.TSysOrg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Autowired
     private TSysOrgMapper orgMapper;
+
+    @Autowired
+    private TSysOrgUserMapper orgUserMapper;
 
     @Override
     public List<TSysOrg> findByPid(Integer pid) {
@@ -52,5 +56,10 @@ public class OrganizationServiceImpl implements OrganizationService{
         if(orgMapper.updateByPrimaryKeySelective(pojo)>0)
             return JsonUtil.toSUCCESS("更新成功！","org-tab",false);
         return JsonUtil.toERROR("更新成功！");
+    }
+
+    @Override
+    public int findCountByOrgIdAndUserId(Integer orgId, Integer userId) {
+        return orgUserMapper.selectCountByOrgIdAndUserId(orgId,userId);
     }
 }

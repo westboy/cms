@@ -72,7 +72,8 @@ public class BeetlConfiguration {
                                          ContentSelectCategoryFunction contentSelectCategoryFunction,
                                          TreeTopicCatagoryFunction treeTopicCatagoryFunction,
                                          TreeOrganizationFunction treeOrganizationFunction,
-                                         SelectOrganizationFunction selectOrganizationFunction
+                                         SelectOrganizationFunction selectOrganizationFunction,
+                                         OrganizationFunction organizationFunction
                                         ){
         Map<String,Function> functionPackages = Maps.newHashMap();
         /*打印时间*/
@@ -94,15 +95,11 @@ public class BeetlConfiguration {
         functionPackages.put("ContentSelectCategoryFunction",contentSelectCategoryFunction);
         /*输出自定义模型字段类型名称*/
         functionPackages.put("printModelFiledClass",new PrintModelFiledClassFunction());
-        /*输出自定义模型字段类型名称*/
+
         functionPackages.put("TopicCatagoryOut",treeTopicCatagoryFunction);
-
-        /*输出自定义模型字段类型名称*/
         functionPackages.put("TreeOrgOut",treeOrganizationFunction);
-
-        /*输出自定义模型字段类型名称*/
         functionPackages.put("selectOrganizationOut",selectOrganizationFunction);
-
+        functionPackages.put("organizationOut",organizationFunction);
 
 
         return functionPackages;

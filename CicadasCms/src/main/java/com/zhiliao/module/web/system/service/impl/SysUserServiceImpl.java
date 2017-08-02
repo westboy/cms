@@ -56,6 +56,9 @@ public class SysUserServiceImpl implements SysUserService{
     private TSysUserRoleMapper userRoleMapper;
 
     @Autowired
+    private TSysOrgUserMapper userOrgMapper;
+
+    @Autowired
     private TCmsSiteMapper siteMapper;
 
     @Override
@@ -123,7 +126,7 @@ public class SysUserServiceImpl implements SysUserService{
 
     @Transactional(transactionManager = "masterTransactionManager",rollbackFor = Exception.class)
     @Override
-    public String save(TSysUser user, Integer[] roleIds) {
+    public String save(TSysUser user, Integer[] roleIds,String orgIds) {
         user.setUsername(PinyinUtil.convertLower(HtmlKit.getText(user.getUsername())));
         /* 加工password */
         if(!StrUtil.isBlank(user.getPassword().trim())) {
@@ -136,6 +139,9 @@ public class SysUserServiceImpl implements SysUserService{
             for (int roleId : roleIds) {
                 this.saveUserRole(user.getUserId(),roleId,0);
             }
+            for (String orgId : orgIds.split(",")) {
+                this.saveUserOrg(user.getUserId(),Integer.parseInt(orgId));
+            }
             return JsonUtil.toSUCCESS("保存成功", "sysUser", true);
         }
         return JsonUtil.toERROR("更新失败！");
@@ -143,7 +149,8 @@ public class SysUserServiceImpl implements SysUserService{
 
     @Transactional(transactionManager = "masterTransactionManager",rollbackFor = Exception.class)
     @Override
-    public String update(TSysUser user, Integer[] roleIds) {
+    public String update(TSysUser user, Integer[] roleIds,String orgIds) {
+        if (CmsUtil.isNullOrEmpty(roleIds)||CmsUtil.isNullOrEmpty(orgIds)) throw new SystemException("用户角色和部门不能为空！");
         user.setUsername(PinyinUtil.convertLower(HtmlKit.getText(user.getUsername())));
         /* 加工password */
         if(!StrUtil.isBlank(user.getPassword().trim())) {
@@ -152,10 +159,13 @@ public class SysUserServiceImpl implements SysUserService{
             user.setSalt(salt);
         }
         if(sysUserMapper.updateByPrimaryKey(user)>0) {
-            if (CmsUtil.isNullOrEmpty(roleIds)) throw new SystemException("请选择用户角色！");
             userRoleMapper.deleteByUserIdAndTypeId(user.getUserId(),0);
             for (Integer roleId : roleIds) {
                this.saveUserRole(user.getUserId(),roleId,0);
+            }
+            this.userOrgMapper.deleteByUserId(user.getUserId());
+            for (String orgId : orgIds.split(",")) {
+                this.saveUserOrg(user.getUserId(),Integer.parseInt(orgId));
             }
             return JsonUtil.toSUCCESS("更新成功", "sysUser", false);
         }
@@ -170,6 +180,12 @@ public class SysUserServiceImpl implements SysUserService{
         userRoleMapper.insert(userRole);
     }
 
+    public void saveUserOrg(Integer userId,Integer orgId){
+        TSysOrgUser orgUser = new TSysOrgUser();
+        orgUser.setUserId(userId);
+        orgUser.setOrgId(orgId);
+        this.userOrgMapper.insertSelective(orgUser);
+    }
 
     @Override
     public Set<String> findSysUserPermissionsByUsername(String username) {
@@ -206,7 +222,7 @@ public class SysUserServiceImpl implements SysUserService{
 
 
     @Override
-    public PageInfo<TSysUser> findSysUserPageInfo(Integer pageNumber,Integer pageSize,TSysUser user) {
+    public PageInfo<TSysUser> findSysUserPageInfo(Integer pageNumber,Integer pageSize,UserVo user) {
         PageHelper.startPage(pageNumber,pageSize);
         return new PageInfo(sysUserMapper.selectByCondition(user));
     }

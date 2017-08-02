@@ -4,8 +4,10 @@ package com.zhiliao.module.web.system;
 import com.zhiliao.common.utils.ExcelUtil;
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.module.web.client.service.ClientUserService;
+import com.zhiliao.module.web.system.service.OrganizationService;
 import com.zhiliao.module.web.system.service.RoleService;
 import com.zhiliao.module.web.system.service.SysUserService;
+import com.zhiliao.module.web.system.vo.UserVo;
 import com.zhiliao.mybatis.model.master.TClientUser;
 import com.zhiliao.mybatis.model.master.TSysUser;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -39,6 +41,9 @@ public class MemberController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private OrganizationService orgService;
 
     /* 前台用户列表 */
     @RequestMapping("/clientUser")
@@ -98,11 +103,17 @@ public class MemberController {
 
 
 
+    @RequestMapping("/sysUserIndex")
+    public ModelAndView SysUserIndex(){
+        return new ModelAndView("system/admin");
+
+    }
+
     /* 后台用户列表 */
     @RequestMapping("/sysUser")
     public ModelAndView SysUser(
             @RequestParam(value = "pageNumber",defaultValue = "1") Integer pageNumber,
-            @RequestParam(value = "pageSize",defaultValue ="50") Integer pageSize, TSysUser user){
+            @RequestParam(value = "pageSize",defaultValue ="50") Integer pageSize, UserVo user){
         ModelAndView view = new ModelAndView("system/admin_list");
         view.addObject("model",sysUserService.findSysUserPageInfo(pageNumber,pageSize,user));
         view.addObject("user", user);
@@ -117,6 +128,7 @@ public class MemberController {
             model.addAttribute("user", sysUserService.findSysUserByUserId(userId));
             model.addAttribute("userRole", roleService.findByUserIdAndTypeId(userId,0));
         }
+        model.addAttribute("orgList",orgService.findByPid(0));
         model.addAttribute("roleList",roleService.findByTypeId(0));
         return "system/admin_input";
     }
@@ -124,10 +136,10 @@ public class MemberController {
     /* 后台用户更新 */
     @RequestMapping("/sysUserUpdate")
     @ResponseBody
-    public String SysUserUpdate(TSysUser user,@RequestParam(value = "roleId",required = false) Integer[] roleIds ){
+    public String SysUserUpdate(TSysUser user,@RequestParam(value = "roleId",required = false) Integer[] roleIds,@RequestParam(value = "orgId",required = false) String orgIds ){
         if(user.getUserId()!=null)
-            return sysUserService.update(user,roleIds);
-        return sysUserService.save(user,roleIds);
+            return sysUserService.update(user,roleIds,orgIds);
+        return sysUserService.save(user,roleIds,orgIds);
     }
 
 

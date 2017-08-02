@@ -1,4 +1,4 @@
-package com.zhiliao.component.spring;
+package com.zhiliao.component.mybatis;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;

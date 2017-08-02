@@ -29,7 +29,7 @@ public class CaptchaController {
 
 
     @RequestMapping("/verify")
-    public ModelAndView doGet(HttpServletRequest request,HttpServletResponse response) throws Exception {
+    public ModelAndView doGet(HttpServletRequest request,HttpServletResponse response)  {
         response.setDateHeader("Expires", 0);
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
         response.addHeader("Cache-Control", "post-check=0, pre-check=0");
@@ -38,13 +38,14 @@ public class CaptchaController {
         String capText = captchaProducer.createText();
         BufferedImage bi = captchaProducer.createImage(capText);
         request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY,capText);
+        try {
         ServletOutputStream out = response.getOutputStream();
         log.debug("captchaProducer.createText："+capText);
         ImageIO.write(bi, "jpg", out);
-        try {
-            out.flush();
-        } finally {
-            out.close();
+        out.flush();
+        out.close();
+        }catch(Exception e){
+            e.printStackTrace();
         }
         return null;
     }

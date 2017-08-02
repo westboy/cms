@@ -41,7 +41,7 @@ public class TreeOrganizationFunction implements Function{
        List<TSysOrg> orgList  = service.findByPid(pid);
        if(orgList!=null&&orgList.size()>0){
            for(TSysOrg org:orgList){
-               sbf.append("  <li data-id=\""+org.getId()+"\" data-pid=\""+pid+"\" data-url=\""+httpProtocol+"://"+ ControllerUtil.getDomain()+"/"+url+"/"+org.getId()+"\"  data-divid=\""+layout+"\">"+org.getName()+"</li>");
+               sbf.append("  <li data-id=\""+org.getId()+"\" data-pid=\""+pid+"\" data-url=\""+httpProtocol+"://"+ ControllerUtil.getDomain()+"/"+url+org.getId()+"\"  data-divid=\""+layout+"\">"+org.getName()+"</li>");
                sbf.append(recursion(org.getId(),url,layout));
            }
            return  sbf.toString();

@@ -7,107 +7,127 @@
             $('#j_custom_span_pic').html('<img src="'+ json.filename +'" WIDTH="200" HEIGHT="120"/>')
         }
     }
+
+    //选择事件
+    function P_NodeCheck(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj(treeId),
+            nodes = zTree.getCheckedNodes(true)
+        var ids = '', names = ''
+
+        for (var i = 0; i < nodes.length; i++) {
+            ids   += ','+ nodes[i].id
+            names += ','+ nodes[i].name
+        }
+        if (ids.length > 0) {
+            ids = ids.substr(1)
+        }
+        $("#orgId").val(ids);
+    }
+    //单击事件
+    function P_NodeClick(event, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj(treeId)
+
+        zTree.checkNode(treeNode, !treeNode.checked, true, true)
+
+        event.preventDefault()
+    }
 </script>
 <div class="bjui-pageContent">
     <form method="post" action="${ctxPath}/system/member/sysUserUpdate" id="j_client_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false"  size="20">
         <input TYPE="hidden" name="userId" value="${user.userId!}">
-        <table class="table table-condensed table-hover" width="100%">
-            <tbody>
-            <tr>
-                <td>
-
-                    @if(isEmpty(user)){
-                    <label for="j_username" class="control-label x85">用户名：</label>
-                    <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;remote(${ctxPath}/system/member/sysUsername)"  size="20">
-                    @}else{
-                    <label for="j_username" class="control-label x85">用户名：</label>
-                    <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;"  size="20">
-                    @}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label class="control-label x85">头像：</label>
-                    <div style="display: inline-block; vertical-align: middle;">
-                        <div id="j_custom_pic_up" data-toggle="upload" data-uploader="${ctxPath}/upload"
-                             data-file-size-limit="1024000000"
-                             data-file-type-exts="*.jpg;*.png;*.gif;*.mpg"
-                             data-multi="false"
-                             data-on-upload-success="pic_upload_success"
-                             data-icon="cloud-upload"></div>
-                        <input type="hidden" name="avatar" value="${user.avatar!}" id="j_custom_pic">
-                        <span id="j_custom_span_pic">
+        <div class="form-group">
+            @if(isEmpty(user)){
+            <label for="j_username" class="control-label x85">用户名：</label>
+            <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;remote(${ctxPath}/system/member/sysUsername)"  size="20">
+            @}else{
+            <label for="j_username" class="control-label x85">用户名：</label>
+            <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;"  size="20">
+            @}
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+            <label class="control-label x85">头像：</label>
+            <div style="display: inline-block; vertical-align: middle;">
+                <div id="j_custom_pic_up" data-toggle="upload" data-uploader="${ctxPath}/upload"
+                     data-file-size-limit="1024000000"
+                     data-file-type-exts="*.jpg;*.png;*.gif;*.mpg"
+                     data-multi="false"
+                     data-on-upload-success="pic_upload_success"
+                     data-icon="cloud-upload"></div>
+                <input type="hidden" name="avatar" value="${user.avatar!}" id="j_custom_pic">
+                <span id="j_custom_span_pic">
                     @if(isNotEmpty(user.avatar)){
                     <IMG WIDTH="200" HEIGHT="120" src="${user.avatar!}">
                     @}
                         </span>
-                    </div>
-                    <br>
-
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @if(isEmpty(user)){
-                    <label for="j_password" class="control-label x85">新密码：</label>
-                    <input type="text" name="password" id="j_password" value=""  data-rule="required"  size="20">
-                    @}else{
-                    <label for="j_password" class="control-label x85">密码：</label>
-                    <input type="text" name="password" id="j_password" value=""  size="20">
-                    @}
-
-                </td>
-            </tr>
+            </div>
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
             @if(isEmpty(user)){
-            <tr>
-                <td>
-                    <label for="j_password2" class="control-label x85">确认密码：</label>
-                    <input type="text" id="j_password2"  data-rule="确认密码: match(password);"  size="20">
-                </td>
-            </tr>
+            <label for="j_password" class="control-label x85">新密码：</label>
+            <input type="text" name="password" id="j_password" value=""  data-rule="required"  size="20">
+            @}else{
+            <label for="j_password" class="control-label x85">密码：</label>
+            <input type="text" name="password" id="j_password" value=""  size="20">
             @}
-            <tr>
-                <td>
-                    <label for="j_status" class="control-label x85"  data-toggle="selectpicker">用户状态：</label>
-                    <select name="status" id="j_status"  data-rule="required"  data-toggle="selectpicker">
-                        @if(isEmpty(user)){
-                        <option value="1">正常</option>
-                        <option value="0">禁用</option>
-                        @}else if(!user.status){
-                        <option value="1">正常</option>
-                        <option value="0" selected>禁用</option>
-                        @}else{
-                        <option value="1" selected>正常</option>
-                        <option value="0">禁用</option>
-                        @}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="j_des" class="control-label x85">描述：</label>
-                    <textarea  name="des" id="j_des"  data-rule="required" ROWS="3" COLS="20" >${user.des!,xss}</textarea>
-                </td>
-            </tr>
-            @if(shiro.hasRole("superAdmin")){
-            <tr>
-                <td  style="padding:5px 35px 5px 35px">
-                    @for(role in roleList){
-                         @var checked="";
-                         @if(has(userRole)){
-                            @for(ur in userRole){
-                               @if(role.roleId == ur.roleId){
-                                  @checked = "checked";
-                               @}
-                            @}
-                         @}
-                        <input type="checkbox" id="${role.rolename!}"  ${checked!}  data-toggle="icheck" data-label="${role.description!}"    name="roleId" value="${role.roleId!}" >
-                    @}
-                </td>
-            </tr>
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        @if(isEmpty(user)){
+        <div class="form-group">
+            <label for="j_password2" class="control-label x85">确认密码：</label>
+            <input type="text" id="j_password2"  data-rule="确认密码: match(password);"  size="20">
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        @}
+        <div class="form-group">
+            <label for="j_status" class="control-label x85"  data-toggle="selectpicker">用户状态：</label>
+            <select name="status" id="j_status"  data-rule="required"  data-toggle="selectpicker">
+                @if(isEmpty(user)){
+                <option value="1">正常</option>
+                <option value="0">禁用</option>
+                @}else if(!user.status){
+                <option value="1">正常</option>
+                <option value="0" selected>禁用</option>
+                @}else{
+                <option value="1" selected>正常</option>
+                <option value="0">禁用</option>
+                @}
+            </select>
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        @if(shiro.hasRole("superAdmin")){
+        <div class="form-group">
+            <label for="j_password2" class="control-label x85">角色：</label>
+            @for(role in roleList){
+            @var checked="";
+            @if(has(userRole)){
+            @for(ur in userRole){
+            @if(role.roleId == ur.roleId){
+            @checked = "checked";
             @}
-            </tbody>
-        </table>
+            @}
+            @}
+            <input type="checkbox" id="${role.rolename!}"  ${checked!}  data-toggle="icheck" data-label="${role.description!}"    name="roleId" value="${role.roleId!}" >
+            @}
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        @}
+        <div class="form-group">
+            <label for="DESC" class="control-label x85">描述：</label>
+            <input type="text" id="DESC"    name="des" value="${user.des!}"  size="20">
+
+        </div>
+        <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
+        <div class="form-group">
+        <label for="j_ORG" class="control-label x85">部门：</label>
+            <ul id="j_ORG" style="margin-left: 100PX;margin-top:-20PX" class="ztree" data-toggle="ztree" data-expand-all="true" data-check-enable="true" data-on-check="P_NodeCheck" data-on-click="P_NodeClick">
+              @for(org in orgList){
+                ${organizationOut(org.id,user.userId!0)}
+              @}
+            </ul>
+            <input type="hidden" name="orgId" id="orgId" size="100">
+        </div>
     </form>
     </div>
 <div class="bjui-pageFooter">

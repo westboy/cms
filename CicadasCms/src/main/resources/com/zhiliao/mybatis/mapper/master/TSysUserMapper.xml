@@ -79,18 +79,22 @@
     from t_sys_user
   </select>
 
-  <select id="selectByCondition" parameterType="com.zhiliao.mybatis.model.master.TSysUser" resultMap="BaseResultMap">
-    select user_id, username, password, create_time, salt, login_time, logout_time, last_ip,status,des,avatar
-    from t_sys_user
+  <select id="selectByCondition" parameterType="com.zhiliao.module.web.system.vo.UserVo" resultMap="BaseResultMap">
+    select u.*
+    from t_sys_user u inner join t_sys_org_user o on u.user_id = o.user_id
     <trim prefix="WHERE ("  suffix=")" prefixOverrides="AND|OR">
       <if test="username!=null and username!=''">
-        username like CONCAT('%',#{username},'%')
+        u.username like CONCAT('%',#{username},'%')
       </if>
       <if test="status!=null">
-        and  status = #{status}
+        and  u.status = #{status}
+      </if>
+      <if test="orgId!=null">
+        o.org_id= #{orgId}
       </if>
     </trim>
-    ORDER BY user_id DESC
+    group by u.user_id
+    ORDER BY u.user_id DESC
   </select>
 
 </mapper>
