@@ -1,7 +1,7 @@
 package com.zhiliao.component.mybatis;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -42,7 +42,7 @@ public class MasterDataSourceConfiguration {
         bean.setDataSource(dataSource);
         bean.setTypeAliasesPackage("com.zhiliao.mybatis.model.master");
         //分页插件
-        PageHelper pageHelper = new PageHelper();
+        PageInterceptor pageHelper = new PageInterceptor();
         Properties properties = new Properties();
         properties.setProperty("reasonable", "true");
         properties.setProperty("supportMethodsArguments", "true");
