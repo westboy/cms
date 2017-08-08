@@ -50,7 +50,9 @@ public class BeetlHtmlUtil {
 		template.renderTo(writer);
 		HtmlObject obj = new HtmlObject();
 		obj.setContent(format(writer.toString()));
-		obj.setFileUrl(PathUtil.getWebRootPath() +File.separator+ "html" + File.separator+ siteId + File.separator + (StrUtil.isBlank(action)?"index":action) + ".html");
+		String fileUrl = PathUtil.getWebRootPath() +File.separator+ "html" + File.separator+ siteId + File.separator + (StrUtil.isBlank(action)?"index":action) + ".html";
+		new File(fileUrl).delete();
+		obj.setFileUrl(fileUrl);
 		HtmlThread.addHtml(obj);
 	}
      

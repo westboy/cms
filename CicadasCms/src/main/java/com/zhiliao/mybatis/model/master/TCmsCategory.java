@@ -62,19 +62,6 @@ public class TCmsCategory implements Serializable {
     @Column(name = "content_tpl")
     private String contentTpl;
 
-
-    @Column(name = "page_size")
-    private Integer pageSize;
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-
     /**
      * 导航
      */
@@ -100,6 +87,18 @@ public class TCmsCategory implements Serializable {
 
     @Column(name = "allow_front_submit")
     private Boolean allowFrontSubmit;
+
+    /**
+     * 栏目分页数量
+     */
+    @Column(name = "page_size")
+    private Integer pageSize;
+
+    /**
+     * 当前栏目下的是否支持全文搜索
+     */
+    @Column(name = "allow_search")
+    private Boolean allowSearch;
 
     /**
      * 文本
@@ -368,6 +367,42 @@ public class TCmsCategory implements Serializable {
      */
     public void setAllowFrontSubmit(Boolean allowFrontSubmit) {
         this.allowFrontSubmit = allowFrontSubmit;
+    }
+
+    /**
+     * 获取栏目分页数量
+     *
+     * @return page_size - 栏目分页数量
+     */
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    /**
+     * 设置栏目分页数量
+     *
+     * @param pageSize 栏目分页数量
+     */
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    /**
+     * 获取当前栏目下的是否支持全文搜索
+     *
+     * @return allow_search - 当前栏目下的是否支持全文搜索
+     */
+    public Boolean getAllowSearch() {
+        return allowSearch;
+    }
+
+    /**
+     * 设置当前栏目下的是否支持全文搜索
+     *
+     * @param allowSearch 当前栏目下的是否支持全文搜索
+     */
+    public void setAllowSearch(Boolean allowSearch) {
+        this.allowSearch = allowSearch;
     }
 
     /**

@@ -1,5 +1,5 @@
 <div class="bjui-pageHeader">
-    <form id="pagerForm" data-toggle="ajaxsearch" action="${ctxPath}/system/cms/tag" method="post">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="${ctxPath}/system/attachment" method="post">
         <input type="hidden" name="pageSize" value="${model.pageSize!}">
         <input type="hidden" name="pageCurrent" value="${model.pageNum!}">
         <div class="bjui-searchBar">
@@ -10,7 +10,7 @@
                     <ul class="dropdown-menu right" role="menu">
                         <!--<li><a href="book1.xlsx" data-toggle="doexport" data-confirm-msg="确定要导出信息吗？">导出<span style="color: green;">当前页</span></a></li>-->
                         <!--<li class="divider"></li>-->
-                        <li><a href="${ctxPath}/system/cms/delete" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="ids" data-group="ids">删除选中</a></li>
+                        <li><a href="${ctxPath}/system/attachment/delete" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="ids" data-group="ids">删除选中</a></li>
                         <!--<li><a href="ajaxDone2.html" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="delids" data-group="ids">删除选中</a></li>-->
                     </ul>
                 </div>
@@ -23,21 +23,31 @@
         <thead>
             <tr>
                 <th align="center"  width="25">编号</th>
-                <th align="center"  width="90">Tag名称</th>
-                <th align="center"  width="50">引用次数</th>
+                <th align="center"  width="90">文件名</th>
+                <th align="center"  width="80">文件类型</th>
+                <th align="center"  width="80">上传者</th>
+                <th align="center"  width="100">上传时间</th>
+                <th align="center"  width="100">IP地址</th>
+                <th align="center"  width="50">文件大小</th>
+                <th align="center"  width="200">文件位置</th>
                 <th align="center"  width="26" ><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
                 <th align="center"  width="60">操作</th>
             </tr>
         </thead>
         <tbody>
-        @for(tag in model.list){
-            <tr data-id="${tagLP.index}">
-                <td align="center">${tag.tagId!}</td>
-                <td align="center">${tag.tagName!}</td>
-                <td align="center">${tag.count!}</td>
-                <td  align="center"><input type="checkbox" name="ids" data-toggle="icheck" value="${tag.tagId!}"></td>
+        @for(file in model.list){
+            <tr data-id="${fileLP.index}">
+                <td align="center">${file.id!}</td>
+                <td align="center">${file.fileName!}</td>
+                <td align="center">${file.fileExtname!}</td>
+                <td align="center">${file.username!}</td>
+                <td align="center">${file.uploadDate,dateFormat="yyyy/MM/dd HH:mm:ss"}</td>
+                <td align="center">${file.uploadIp,dateFormat="yyyy/MM/dd HH:mm:ss"}</td>
+                <td align="center">${file.fileSize!}KB</td>
+                <td align="center">${file.filePath!}</td>
+                <td  align="center"><input type="checkbox" name="ids" data-toggle="icheck" value="${file.id!}"></td>
                 <td  align="center">
-                   <a href="${ctxPath}/system/cms/delete?ids=${tag.tagId!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删</a>
+                   <a href="${ctxPath}/system/attachment/delete?ids=${file.id!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删</a>
                 </td>
             </tr>
         @}

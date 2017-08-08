@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 @RequestMapping("/api/")
-public class Content {
+public class ContentInterface {
 
     @ApiOperation("测试接口")
     @RequestMapping(value = "/test",method = RequestMethod.GET)

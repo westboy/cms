@@ -1,0 +1,53 @@
+<script type="text/javascript">
+    //选择事件
+    function P_NodeCheck(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj(treeId),
+            nodes = zTree.getCheckedNodes(true)
+        var ids = '', names = ''
+
+        for (var i = 0; i < nodes.length; i++) {
+            ids   += ','+ nodes[i].id
+            names += ','+ nodes[i].name
+        }
+        if (ids.length > 0) {
+            ids = ids.substr(1)
+        }
+        $("#categoryIds").val(ids);
+    }
+    //单击事件
+    function P_NodeClick(event, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj(treeId)
+
+        zTree.checkNode(treeNode, !treeNode.checked, true, true)
+
+        event.preventDefault()
+    }
+</script>
+<div class="bjui-pageContent">
+    <form method="post" action="${ctxPath}/system/toStaticHtml/siteCategoryStatic" data-toggle="validate"  id="catstatic">
+
+    <fieldset>
+             <legend  class="control-label x85">请选择需要生成的栏目</legend>
+               <div  class="form-group" style="padding-left: 20%;" ></div>
+               <p>
+                 <ul id="j_select_categoryIds" style="margin-left: 15%;margin-top: -10px" class="ztree" data-toggle="ztree" data-expand-all="false" data-check-enable="true" data-on-check="P_NodeCheck" data-on-click="P_NodeClick">
+                    ${TopicCatagoryOut(session.SysUser.siteId,"0","")}
+                 </ul>
+              <input type="hidden" name="siteId" VALUE="${session.SysUser.siteId!}">
+               <input type="hidden" name="categoryIds" id="categoryIds" size="100">
+             </p>
+
+        </fieldset>
+    </form>
+        <p class="text-center">
+        <a  href="${ctxPath}/system/toStaticHtml/siteIndexStatic/${session.SysUser.siteId!}" class="btn btn-green" data-toggle="doajax" data-confirm-msg="生成首页">生成首页</a>
+         <a href="${ctxPath}/system/toStaticHtml/siteStatic/${session.SysUser.siteId!}" class="btn btn-blue" data-toggle="doajax" data-confirm-msg="生成全站">生成全站</a>
+        </p>
+
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+        <li><button type="submit" class="btn-green"  data-icon="save">提交</button></li>
+        <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

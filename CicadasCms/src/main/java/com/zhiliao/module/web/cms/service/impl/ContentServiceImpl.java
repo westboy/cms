@@ -154,14 +154,16 @@ public class ContentServiceImpl implements ContentService{
         content.setTop(CmsUtil.isNullOrEmpty(content.getTop())?false:true);
         if(contentMapper.insert(content)>0) {
             /*创建lucene索引*/
-            IndexObject indexObject = new IndexObject();
-            indexObject.setId(content.getContentId());
-            indexObject.setTitle(content.getTitle());
-            indexObject.setKeywords(content.getKeywords());
-            indexObject.setDescripton(content.getDescription());
-            indexObject.setPostDate(DateUtil.formatDateTime(content.getInputdate()));
-            indexObject.setUrl(this.httpProtocol+"://"+ ControllerUtil.getDomain()+"/front/"+content.getSiteId()+"/"+content.getCategoryId()+"/"+content.getContentId());
-            luceneService.save(indexObject);
+            if(categoryService.findById(content.getCategoryId()).getAllowSearch()) {
+                IndexObject indexObject = new IndexObject();
+                indexObject.setId(content.getContentId());
+                indexObject.setTitle(content.getTitle());
+                indexObject.setKeywords(content.getKeywords());
+                indexObject.setDescripton(content.getDescription());
+                indexObject.setPostDate(DateUtil.formatDateTime(content.getInputdate()));
+                indexObject.setUrl(this.httpProtocol + "://" + ControllerUtil.getDomain() + "/front/" + content.getSiteId() + "/" + content.getCategoryId() + "/" + content.getContentId());
+                luceneService.save(indexObject);
+            }
             /*保存和文章管理的Tag*/
             if (tags != null)
                 for (String tag : tags) {
@@ -183,14 +185,16 @@ public class ContentServiceImpl implements ContentService{
         content.setUpdatedate(new Date());
         if(contentMapper.updateByPrimaryKeySelective(content)>0) {
              /*创建lucene索引*/
-            IndexObject indexObject = new IndexObject();
-            indexObject.setId(content.getContentId());
-            indexObject.setTitle(content.getTitle());
-            indexObject.setKeywords(content.getKeywords());
-            indexObject.setDescripton(content.getDescription());
-            indexObject.setPostDate(DateUtil.formatDateTime(content.getInputdate()));
-            indexObject.setUrl(this.httpProtocol+"://"+ ControllerUtil.getDomain()+"/front/"+content.getSiteId()+"/"+content.getCategoryId()+"/"+content.getContentId());
-            luceneService.update(indexObject);
+            if(categoryService.findById(content.getCategoryId()).getAllowSearch()) {
+                IndexObject indexObject = new IndexObject();
+                indexObject.setId(content.getContentId());
+                indexObject.setTitle(content.getTitle());
+                indexObject.setKeywords(content.getKeywords());
+                indexObject.setDescripton(content.getDescription());
+                indexObject.setPostDate(DateUtil.formatDateTime(content.getInputdate()));
+                indexObject.setUrl(this.httpProtocol + "://" + ControllerUtil.getDomain() + "/front/" + content.getSiteId() + "/" + content.getCategoryId() + "/" + content.getContentId());
+                luceneService.update(indexObject);
+            }
             /*保存和文章管理的Tag*/
             if (tags != null)
                 for (String tag : tags) {
@@ -356,11 +360,11 @@ public class ContentServiceImpl implements ContentService{
 
     @Async
     @Override
-    public int viewUpdate(Long contentId){
+    public void viewUpdate(Long contentId){
         TCmsContent content = this.findById(contentId);
         content.setContentId(contentId);
         content.setViewNum(content.getViewNum()+1);
-        return contentMapper.updateByPrimaryKeySelective(content);
+        contentMapper.updateByPrimaryKeySelective(content);
     }
 
     @Override
@@ -443,7 +447,7 @@ public class ContentServiceImpl implements ContentService{
                 "      ]\n" +
                 "    },\n" +
                 "    {\n" +
-                "      \"name\": \"已发货\",\n" +
+                "      \"name\": \"专题\",\n" +
                 "      \"type\": \"bar\",\n" +
                 "      \"data\": [\n" +
                 "        "+result.get("一月份")+",\n" +

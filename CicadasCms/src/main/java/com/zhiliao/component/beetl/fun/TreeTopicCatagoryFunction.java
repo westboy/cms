@@ -27,7 +27,7 @@ public class TreeTopicCatagoryFunction implements Function {
     @Override
     public Object call(Object[] objects, Context context) {
 
-        String siteId = (String) objects[0];
+        String siteId = objects[0].toString();
         String pid = (String) objects[1];
         String categoryIds = (String) objects[2];
         return recursion(Long.parseLong(pid),Integer.parseInt(siteId),categoryIds);

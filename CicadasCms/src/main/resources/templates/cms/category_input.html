@@ -62,6 +62,18 @@
 
         </div>
         <hr>
+        <div  class="form-group">
+            <label for="nav" class="control-label x85">全文检索：</label>
+            @if(!isEmpty(pojo.allowSearch)&&pojo.allowSearch){
+            <input   id="nav" type="radio" name="allowSearch" value="1" checked="checked"> 是 </input>
+            <input  id="nav" type="radio" name="allowSearch" value="0"> 否 </input>
+            @}else{
+            <input  id="nav"  type="radio" name="allowSearch" value="1"> 是 </input>
+            <input  id="nav" type="radio" name="allowSearch" value="0" checked="checked"> 否 </input>
+            @}
+
+        </div>
+        <hr>
         <div class="form-group">
             <label for="pageSize" class="control-label x85">分页大小：</label>
             <input type="text"  id="pageSize" name="pageSize" size="30"

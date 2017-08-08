@@ -210,6 +210,7 @@ function MainMenuClick(event, treeId, treeNode) {
                 <li><a target="_blank" href="${ctxPath}/front/${session.SysUser.siteId!}" data-id="siteInfo"><span class="glyphicon glyphicon-home"></span> ${session.SysUser.siteId==1?"前台首页":session.SysUser.siteName!}</a></li>
                 <li><a target="_blank" href="${ctxPath}/system/cache/clear/all" data-toggle="doajax" data-confirm-msg="清理缓存"><span class="glyphicon glyphicon-refresh"></span> 清理缓存</a></li>
                 <li><a target="_blank" href="${ctxPath}/system/toStaticHtml" data-toggle="doajax" data-confirm-msg="生成静态"><span class="glyphicon glyphicon-transfer"></span> 生成静态</a></li>
+                <li><a href="${ctxPath}/system/toStaticHtml" data-toggle="dialog" data-id="site-static-tab" data-mask="true" data-width="400" data-height="260"><span class="glyphicon glyphicon-transfer"></span> 生成静态</a></li>
                 <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">切换站点 <span class="fa fa-exchange"></span> </a>-->
                     <!--<ul class="dropdown-menu" role="menu">-->
                         <!--<li><a href="${ctxPath}/system/changePassword" data-toggle="dialog" data-id="changepwd_page" data-mask="true" data-width="400" data-height="260">&nbsp;<span class="glyphicon glyphicon-lock"></span> 修改密码&nbsp;</a></li>-->
@@ -262,6 +263,7 @@ function MainMenuClick(event, treeId, treeNode) {
                           <ul id="bjui-hnav-tree1" class="ztree ztree_main" data-toggle="ztree" data-on-click="MainMenuClick" data-expand-all="true" data-faicon="check-square-o">
                               <li data-id="1"  data-pid="0" data-faicon="folder-open-o" data-faicon-close="folder-o">功能维护</li>
                               <li data-id="13" data-pid="1" data-url="${ctxPath}/system/cms/tag" data-tabid="form-button" data-faicon="tags">TAG管理</li>
+                              <li data-id="13" data-pid="1" data-url="${ctxPath}/system/attachment" data-tabid="att-tab" data-faicon="tags">附件管理</li>
                               <!--<li data-id="14" data-pid="1" data-url="${ctxPath}/system/cms/linkage" data-tabid="linkage-tab" data-faicon="road">联动菜单</li>-->
                               <!--<li data-id="15" data-pid="1" data-url="javascript:;" data-tabid="form-input" data-faicon="search">搜索管理</li>-->
                               <li data-id="16" data-pid="1" data-url="${ctxPath}/system/cache" data-tabid="cache-tab" data-faicon="leaf">缓存清理</li>

@@ -1,6 +1,7 @@
 package com.zhiliao.module.web.system;
 
 import com.zhiliao.common.utils.JsonUtil;
+import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.module.web.cms.service.CategoryService;
 import com.zhiliao.module.web.cms.service.ContentService;
 import com.zhiliao.module.web.cms.service.HtmlStaticService;
@@ -10,7 +11,9 @@ import com.zhiliao.mybatis.model.master.TCmsContent;
 import com.zhiliao.mybatis.model.master.TCmsSite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -40,14 +43,45 @@ public class HtmlStaticController {
 
 
     @RequestMapping
+    public String index() {
+       return "system/site_static";
+    }
+
+    @RequestMapping("/all")
     @ResponseBody
     public String all() {
         List<TCmsSite> siteList = siteService.findAll();
         for(TCmsSite site : siteList) {
-            htmlStaticService.index(site.getSiteId());
+            this. htmlStaticService.index(site.getSiteId());
             this.generateCategory(site.getSiteId());
         }
         return JsonUtil.toSUCCESS("全站静态页面生成成功！");
+    }
+
+    @RequestMapping("/siteStatic/{siteId}")
+    @ResponseBody
+    public String siteStatic(@PathVariable("siteId") Integer siteId) {
+        this.htmlStaticService.index(siteId);
+        this.generateCategory(siteId);
+        return JsonUtil.toSUCCESS("静态页面正在生成....");
+    }
+
+    @RequestMapping("/siteIndexStatic/{siteId}")
+    @ResponseBody
+    public String siteIndexStatic(@PathVariable("siteId") Integer siteId) {
+        htmlStaticService.index(siteId);
+        return JsonUtil.toSUCCESS("首页静态页面生成成功！");
+    }
+
+    @RequestMapping("/siteCategoryStatic")
+    @ResponseBody
+    public String siteCategoryStatic(@RequestParam("siteId") Integer siteId,@RequestParam("categoryIds") String categoryIds) {
+        if(StrUtil.isBlank(categoryIds))  return JsonUtil.toERROR("请选择需要生成的栏目！");
+        this.generateCategory(siteId);
+        for(String id : categoryIds.split(",")){
+            this.generateCategoryPage(siteId,Long.parseLong(id));
+        }
+        return JsonUtil.toSUCCESS("静态页面正在生成....");
     }
 
 

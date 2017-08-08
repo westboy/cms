@@ -115,7 +115,7 @@ public class CategoryServiceImpl implements CategoryService{
                        TCmsContent content =new TCmsContent();
                        content.setCategoryId(c.getCategoryId());
                        if(contentMapper.selectCount(content)>0)
-                          throw new CmsException("当前栏目["+category.getCategoryId()+"]下有多条内容，不允许删除");
+                          throw new CmsException("当前栏目["+id+"]下有多条内容，不允许删除");
                        categoryMapper.deleteByPrimaryKey(c.getCategoryId());
                     }
                     categoryMapper.deleteByPrimaryKey(id);
@@ -123,7 +123,7 @@ public class CategoryServiceImpl implements CategoryService{
                     TCmsContent content =new TCmsContent();
                     content.setCategoryId(id);
                     if(contentMapper.selectCount(content)>0)
-                        throw new CmsException("当前栏目["+category.getCategoryId()+"]下有多条内容，不允许删除");
+                        throw new CmsException("当前栏目["+id+"]下有多条内容，不允许删除");
                     categoryMapper.deleteByPrimaryKey(id);
                 }
             }

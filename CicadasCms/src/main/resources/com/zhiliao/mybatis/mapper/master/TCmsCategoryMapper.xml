@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zhiliao.mybatis.mapper.master.TCmsCategoryMapper">
   <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.master.TCmsCategory">
-
+    <!--
+      WARNING - @mbg.generated
+    -->
     <id column="category_id" jdbcType="BIGINT" property="categoryId" />
     <result column="alias" jdbcType="VARCHAR" property="alias" />
     <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
@@ -18,8 +20,8 @@
     <result column="has_child" jdbcType="BIT" property="hasChild" />
     <result column="is_common" jdbcType="BIT" property="isCommon" />
     <result column="allow_front_submit" jdbcType="BIT" property="allowFrontSubmit" />
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
     <result column="page_size" jdbcType="INTEGER" property="pageSize" />
+    <result column="allow_search" jdbcType="BIT" property="allowSearch" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
-
 </mapper>
