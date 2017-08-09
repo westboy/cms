@@ -1,6 +1,7 @@
 package com.zhiliao.module.web.system;
 
 
+import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.ExcelUtil;
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.module.web.client.service.ClientUserService;
@@ -123,10 +124,10 @@ public class MemberController {
 
     /* 后台用户修改 */
     @RequestMapping("/sysUserInput")
-    public String SysUserInput(@RequestParam(value = "userId",required = false) Integer userId, Model model){
-        if(userId!=null) {
-            model.addAttribute("user", sysUserService.findSysUserByUserId(userId));
-            model.addAttribute("userRole", roleService.findByUserIdAndTypeId(userId,0));
+    public String SysUserInput(TSysUser user, Model model){
+        if(!CmsUtil.isNullOrEmpty(user)) {
+            model.addAttribute("user", sysUserService.findSysUserByUserId(user.getUserId()));
+            model.addAttribute("userRole", roleService.findByUserIdAndTypeId(user.getUserId(),0));
         }
         model.addAttribute("orgList",orgService.findByPid(0));
         model.addAttribute("roleList",roleService.findByTypeId(0));

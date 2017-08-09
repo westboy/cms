@@ -1,7 +1,6 @@
 package com.zhiliao.common.upload;
 
 import com.zhiliao.common.utils.JsonUtil;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +12,6 @@ import java.util.Map;
 
 
 @RestController
-@RequiresAuthentication
 @RequestMapping("/upload")
 public class UploadController {
 

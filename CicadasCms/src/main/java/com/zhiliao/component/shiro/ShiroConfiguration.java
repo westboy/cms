@@ -184,12 +184,12 @@ public class ShiroConfiguration {
 		logoutFilter.setDefaultUrl(localUrl);
 		Map<String, String> chains = Maps.newHashMap();
 		filters.put("casLogout",logoutFilter);
-		bean.setFilters(filters);        //前台路径
+		bean.setFilters(filters);
 		chains.put("/login", "anon");
 		chains.put("/doLogin", "anon");
 		chains.put("/logout", "logout");
 		chains.put("/casLogout", "casLogout");
-
+		chains.put("/upload/**","auth");
 		chains.put("/user/**", "cas");
 		chains.put("/callback", "callback");
         //后台路径

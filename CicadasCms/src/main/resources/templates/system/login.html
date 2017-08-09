@@ -17,7 +17,7 @@ body {
     background-size: cover;
 }
 .form-control{height:37px;}
-.main_box{position:absolute; top:45%; left:50%; margin:-200px 0 0 -180px; padding:15px 20px; width:360px; height:400px; min-width:320px; background:#FAFAFA; background:rgba(255,255,255,0.5); box-shadow: 1px 5px 8px #888888; border-radius:6px;}
+.main_box{position:absolute; top:45%; left:50%; margin:-200px 0 0 -180px; padding:15px 20px; width:360px; min-height:320px; min-width:320px; background:#FAFAFA; background:rgba(255,255,255,0.5); box-shadow: 1px 5px 8px #888888; border-radius:6px;}
 .login_msg{height:30px;}
 .input-group >.input-group-addon.code{padding:0;}
 #captcha_img{cursor:pointer;max-height: 33px}
@@ -27,6 +27,11 @@ ${'@'}media (min-width: 768px) {
     .main_box .logo img{height:40px;}
 
 }
+#errorie {position: fixed; top: 0; z-index: 100000; height: 30px; background: #FCF8E3;}
+#errorie div {width: 900px; margin: 0 auto; line-height: 30px; color: orange; font-size: 14px; text-align: center;}
+#errorie div a {color: #459f79;font-size: 14px;}
+#errorie div a:hover {text-decoration: underline;}
+#login_form .n-invalid {border: 1px solid #f00;}
 </style>
 <script type="text/javascript">
 $(function() {
@@ -44,13 +49,6 @@ function choose_bg() {
 </head>
 <body>
 <!--[if lte IE 7]>
-<style type="text/css">
-#errorie {position: fixed; top: 0; z-index: 100000; height: 30px; background: #FCF8E3;}
-#errorie div {width: 900px; margin: 0 auto; line-height: 30px; color: orange; font-size: 14px; text-align: center;}
-#errorie div a {color: #459f79;font-size: 14px;}
-#errorie div a:hover {text-decoration: underline;}
-#login_form .n-invalid {border: 1px solid #f00;}
-</style>
 <div id="errorie"><div>您还在使用老掉牙的IE，请升级您的浏览器到 IE8以上版本 <a target="_blank" href="http://windows.microsoft.com/zh-cn/internet-explorer/ie-8-worldwide-languages">点击升级</a>&nbsp;&nbsp;强烈建议您更改换浏览器：<a href="http://down.tech.sina.com.cn/content/40975.html" target="_blank">谷歌 Chrome</a></div></div>
 <![endif]-->
 <div class="container">
@@ -80,12 +78,12 @@ function choose_bg() {
                     <span class="input-group-addon code" id="basic-addon-code"><img  id="captcha_img"  onclick="changeCode();" alt="点击更换" title="点击更换" class="m"></span>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label for="j_remember" class="m"><input id="j_remember" name="remberMe" type="checkbox" value="true">&nbsp;记住登陆账号!</label>
-                </div>
-            </div>
-            <div class="text-center">
+            <!--<div class="form-group">-->
+                <!--<div class="checkbox">-->
+                    <!--<label for="j_remember" class="m"><input id="j_remember" name="remberMe" type="checkbox" value="true">&nbsp;记住登陆账号!</label>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="text-center" STYLE="margin-bottom: 25px;padding-top: 10px" >
                 <button type="button" id="submit_btn" class="btn btn-primary btn-lg">&nbsp;登&nbsp;录&nbsp;</button>&nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="reset" class="btn btn-default btn-lg">&nbsp;重&nbsp;置&nbsp;</button>
             </div>
