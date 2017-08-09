@@ -1,6 +1,6 @@
 package com.zhiliao.component.mybatis;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -24,9 +24,9 @@ public class MasterDataSourceConfiguration {
 
     @Primary
     @Bean(name = "masterDataSource")
-    @ConfigurationProperties(prefix = "datasource.master")
+    @ConfigurationProperties(prefix = "spring.datasource.druid")
     public DataSource dataSource() {
-        return new DruidDataSource();
+        return DruidDataSourceBuilder.create().build();
     }
 
     @Primary
