@@ -18,6 +18,8 @@ public class CmsConst {
 
     public static  final  String CONTENT_NOT_FOUND ="内容已经被删除或者不存在！";
 
+    public static  final  String TOPIC_NOT_FOUND ="专题已经被删除或者不存在！";
+
     public static  final  String SEARCH_KEYWORD_NOT_FOUND ="搜索关键字不能为空！";
 
     public static final String SITE_USER_SESSION_KEY = "SysUser";
@@ -33,4 +35,6 @@ public class CmsConst {
     public static final String CONTENT_TPL= "content";
 
     public static final String SEARCH_TPL= "search";
+
+    public static final String TOPIC_TPL= "topic";
 }

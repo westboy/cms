@@ -8,18 +8,17 @@ import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.thread.HtmlThread;
 import com.zhiliao.common.utils.*;
 import com.zhiliao.module.web.cms.service.*;
-import com.zhiliao.module.web.cms.service.impl.HtmlStaticServiceImpl;
-import com.zhiliao.mybatis.model.master.TCmsCategory;
-import com.zhiliao.mybatis.model.master.TCmsModel;
-import com.zhiliao.mybatis.model.master.TCmsModelFiled;
-import com.zhiliao.mybatis.model.master.TCmsSite;
+import com.zhiliao.mybatis.model.master.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +58,7 @@ public class IndexController {
     private LuceneService luceneService;
 
     @Autowired
-    private HtmlStaticServiceImpl htmlStaticService;
+    private TopicService topicService;
 
     @Value("${system.http.protocol}")
     private String httpProtocol;
@@ -250,11 +249,27 @@ public class IndexController {
         }
     }
 
-
-    private String view(String viewName){
-        return  "www/default/"+viewName.trim();
+    @GetMapping("/${system.site.prefix}/{siteId}/topic/{topicId}")
+    public String topic(@PathVariable("siteId") Integer siteId,
+                        @PathVariable("topicId") Integer topicId,
+                        Model model){
+        TCmsSite site = siteService.findById(siteId);
+        if(CmsUtil.isNullOrEmpty(site))
+            throw new CmsException(CmsConst.SITE_NOT_FOUND);
+        TCmsTopic topic =topicService.findById(topicId);
+        if(CmsUtil.isNullOrEmpty(topic))
+            throw new CmsException(CmsConst.TOPIC_NOT_FOUND);
+        model.addAttribute("title",topic.getTopicName());
+        model.addAttribute("keyword",topic.getKeywords());
+        model.addAttribute("description",topic.getDescription());
+        model.addAttribute("site",site);
+        model.addAttribute("topic",topic);
+        return view(site.getTemplate(), !StrUtil.isBlank(topic.getTopicTpl())?topic.getTopicTpl():CmsConst.SEARCH_TPL);
     }
 
+    private String view(String viewName){
+        return  this.view("default",viewName);
+    }
 
     private String view(String theme,String viewName){
         return "www/"+theme.trim()+"/"+viewName.trim();

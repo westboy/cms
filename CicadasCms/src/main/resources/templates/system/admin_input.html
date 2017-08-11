@@ -4,7 +4,7 @@
         $(this).bjuiajax('ajaxDone', json)
         if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
             $('#j_custom_pic').val(json.filename).trigger('validate')
-            $('#j_custom_span_pic').html('<img src="'+ json.filename +'" WIDTH="200" HEIGHT="120"/>')
+            $('#j_custom_span_pic').html('<img src="'+ json.filename +'" WIDTH="120" HEIGHT="100"/>')
         }
     }
 
@@ -57,7 +57,7 @@
                 <input type="hidden" name="avatar" value="${user.avatar!}" id="j_custom_pic">
                 <span id="j_custom_span_pic">
                     @if(isNotEmpty(user.avatar)){
-                    <IMG WIDTH="200" HEIGHT="120" src="${user.avatar!}">
+                    <IMG WIDTH="120" HEIGHT="100" src="${user.avatar!}">
                     @}
                         </span>
             </div>

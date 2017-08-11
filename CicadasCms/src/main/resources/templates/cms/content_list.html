@@ -8,19 +8,22 @@
             <label>状态:</label>
             <select name="status" data-toggle="selectpicker">
                 @if(isEmpty(pojo.status)){
-                <option value=""  selected>所有</option>
+                <option value="" selected>所有</option>
                 <option value="-1"> 删除</option>
                 <option value="0"> 草稿</option>
                 <option value="1"> 发布 </option>
                 @}else if(pojo.status==0){
+                <option value="">所有</option>
                 <option value="-1"> 删除</option>
                 <option value="0" selected> 草稿</option>
                 <option value="1"> 发布 </option>
                 @}else if(pojo.status==1){
+                <option value="" >所有</option>
                 <option value="-1"> 删除</option>
                 <option value="0"> 审核</option>
                 <option value="1"  selected> 发布 </option>
                 @}else if(pojo.status==-1){
+                <option value="">所有</option>
                 <option value="-1"   selected> 删除</option>
                 <option value="0"> 草稿</option>
                 <option value="1"> 发布 </option>
@@ -33,7 +36,6 @@
             @if(isNotEmpty(pojo.categoryId)){
             <a href="${ctxPath}/system/cms/content/input?categoryId=${pojo.categoryId!}" class="btn btn-green" data-icon="plus" data-toggle="ajaxload" data-target="#layout-content" >发布内容</a>
             <!--<a href="${ctxPath}/system/cms/content/input?categoryId=${content.categoryId!}" class="btn btn-green"  data-toggle="dialog"   data-width="850" data-height="650" data-id="post-content" data-icon="plus"  data-title="发布内容">发布内容</a>-->
-
             @}
             <div class="pull-right">
                 <!--<button type="button" class="btn-blue" data-url="ajaxDone2.html?id={#bjui-selected}" data-toggle="doajax" data-confirm-msg="确定要删除选中项吗？" data-icon="remove" title="可以在控制台(network)查看被删除ID">删除选中行</button>&nbsp;-->
