@@ -90,7 +90,7 @@
         and  u.status = #{status}
       </if>
       <if test="orgId!=null">
-        o.org_id= #{orgId}
+        and  o.org_id= #{orgId}
       </if>
     </trim>
     group by u.user_id
