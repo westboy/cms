@@ -2,7 +2,7 @@ package com.zhiliao.module.web.cms.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhiliao.common.dict.CmsConst;
+import com.zhiliao.common.constant.CmsConst;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.ControllerUtil;

@@ -2,7 +2,7 @@ package com.zhiliao.module.web.cms;
 
 import com.google.common.collect.Maps;
 import com.zhiliao.common.annotation.SysLog;
-import com.zhiliao.common.dict.CmsConst;
+import com.zhiliao.common.constant.CmsConst;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.utils.*;
 import com.zhiliao.module.web.cms.service.CategoryService;

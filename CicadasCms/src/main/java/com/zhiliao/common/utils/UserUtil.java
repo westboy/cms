@@ -1,6 +1,6 @@
 package com.zhiliao.common.utils;
 
-import com.zhiliao.common.dict.CmsConst;
+import com.zhiliao.common.constant.CmsConst;
 import com.zhiliao.module.web.system.vo.UserVo;
 import org.apache.shiro.authz.UnauthenticatedException;
 

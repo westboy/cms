@@ -1,0 +1,52 @@
+<script type="text/javascript">
+    function do_open_layout_template(event, treeId, treeNode) {
+        if (treeNode.isParent) {
+            var zTree = $.fn.zTree.getZTreeObj(treeId)
+            zTree.expandNode(treeNode)
+            return
+        }
+        $(event.target).bjuiajax('doLoad', {url:treeNode.url, target:treeNode.divid})
+        event.preventDefault()
+    }
+</script>
+<div class="bjui-pageContent">
+    <div style="float:left; width:230px; height:100%; overflow:auto;">
+        <fieldset  style="width:220px; min-height:99.9%;height:auto;padding: 0px;margin: 0">
+        <ul id="admin-org-tree" class="ztree" data-toggle="ztree" data-expand-all="true" data-on-click="do_open_layout_template">
+            <li data-id="1" data-pid="0">模板目录</li>
+            @if(isNotEmpty(templateFiles)){
+              @for(t in templateFiles){
+               @if(t.isDirectory){
+                 <li data-id="${tLP.index+1}" data-pid="1">${t.fileName!}</li>
+                   @if(isNotEmpty(t.childList)){
+                     @for(sub in t.childList){
+                      @if(sub.isDirectory){
+                        <li data-id="${tLP.index+1}${subLP.index}" data-pid="${tLP.index+1}">${sub.fileName!}</li>
+                         @if(isNotEmpty(sub.childList)){
+                            @for(sc in sub.childList){
+                                <li data-id="${tLP.index+1}${subLP.index}${scLP.index}" data-pid="${tLP.index+1}${subLP.index}"  data-url="${ctxPath}/system/cms/template/input?filePath=${sc.filePath!}" data-divid="#edit-template-org-layout">${sc.fileName!}</li>
+                            @}
+                         @}
+                       @}else{
+                         <li data-id="${tLP.index+1}${subLP.index}" data-pid="${tLP.index+1}" data-url="${ctxPath}/system/cms/template/input?filePath=${sub.filePath!}" data-divid="#edit-template-org-layout">${sub.fileName!}</li>
+                       @}
+                     @}
+                   @}
+               @}else{
+                 <li data-id="${tLP.index+1}" data-pid="1"  data-url="${ctxPath}/system/cms/template/input?filePath=${t.filePath!}" data-divid="#edit-template-org-layout">{t.fileName!}</li>
+               @}
+              @}
+            @}
+         </ul>
+        </fieldset>
+    </div>
+    <div style="margin-left:160px; height:99.9%; overflow:hidden;" >
+        <div style="height:100%; overflow:hidden;">
+            <fieldset style="height:100%;">
+                <div id="edit-template-org-layout"    style="height:99%; overflow:hidden;">
+
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

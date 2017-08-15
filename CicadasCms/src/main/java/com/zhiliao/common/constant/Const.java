@@ -1,4 +1,4 @@
-package com.zhiliao.common.dict;
+package com.zhiliao.common.constant;
 
 /**
  * Description:

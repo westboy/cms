@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.zhiliao.common.annotation.SysLog;
-import com.zhiliao.common.dict.CmsConst;
+import com.zhiliao.common.constant.CmsConst;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.component.shiro.DefaultUsernamePasswordToken;
 import com.zhiliao.component.shiro.PasswordKit;

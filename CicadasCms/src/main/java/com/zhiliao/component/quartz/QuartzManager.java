@@ -1,6 +1,6 @@
 package com.zhiliao.component.quartz;
 
-import com.zhiliao.common.dict.Const;
+import com.zhiliao.common.constant.Const;
 import com.zhiliao.component.quartz.Factory.DisallowConcurrentExecutionQuartzJobFactory;
 import com.zhiliao.component.quartz.Factory.QuartzJobFactory;
 import com.zhiliao.component.quartz.job.ScheduleJob;

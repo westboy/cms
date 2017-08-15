@@ -1,4 +1,4 @@
-package com.zhiliao.common.thread;
+package com.zhiliao.component.beetl.thread;
 
 import com.zhiliao.component.beetl.html.HtmlObject;
 import com.zhiliao.common.exception.SystemException;

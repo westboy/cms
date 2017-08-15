@@ -1,4 +1,4 @@
-package com.zhiliao.common.dict;
+package com.zhiliao.common.constant;
 
 /**
  * Description:内容管理系统字典

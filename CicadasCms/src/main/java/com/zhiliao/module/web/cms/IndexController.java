@@ -2,10 +2,10 @@ package com.zhiliao.module.web.cms;
 
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
-import com.zhiliao.common.dict.CmsConst;
+import com.zhiliao.common.constant.CmsConst;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.exception.SystemException;
-import com.zhiliao.common.thread.HtmlThread;
+import com.zhiliao.component.beetl.thread.HtmlThread;
 import com.zhiliao.common.utils.*;
 import com.zhiliao.module.web.cms.service.*;
 import com.zhiliao.mybatis.model.master.*;

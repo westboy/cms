@@ -2,7 +2,7 @@ package com.zhiliao.common.upload;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
-import com.zhiliao.common.dict.CmsConst;
+import com.zhiliao.common.constant.CmsConst;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.common.utils.PathUtil;

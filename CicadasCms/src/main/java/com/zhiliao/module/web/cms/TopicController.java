@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.cms;
 
 import com.zhiliao.common.base.BaseController;
-import com.zhiliao.common.dict.CmsConst;
+import com.zhiliao.common.constant.CmsConst;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.module.web.cms.service.TopicService;

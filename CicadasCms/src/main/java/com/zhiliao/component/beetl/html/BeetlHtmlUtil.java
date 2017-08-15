@@ -1,7 +1,7 @@
 package com.zhiliao.component.beetl.html;
 
 
-import com.zhiliao.common.thread.HtmlThread;
+import com.zhiliao.component.beetl.thread.HtmlThread;
 import com.zhiliao.common.utils.PathUtil;
 import com.zhiliao.common.utils.StrUtil;
 import org.beetl.core.GroupTemplate;
