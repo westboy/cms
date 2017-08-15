@@ -2,18 +2,20 @@ package com.zhiliao.module.web.cms.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
-import com.zhiliao.component.beetl.html.BeetlHtmlUtil;
 import com.zhiliao.common.constant.CmsConst;
 import com.zhiliao.common.utils.StrUtil;
+import com.zhiliao.component.beetl.html.BeetlHtmlUtil;
 import com.zhiliao.module.web.cms.service.*;
 import com.zhiliao.mybatis.model.master.TCmsCategory;
 import com.zhiliao.mybatis.model.master.TCmsModel;
 import com.zhiliao.mybatis.model.master.TCmsSite;
+import com.zhiliao.mybatis.model.master.TCmsTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 
@@ -37,6 +39,9 @@ public class HtmlStaticServiceImpl implements HtmlStaticService{
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private TopicService topicService;
 
     /**
      * 生成首页
@@ -102,9 +107,23 @@ public class HtmlStaticServiceImpl implements HtmlStaticService{
         attr.put("site",site);
         attr.put("category",category);
         attr.put("content",content);
-        beetlHtmlUtil.create(request,siteId, categoryId.toString()+"/"+contentId.toString(), attr, (StrUtil.isBlank(site.getTemplate()) ? "default" : site.getTemplate()), StrUtil.isBlank(category.getContentTpl()) ? CmsConst.CATEGORY_LIST_TPL: category.getContentTpl());
+        beetlHtmlUtil.create(request,siteId, categoryId.toString()+File.separator+contentId.toString(), attr, (StrUtil.isBlank(site.getTemplate()) ? "default" : site.getTemplate()), StrUtil.isBlank(category.getContentTpl()) ? CmsConst.CATEGORY_LIST_TPL: category.getContentTpl());
     }
 
+    @Override
+    public void topic(Integer siteId) {
+        TCmsSite site = siteService.findById(siteId);
+        List<TCmsTopic> topicList = topicService.findAll();
+        for(TCmsTopic topic :topicList) {
+            Map attr = Maps.newHashMap();
+            attr.put("title", topic.getTopicName());
+            attr.put("keyword", topic.getKeywords());
+            attr.put("description", topic.getDescription());
+            attr.put("site", site);
+            attr.put("topic", topic);
+            beetlHtmlUtil.create(request,siteId,"topic"+File.separator+topic.getTopicId(),attr,(StrUtil.isBlank(site.getTemplate()) ? "default" : site.getTemplate()), !StrUtil.isBlank(topic.getTopicTpl()) ? topic.getTopicTpl() : CmsConst.TOPIC_TPL);
+        }
+    }
 
 
 }

@@ -54,6 +54,7 @@ public class HtmlStaticController {
         for(TCmsSite site : siteList) {
             this. htmlStaticService.index(site.getSiteId());
             this.generateCategory(site.getSiteId());
+            this. htmlStaticService.topic(site.getSiteId());
         }
         return JsonUtil.toSUCCESS("全站静态页面生成成功！");
     }
@@ -63,6 +64,7 @@ public class HtmlStaticController {
     public String siteStatic(@PathVariable("siteId") Integer siteId) {
         this.htmlStaticService.index(siteId);
         this.generateCategory(siteId);
+        this. htmlStaticService.topic(siteId);
         return JsonUtil.toSUCCESS("静态页面正在生成....");
     }
 

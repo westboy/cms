@@ -8,4 +8,6 @@ public interface HtmlStaticService {
 
     void content(Integer siteId,Long categoryId,Long contentId);
 
+    void topic(Integer siteId);
+
 }

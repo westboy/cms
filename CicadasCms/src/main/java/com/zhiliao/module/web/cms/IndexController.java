@@ -264,7 +264,7 @@ public class IndexController {
         model.addAttribute("description",topic.getDescription());
         model.addAttribute("site",site);
         model.addAttribute("topic",topic);
-        return view(site.getTemplate(), !StrUtil.isBlank(topic.getTopicTpl())?topic.getTopicTpl():CmsConst.SEARCH_TPL);
+        return view(site.getTemplate(), !StrUtil.isBlank(topic.getTopicTpl())?topic.getTopicTpl():CmsConst.TOPIC_TPL);
     }
 
     private String view(String viewName){
