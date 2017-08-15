@@ -190,7 +190,7 @@ public class ShiroConfiguration {
 		chains.put("/logout", "logout");
 		chains.put("/casLogout", "casLogout");
 		chains.put("/upload/**","auth");
-		chains.put("/user/**", "cas");
+		chains.put("/cas/user/**", "cas");
 		chains.put("/callback", "callback");
         //后台路径
 		chains.put(loginPath+"/login", "anon");
