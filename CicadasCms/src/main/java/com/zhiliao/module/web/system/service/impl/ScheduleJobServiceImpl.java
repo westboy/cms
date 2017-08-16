@@ -77,7 +77,7 @@ public class ScheduleJobServiceImpl implements ScheduleJobService{
 
     @Override
     public String save(TSysScheduleJob pojo) {
-        if (!CronExpression.isValidExpression(pojo.getCronExpression())) return JsonUtil.toERROR("表达式不正确！");
+        if (!CronExpression.isValidExpression(pojo.getCronExpression())) return JsonUtil.toERROR("cron表达式不正确！");
         pojo.setCreateDate(new Date());
         pojo.setJobStatus("0");
         if(scheduleJobMapper.insertSelective(pojo)>0) {
@@ -93,6 +93,7 @@ public class ScheduleJobServiceImpl implements ScheduleJobService{
 
     @Override
     public String update(TSysScheduleJob pojo) {
+        if (!CronExpression.isValidExpression(pojo.getCronExpression())) return JsonUtil.toERROR("cron表达式不正确！");
         if (Const.STATUS_RUNNING.equals(pojo.getJobStatus())) {
             try {
                 quartzManager.updateJobCron(PojoToScheduleJob.convert(pojo));
