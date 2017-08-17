@@ -84,8 +84,8 @@ public class SysUserServiceImpl implements SysUserService{
             /*userVo和TSysUser没什么区别，只是增加了siteId*/
             UserVo userVo = new UserVo();
             BeanUtils.copyProperties(userVo,user);
-            if(userVo.getUserId()==0){
-                userVo.setSiteId(0);
+            if(userVo.getUserId()==1){
+                userVo.setSiteId(1);
                 userVo.setSiteName(siteName);
                 /*设置session*/
                 session.setAttribute(CmsConst.SITE_USER_SESSION_KEY,userVo);

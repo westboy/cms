@@ -13,13 +13,13 @@ public class UserVo extends TSysUser{
     private Integer siteId;
     private String siteName;
 
-    private Integer orgId;
+    private String orgId;
 
-    public Integer getOrgId() {
+    public String getOrgId() {
         return orgId;
     }
 
-    public void setOrgId(Integer orgId) {
+    public void setOrgId(String orgId) {
         this.orgId = orgId;
     }
 
