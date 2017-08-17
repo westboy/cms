@@ -2,7 +2,7 @@ package com.zhiliao.module.web.cms;
 
 import com.zhiliao.common.base.BaseController;
 import com.zhiliao.module.web.cms.service.LinkageService;
-import com.zhiliao.mybatis.model.master.TCmsLinkage;
+import com.zhiliao.mybatis.model.TCmsLinkage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

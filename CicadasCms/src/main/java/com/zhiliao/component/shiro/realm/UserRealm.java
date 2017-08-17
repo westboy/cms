@@ -1,6 +1,6 @@
 package com.zhiliao.component.shiro.realm;
 
-import com.zhiliao.mybatis.model.master.TClientUser;
+import com.zhiliao.mybatis.model.TClientUser;
 import com.zhiliao.module.web.client.service.ClientUserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

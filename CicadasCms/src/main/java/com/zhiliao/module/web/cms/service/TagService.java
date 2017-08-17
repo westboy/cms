@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.cms.service;
 
 import com.github.pagehelper.PageInfo;
-import com.zhiliao.mybatis.model.master.TCmsTag;
+import com.zhiliao.mybatis.model.TCmsTag;
 
 public interface TagService {
 

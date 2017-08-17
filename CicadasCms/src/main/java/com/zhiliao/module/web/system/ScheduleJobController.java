@@ -2,7 +2,7 @@ package com.zhiliao.module.web.system;
 
 import com.zhiliao.common.base.BaseController;
 import com.zhiliao.module.web.system.service.ScheduleJobService;
-import com.zhiliao.mybatis.model.master.TSysScheduleJob;
+import com.zhiliao.mybatis.model.TSysScheduleJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

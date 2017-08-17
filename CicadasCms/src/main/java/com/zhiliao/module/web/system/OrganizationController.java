@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.system;
 
 import com.zhiliao.module.web.system.service.OrganizationService;
-import com.zhiliao.mybatis.model.master.TSysOrg;
+import com.zhiliao.mybatis.model.TSysOrg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

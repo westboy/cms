@@ -2,7 +2,7 @@ package com.zhiliao.common.utils;
 
 import com.zhiliao.common.annotation.ExcelField;
 import com.zhiliao.common.exception.SystemException;
-import com.zhiliao.mybatis.model.master.TCmsContent;
+import com.zhiliao.mybatis.model.TCmsContent;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;

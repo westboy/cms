@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.system;
 
 import com.zhiliao.module.web.system.service.AttachmentService;
-import com.zhiliao.mybatis.model.master.TSysAttachment;
+import com.zhiliao.mybatis.model.TSysAttachment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +26,7 @@ public class AttachmentController{
 
     @RequestMapping
     public String index(@RequestParam(value = "pageCurrnet",defaultValue = "0") Integer pageNumber,
-                        @RequestParam(value = "pageCurrnet",defaultValue = "50")Integer pageSize,
+                        @RequestParam(value = "pageSize",defaultValue = "50")Integer pageSize,
                         TSysAttachment pojo, Model model) {
         model.addAttribute("model",attachmentService.page(pageNumber,pageSize,pojo));
         return "system/att_list";

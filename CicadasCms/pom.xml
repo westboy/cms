@@ -27,10 +27,10 @@
         <pac4j.version>2.0.0</pac4j.version>
         <!-- MyBatis Generator master Java接口和实体类 -->
         <masterTargetJavaProject>${basedir}/src/main/java</masterTargetJavaProject>
-        <masterTargetMapperPackage>com.zhiliao.mybatis.mapper.master</masterTargetMapperPackage>
-        <masterTargetModelPackage>com.zhiliao.mybatis.model.master</masterTargetModelPackage>
+        <masterTargetMapperPackage>com.zhiliao.mybatis.mapper</masterTargetMapperPackage>
+        <masterTargetModelPackage>com.zhiliao.mybatis.model</masterTargetModelPackage>
         <masterTargetResourcesProject>${basedir}/src/main/resources</masterTargetResourcesProject>
-        <masterTargetXMLPackage>com.zhiliao.mybatis.mapper.master</masterTargetXMLPackage>
+        <masterTargetXMLPackage>com.zhiliao.mybatis.mapper</masterTargetXMLPackage>
 
         <!-- MyBatis Generator slave Java接口和实体类 -->
         <slaveTargetJavaProject>${basedir}/src/main/java</slaveTargetJavaProject>
@@ -361,6 +361,12 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>3.10.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.4.0</version>
         </dependency>
 
     </dependencies>

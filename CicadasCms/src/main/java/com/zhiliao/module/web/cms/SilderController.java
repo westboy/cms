@@ -3,7 +3,7 @@ package com.zhiliao.module.web.cms;
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.module.web.cms.service.SilderService;
-import com.zhiliao.mybatis.model.master.TCmsAdSilder;
+import com.zhiliao.mybatis.model.TCmsAdSilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

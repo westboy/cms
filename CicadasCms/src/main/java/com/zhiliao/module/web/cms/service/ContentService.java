@@ -3,8 +3,8 @@ package com.zhiliao.module.web.cms.service;
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.base.BaseService;
 import com.zhiliao.module.web.cms.vo.TCmsContentVo;
-import com.zhiliao.mybatis.model.master.TCmsContent;
-import com.zhiliao.mybatis.model.master.TCmsModelFiled;
+import com.zhiliao.mybatis.model.TCmsContent;
+import com.zhiliao.mybatis.model.TCmsModelFiled;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -2,7 +2,7 @@ package com.zhiliao.module.web.cms;
 
 import com.zhiliao.common.base.BaseController;
 import com.zhiliao.module.web.cms.service.ModelFiledService;
-import com.zhiliao.mybatis.model.master.TCmsModelFiled;
+import com.zhiliao.mybatis.model.TCmsModelFiled;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

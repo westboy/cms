@@ -2,9 +2,9 @@ package com.zhiliao.module.web.system.service.impl;
 
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.module.web.system.service.OrganizationService;
-import com.zhiliao.mybatis.mapper.master.TSysOrgMapper;
-import com.zhiliao.mybatis.mapper.master.TSysOrgUserMapper;
-import com.zhiliao.mybatis.model.master.TSysOrg;
+import com.zhiliao.mybatis.mapper.TSysOrgMapper;
+import com.zhiliao.mybatis.mapper.TSysOrgUserMapper;
+import com.zhiliao.mybatis.model.TSysOrg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

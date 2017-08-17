@@ -2,7 +2,7 @@ package com.zhiliao.module.web.system.service;
 
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.module.web.system.vo.UserVo;
-import com.zhiliao.mybatis.model.master.TSysUser;
+import com.zhiliao.mybatis.model.TSysUser;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

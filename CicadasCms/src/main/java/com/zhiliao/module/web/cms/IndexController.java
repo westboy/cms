@@ -4,11 +4,10 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import com.zhiliao.common.constant.CmsConst;
 import com.zhiliao.common.exception.CmsException;
-import com.zhiliao.common.exception.SystemException;
-import com.zhiliao.component.beetl.thread.HtmlThread;
 import com.zhiliao.common.utils.*;
+import com.zhiliao.component.beetl.thread.HtmlThread;
 import com.zhiliao.module.web.cms.service.*;
-import com.zhiliao.mybatis.model.master.*;
+import com.zhiliao.mybatis.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +36,7 @@ import java.util.Map;
 public class IndexController {
 
     private final static Logger log = LoggerFactory.getLogger(IndexController.class);
-    @Value("${system.site.page.size}")
-    private String pageSize;
+
     @Autowired
     private SiteService siteService;
 
@@ -72,11 +70,15 @@ public class IndexController {
     @Value("${system.site.static}")
     private String siteStatic;
 
+    @Value("${system.site.page.size}")
+    private String pageSize;
+
+
     /*网站首页*/
     @GetMapping
     public ModelAndView index(@RequestParam(value = "keyword",required = false) String keyword){
         String domain = ControllerUtil.getDomain();
-        log.debug("网站首页[{}]",domain);
+        log.debug("通过域名访问网站首页[{}]",domain);
         TCmsSite site = siteService.findByDomain(domain);
         if(CmsUtil.isNullOrEmpty(site))
             throw new CmsException(CmsConst.SITE_NOT_FOUND);
@@ -95,7 +97,7 @@ public class IndexController {
     @GetMapping("/${system.site.prefix}/{siteId}")
     public String index(@PathVariable("siteId") Integer siteId,
                         Model model){
-        log.debug("首页");
+        log.debug("通过站点Id访问网站首页[{}]",siteId);
         /*判断是否开启静态*/
         File file = new File(PathUtil.getWebRootPath() +File.separator+ "html" + File.separator+ siteId + File.separator+"index.html");
         if (file.exists() && Boolean.parseBoolean(siteStatic)&& HtmlThread.size()<=0)
@@ -104,7 +106,7 @@ public class IndexController {
         if(CmsUtil.isNullOrEmpty(site))
             throw new CmsException(CmsConst.SITE_NOT_FOUND);
         if(!site.getStatus())
-            throw new SystemException(CmsConst.SITE_LOCKED);
+            throw new CmsException(CmsConst.SITE_LOCKED);
         model.addAttribute("title",site.getTitle());
         model.addAttribute("keyword",site.getKeyword());
         model.addAttribute("description",site.getDescription());
@@ -119,7 +121,7 @@ public class IndexController {
     public String category(@PathVariable("siteId") Integer siteId,
                            @PathVariable("categoryId") Long categoryId,
                            Model model){
-        log.debug("分类");
+        log.debug("栏目");
         TCmsSite site = siteService.findById(siteId);
         if(CmsUtil.isNullOrEmpty(site))
             throw new CmsException(CmsConst.SITE_NOT_FOUND);
@@ -195,7 +197,7 @@ public class IndexController {
         return this.view(site.getTemplate(),category.getContentTpl());
     }
 
-    /*网站首页*/
+    /*全文检索和模型字段检索*/
     @RequestMapping("/search")
     public String search(@RequestParam(value = "keyword",required = false) String keyword,
                          @RequestParam(value = "m",defaultValue = "0") Integer modelId,
@@ -249,6 +251,7 @@ public class IndexController {
         }
     }
 
+    /*专题*/
     @GetMapping("/${system.site.prefix}/{siteId}/topic/{topicId}")
     public String topic(@PathVariable("siteId") Integer siteId,
                         @PathVariable("topicId") Integer topicId,

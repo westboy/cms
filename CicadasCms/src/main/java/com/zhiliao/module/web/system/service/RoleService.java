@@ -1,8 +1,8 @@
 package com.zhiliao.module.web.system.service;
 
-import com.zhiliao.mybatis.model.master.TSysPermission;
-import com.zhiliao.mybatis.model.master.TSysRole;
-import com.zhiliao.mybatis.model.master.TSysRolePermission;
+import com.zhiliao.mybatis.model.TSysPermission;
+import com.zhiliao.mybatis.model.TSysRole;
+import com.zhiliao.mybatis.model.TSysRolePermission;
 
 import java.util.List;
 

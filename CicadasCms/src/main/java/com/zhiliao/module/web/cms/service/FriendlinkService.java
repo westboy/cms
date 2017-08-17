@@ -2,8 +2,8 @@ package com.zhiliao.module.web.cms.service;
 
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.base.BaseService;
-import com.zhiliao.mybatis.model.master.TCmsFriendlink;
-import com.zhiliao.mybatis.model.master.TCmsFriendlinkGroup;
+import com.zhiliao.mybatis.model.TCmsFriendlink;
+import com.zhiliao.mybatis.model.TCmsFriendlinkGroup;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.system.service;
 
 import com.github.pagehelper.PageInfo;
-import com.zhiliao.mybatis.model.master.TSysAttachment;
+import com.zhiliao.mybatis.model.TSysAttachment;
 
 import java.util.List;
 

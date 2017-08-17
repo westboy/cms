@@ -10,7 +10,7 @@ import com.zhiliao.common.utils.QiniuUtil;
 import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.module.web.system.service.AttachmentService;
 import com.zhiliao.module.web.system.vo.UserVo;
-import com.zhiliao.mybatis.model.master.TSysAttachment;
+import com.zhiliao.mybatis.model.TSysAttachment;
 import jodd.datetime.JDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -76,13 +76,15 @@ public class UploadComponent {
                     file.getParentFile().mkdirs();
                 try {
                     this.writeFile(multipartFile.getBytes(),file);
-                    AttachmentService.save(attachment);
+
                 } catch (Exception e) {
                    throw  new SystemException(e.getMessage());
                 }
                 resultMap.put("success", true);
                 resultMap.put("fileName", request.getScheme()+"://"+ ControllerUtil.getDomain() + "/static" + newName.replace(File.separator, "/"));
                 resultMap.put("filePath",uploadPath + newName);
+                attachment.setUrl(request.getScheme()+"://"+ ControllerUtil.getDomain() + "/static" + newName.replace(File.separator, "/"));
+                AttachmentService.save(attachment);
 
             }
         } else {

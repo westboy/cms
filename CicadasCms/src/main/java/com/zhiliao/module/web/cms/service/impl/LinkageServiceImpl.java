@@ -4,8 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.module.web.cms.service.LinkageService;
-import com.zhiliao.mybatis.mapper.master.TCmsLinkageMapper;
-import com.zhiliao.mybatis.model.master.TCmsLinkage;
+import com.zhiliao.mybatis.mapper.TCmsLinkageMapper;
+import com.zhiliao.mybatis.model.TCmsLinkage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

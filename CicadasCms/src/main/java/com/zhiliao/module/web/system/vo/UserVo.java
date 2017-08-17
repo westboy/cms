@@ -1,6 +1,6 @@
 package com.zhiliao.module.web.system.vo;
 
-import com.zhiliao.mybatis.model.master.TSysUser;
+import com.zhiliao.mybatis.model.TSysUser;
 
 /**
  * Description:系统用户user

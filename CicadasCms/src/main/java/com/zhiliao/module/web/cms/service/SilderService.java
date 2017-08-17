@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.cms.service;
 
 import com.zhiliao.common.base.BaseService;
-import com.zhiliao.mybatis.model.master.TCmsAdSilder;
+import com.zhiliao.mybatis.model.TCmsAdSilder;
 
 /**
  * Description:幻灯片

@@ -4,7 +4,7 @@ package com.zhiliao.module.web.cms.service;
 import com.zhiliao.common.base.BaseService;
 import com.zhiliao.module.web.cms.vo.TCmsSiteVo;
 import com.zhiliao.module.web.system.vo.UserVo;
-import com.zhiliao.mybatis.model.master.TCmsSite;
+import com.zhiliao.mybatis.model.TCmsSite;
 
 /**
  * Created by binary on 2017/5/15.

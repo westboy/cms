@@ -5,7 +5,7 @@ import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.Pojo2MapUtil;
 import com.zhiliao.module.web.cms.service.FriendlinkService;
-import com.zhiliao.mybatis.model.master.TCmsFriendlink;
+import com.zhiliao.mybatis.model.TCmsFriendlink;
 import org.beetl.core.GeneralVarTagBinding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

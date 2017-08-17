@@ -1,6 +1,6 @@
 package com.zhiliao.module.web.cms.vo;
 
-import com.zhiliao.mybatis.model.master.TCmsContent;
+import com.zhiliao.mybatis.model.TCmsContent;
 
 /**
  * Description:content

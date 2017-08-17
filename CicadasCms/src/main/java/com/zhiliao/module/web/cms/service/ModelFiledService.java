@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.cms.service;
 
 import com.zhiliao.common.base.BaseService;
-import com.zhiliao.mybatis.model.master.TCmsModelFiled;
+import com.zhiliao.mybatis.model.TCmsModelFiled;
 
 import java.util.List;
 

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiliao.mybatis.mapper.TSysUserMapper" >
+
+  <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.TSysUser">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="logout_time" jdbcType="TIMESTAMP" property="logoutTime" />
+    <result column="last_ip" jdbcType="VARCHAR" property="lastIp" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="des" jdbcType="VARCHAR" property="des" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_sys_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" useGeneratedKeys="true"  keyProperty="userId" parameterType="com.zhiliao.mybatis.model.TSysUser">
+    insert into t_sys_user (username, password,
+      create_time, salt, login_time, 
+      logout_time, last_ip,status,des,avatar)
+    values ( #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{salt,jdbcType=VARCHAR}, #{loginTime,jdbcType=TIMESTAMP}, 
+      #{logoutTime,jdbcType=TIMESTAMP}, #{lastIp,jdbcType=VARCHAR},#{status,jdbcType=BIT}, #{des,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.zhiliao.mybatis.model.TSysUser">
+    update t_sys_user
+    <trim prefix="set" suffixOverrides=",">
+      <if test="username!=null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password!=null and password!=''">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime!=null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salt!=null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="loginTime!=null">
+        login_time = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logoutTime!=null">
+        logout_time = #{logoutTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastIp!=null">
+        last_ip = #{lastIp,jdbcType=VARCHAR},
+      </if>
+      <if test="status!=null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="des!=null">
+        des = #{des,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar!=null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+
+    </trim>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select user_id, username, password, create_time, salt, login_time, logout_time, last_ip,status,des,avatar
+    from t_sys_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select user_id, username, password, create_time, salt, login_time, logout_time, last_ip,status,des,avatar
+    from t_sys_user
+  </select>
+
+  <select id="selectByCondition" parameterType="com.zhiliao.module.web.system.vo.UserVo" resultMap="BaseResultMap">
+    select u.*
+    from t_sys_user u inner join t_sys_org_user o on u.user_id = o.user_id
+    <trim prefix="WHERE ("  suffix=")" prefixOverrides="AND|OR">
+      <if test="username!=null and username!=''">
+        u.username like CONCAT('%',#{username},'%')
+      </if>
+      <if test="status!=null">
+        and  u.status = #{status}
+      </if>
+      <if test="orgId!=null">
+        and  o.org_id= #{orgId}
+      </if>
+    </trim>
+    group by u.user_id
+    ORDER BY u.user_id DESC
+  </select>
+
+</mapper>

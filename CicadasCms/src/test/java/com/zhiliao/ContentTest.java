@@ -2,7 +2,7 @@ package com.zhiliao;
 
 import com.google.common.collect.Maps;
 import com.zhiliao.module.web.cms.service.ContentService;
-import com.zhiliao.mybatis.mapper.master.TCmsContentMapper;
+import com.zhiliao.mybatis.mapper.TCmsContentMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

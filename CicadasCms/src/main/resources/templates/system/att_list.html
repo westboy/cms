@@ -28,8 +28,8 @@
                 <th align="center"  width="80">上传者</th>
                 <th align="center"  width="100">上传时间</th>
                 <th align="center"  width="100">IP地址</th>
-                <th align="center"  width="50">文件大小</th>
-                <th align="center"  width="200">文件位置</th>
+                <th align="center"  width="100">文件大小</th>
+                <th align="center"  width="100">文件位置</th>
                 <th align="center"  width="26" ><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
                 <th align="center"  width="60">操作</th>
             </tr>
@@ -38,13 +38,13 @@
         @for(file in model.list){
             <tr data-id="${fileLP.index}">
                 <td align="center">${file.id!}</td>
-                <td align="center">${file.fileName!}</td>
+                <td align="center"><a target="_blank" href="${file.url!}">${file.fileName!}</a></td>
                 <td align="center">${file.fileExtname!}</td>
                 <td align="center">${file.username!}</td>
                 <td align="center">${file.uploadDate,dateFormat="yyyy/MM/dd HH:mm:ss"}</td>
                 <td align="center">${file.uploadIp,dateFormat="yyyy/MM/dd HH:mm:ss"}</td>
                 <td align="center">${file.fileSize!}KB</td>
-                <td align="center">${file.filePath!}</td>
+                <td align="center"><a href="Javascript:void(0);" data-toggle="alertmsg" data-msg="${file.filePath!}" data-type="info">存储位置</a></td>
                 <td  align="center"><input type="checkbox" name="ids" data-toggle="icheck" value="${file.id!}"></td>
                 <td  align="center">
                    <a href="${ctxPath}/system/attachment/delete?ids=${file.id!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删</a>

@@ -109,13 +109,13 @@
             <div  class="form-group">
                 <label  class="control-label x85">栏目类型：</label>
                 @if(isNotEmpty(pojo.isCommon)&&pojo.isCommon){
-                <input id="isAlone"  type="radio" name="isCommon" value="true" checked="checked"> 全局共享 </input>
-                <input id="notAlone"   type="radio" name="isCommon" value="false"> 站点独用 </input>
+                <input id="isAlone"  type="radio" name="isCommon" value="true" checked="checked"> 全局 </input>
+                <input id="notAlone"   type="radio" name="isCommon" value="false"> 当前 </input>
                 @}else{
-                <input id="isAlone"   type="radio" name="isCommon" value="true"> 全局共享 </input>
-                <input id="notAlone"   type="radio" name="isCommon" value="false" checked="checked"> 站点独用 </input>
+                <input id="isAlone"   type="radio" name="isCommon" value="true"> 全局 </input>
+                <input id="notAlone"   type="radio" name="isCommon" value="false" checked="checked"> 当前 </input>
                 @}
-                &nbsp;(选择通用栏目后,添加子站点的时候将自动创建)
+                &nbsp;(选择全局后,添加子站点的时候将自动创建)
             </div>
             <!-- 开始 -->
             @if(isNotEmpty(pojo.alone)&&pojo.alone){

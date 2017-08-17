@@ -1,6 +1,6 @@
 package com.zhiliao.module.web.system.service;
 
-import com.zhiliao.mybatis.model.master.TSysOrg;
+import com.zhiliao.mybatis.model.TSysOrg;
 
 import java.util.List;
 

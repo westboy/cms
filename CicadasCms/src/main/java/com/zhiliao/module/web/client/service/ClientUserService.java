@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.client.service;
 
 import com.github.pagehelper.PageInfo;
-import com.zhiliao.mybatis.model.master.TClientUser;
+import com.zhiliao.mybatis.model.TClientUser;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

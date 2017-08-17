@@ -52,7 +52,7 @@ public class MysqlFiledUtil {
     }
 
     public static void main(String[] ARGS){
-        System.out.println(isAutoIncrementFiled(TEXT_TYPE));
+        System.out.println(isAutoIncrementFiled(INT_TYPE));
 
         System.out.println( isCharTextFiled(TEXT_TYPE));
     }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiliao.mybatis.mapper.TSysLogMapper">
+
+  <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.TSysLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_sys_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.zhiliao.mybatis.model.TSysLog">
+    insert into t_sys_log ( content, createTime,
+      username, type)
+    values (#{content,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP},
+      #{username,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="updateByPrimaryKey" parameterType="com.zhiliao.mybatis.model.TSysLog">
+    update t_sys_log
+    set content = #{content,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      username = #{username,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, content, createTime, username, type
+    from t_sys_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, content, createTime, username, type
+    from t_sys_log
+  </select>
+
+</mapper>

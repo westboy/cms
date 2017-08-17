@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.system.service;
 
 import com.github.pagehelper.PageInfo;
-import com.zhiliao.mybatis.model.master.TSysLog;
+import com.zhiliao.mybatis.model.TSysLog;
 
 import java.util.Date;
 

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiliao.mybatis.mapper.TCmsContentMapper">
+  <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.TCmsContent">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="content_id" jdbcType="BIGINT" property="contentId" />
+    <result column="site_id" jdbcType="INTEGER" property="siteId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+    <result column="model_id" jdbcType="INTEGER" property="modelId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="keywords" jdbcType="CHAR" property="keywords" />
+    <result column="top" jdbcType="BIT" property="top" />
+    <result column="recommend" jdbcType="BIT" property="recommend" />
+    <result column="thumb" jdbcType="VARCHAR" property="thumb" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="inputdate" jdbcType="TIMESTAMP" property="inputdate" />
+    <result column="updatedate" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="url" jdbcType="CHAR" property="url" />
+    <result column="author" jdbcType="CHAR" property="author" />
+    <result column="view_num" jdbcType="INTEGER" property="viewNum" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+
+  <select id="selectByContentIdAndTableName"  resultType="java.util.Map">
+      SELECT
+       c.content_id contentId,
+       c.site_id siteId,
+       c.user_id userId,
+       c.category_id categoryId,
+       c.model_id modelId,
+       c.title,
+       c.keywords,
+       c.description,
+       c.top,
+       c.recommend,
+       c.thumb,
+       c.updatedate,
+       c.inputdate,
+       c.status,
+       c.url,
+       c.author,
+       c.view_num viewNum,
+       m.*
+      FROM
+       t_cms_content c  LEFT JOIN  t_cms_content_${tableName}  m
+      ON
+       c.content_id = m.content_id
+      WHERE
+      c.content_id =#{contentId}
+  </select>
+
+    <select id="selectByTableNameAndMap"   resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        t_cms_content c  LEFT JOIN  t_cms_content_${tableName}  m
+        ON
+        c.content_id = m.content_id
+        <trim prefix="WHERE ("  suffix=")" prefixOverrides="AND|OR">
+            category_id = #{categoryId}
+            <foreach item="value" index="key" collection="param.entrySet()" >
+                and  ${key} = ${value}
+            </foreach>
+        </trim>
+    </select>
+
+    <select id="selectByCondition" parameterType="com.zhiliao.mybatis.model.TCmsContent" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        t_cms_content
+        <trim prefix="WHERE ("  suffix=")" prefixOverrides="AND|OR">
+            <if test="title!=null and title!=''">
+                title like CONCAT('%',#{title,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="siteId!=null">
+                and  site_id = #{siteId,jdbcType=INTEGER}
+            </if>
+            <if test="categoryId!=null">
+                and  category_id = #{categoryId,jdbcType=BIGINT}
+            </if>
+            <if test="status!=null">
+                and  status = #{status,jdbcType=INTEGER}
+            </if>
+            <if test="status==null">
+                and  status in(0,1)
+            </if>
+        </trim>
+        <choose>
+            <when test="orderField!=null and orderField!='' and orderDirection!=null and orderDirection!='' ">
+                order by ${orderField} ${orderDirection}
+            </when>
+            <otherwise>
+                order by content_id  DESC
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="selectByContentListBySiteIdAndCategoryId" parameterType="java.util.Map"  resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        t_cms_content
+        <trim prefix="WHERE ("  suffix=")" prefixOverrides="AND|OR">
+            <if test="siteId!=null">
+                site_id = #{siteId}
+            </if>
+            <if test="categoryIds!=null">
+               AND
+                   category_id in
+                 <foreach item="item" index="index" collection="categoryIds" open="(" separator="," close=")">
+                   #{item}
+                 </foreach>
+            </if>
+            <if test='isRecommend!=null and isRecommend=="1"'>
+                AND
+                    recommend = 1
+            </if>
+            <if test='isPic!=null and isPic=="1"'>
+                AND
+                   thumb is not null  OR thumb!=''
+            </if>
+        AND
+            status=1
+        </trim>
+        <choose>
+            <when test="orderBy==1">
+                order by content_id
+            </when>
+            <when test="orderBy==2">
+                order by inputdate DESC
+            </when>
+            <when test="orderBy==3">
+                order by inputdate
+            </when>
+            <when test="orderBy==4">
+                order by updatedate DESC
+            </when>
+            <when test="orderBy==5">
+                order by updatedate
+            </when>
+            <when test="isHot==1">
+                order by view_num DESC
+            </when>
+            <otherwise>
+                order by content_id DESC
+            </otherwise>
+        </choose>
+
+    </select>
+
+</mapper>

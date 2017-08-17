@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiliao.mybatis.mapper.TCmsTopicMapper">
+  <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.TCmsTopic">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="topic_id" jdbcType="INTEGER" property="topicId" />
+    <result column="category_ids" jdbcType="VARCHAR" property="categoryIds" />
+    <result column="topic_name" jdbcType="VARCHAR" property="topicName" />
+    <result column="short_name" jdbcType="VARCHAR" property="shortName" />
+    <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="title_img" jdbcType="VARCHAR" property="titleImg" />
+    <result column="content_img" jdbcType="VARCHAR" property="contentImg" />
+    <result column="topic_tpl" jdbcType="VARCHAR" property="topicTpl" />
+    <result column="sort_id" jdbcType="INTEGER" property="sortId" />
+    <result column="site_id" jdbcType="INTEGER" property="siteId" />
+    <result column="is_recommend" jdbcType="BIT" property="isRecommend" />
+  </resultMap>
+</mapper>

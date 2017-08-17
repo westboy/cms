@@ -1,7 +1,7 @@
 package com.zhiliao.common.utils;
 
 import com.google.common.collect.Maps;
-import com.zhiliao.mybatis.model.master.TCmsContent;
+import com.zhiliao.mybatis.model.TCmsContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

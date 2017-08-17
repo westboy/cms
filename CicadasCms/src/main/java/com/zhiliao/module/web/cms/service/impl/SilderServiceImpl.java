@@ -4,8 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.module.web.cms.service.SilderService;
-import com.zhiliao.mybatis.mapper.master.TCmsAdSilderMapper;
-import com.zhiliao.mybatis.model.master.TCmsAdSilder;
+import com.zhiliao.mybatis.mapper.TCmsAdSilderMapper;
+import com.zhiliao.mybatis.model.TCmsAdSilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

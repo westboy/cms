@@ -6,7 +6,7 @@ import com.zhiliao.common.utils.PinyinUtil;
 import com.zhiliao.common.utils.UserUtil;
 import com.zhiliao.module.web.cms.service.ModelService;
 import com.zhiliao.module.web.system.vo.UserVo;
-import com.zhiliao.mybatis.model.master.TCmsModel;
+import com.zhiliao.mybatis.model.TCmsModel;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

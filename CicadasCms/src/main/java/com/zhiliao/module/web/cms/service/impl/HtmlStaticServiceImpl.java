@@ -6,10 +6,10 @@ import com.zhiliao.common.constant.CmsConst;
 import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.component.beetl.html.BeetlHtmlUtil;
 import com.zhiliao.module.web.cms.service.*;
-import com.zhiliao.mybatis.model.master.TCmsCategory;
-import com.zhiliao.mybatis.model.master.TCmsModel;
-import com.zhiliao.mybatis.model.master.TCmsSite;
-import com.zhiliao.mybatis.model.master.TCmsTopic;
+import com.zhiliao.mybatis.model.TCmsCategory;
+import com.zhiliao.mybatis.model.TCmsModel;
+import com.zhiliao.mybatis.model.TCmsSite;
+import com.zhiliao.mybatis.model.TCmsTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

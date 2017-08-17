@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiliao.mybatis.mapper.TCmsAdMapper">
+  <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.TCmsAd">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ad_name" jdbcType="VARCHAR" property="adName" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="sort_id" jdbcType="INTEGER" property="sortId" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="ad_body" jdbcType="LONGVARCHAR" property="adBody" />
+  </resultMap>
+
+  <resultMap id="VoResultMap" type="com.zhiliao.module.web.cms.vo.TCmsAdVo" extends="BaseResultMap">
+    <id column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+  </resultMap>
+
+</mapper>

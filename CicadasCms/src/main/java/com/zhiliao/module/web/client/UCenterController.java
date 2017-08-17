@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.client;
 
 import com.zhiliao.common.base.BaseController;
-import com.zhiliao.mybatis.model.master.TClientUser;
+import com.zhiliao.mybatis.model.TClientUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,7 @@
 package com.zhiliao.component.quartz.util;
 
 import com.zhiliao.component.quartz.job.ScheduleJob;
-import com.zhiliao.mybatis.model.master.TSysScheduleJob;
+import com.zhiliao.mybatis.model.TSysScheduleJob;
 
 /**
  * Description:

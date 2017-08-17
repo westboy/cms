@@ -2,7 +2,7 @@ package com.zhiliao.component.beetl.fun;
 
 import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.module.web.cms.service.CategoryService;
-import com.zhiliao.mybatis.model.master.TCmsCategory;
+import com.zhiliao.mybatis.model.TCmsCategory;
 import org.beetl.core.Context;
 import org.beetl.core.Function;
 import org.springframework.beans.factory.annotation.Autowired;

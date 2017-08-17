@@ -1,8 +1,8 @@
 package com.zhiliao.module.web.cms;
 
 import com.zhiliao.module.web.cms.service.AdService;
-import com.zhiliao.mybatis.model.master.TCmsAd;
-import com.zhiliao.mybatis.model.master.TCmsAdGroup;
+import com.zhiliao.mybatis.model.TCmsAd;
+import com.zhiliao.mybatis.model.TCmsAdGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;

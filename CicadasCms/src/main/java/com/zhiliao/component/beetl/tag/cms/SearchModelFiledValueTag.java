@@ -7,7 +7,7 @@ import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.module.web.cms.vo.ModelFiledVo;
 import com.zhiliao.module.web.cms.service.ModelFiledService;
 import com.zhiliao.module.web.cms.service.SiteService;
-import com.zhiliao.mybatis.model.master.TCmsModelFiled;
+import com.zhiliao.mybatis.model.TCmsModelFiled;
 import org.beetl.core.GeneralVarTagBinding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

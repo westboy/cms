@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiliao.mybatis.mapper.TCmsSiteMapper">
+  <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.TCmsSite">
+    <id column="site_id" jdbcType="INTEGER" property="siteId" />
+    <result column="site_name" jdbcType="VARCHAR" property="siteName" />
+    <result column="domain" jdbcType="VARCHAR" property="domain" />
+    <result column="language" jdbcType="CHAR" property="language" />
+    <result column="template" jdbcType="VARCHAR" property="template" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="keyword" jdbcType="VARCHAR" property="keyword" />
+    <result column="is_mobile" jdbcType="BIT" property="isMobile" />
+    <result column="mobile_tpl" jdbcType="VARCHAR" property="mobileTpl" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+</mapper>

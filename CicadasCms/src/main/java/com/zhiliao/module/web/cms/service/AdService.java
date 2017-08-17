@@ -3,8 +3,8 @@ package com.zhiliao.module.web.cms.service;
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.base.BaseService;
 import com.zhiliao.module.web.cms.vo.TCmsAdVo;
-import com.zhiliao.mybatis.model.master.TCmsAd;
-import com.zhiliao.mybatis.model.master.TCmsAdGroup;
+import com.zhiliao.mybatis.model.TCmsAd;
+import com.zhiliao.mybatis.model.TCmsAdGroup;
 
 import java.util.List;
 

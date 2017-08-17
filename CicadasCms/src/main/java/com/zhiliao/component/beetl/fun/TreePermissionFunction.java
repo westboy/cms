@@ -1,7 +1,7 @@
 package com.zhiliao.component.beetl.fun;
 
 import com.zhiliao.common.utils.ControllerUtil;
-import com.zhiliao.mybatis.model.master.TSysPermission;
+import com.zhiliao.mybatis.model.TSysPermission;
 import com.zhiliao.module.web.system.service.RoleService;
 import org.beetl.core.Context;
 import org.beetl.core.Function;

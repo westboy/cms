@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiliao.mybatis.mapper.TCmsModelFiledMapper">
+  <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.TCmsModelFiled">
+
+    <id column="filed_id" jdbcType="INTEGER" property="filedId" />
+    <result column="model_id" jdbcType="INTEGER" property="modelId" />
+    <result column="filed_name" jdbcType="VARCHAR" property="filedName" />
+    <result column="filed_class" jdbcType="VARCHAR" property="filedClass" />
+    <result column="filed_type" jdbcType="VARCHAR" property="filedType" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="not_null" jdbcType="BIT" property="notNull" />
+    <result column="filed_length" jdbcType="INTEGER" property="filedLength" />
+    <result column="is_primary" jdbcType="BIT" property="isPrimary" />
+    <result column="setting" jdbcType="VARCHAR" property="setting" />
+    <result column="filed_value" jdbcType="LONGVARCHAR" property="filedValue" />
+  </resultMap>
+
+</mapper>

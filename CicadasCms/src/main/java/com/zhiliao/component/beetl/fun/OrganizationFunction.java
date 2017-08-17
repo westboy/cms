@@ -1,7 +1,7 @@
 package com.zhiliao.component.beetl.fun;
 
 import com.zhiliao.module.web.system.service.OrganizationService;
-import com.zhiliao.mybatis.model.master.TSysOrg;
+import com.zhiliao.mybatis.model.TSysOrg;
 import org.beetl.core.Context;
 import org.beetl.core.Function;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.common.utils.Pojo2MapUtil;
 import com.zhiliao.module.web.cms.service.TopicService;
-import com.zhiliao.mybatis.model.master.TCmsTopic;
+import com.zhiliao.mybatis.model.TCmsTopic;
 import org.beetl.core.GeneralVarTagBinding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

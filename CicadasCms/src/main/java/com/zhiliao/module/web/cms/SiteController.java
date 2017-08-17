@@ -7,7 +7,7 @@ import com.zhiliao.module.web.cms.service.SiteService;
 import com.zhiliao.module.web.cms.vo.TCmsSiteVo;
 import com.zhiliao.module.web.system.service.SysUserService;
 import com.zhiliao.module.web.system.vo.UserVo;
-import com.zhiliao.mybatis.model.master.TCmsSite;
+import com.zhiliao.mybatis.model.TCmsSite;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

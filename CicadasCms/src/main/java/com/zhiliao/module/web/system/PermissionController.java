@@ -1,7 +1,7 @@
 package com.zhiliao.module.web.system;
 
 import com.zhiliao.module.web.system.service.RoleService;
-import com.zhiliao.mybatis.model.master.TSysPermission;
+import com.zhiliao.mybatis.model.TSysPermission;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

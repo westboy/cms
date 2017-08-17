@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiliao.mybatis.mapper.TSysModuleMapper">
+  <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.TSysModule">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="module_name" jdbcType="VARCHAR" property="moduleName" />
+    <result column="is_enable" jdbcType="BIT" property="isEnable" />
+    <result column="is_auto_expand" jdbcType="BIT" property="isAutoExpand" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="icon_name" jdbcType="VARCHAR" property="iconName" />
+    <result column="permission_key" jdbcType="VARCHAR" property="permissionKey" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="has_child" jdbcType="BIT" property="hasChild" />
+    <result column="sort_no" jdbcType="INTEGER" property="sortNo" />
+  </resultMap>
+</mapper>

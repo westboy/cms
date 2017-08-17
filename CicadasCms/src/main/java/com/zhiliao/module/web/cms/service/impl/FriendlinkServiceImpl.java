@@ -4,10 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.module.web.cms.service.FriendlinkService;
-import com.zhiliao.mybatis.mapper.master.TCmsFriendlinkGroupMapper;
-import com.zhiliao.mybatis.mapper.master.TCmsFriendlinkMapper;
-import com.zhiliao.mybatis.model.master.TCmsFriendlink;
-import com.zhiliao.mybatis.model.master.TCmsFriendlinkGroup;
+import com.zhiliao.mybatis.mapper.TCmsFriendlinkGroupMapper;
+import com.zhiliao.mybatis.mapper.TCmsFriendlinkMapper;
+import com.zhiliao.mybatis.model.TCmsFriendlink;
+import com.zhiliao.mybatis.model.TCmsFriendlinkGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

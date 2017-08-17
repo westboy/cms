@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhiliao.mybatis.mapper.TCmsCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.zhiliao.mybatis.model.TCmsCategory">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="category_id" jdbcType="BIGINT" property="categoryId" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="site_id" jdbcType="INTEGER" property="siteId" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="model_id" jdbcType="INTEGER" property="modelId" />
+    <result column="alone" jdbcType="BIT" property="alone" />
+    <result column="index_tpl" jdbcType="VARCHAR" property="indexTpl" />
+    <result column="list_tpl" jdbcType="VARCHAR" property="listTpl" />
+    <result column="content_tpl" jdbcType="VARCHAR" property="contentTpl" />
+    <result column="is_nav" jdbcType="BIT" property="isNav" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="has_child" jdbcType="BIT" property="hasChild" />
+    <result column="is_common" jdbcType="BIT" property="isCommon" />
+    <result column="allow_front_submit" jdbcType="BIT" property="allowFrontSubmit" />
+    <result column="page_size" jdbcType="INTEGER" property="pageSize" />
+    <result column="allow_search" jdbcType="BIT" property="allowSearch" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+</mapper>
