@@ -6,7 +6,8 @@ springboot+mybatis+beetl开发的一款CMS，支持自定义内容模型、模�
 ##### 2、 运行CmsApplication类下main方法启动项目（超级管理员：admin，密码：123456）
 
 ![后台首页](https://raw.githubusercontent.com/westboy/CicadasCms/master/CicadasCms/doc/index.png "后台首页")
-
+![内容管理](https://static.oschina.net/uploads/space/2017/0818/172741_OaDV_1409333.png "内容管理")
+![定时任务](https://static.oschina.net/uploads/space/2017/0818/172932_JFLd_1409333.png "定时任务")
 ##### 3、 演示地址（账号：testdemo1，密码：testdemo1）
 ###### 前台：http://demo.westboy.net 
 ###### 后台：http://demo.westboy.net/admin/login
