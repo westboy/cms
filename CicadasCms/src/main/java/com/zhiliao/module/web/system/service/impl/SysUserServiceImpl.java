@@ -150,7 +150,6 @@ public class SysUserServiceImpl implements SysUserService{
     @Transactional(transactionManager = "masterTransactionManager",rollbackFor = Exception.class)
     @Override
     public String update(TSysUser user, Integer[] roleIds,String orgIds) {
-        if (CmsUtil.isNullOrEmpty(roleIds)||CmsUtil.isNullOrEmpty(orgIds)) throw new SystemException("用户角色和部门不能为空！");
         user.setUsername(PinyinUtil.convertLower(HtmlKit.getText(user.getUsername())));
         /* 加工password */
         if(!StrUtil.isBlank(user.getPassword().trim())) {

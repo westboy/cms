@@ -2,6 +2,7 @@ package com.zhiliao.module.web.system;
 
 import com.zhiliao.module.web.system.service.OrganizationService;
 import com.zhiliao.mybatis.model.TSysOrg;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ public class OrganizationController {
     @Autowired
     private OrganizationService organizationService;
 
+    @RequiresPermissions("department:admin")
     @RequestMapping
     public String index(){
       return "system/organization";
@@ -36,6 +38,7 @@ public class OrganizationController {
         return "system/organization_input";
     }
 
+    @RequiresPermissions("department:save")
     @RequestMapping("/save")
     @ResponseBody
     public String save(TSysOrg pojo){
@@ -44,6 +47,7 @@ public class OrganizationController {
         return organizationService.save(pojo);
     }
 
+    @RequiresPermissions("department:delete")
     @RequestMapping("/delete")
     @ResponseBody
     public String delete(@RequestParam("id") Integer id){

@@ -4,6 +4,7 @@ import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.template.TemplateFile;
 import com.zhiliao.common.template.TemplateFileService;
 import com.zhiliao.common.utils.JsonUtil;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,7 @@ public class TemplateController {
     private TemplateFileService templateFileService;
 
 
+    @RequiresPermissions("template:admin")
     @RequestMapping
     public String index(Model model){
         List<TemplateFile> list = templateFileService.findAll();
@@ -34,6 +36,7 @@ public class TemplateController {
     }
 
 
+    @RequiresPermissions("template:edit")
     @RequestMapping("/input")
     public String input(TemplateFile templateFile,Model model){
         if(templateFile.getFilePath()==null)throw new SystemException("模板路径不能为空！");
@@ -43,6 +46,7 @@ public class TemplateController {
     }
 
 
+    @RequiresPermissions("template:save")
     @RequestMapping("/save")
     @ResponseBody
     public String save(TemplateFile templateFile){

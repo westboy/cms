@@ -26,13 +26,13 @@ public class PermissionController {
 
 
 
-    @RequiresPermissions({"permission:admin"})
+    @RequiresPermissions("permission:admin")
     @RequestMapping
     public String index(){
         return "system/permission";
     }
 
-    @RequiresPermissions({"permission:input"})
+    @RequiresPermissions("permission:input")
     @RequestMapping("/input/{id}")
     public String input(@PathVariable(value = "id",required = false) Integer perId,Model model){
         if(perId!=null){
@@ -41,7 +41,7 @@ public class PermissionController {
         return "system/permission_input";
     }
 
-    @RequiresPermissions({"permission:save"})
+    @RequiresPermissions("permission:save")
     @RequestMapping("/save")
     @ResponseBody
     public String save(TSysPermission permission){
@@ -52,7 +52,7 @@ public class PermissionController {
 
     }
 
-    @RequiresPermissions({"permission:delete"})
+    @RequiresPermissions("permission:delete")
     @RequestMapping("/delete")
     @ResponseBody
     public String delete(@RequestParam("permissionId") Integer perId) {

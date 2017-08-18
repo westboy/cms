@@ -3,6 +3,7 @@ package com.zhiliao.module.web.system;
 import com.zhiliao.common.base.BaseController;
 import com.zhiliao.module.web.system.service.ScheduleJobService;
 import com.zhiliao.mybatis.model.TSysScheduleJob;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ public class ScheduleJobController extends BaseController<TSysScheduleJob>{
     @Autowired private ScheduleJobService scheduleJobService;
 
 
+    @RequiresPermissions("job:admin")
     @RequestMapping
     @Override
     public String index(@RequestParam(value = "pageCurrent",defaultValue = "1") Integer pageNumber,
@@ -32,6 +34,7 @@ public class ScheduleJobController extends BaseController<TSysScheduleJob>{
         return "system/schedule_list";
     }
 
+    @RequiresPermissions("job:input")
     @RequestMapping("/input")
     @Override
     public String input(@RequestParam(value = "id",required = false) Integer Id,
@@ -41,6 +44,7 @@ public class ScheduleJobController extends BaseController<TSysScheduleJob>{
         return "system/schedule_input";
     }
 
+    @RequiresPermissions("job:save")
     @RequestMapping("/save")
     @ResponseBody
     @Override
@@ -50,6 +54,7 @@ public class ScheduleJobController extends BaseController<TSysScheduleJob>{
         return scheduleJobService.save(pojo);
     }
 
+    @RequiresPermissions("job:delete")
     @RequestMapping("/delete")
     @ResponseBody
     @Override
