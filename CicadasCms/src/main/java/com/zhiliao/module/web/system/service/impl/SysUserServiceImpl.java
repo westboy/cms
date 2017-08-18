@@ -160,12 +160,15 @@ public class SysUserServiceImpl implements SysUserService{
         }
         if(sysUserMapper.updateByPrimaryKey(user)>0) {
             userRoleMapper.deleteByUserIdAndTypeId(user.getUserId(),0);
+            if (CmsUtil.isNullOrEmpty(roleIds)) throw new SystemException("请选择用户角色！");
             for (Integer roleId : roleIds) {
                this.saveUserRole(user.getUserId(),roleId,0);
             }
-            this.userOrgMapper.deleteByUserId(user.getUserId());
-            for (String orgId : orgIds.split(",")) {
-                this.saveUserOrg(user.getUserId(),Integer.parseInt(orgId));
+            if(!StrUtil.isBlank(orgIds)) {
+                this.userOrgMapper.deleteByUserId(user.getUserId());
+                for (String orgId : orgIds.split(",")) {
+                    this.saveUserOrg(user.getUserId(), Integer.parseInt(orgId));
+                }
             }
             return JsonUtil.toSUCCESS("更新成功", "sysUser", false);
         }
