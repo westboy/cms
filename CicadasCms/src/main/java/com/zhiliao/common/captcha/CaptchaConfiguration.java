@@ -29,11 +29,11 @@ public class CaptchaConfiguration {
         prop.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE,fontSize);
         prop.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH,charLength);
         prop.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE,"4");
-        prop.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES,"宋体,楷体,微软雅黑");
+//        prop.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES,"宋体,楷体,微软雅黑");
         prop.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL,"com.google.code.kaptcha.impl.ShadowGimpy");
         prop.setProperty(Constants.KAPTCHA_NOISE_COLOR,"green");
         prop.setProperty(Constants.KAPTCHA_NOISE_IMPL,"com.google.code.kaptcha.impl.NoNoise");
-        prop.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL,"com.zhiliao.common.captcha.ChineseTextProducer");
+//        prop.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL,"com.zhiliao.common.captcha.ChineseTextProducer");
         Config cfg = new Config(prop);
         kcaptcha.setConfig(cfg);
         return kcaptcha;
