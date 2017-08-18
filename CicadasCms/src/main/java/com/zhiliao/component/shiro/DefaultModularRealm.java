@@ -1,7 +1,5 @@
 package com.zhiliao.component.shiro;
 
-import io.buji.pac4j.realm.Pac4jRealm;
-import io.buji.pac4j.token.Pac4jToken;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -61,10 +59,7 @@ public class DefaultModularRealm extends ModularRealmAuthenticator {
         this.assertRealmsConfigured();
 
         Realm realm = null;
-        if(authenticationToken instanceof Pac4jToken){
 
-            return this.doSingleRealmAuthentication(new Pac4jRealm(), authenticationToken);
-        }
         DefaultUsernamePasswordToken token = (DefaultUsernamePasswordToken) authenticationToken;
         if (token.getLoginType().equals("admin")) {
             log.debug("login type: SysUser");

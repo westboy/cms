@@ -3,9 +3,6 @@ package com.zhiliao.component.shiro;
 import com.google.common.collect.Maps;
 import com.zhiliao.component.shiro.realm.AdminRealm;
 import com.zhiliao.component.shiro.realm.UserRealm;
-import io.buji.pac4j.filter.CallbackFilter;
-import io.buji.pac4j.filter.LogoutFilter;
-import io.buji.pac4j.filter.SecurityFilter;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.codec.Base64;
@@ -19,7 +16,6 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
 import org.assertj.core.util.Lists;
-import org.pac4j.core.config.Config;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -157,9 +153,7 @@ public class ShiroConfiguration {
 	 */
 	@Bean(name = "shiroFilter")
 	public ShiroFilterFactoryBean shiroFilter(@Value("${system.login.path}") String loginPath,
-											  @Qualifier(value ="securityManager") DefaultWebSecurityManager securityManager,
-											  @Qualifier("config") Config config,
-											  @Value("${sso.client.serverName}") String localUrl){
+											  @Qualifier(value ="securityManager") DefaultWebSecurityManager securityManager){
 		ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
 		bean.setSecurityManager(securityManager);
 		bean.setLoginUrl("/login");
@@ -167,24 +161,10 @@ public class ShiroConfiguration {
 		Map<String, Filter>filters = Maps.newHashMap();
 		filters.put("anon", new AnonymousFilter());
 		filters.put("auth",new MyFormAuthenticationFilter());
-		/*PAC4J */
-		SecurityFilter  casSecurityFilter = new SecurityFilter();
-		casSecurityFilter.setConfig(config);
-		casSecurityFilter.setClients("CasClient");
-		filters.put("cas",casSecurityFilter);
-		/*回调*/
-		CallbackFilter callbackFilter = new CallbackFilter();
-		callbackFilter.setConfig(config);
-		filters.put("callback",callbackFilter);
-		/*退出*/
-		LogoutFilter logoutFilter = new LogoutFilter();
-		logoutFilter.setConfig(config);
-		logoutFilter.setCentralLogout(true);
-		logoutFilter.setLocalLogout(true);
-		logoutFilter.setDefaultUrl(localUrl);
-		Map<String, String> chains = Maps.newHashMap();
-		filters.put("casLogout",logoutFilter);
+
 		bean.setFilters(filters);
+		Map<String, String> chains = Maps.newHashMap();
+
 		chains.put("/login", "anon");
 		chains.put("/doLogin", "anon");
 		chains.put("/logout", "logout");
