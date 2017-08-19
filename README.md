@@ -10,7 +10,8 @@ QQ交流群:1482196
 ![内容管理](https://static.oschina.net/uploads/space/2017/0818/172741_OaDV_1409333.png "内容管理")
 ![内容管理](https://static.oschina.net/uploads/space/2017/0818/172843_eANP_1409333.png "内容管理")
 ![站点管理](https://static.oschina.net/uploads/space/2017/0818/172606_58lG_1409333.png "站点管理")
-![定时任务](https://static.oschina.net/uploads/space/2017/0818/172932_JFLd_1409333.png "定时任务")
+![定时任务](https://static.oschina.net/uploads/space/2017/0818/172806_vCHS_1409333.png "定时任务")
+![模板管理](https://static.oschina.net/uploads/space/2017/0818/172932_JFLd_1409333.png "模板管理")
 ##### 3、 演示地址（账号：testdemo1，密码：testdemo1）
 ###### 前台：http://demo.westboy.net（博客模版做的博客网站） 
 ###### 后台：http://demo.westboy.net/admin/login
