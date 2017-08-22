@@ -29,7 +29,6 @@ public class SmsUtil {
         for(String param : params){
             paramArray.add(param);
         }
-
         Map<String,String> queryMap = new HashMap<>();
         queryMap.put("templateid",templateId);
         queryMap.put("mobiles","[\""+mobile+"\"]");
@@ -46,16 +45,6 @@ public class SmsUtil {
                 .query(queryMap)
                 .send();
         log.info(response.bodyText());
-    }
-
-    public static void  main(String args[]){
-
-        sendTemplateMsg("13399429606","3056771","测试","13303820660");
-        sendTemplateMsg("18693760909","3056771","刘德华","13303820660");
-        sendTemplateMsg("13399429606","3056771","测试","13303820660");
-        sendTemplateMsg("13303820660","3056771","测试","13303820660");
-        sendTemplateMsg("15093231662","3056771","测试","13303820660");
-
     }
 
 }
