@@ -121,7 +121,7 @@
         <hr style="margin-top: 3px!important;padding-top: 3px;margin-bottom: 3px!important;">
         <div class="form-group">
         <label for="j_ORG" class="control-label x85">部门：</label>
-            <ul id="j_ORG" style="margin-left: 100PX;margin-top:-20PX" class="ztree" data-toggle="ztree" data-expand-all="true" data-check-enable="true" data-on-check="P_NodeCheck" data-on-click="P_NodeClick">
+            <ul id="j_ORG" style="margin-left: 100PX;margin-top:-20PX" class="ztree" data-toggle="ztree" data-expand-all="true" data-setting="{check:{enable:true,chkStyle:'checkbox',chkboxType: {'Y':'','N':'s'}}}"  data-on-check="P_NodeCheck" data-on-click="P_NodeClick">
               @for(org in orgList){
                 ${organizationOut(org.id,user.userId!0)}
               @}
