@@ -1,4 +1,5 @@
 springboot+mybatis+beetl开发的一款CMS，支持自定义内容模型、模板标签、全站静态化等功能（功能不断完善中.....）
+QQ交流群:1482196
 # Quick Start
 ##### 1、将sql目录下db.sql导入本地数据库，修改resources目录下的plication.properties配置文件。
 ![](https://raw.githubusercontent.com/westboy/CicadasCms/master/CicadasCms/doc/s1.png)
@@ -6,9 +7,13 @@ springboot+mybatis+beetl开发的一款CMS，支持自定义内容模型、模�
 ##### 2、 运行CmsApplication类下main方法启动项目（超级管理员：admin，密码：123456）
 
 ![后台首页](https://raw.githubusercontent.com/westboy/CicadasCms/master/CicadasCms/doc/index.png "后台首页")
-
-##### 3、 演示地址（账号：testdemo1，密码：testdemo1）
-###### 前台：http://demo.westboy.net 
+![内容管理](https://static.oschina.net/uploads/space/2017/0818/172741_OaDV_1409333.png "内容管理")
+![内容管理](https://static.oschina.net/uploads/space/2017/0818/172843_eANP_1409333.png "内容管理")
+![站点管理](https://static.oschina.net/uploads/space/2017/0818/172606_58lG_1409333.png "站点管理")
+![定时任务](https://static.oschina.net/uploads/space/2017/0818/172806_vCHS_1409333.png "定时任务")
+![模板管理](https://static.oschina.net/uploads/space/2017/0818/172932_JFLd_1409333.png "模板管理")
+##### 3、 演示地址[使用博客模版做的博客网站]（账号：testdemo1，密码：testdemo1）
+###### 前台：http://demo.westboy.net
 ###### 后台：http://demo.westboy.net/admin/login
 # Other
 ##### 1、相关技术
