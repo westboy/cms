@@ -4,9 +4,11 @@ import com.google.common.collect.Maps;
 import com.zhiliao.component.shiro.realm.AdminRealm;
 import com.zhiliao.component.shiro.realm.UserRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.cache.MemoryConstrainedCacheManager;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.codec.Base64;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -16,9 +18,9 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
 import org.assertj.core.util.Lists;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -31,7 +33,6 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfiguration {
-
 
 
 	/**
@@ -123,13 +124,12 @@ public class ShiroConfiguration {
 	 * @return
 	 */
 	@Bean(name="securityManager")
-	@DependsOn(value = "sessionManager")
-	public DefaultWebSecurityManager securityManager(
-			@Qualifier("rememberMeManager") CookieRememberMeManager rememberMeManager,
-			@Qualifier("sessionManager") ServletContainerSessionManager sessionManager,
-			@Qualifier("defineModularRealmAuthenticator") DefaultModularRealm defaultModularRealm,
-			 AdminRealm adminRealm,
-			 UserRealm userRealm) {
+	public DefaultWebSecurityManager securityManager(CookieRememberMeManager rememberMeManager,
+													 SessionManager sessionManager,
+													 DefaultModularRealm defaultModularRealm,
+													 EhCacheManager cacheManager,
+													 AdminRealm adminRealm,
+													 UserRealm userRealm) {
 		DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
 		manager.setAuthenticator(defaultModularRealm);
 		Collection<Realm> realms = Lists.newArrayList();
@@ -138,14 +138,17 @@ public class ShiroConfiguration {
 		manager.setRealms(realms);
 		manager.setSessionManager(sessionManager);
 		manager.setRememberMeManager(rememberMeManager);
-		manager.setCacheManager(memoryConstrainedCacheManager());
+		manager.setCacheManager(cacheManager);
 		return manager;
 	}
 
+	@Bean
+	public EhCacheManager ehCacheManager(EhCacheCacheManager cacheManager){
+		EhCacheManager ehCacheManager  = new EhCacheManager();
+		ehCacheManager.setCacheManager(cacheManager.getCacheManager());
+		return  ehCacheManager;
+	}
 
-   public MemoryConstrainedCacheManager memoryConstrainedCacheManager(){
-	      return new MemoryConstrainedCacheManager();
-   }
 
 	/**
 	 * @see org.apache.shiro.spring.web.ShiroFilterFactoryBean
@@ -153,7 +156,10 @@ public class ShiroConfiguration {
 	 */
 	@Bean(name = "shiroFilter")
 	public ShiroFilterFactoryBean shiroFilter(@Value("${system.login.path}") String loginPath,
-											  @Qualifier(value ="securityManager") DefaultWebSecurityManager securityManager){
+											  @Value("${system.login.enabled-kickout}") String enabledKickout,
+											  @Value("${system.login.max-session}") String maxSession,
+											  SecurityManager securityManager,
+											  EhCacheManager cacheManager){
 		ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
 		bean.setSecurityManager(securityManager);
 		bean.setLoginUrl("/login");
@@ -162,6 +168,13 @@ public class ShiroConfiguration {
 		filters.put("anon", new AnonymousFilter());
 		filters.put("auth",new MyFormAuthenticationFilter());
 
+		/*踢人 begin*/
+		KickoutSessionControlFilter kickoutSessionControlFilter = new KickoutSessionControlFilter();
+		kickoutSessionControlFilter.setCache(cacheManager);
+		kickoutSessionControlFilter.setMaxSession(Integer.parseInt(maxSession));
+		kickoutSessionControlFilter.setEnableKckout(Boolean.parseBoolean(enabledKickout));
+		filters.put("kick",kickoutSessionControlFilter);
+		/*踢人 end*/
 		bean.setFilters(filters);
 		Map<String, String> chains = Maps.newHashMap();
 
@@ -172,7 +185,7 @@ public class ShiroConfiguration {
         //后台路径
 		chains.put(loginPath+"/login", "anon");
 		chains.put(loginPath+"/doLogin", "anon");
-		chains.put("/system/**", "auth,perms[\"system\"]");
+		chains.put("/system/**", "kick,auth,perms[\"system\"]");
 		bean.setFilterChainDefinitionMap(chains);
 		return bean;
 	}
@@ -184,7 +197,7 @@ public class ShiroConfiguration {
 	 * @return
 	 */
 	@Bean
-	public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(@Qualifier("securityManager") DefaultWebSecurityManager securityManager){
+	public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(SecurityManager securityManager){
 		AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
 		authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
 		return authorizationAttributeSourceAdvisor;

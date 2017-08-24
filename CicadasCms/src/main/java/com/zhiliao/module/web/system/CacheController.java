@@ -25,7 +25,7 @@ public class CacheController {
     @Autowired
     private EhCacheCacheManager springEhCacheManager;
 
-    private String[] caches={"cms-site-cache","cms-category-cache","cms-content-cache","cms-model-cache","cms-topic-cache"};
+    private String[] caches={"cms-site-cache","cms-category-cache","shiro-kickout-cache","cms-content-cache","cms-model-cache","cms-topic-cache"};
 
     @RequestMapping
     public String index(Model model){
