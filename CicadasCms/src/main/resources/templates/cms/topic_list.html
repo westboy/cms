@@ -57,7 +57,7 @@
         @for(topic in model.list){
             <tr data-id="${topicLP.index}">
                 <td align="center">${topic.topicId!}</td>
-                <td align="center"><a TARGET="_blank" HREF="${ctxPath}/topic/${topic.topicId!}">${topic.topicName!,xss}</a></td>
+                <td align="center"><a TARGET="_blank" HREF="${ctxPath}/${sitePrefix}/${topic.siteId}/topic/${topic.topicId!}">${topic.topicName!,xss}</a></td>
                 <td align="center">${topic.shortName!,xss}</td>
                 <td align="center">${topic.keywords!"N/A",xss}</td>
                 @if(topic.isRecommend){
