@@ -1,12 +1,12 @@
 package com.zhiliao.component.beetl.tag.cms;
 
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.zhiliao.common.exception.CmsException;
-import com.zhiliao.component.lucene.util.IndexObject;
 import com.zhiliao.common.utils.CmsUtil;
+import com.zhiliao.component.lucene.util.IndexObject;
 import com.zhiliao.module.web.cms.vo.PageActionVo;
 import com.zhiliao.module.web.cms.vo.PaginateVo;
-import org.assertj.core.util.Lists;
 import org.beetl.core.GeneralVarTagBinding;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;

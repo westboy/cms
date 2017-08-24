@@ -1,5 +1,6 @@
 package com.zhiliao.common.utils;
 
+import com.google.common.collect.Lists;
 import com.zhiliao.common.annotation.ExcelField;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.mybatis.model.TCmsContent;
@@ -14,7 +15,6 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.assertj.core.util.Lists;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 

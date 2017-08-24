@@ -1,8 +1,8 @@
 package com.zhiliao.common.template;
 
+import com.google.common.collect.Lists;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.PathUtil;
-import org.assertj.core.util.Lists;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 

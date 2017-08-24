@@ -1,5 +1,6 @@
 package com.zhiliao.component.shiro;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zhiliao.component.shiro.realm.AdminRealm;
 import com.zhiliao.component.shiro.realm.UserRealm;
@@ -17,7 +18,6 @@ import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.ServletContainerSessionManager;
-import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.cache.ehcache.EhCacheCacheManager;

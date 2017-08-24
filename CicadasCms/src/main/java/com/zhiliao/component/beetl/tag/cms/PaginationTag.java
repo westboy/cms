@@ -1,6 +1,7 @@
 package com.zhiliao.component.beetl.tag.cms;
 
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.StrUtil;
@@ -9,7 +10,6 @@ import com.zhiliao.module.web.cms.vo.PageActionVo;
 import com.zhiliao.module.web.cms.vo.PaginateVo;
 import com.zhiliao.mybatis.model.TCmsContent;
 import com.zhiliao.mybatis.model.TCmsSite;
-import org.assertj.core.util.Lists;
 import org.beetl.core.GeneralVarTagBinding;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

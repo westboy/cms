@@ -1,6 +1,7 @@
 package com.zhiliao.component.lucene;
 
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.zhiliao.component.lucene.util.DocumentUtil;
 import com.zhiliao.component.lucene.util.IKAnalyzer5x;
 import com.zhiliao.component.lucene.util.IndexObject;
@@ -15,7 +16,6 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.highlight.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.assertj.core.util.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
