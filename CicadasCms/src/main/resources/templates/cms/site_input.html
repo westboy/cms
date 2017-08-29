@@ -5,17 +5,17 @@
             <tbody>
             <tr>
                 <td>
-                    <label for="j_username" class="control-label x85">站点名称：</label>
-                    <input type="text" name="sitename" id="j_username" value="${site.siteName!,xss}" placeholder="站点名称" data-rule="required;" >
+                    <label for="siteName" class="control-label x85">站点名称：</label>
+                    <input type="text" name="siteName" id="siteName" value="${site.siteName!,xss}" placeholder="站点名称" data-rule="required;" >
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="j_password" class="control-label x85">站点域名：</label>
+                    <label for="domain" class="control-label x85">站点域名：</label>
                     @if(isEmpty(site.domain)){
-                    <input type="text" name="domain" id="j_password" value="${site.domain!,xss}" data-rule="required;remote(${ctxPath}/system/cms/site/checkDomain)"   placeholder="站点域名">
+                    <input type="text" name="domain" id="domain" value="${site.domain!,xss}" data-rule="required;remote(${ctxPath}/system/cms/site/checkDomain)"   placeholder="站点域名">
                     @}else{
-                    <input type="text" name="domain" id="j_password" value="${site.domain!,xss}" data-rule="required;"   placeholder="站点域名">
+                    <input type="text" name="domain" id="domain" value="${site.domain!,xss}" data-rule="required;"   placeholder="站点域名">
                     @}
                 </td>
             </tr>

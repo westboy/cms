@@ -92,7 +92,7 @@ public class SiteController{
 
     @RequestMapping("/checkDomain")
     @ResponseBody
-    public String checkDomain(@RequestParam(value = "doamin",required = false) String domain){
+    public String checkDomain(@RequestParam(value = "domain",required = false) String domain){
         if(!CmsUtil.isNullOrEmpty(siteService.findByDomain(domain)))
             return "{\"error\": \"域名已存在\"}";
         return "{\"ok\": \"验证通过\"}";
