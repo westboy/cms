@@ -58,7 +58,7 @@ public class FormTokenAspect {
 			String tokenFlag) throws Throwable {
 		Object sessionFlag = session.getAttribute(tokenFlag);
 		Object requestFlag = request.getParameter(PARAM_TOKEN);
-		if (!StrUtil.isBlank("requestFlag")&&sessionFlag != null && sessionFlag.equals(requestFlag)) {
+		if (requestFlag!=null&&sessionFlag != null && sessionFlag.equals(requestFlag)) {
 			session.removeAttribute(tokenFlag);
 		}else {
 			throw new SystemException("不能重复提交表单！");
