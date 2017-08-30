@@ -70,7 +70,7 @@
                     @if(session.SysUser.siteId==site.siteId){
                     <a class="btn btn-red" title="当前站点">当</a>
                     @}else{
-                    <a href="${ctxPath}/system/cms/site/change?id=${site.siteId!}" class="btn btn-blue" data-toggle="doajax" title="切换站点" data-confirm-msg="确定要切换到[${site.sitename!,xss}]？">切</a>
+                    <a href="${ctxPath}/system/cms/site/change?id=${site.siteId!}" class="btn btn-blue" data-toggle="doajax" title="切换站点" data-confirm-msg="确定要切换到[${site.siteName!,xss}]？">切</a>
                     @}
                     <a href="${ctxPath}/system/cms/site/input?id=${site.siteId!}" class="btn btn-green"  data-toggle="dialog" title="编辑站点" data-maxable="false" data-resizable="false"  data-width="500" data-height="330" data-id="edit-site-tab"  data-title="用户修改">编辑</a>
                     <a href="${ctxPath}/system/cms/site/delete?ids=${site.siteId!}" class="btn btn-red" data-toggle="doajax" title="删除站点" data-confirm-msg="确定要删除该行信息吗？">删</a>
