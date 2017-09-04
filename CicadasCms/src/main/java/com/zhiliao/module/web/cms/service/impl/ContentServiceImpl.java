@@ -295,7 +295,6 @@ public class ContentServiceImpl implements ContentService{
                                                                       Integer isHot,
                                                                       String isPic,
                                                                       String isRecommend) {
-        PageHelper.startPage(1, size);
         Long[] categoryIds;
         /*如果包含子类栏目*/
         if(hasChild==1) {
@@ -315,6 +314,7 @@ public class ContentServiceImpl implements ContentService{
         }else{
             categoryIds =new Long[]{categoryId};
         }
+        PageHelper.startPage(1, size);
         return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryId(siteId,categoryIds,orderBy,isHot,isPic,isRecommend));
     }
 
