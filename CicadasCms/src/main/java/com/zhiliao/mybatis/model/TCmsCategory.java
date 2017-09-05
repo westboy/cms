@@ -22,6 +22,20 @@ public class TCmsCategory implements Serializable {
     private String categoryName;
 
     /**
+     * 栏目图标
+     */
+    @Column(name = "category_icon")
+    private String categoryIcon;
+
+    public String getCategoryIcon() {
+        return categoryIcon;
+    }
+
+    public void setCategoryIcon(String categoryIcon) {
+        this.categoryIcon = categoryIcon;
+    }
+
+    /**
      * 站点编号
      */
     @Column(name = "site_id")

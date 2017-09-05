@@ -44,6 +44,30 @@
             </select>
         </div>
         <hr>
+        <!--判断是否为文件上传字段-->
+        <script type="text/javascript">
+            function categoryIcon_upload_success(file, data) {
+                var json = $.parseJSON(data)
+                $(this).bjuiajax('ajaxDone', json)
+                if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
+                    $('#categoryIcon').val(json.filename).trigger('validate');
+                    $('#categoryIcon_file').val(json.filename);
+                }
+            }
+        </script>
+        <label for="categoryIcon" class="control-label x85">栏目图标：</label>
+        <div style="display: inline-block; vertical-align: middle;">
+            <div id="categoryIcon" data-toggle="upload" data-uploader="${ctxPath}/upload"
+                 data-file-size-limit="1024000000"
+                 data-file-type-exts="*.jpg;*.png;*.gif;*.jpeg"
+                 data-multi="false"
+                 data-on-upload-success="categoryIcon_upload_success"
+                 data-icon="cloud-upload"></div>
+            <span>
+                   <input type="text"   style="margin: 5px 0 0 0"    size="40" name="categoryIcon" placeholder="分类图标" value="${pojo.categoryIcon!}" id="categoryIcon_file"> ( 可使用网络地址. )
+                </span>
+        </div>
+        <hr>
         <div class="form-group">
             <label for="url" class="control-label x85">外部链接：</label>
             <input type="text"  id="url" name="url" size="30"
@@ -81,7 +105,6 @@
         </div>
         <hr>
         <div id="isNotExtendUrl">
-
         <div  class="form-group">
                 <label for="modelId" class="control-label x85">内容模型：</label>
                 <select id="modelId" data-toggle="selectpicker" ${isEmpty(pojo.modelId)?"":"disabled"} data-rule="required;"  name="modelId">

@@ -152,6 +152,8 @@ public class ContentServiceImpl implements ContentService{
         /*初始化文章的推荐和顶置为false*/
         content.setRecommend(CmsUtil.isNullOrEmpty(content.getRecommend())?false:true);
         content.setTop(CmsUtil.isNullOrEmpty(content.getTop())?false:true);
+        content.setUpdatedate(new Date());
+        content.setInputdate(new Date());
         if(contentMapper.insert(content)>0) {
             /*创建lucene索引*/
             if(categoryService.findById(content.getCategoryId()).getAllowSearch()) {
