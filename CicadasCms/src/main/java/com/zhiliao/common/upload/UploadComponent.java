@@ -67,7 +67,7 @@ public class UploadComponent {
         if (!Boolean.parseBoolean(qiniuUpload)) {
             String newName = File.separator + "upload" + File.separator + jt.getYear()
                     + File.separator + jt.getMonth() + File.separator + jt.getDay() + File.separator + fileName;
-            String uploadPath = PathUtil.getRootClassPath()+File.separator + "static";
+            String uploadPath = PathUtil.getRootClassPath()+ File.separator + "static";
             if (!multipartFile.isEmpty()) {
                 attachment.setFileName(fileName);
                 attachment.setFilePath(uploadPath + newName);
