@@ -38,7 +38,7 @@ public class ContentSelectCategoryFunction implements Function{
                 if(cat.getAlone()||!StrUtil.isBlank(cat.getUrl()))
                     continue;
                 if(service.findCategoryListByPid(cat.getCategoryId(),siteId).size()>0) {
-                    if(cat.getParentId()==0)
+                    if(cat.getParentId().longValue()==0)
                         sbf.append("<optgroup label=\""+cat.getCategoryName() + "\">");
                     else
                         sbf.append("<optgroup label=\"|—"+cat.getCategoryName() + "\">");

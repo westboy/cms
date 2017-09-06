@@ -48,7 +48,7 @@ public class SelectOrganizationFunction implements Function{
             int flag_ = 0;
             for(TSysOrg org:orgList){
                    /**如果是自己就不输出了**/
-                if(cid.intValue()!=org.getId().intValue()&&cid.intValue()!=org.getPid().intValue()||cid==0) {
+                if(cid.intValue()!=org.getId().intValue()&&cid.intValue()!=org.getPid().intValue()||cid.intValue()==0) {
                     flag_ = org.getId().intValue();
                     sbf.append("<option value=\"" + org.getId() + "\" " + isSelected(org.getId().intValue(), pid) + ">" + tag + "|—" + org.getName() + "</option>");
                 }
@@ -60,7 +60,7 @@ public class SelectOrganizationFunction implements Function{
     }
 
     private String isSelected(Integer id,Integer perId){
-        if(id==perId)
+        if(id.intValue()==perId.intValue())
             return isSelected;
         return "";
     }

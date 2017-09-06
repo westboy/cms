@@ -60,7 +60,7 @@ public class SelectPermissionFunction implements Function{
     }
 
     private String isSelected(Integer id,Integer perId){
-        if(id==perId)
+        if(id.intValue()==perId.intValue())
             return isSelected;
         return "";
     }

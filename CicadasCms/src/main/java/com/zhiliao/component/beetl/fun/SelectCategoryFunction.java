@@ -52,7 +52,7 @@ public class SelectCategoryFunction implements Function{
     }
 
     private String isSelected(Long id,Long perId){
-        if(id==perId)
+        if(id.longValue()==perId.longValue())
             return isSelected;
         return "";
     }

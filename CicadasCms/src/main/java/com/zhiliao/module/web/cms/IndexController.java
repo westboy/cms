@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +54,9 @@ public class IndexController {
 
     @Autowired
     private TopicService topicService;
+
+    @Autowired
+    private AdService adService;
 
     @Value("${system.http.protocol}")
     private String httpProtocol;
@@ -268,6 +268,14 @@ public class IndexController {
         model.addAttribute("site",site);
         model.addAttribute("topic",topic);
         return view(site.getTemplate(), !StrUtil.isBlank(topic.getTopicTpl())?topic.getTopicTpl():CmsConst.TOPIC_TPL);
+    }
+
+    @RequestMapping(value = "/ad/js/{id}",produces = "text/javascript; charset=UTF-8")
+    @ResponseBody
+    public String AdJs(@PathVariable Integer id){
+        if(CmsUtil.isNullOrEmpty(id))
+            throw new CmsException("广告不存在！");
+        return adService.toJavascript(id);
     }
 
     private String view(String viewName){

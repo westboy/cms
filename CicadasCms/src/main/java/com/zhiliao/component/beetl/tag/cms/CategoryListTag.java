@@ -52,7 +52,7 @@ public class CategoryListTag extends GeneralVarTagBinding {
 		Long categoryId=  (this.getAttributeValue("categoryId") instanceof String)?Long.parseLong((String) this.getAttributeValue("categoryId")):(Long) this.getAttributeValue("categoryId");
 		Integer isNav = Integer.parseInt((String) this.getAttributeValue("isNav"));
 		try {
-			this.wrapRender(siteId,categoryId,(isNav==1?true:false));
+			this.wrapRender(siteId,categoryId,(isNav.intValue()==1?true:false));
 		} catch (Exception e) {
 			throw new CmsException(e.getMessage());
 		}

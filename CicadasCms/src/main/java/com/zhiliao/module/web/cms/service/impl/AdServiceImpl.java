@@ -2,7 +2,6 @@ package com.zhiliao.module.web.cms.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.JsonUtil;
 import com.zhiliao.module.web.cms.service.AdService;
@@ -103,7 +102,7 @@ public class AdServiceImpl implements AdService{
     public String toJavascript(Object id) {
         TCmsAd ad = adMapper.selectByIdAndEffective((Integer) id);
         if(CmsUtil.isNullOrEmpty(ad))
-            throw new CmsException("您所访问的广告已过期，或者还没有开始！");
+           return "document.write('您所访问的广告已过期，或者还没有开始');！";
         StringBuffer body = new StringBuffer();
         body.append("var dtnow=new Date();");
         body.append("dtnow=dtnow.getFullYear()+'-'+(dtnow.getMonth()+1)+'-'+dtnow.getDate();");
