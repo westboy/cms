@@ -70,7 +70,6 @@ public class ContentListTag extends GeneralVarTagBinding {
         Integer siteId=  (this.getAttributeValue("siteId") instanceof String)?Integer.parseInt((String) this.getAttributeValue("siteId")):(Integer)this.getAttributeValue("siteId");
         Long categoryId=  (this.getAttributeValue("categoryId") instanceof String)?Long.parseLong((String) this.getAttributeValue("categoryId")):(Long) this.getAttributeValue("categoryId");
         Integer hasChild=  Integer.parseInt((String) this.getAttributeValue("hasChild"));
-        String target =  (String) this.getAttributeValue("target");
         String isPic =  (String) this.getAttributeValue("isPic");
         String isRecommend =  (String) this.getAttributeValue("isRecommend");
         Integer orderBy =  Integer.parseInt((String) this.getAttributeValue("orderBy"));
