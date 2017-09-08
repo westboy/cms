@@ -100,7 +100,7 @@ public class TagRegisterFactory {
     @Bean(name = "indexSilderTagFactory")
     public SpringBeanTagFactory indexSilderTagFactory(){
         SpringBeanTagFactory springBeanTagFactory = new SpringBeanTagFactory();
-        springBeanTagFactory.setName("lucenePaginationTag");
+        springBeanTagFactory.setName("indexSilderTag");
         return  springBeanTagFactory;
     }
 
