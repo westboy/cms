@@ -127,7 +127,7 @@
             </if>
             <if test='isPic!=null and isPic=="0"'>
                 AND
-                   thumb!=''
+                   thumb==''
             </if>
         </trim>
 
