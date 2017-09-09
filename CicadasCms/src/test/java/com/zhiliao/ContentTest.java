@@ -34,7 +34,7 @@ public class ContentTest {
     }
     @Test
     public void findContentListByCategoryIdAndSiteId(){
-        contentService.findContentListBySiteIdAndCategoryId(0,26l,10,1,0,0,"1","1");
+        contentService.findContentListBySiteIdAndCategoryId(0,26l,10,1,10,0,0,1,1);
     }
 
 

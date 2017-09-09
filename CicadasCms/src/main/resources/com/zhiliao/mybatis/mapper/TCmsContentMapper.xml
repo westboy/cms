@@ -117,17 +117,17 @@
                    #{item}
                  </foreach>
             </if>
-            <if test='isRecommend!=null and isRecommend=="1"'>
+            <if test='isRecommend!=null and isRecommend==1'>
                 AND
                     recommend = 1
             </if>
-            <if test='isPic!=null and isPic=="1"'>
+            <if test='isPic!=null and isPic==1'>
                 AND
                    thumb!=''
             </if>
-            <if test='isPic!=null and isPic=="0"'>
+            <if test='isPic!=null and isPic==0'>
                 AND
-                   thumb==''
+                   thumb=''
             </if>
         </trim>
 

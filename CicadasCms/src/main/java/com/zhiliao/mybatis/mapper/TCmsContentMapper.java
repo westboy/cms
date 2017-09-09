@@ -24,8 +24,8 @@ public interface TCmsContentMapper extends Mapper<TCmsContent> {
                                                                @Param("categoryIds") Long[] categoryIds,
                                                                @Param("orderBy") Integer orderBy,
                                                                @Param("isHot") Integer isHot,
-                                                               @Param("isPic") String isPic,
-                                                               @Param("isRecommend") String isRecommend
+                                                               @Param("isPic") Integer isPic,
+                                                               @Param("isRecommend") Integer isRecommend
                                                                );
 
     @Select("SELECT * FROM t_cms_content WHERE content_id = (SELECT max(content_id) FROM t_cms_content WHERE content_id < #{contentId} AND category_id =#{categoryId}  and status =1)")

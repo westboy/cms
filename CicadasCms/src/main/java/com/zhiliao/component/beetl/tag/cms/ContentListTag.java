@@ -70,12 +70,13 @@ public class ContentListTag extends GeneralVarTagBinding {
         Integer siteId=  (this.getAttributeValue("siteId") instanceof String)?Integer.parseInt((String) this.getAttributeValue("siteId")):(Integer)this.getAttributeValue("siteId");
         Long categoryId=  (this.getAttributeValue("categoryId") instanceof String)?Long.parseLong((String) this.getAttributeValue("categoryId")):(Long) this.getAttributeValue("categoryId");
         Integer hasChild=  Integer.parseInt((String) this.getAttributeValue("hasChild"));
-        String isPic =  (String) this.getAttributeValue("isPic");
-        String isRecommend =  (String) this.getAttributeValue("isRecommend");
+        Integer isPic =  Integer.parseInt(CmsUtil.isNullOrEmpty(this.getAttributeValue("isPic"))?"0":(String)this.getAttributeValue("isPic"));
+        Integer isRecommend =  Integer.parseInt(CmsUtil.isNullOrEmpty(this.getAttributeValue("isRecommend"))?"0":(String) this.getAttributeValue("isRecommend"));
         Integer orderBy =  Integer.parseInt((String) this.getAttributeValue("orderBy"));
-        Integer size =  Integer.parseInt((String) this.getAttributeValue("size"));
+        Integer pageNumber =  Integer.parseInt((CmsUtil.isNullOrEmpty(this.getAttributeValue("pageNumber"))?"1":(String) this.getAttributeValue("pageNumber")));
+        Integer pageSize =  Integer.parseInt((String) this.getAttributeValue("size"));
         Integer isHot =  Integer.parseInt((String) this.getAttributeValue("isHot"));
-        PageInfo<TCmsContent> pageInfo = contentService.findContentListBySiteIdAndCategoryId(siteId, categoryId, orderBy, size, hasChild, isHot, isPic,isRecommend);
+        PageInfo<TCmsContent> pageInfo = contentService.findContentListBySiteIdAndCategoryId(siteId, categoryId, orderBy, pageNumber,pageSize, hasChild, isHot, isPic,isRecommend);
         if(CmsUtil.isNullOrEmpty(pageInfo.getList())) return;
         try {
             wrapRender(pageInfo.getList(),titleLen,siteId);

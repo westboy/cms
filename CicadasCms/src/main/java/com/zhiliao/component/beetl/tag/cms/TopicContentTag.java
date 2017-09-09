@@ -59,8 +59,8 @@ public class TopicContentTag extends GeneralVarTagBinding {
 		Integer siteId=  (this.getAttributeValue("siteId") instanceof String)?Integer.parseInt((String) this.getAttributeValue("siteId")):(Integer)this.getAttributeValue("siteId");
 		Integer hasChild=  Integer.parseInt((String) this.getAttributeValue("hasChild"));
 		Integer isHot =  Integer.parseInt((String) this.getAttributeValue("isHot"));
-		String isPic =  (String) this.getAttributeValue("isPic");
-		String isRecommend =  (String) this.getAttributeValue("isRecommend");
+		Integer isPic =  Integer.parseInt(CmsUtil.isNullOrEmpty(this.getAttributeValue("isPic"))?"0":(String)this.getAttributeValue("isPic"));
+		Integer isRecommend =  Integer.parseInt(CmsUtil.isNullOrEmpty(this.getAttributeValue("isRecommend"))?"0":(String) this.getAttributeValue("isRecommend"));
 		Integer orderBy =  Integer.parseInt((String) this.getAttributeValue("orderBy"));
 		Integer size =  Integer.parseInt((String) this.getAttributeValue("size"));
 		Integer topicId =  Integer.parseInt((String) this.getAttributeValue("topicId"));

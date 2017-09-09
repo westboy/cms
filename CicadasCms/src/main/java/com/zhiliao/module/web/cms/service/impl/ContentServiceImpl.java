@@ -292,11 +292,12 @@ public class ContentServiceImpl implements ContentService{
     public PageInfo<TCmsContent> findContentListBySiteIdAndCategoryId(Integer siteId,
                                                                       Long categoryId,
                                                                       Integer orderBy,
-                                                                      Integer size,
+                                                                      Integer pageNumber,
+                                                                      Integer pageSize,
                                                                       Integer hasChild,
                                                                       Integer isHot,
-                                                                      String isPic,
-                                                                      String isRecommend) {
+                                                                      Integer isPic,
+                                                                      Integer isRecommend) {
         Long[] categoryIds;
         /*如果包含子类栏目*/
         if(hasChild==1) {
@@ -316,7 +317,7 @@ public class ContentServiceImpl implements ContentService{
         }else{
             categoryIds =new Long[]{categoryId};
         }
-        PageHelper.startPage(1, size);
+        PageHelper.startPage(pageNumber, pageSize);
         return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryId(siteId,categoryIds,orderBy,isHot,isPic,isRecommend));
     }
 
@@ -327,9 +328,7 @@ public class ContentServiceImpl implements ContentService{
                                                                       Integer orderBy,
                                                                       Integer size,
                                                                       Integer hasChild,
-                                                                      Integer isHot,
-                                                                      String isPic,
-                                                                      String isRecommend) {
+                                                                      Integer isHot, Integer isPic, Integer isRecommend) {
         PageHelper.startPage(1, size);
         return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryId(siteId,categoryIds,orderBy,isHot,isPic,isRecommend));
     }
@@ -345,8 +344,7 @@ public class ContentServiceImpl implements ContentService{
 
         /* 查询当前分类的父类下的内容列表 */
         TCmsCategory category= categoryService.findById(categoryId);
-        if(CmsUtil.isNullOrEmpty(category))
-            throw new CmsException("栏目["+categoryId+"]不存在！");
+        if(CmsUtil.isNullOrEmpty(category)) throw new CmsException("栏目["+categoryId+"]不存在！");
 
         /*查询父类列表*/
         PageHelper.startPage(pageNumber,this.categoryService.findPageSize(categoryId));

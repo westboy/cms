@@ -31,11 +31,12 @@ public interface  ContentService extends BaseService<TCmsContent,Long> {
     PageInfo<TCmsContent> findContentListBySiteIdAndCategoryId(Integer siteId,
                                                                Long categoryId,
                                                                Integer orderBy,
-                                                               Integer size,
+                                                               Integer pageNumber,
+                                                               Integer pageSize,
                                                                Integer hasChild,
                                                                Integer isHot,
-                                                               String isPic,
-                                                               String isRecommend);
+                                                               Integer isPic,
+                                                               Integer isRecommend);
 
     PageInfo<TCmsContent> findContentListBySiteIdAndCategoryIds(Integer siteId,
                                                                 Long[] categoryIds,
@@ -43,8 +44,8 @@ public interface  ContentService extends BaseService<TCmsContent,Long> {
                                                                 Integer size,
                                                                 Integer hasChild,
                                                                 Integer isHot,
-                                                                String isPic,
-                                                                String isRecommend);
+                                                                Integer isPic,
+                                                                Integer isRecommend);
 
     PageInfo<TCmsContent> page(Integer pageNumber,Integer siteId,Long categoryId);
 
