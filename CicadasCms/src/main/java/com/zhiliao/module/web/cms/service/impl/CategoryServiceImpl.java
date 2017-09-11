@@ -73,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public String update(TCmsCategory pojo) {
         /* 将栏目名称转换为拼音设置别名 */
-        pojo.setAlias(PinyinUtil.convertLower(HtmlKit.getText(pojo.getCategoryName())));
+        //pojo.setAlias(PinyinUtil.convertLower(HtmlKit.getText(pojo.getCategoryName())));
         /*todo 这地方需要做个判断栏目是否允许更换内容模型*/
         /*  如果当前栏目父Id是不是顶级节点 */
         if(categoryMapper.selectByPrimaryKey(pojo.getCategoryId()).getParentId()==0&&pojo.getParentId()!=0L){
