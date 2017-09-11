@@ -30,10 +30,15 @@
         <input TYPE="hidden" name="categoryId" value="${pojo.categoryId!}">
         <div class="form-group">
             <label for="j_username" class="control-label x85">栏目名称：</label>
-            @if(isEmpty(pojo.categoryId)){
-            <input type="text" name="categoryName" id="j_username" size="30"  value="${pojo.categoryName!,xss}" placeholder="栏目名称" size="24" data-rule="required;remote(${ctxPath}/system/cms/category/checkCategory)" >
-            @}else{
             <input type="text" name="categoryName" id="j_username" size="30"  value="${pojo.categoryName!,xss}" placeholder="栏目名称" size="24" data-rule="required;" >
+        </div>
+        <hr>
+        <div class="form-group">
+            <label for="alias" class="control-label x85">栏目别名：</label>
+            @if(isEmpty(pojo.alias)){
+            <input type="text" name="alias" id="alias" size="30"  value="${pojo.alias!,xss}" placeholder="栏目别名（请使用英文别名！）" size="24" data-rule="required;remote(${ctxPath}/system/cms/category/checkCategory)" >
+            @}else{
+            <input type="text" name="alias" id="alias" size="30"  value="${pojo.alias!,xss}" placeholder="栏目别名（请使用英文别名！）" size="24" readonly >
             @}
         </div>
         <hr>
@@ -64,7 +69,7 @@
                  data-on-upload-success="categoryIcon_upload_success"
                  data-icon="cloud-upload"></div>
             <span>
-                   <input type="text"   style="margin: 5px 0 0 0"    size="40" name="categoryIcon" placeholder="分类图标" value="${pojo.categoryIcon!}" id="categoryIcon_file"> ( 可使用网络地址. )
+                   <input type="text"   style="margin: 5px 0 0 0"    size="30" name="categoryIcon" placeholder="分类图标" value="${pojo.categoryIcon!}" id="categoryIcon_file"> ( 可使用网络地址. )
                 </span>
         </div>
         <hr>

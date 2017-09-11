@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -60,7 +59,7 @@ public class CategoryController {
     @RequiresPermissions("category:save")
     @RequestMapping("/save")
     @ResponseBody
-    public String save(TCmsCategory pojo) throws SQLException {
+    public String save(TCmsCategory pojo)  {
         UserVo userVo = UserUtil.getSysUserVo();
         pojo.setSiteId(userVo.getSiteId());
         if(pojo.getCategoryId()!=null)
@@ -72,13 +71,13 @@ public class CategoryController {
     @RequiresPermissions("category:delete")
     @RequestMapping("/delete")
     @ResponseBody
-    public String delete(@RequestParam("ids") Long[] ids) throws SQLException {
+    public String delete(@RequestParam("ids") Long[] ids) {
         return categoryService.delete(ids);
     }
 
     @RequestMapping("/checkCategory")
     @ResponseBody
-    public String checkDomain(@RequestParam(value = "categoryName",required = false) String categoryName){
+    public String checkDomain(@RequestParam(value = "alias",required = false) String categoryName){
         if(!CmsUtil.isNullOrEmpty(categoryService.findByAlias(PinyinUtil.convertLower(HtmlKit.getText(categoryName)))))
             return "{\"error\": \"栏目已存在\"}";
         return "{\"ok\": \"验证通过\"}";
