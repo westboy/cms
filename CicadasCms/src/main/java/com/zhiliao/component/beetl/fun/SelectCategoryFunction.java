@@ -42,7 +42,7 @@ public class SelectCategoryFunction implements Function{
         if(ctas!=null&&ctas.size()>0){
             for(TCmsCategory cat:ctas){
                    /*如果是自己就不输出了*/
-                   if(cid!=cat.getCategoryId()&&cid!=cat.getParentId()||cid==0)
+                   if(cid!=cat.getCategoryId()&&cid!=cat.getParentId()||cid.longValue()==0)
                         sbf.append("<option value=\"" + cat.getCategoryId() + "\" " + isSelected(cat.getCategoryId(), pid) + ">" + tag + "|—" + cat.getCategoryName()+ "</option>");
                     sbf.append(recursion(cid,pid,cat.getCategoryId(),tag,siteId));
             }

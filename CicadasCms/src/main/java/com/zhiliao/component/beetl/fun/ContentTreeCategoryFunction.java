@@ -45,9 +45,10 @@ public class ContentTreeCategoryFunction implements Function{
        List<TCmsCategory> cats  = service.findCategoryListByPid(pid,siteId);
        if(cats!=null&&cats.size()>0){
            for(TCmsCategory cat:cats){
-               if(cat.getAlone()||!StrUtil.isBlank(cat.getUrl()))
+               int childSize = service.findCategoryListByPid(cat.getCategoryId(),siteId).size();
+               if((cat.getAlone()||!StrUtil.isBlank(cat.getUrl()))&&childSize==0)
                    continue;
-               if(cats!=null&&service.findCategoryListByPid(cat.getCategoryId(),siteId).size()>0) {
+               if(childSize>0) {
                    sbf.append("  <li data-id=\"" + cat.getCategoryId() + "\" data-pid=\"" + pid + "\" >" + cat.getCategoryName() + " [" + cat.getCategoryId() + "] </li>");
                }else {
                    sbf.append("  <li data-id=\"" + cat.getCategoryId() + "\" data-pid=\"" + pid + "\" data-url=\"" + httpProtocol+"://"+ ControllerUtil.getDomain()+url + "=" + cat.getCategoryId() + "\" data-divid=\"#layout-content\">" + cat.getCategoryName() + " [" + cat.getCategoryId() + "] </li>");
