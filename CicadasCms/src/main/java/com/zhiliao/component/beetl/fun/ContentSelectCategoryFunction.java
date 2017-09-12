@@ -35,9 +35,10 @@ public class ContentSelectCategoryFunction implements Function{
         List<TCmsCategory> ctas  = service.findCategoryListByPid(pid,siteId);
         if(ctas!=null&&ctas.size()>0){
             for(TCmsCategory cat:ctas){
-                if(cat.getAlone()||!StrUtil.isBlank(cat.getUrl()))
+                int childSize = service.findCategoryListByPid(cat.getCategoryId(),siteId).size();
+                if((cat.getAlone()||!StrUtil.isBlank(cat.getUrl()))&&childSize==0)
                     continue;
-                if(service.findCategoryListByPid(cat.getCategoryId(),siteId).size()>0) {
+                if(childSize>0) {
                     if(cat.getParentId().longValue()==0)
                         sbf.append("<optgroup label=\""+cat.getCategoryName() + "\">");
                     else
