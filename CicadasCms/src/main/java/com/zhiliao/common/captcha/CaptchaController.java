@@ -15,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 
 @Controller
@@ -29,7 +29,7 @@ public class CaptchaController {
 
 
     @RequestMapping("/verify")
-    public ModelAndView doGet(HttpServletRequest request,HttpServletResponse response)  {
+    public ModelAndView doGet(HttpServletResponse response, HttpSession session)  {
         response.setDateHeader("Expires", 0);
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
         response.addHeader("Cache-Control", "post-check=0, pre-check=0");
@@ -37,7 +37,7 @@ public class CaptchaController {
         response.setContentType("image/jpeg");
         String capText = captchaProducer.createText();
         BufferedImage bi = captchaProducer.createImage(capText);
-        request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY,capText);
+        session.setAttribute(Constants.KAPTCHA_SESSION_KEY,capText);
         try {
         ServletOutputStream out = response.getOutputStream();
         log.debug("captchaProducer.createText："+capText);
@@ -52,9 +52,9 @@ public class CaptchaController {
 
     @RequestMapping("/verify/validate")
     @ResponseBody
-    public String validateVerifyCode(@RequestParam("verifyCode") String verify,HttpServletRequest request){
+    public String validateVerifyCode(@RequestParam("verifyCode") String verify,HttpSession session){
         JSONObject result = new JSONObject();
-        if (validate(verify,request)){
+        if (validate(verify,session)){
             result.put("ok","验证码输入正确！");
         }else{
             result.put("error","验证码错误,请刷新或重新输入！");
@@ -62,8 +62,8 @@ public class CaptchaController {
     return result.toJSONString();
     }
 
-    public static  boolean validate(String verifyCode,HttpServletRequest request) {
-        String text = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
+    public static  boolean validate(String verifyCode,HttpSession session) {
+        String text = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
         if (StrUtil.isBlank(text))
             return false;
         return verifyCode.equals(text);
