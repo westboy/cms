@@ -9,15 +9,20 @@ package com.zhiliao.component.lucene.util;
  **/
 public class IndexObject implements Comparable<IndexObject>{
 	
-	private Long id;
+	private String id;
 
 	private String title;
 
 	private String keywords;
 
-	private String descripton;
+	private String description;
 
 	private String postDate;
+
+	private String url;
+
+	/*相似度*/
+	private float score;
 
 	public String getPostDate() {
 		return postDate;
@@ -26,20 +31,6 @@ public class IndexObject implements Comparable<IndexObject>{
 	public void setPostDate(String postDate) {
 		this.postDate = postDate;
 	}
-
-	public String getDescripton() {
-		return descripton;
-	}
-
-	public void setDescripton(String descripton) {
-		this.descripton = descripton;
-	}
-
-	private String url;
-
-	/*相似度*/
-	private float score;
-
 
 	public String getKeywords() {
 		return keywords;
@@ -57,7 +48,13 @@ public class IndexObject implements Comparable<IndexObject>{
 		this.url = url;
 	}
 
+	public String getDescription() {
+		return description;
+	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public String getTitle() {
 		return title;
@@ -67,11 +64,11 @@ public class IndexObject implements Comparable<IndexObject>{
 		this.title = title;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -89,12 +86,12 @@ public class IndexObject implements Comparable<IndexObject>{
 		super();
 	}
 
-	public IndexObject(Long _id, String _keywords,String _descripton,String _postDate, float _score) {
+	public IndexObject(String _id, String _keywords,String _description,String _postDate, float _score) {
 		super();
 		this.id = _id;
 		this.keywords = _keywords;
 		this.score = _score;
-		this.descripton=_descripton;
+		this.description=_description;
 		this.postDate=_postDate;
 	}
 	@Override

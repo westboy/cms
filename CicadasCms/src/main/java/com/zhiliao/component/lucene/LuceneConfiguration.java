@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Description:s
@@ -18,7 +17,7 @@ public class LuceneConfiguration {
 
 
     @Bean
-    public LuceneDao luceneUtil() throws IOException {
+    public LuceneDao luceneUtil() {
         LuceneDao luceneDao = new LuceneDao();
         luceneDao.setIndexDer(PathUtil.getRootClassPath()+ File.separator+"lucene");
         return luceneDao;

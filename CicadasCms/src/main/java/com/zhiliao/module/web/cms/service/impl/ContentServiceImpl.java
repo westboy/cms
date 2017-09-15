@@ -158,10 +158,10 @@ public class ContentServiceImpl implements ContentService{
             /*创建lucene索引*/
             if(categoryService.findById(content.getCategoryId()).getAllowSearch()) {
                 IndexObject indexObject = new IndexObject();
-                indexObject.setId(content.getContentId());
+                indexObject.setId(content.getContentId().toString());
                 indexObject.setTitle(content.getTitle());
                 indexObject.setKeywords(content.getKeywords());
-                indexObject.setDescripton(content.getDescription());
+                indexObject.setDescription(content.getDescription());
                 indexObject.setPostDate(DateUtil.formatDateTime(content.getInputdate()));
                 indexObject.setUrl(this.httpProtocol + "://" + ControllerUtil.getDomain() + "/front/" + content.getSiteId() + "/" + content.getCategoryId() + "/" + content.getContentId());
                 luceneService.save(indexObject);
@@ -189,10 +189,10 @@ public class ContentServiceImpl implements ContentService{
              /*创建lucene索引*/
             if(categoryService.findById(content.getCategoryId()).getAllowSearch()) {
                 IndexObject indexObject = new IndexObject();
-                indexObject.setId(content.getContentId());
+                indexObject.setId(content.getContentId().toString());
                 indexObject.setTitle(content.getTitle());
                 indexObject.setKeywords(content.getKeywords());
-                indexObject.setDescripton(content.getDescription());
+                indexObject.setDescription(content.getDescription());
                 indexObject.setPostDate(DateUtil.formatDateTime(content.getInputdate()));
                 indexObject.setUrl(this.httpProtocol + "://" + ControllerUtil.getDomain() + "/front/" + content.getSiteId() + "/" + content.getCategoryId() + "/" + content.getContentId());
                 luceneService.update(indexObject);

@@ -86,6 +86,31 @@ public class LuceneDao {
     	}
 
 
+	/* 删除索引 */
+	public void delete(IndexObject indexObject) {
+		IndexWriter indexWriter = null;
+		try {
+			IndexWriterConfig config = new IndexWriterConfig(this.getAnalyzer());
+			indexWriter = new IndexWriter(this.getDirectory(), config);
+			Long result =indexWriter.deleteDocuments(new Term("id", indexObject.getId()));
+			indexWriter.commit();
+			log.info("deleted:{}",result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			try {
+				indexWriter.rollback();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				indexWriter.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+
     /* 删除索引 */
 	public void deleteAll() {
 		IndexWriter indexWriter = null;
@@ -118,12 +143,9 @@ public class LuceneDao {
 		IndexWriter indexWriter = null;
 
 		try {
-
-			Term term = new Term("id", indexObject.getId().toString());
 			IndexWriterConfig config = new IndexWriterConfig(this.getAnalyzer());
 			indexWriter = new IndexWriter(this.getDirectory(), config);
-			indexWriter.updateDocument(term,DocumentUtil.IndexObject2Document(indexObject));
-
+			indexWriter.updateDocument(new Term("id", indexObject.getId()),DocumentUtil.IndexObject2Document(indexObject));
 		} catch (Exception e) {
 			e.printStackTrace();
 			try {
@@ -149,12 +171,12 @@ public class LuceneDao {
 		try {
 			indexReader = DirectoryReader.open(this.getDirectory());
 			IndexSearcher indexSearcher = new IndexSearcher(indexReader);
-			Query query = QueryUtil.query(keyword,this.getAnalyzer(),"title","content");
+			Query query = QueryUtil.query(keyword,this.getAnalyzer(),"title","description");
             ScoreDoc lastScoreDoc = this.getLastScoreDoc(pageNumber, pageSize, query, indexSearcher);
             /*将上一页的最后一个document传递给searchAfter方法以得到下一页的结果 */
             TopDocs topDocs = indexSearcher.searchAfter(lastScoreDoc,query, pageSize);
 			Highlighter highlighter = this.addStringHighlighter(query);
-			log.info("搜索词语：｛｝",keyword);
+			log.info("搜索词语：{}",keyword);
 			log.info("总共的查询结果：{}", topDocs.totalHits);
 			for (ScoreDoc scoreDoc : topDocs.scoreDocs) {
 			    int docID = scoreDoc.doc;

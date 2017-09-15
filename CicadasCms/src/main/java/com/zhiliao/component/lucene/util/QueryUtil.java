@@ -15,16 +15,10 @@ import org.apache.lucene.search.Query;
  **/
 public class QueryUtil {
 
-    private static String queryStringFilter(String query) {
-        return query.replace("/", " ").replace("\\", " ");
-    }
-
-
     public static Query query(String query, Analyzer analyzer, String... fields) throws ParseException {
         BooleanQuery.setMaxClauseCount(32768);
-        query = queryStringFilter(query);  /*过滤非法字符*/
+        query = QueryParser.escape(query);
         MultiFieldQueryParser parser = new MultiFieldQueryParser(fields, analyzer);
-        parser.setDefaultOperator(QueryParser.Operator.OR);
         return parser.parse(query);
     }
 

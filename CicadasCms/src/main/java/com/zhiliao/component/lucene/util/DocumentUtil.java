@@ -16,10 +16,10 @@ public class DocumentUtil {
 
     public static Document IndexObject2Document(IndexObject indexObject) {
         Document doc = new Document();
-        doc.add(new StoredField("id", indexObject.getId()));
+        doc.add(new TextField("id",indexObject.getId(), Field.Store.YES));
         doc.add(new TextField("title",indexObject.getTitle(), Field.Store.YES));
-        doc.add(new TextField("keywords",indexObject.getKeywords(), Field.Store.YES));
-        doc.add(new TextField("descripton",indexObject.getDescripton(), Field.Store.YES));
+        doc.add(new TextField("keywords",indexObject.getKeywords(),Field.Store.YES));
+        doc.add(new TextField("description",indexObject.getDescription(),Field.Store.YES));
         doc.add(new StoredField("postDate", indexObject.getPostDate()));
         doc.add(new StoredField("url", indexObject.getUrl()));
         return doc;  
@@ -27,10 +27,10 @@ public class DocumentUtil {
   
     public static  IndexObject document2IndexObject(Analyzer analyzer, Highlighter highlighter, Document doc,float score) throws Exception {
         IndexObject indexObject = new IndexObject();
-        indexObject.setId(Long.parseLong(doc.get("id")));
+        indexObject.setId(doc.get("id"));
         indexObject.setTitle(stringFormatHighlighterOut(analyzer, highlighter,doc,"title"));
         indexObject.setKeywords(stringFormatHighlighterOut(analyzer, highlighter,doc,"keywords"));
-        indexObject.setDescripton(stringFormatHighlighterOut(analyzer, highlighter,doc,"descripton"));
+        indexObject.setDescription(stringFormatHighlighterOut(analyzer, highlighter,doc,"description"));
         indexObject.setPostDate(doc.get("postDate"));
         indexObject.setUrl(doc.get("url"));
         indexObject.setScore(score);
@@ -43,8 +43,8 @@ public class DocumentUtil {
         String fieldValue = document.get(field);
         if(fieldValue!=null){
             TokenStream tokenStream=analyzer.tokenStream(field, new StringReader(fieldValue));
-            return highlighter.getBestFragment(tokenStream, fieldValue);
+            fieldValue = highlighter.getBestFragment(tokenStream, fieldValue);
         }
-        return null;
+        return fieldValue;
     }
 }
