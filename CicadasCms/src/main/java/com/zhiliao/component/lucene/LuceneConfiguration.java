@@ -17,8 +17,8 @@ public class LuceneConfiguration {
 
 
     @Bean
-    public LuceneDao luceneUtil() {
-        LuceneDao luceneDao = new LuceneDao();
+    public LuceneManager luceneUtil() {
+        LuceneManager luceneDao = new LuceneManager();
         luceneDao.setIndexDer(PathUtil.getRootClassPath()+ File.separator+"lucene");
         return luceneDao;
     }

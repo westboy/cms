@@ -2,7 +2,7 @@ package com.zhiliao;
 
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.utils.DateUtil;
-import com.zhiliao.component.lucene.LuceneDao;
+import com.zhiliao.component.lucene.LuceneManager;
 import com.zhiliao.component.lucene.util.IndexObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +17,7 @@ import java.util.List;
 public class LuceneTest {
 
 	@Autowired
-	LuceneDao luceneDao;
+	LuceneManager luceneManager;
 
 	@Test
 	public void create() {
@@ -31,7 +31,7 @@ public class LuceneTest {
 		object2.setDescription(
 				"说白了只是为了自己方便使用，并没显示，美观整洁；"
 						+ "多种格式文件导出支持，可将当前 Markdown 文件另存为 LibreOffice ODT Document、Latex、PDF、reStructured Text、Media Wiki markup、epub 以及 plain txt 等格式文件输出；");
-		luceneDao.create(object2);
+		luceneManager.create(object2);
 
 		IndexObject object3 = new IndexObject();
 		object3.setTitle("3说白了只是为了自己方便使用");
@@ -43,7 +43,7 @@ public class LuceneTest {
 				"说白了只是为了自己方便使用，并没什么新奇台支持；完美支持 LaTex 数学公式、脚注、尾注等，支持使用本地 MathJax 调用，不需要在线访问 MathJax CDN；"
 						+ "用户可配置的 Markdown 语法高亮显示，美观整洁；"
 						+ "多种格式文件导出支持，可将当前 Markdown/ LibreOffice ODT Document、Latex、PDF、reStructured Text、Media Wiki markup、epub 以及 plain txt 等格式文件输出；");
-		luceneDao.create(object3);
+		luceneManager.create(object3);
 
 		IndexObject object4 = new IndexObject();
 		object4.setTitle("4说白了只是为了自己方便使用");
@@ -56,19 +56,19 @@ public class LuceneTest {
 						+ "主要特性：Wi持 LaTex 数学公式、脚注、尾注等，支持使用本地 MathJax 调用，不需要在线访问 MathJax CDN；"
 						+ "用户可配置的 Markdown 语法高亮显示，美观整洁；"
 						+ "多种格式文件导出支持，可将当前 Markdown 文件另存为 HTML、 Miscrosoft Word、OpenOffice / LibreOffice ODT Document、Latex、PDF、reStructured Text、Media Wiki markup、epub 以及 plain txt 等格式文件输出；");
-		luceneDao.create(object4);
+		luceneManager.create(object4);
 	}
 
 	@Test
 	public void delete() {
 		IndexObject object4 = new IndexObject();
 		object4.setId("41");
-		luceneDao.delete(object4);
+		luceneManager.delete(object4);
 	}
 
 	@Test
 	public void deleteAll() {
-		luceneDao.deleteAll();
+		luceneManager.deleteAll();
 	}
 
 	@Test
@@ -84,12 +84,12 @@ public class LuceneTest {
 						+ "主要特性：Wi持 LaTex 数学公式、脚注、尾注等，支持使用本地 MathJax 调用，不需要在线访问 MathJax CDN；"
 						+ "用户可配置的 Markdown 语法高亮显示，美观整洁；"
 						+ "多种格式文件导出支持，可将当前 Markdown 文件另存为 HTML、 Miscrosoft Word、OpenOffice / LibreOffice ODT Document、Latex、PDF、reStructured Text、Media Wiki markup、epub 以及 plain txt 等格式文件输出；");
-		luceneDao.update(object4);
+		luceneManager.update(object4);
 	}
 
 	@Test
 	public void serach(){
-		PageInfo p = luceneDao.page(1,10,"白了只是为了自己方便使用");
+		PageInfo p = luceneManager.page(1,10,"白了只是为了自己方便使用");
 		List<IndexObject> list = p.getList();
 		for(IndexObject obj:list){
 			System.out.println(obj.getId());

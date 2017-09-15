@@ -31,9 +31,9 @@ import java.util.List;
  * @author Jin
  * @create 2017-05-18
  **/
-public class LuceneDao {
+public class LuceneManager {
 
-	private final static Logger log = LoggerFactory.getLogger(LuceneDao.class);
+	private final static Logger log = LoggerFactory.getLogger(LuceneManager.class);
 
 	private  Directory directory = null;
 	private  Analyzer analyzer = null;
@@ -93,7 +93,6 @@ public class LuceneDao {
 			IndexWriterConfig config = new IndexWriterConfig(this.getAnalyzer());
 			indexWriter = new IndexWriter(this.getDirectory(), config);
 			Long result =indexWriter.deleteDocuments(new Term("id", indexObject.getId()));
-			indexWriter.commit();
 			log.info("deleted:{}",result);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -171,7 +170,7 @@ public class LuceneDao {
 		try {
 			indexReader = DirectoryReader.open(this.getDirectory());
 			IndexSearcher indexSearcher = new IndexSearcher(indexReader);
-			Query query = QueryUtil.query(keyword,this.getAnalyzer(),"title","description");
+			Query query = QueryUtil.query(keyword,this.getAnalyzer(),"title","keywords","description");
             ScoreDoc lastScoreDoc = this.getLastScoreDoc(pageNumber, pageSize, query, indexSearcher);
             /*将上一页的最后一个document传递给searchAfter方法以得到下一页的结果 */
             TopDocs topDocs = indexSearcher.searchAfter(lastScoreDoc,query, pageSize);
