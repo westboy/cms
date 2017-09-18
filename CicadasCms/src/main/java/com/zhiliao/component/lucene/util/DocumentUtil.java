@@ -28,9 +28,9 @@ public class DocumentUtil {
     public static  IndexObject document2IndexObject(Analyzer analyzer, Highlighter highlighter, Document doc,float score) throws Exception {
         IndexObject indexObject = new IndexObject();
         indexObject.setId(doc.get("id"));
-        indexObject.setTitle(stringFormatHighlighterOut(analyzer, highlighter,doc,"title"));
-        indexObject.setKeywords(stringFormatHighlighterOut(analyzer, highlighter,doc,"keywords"));
-        indexObject.setDescription(stringFormatHighlighterOut(analyzer, highlighter,doc,"description"));
+        indexObject.setTitle(stringFormatHighlighterOut(analyzer, highlighter,doc,"title")==null?doc.get("title"):stringFormatHighlighterOut(analyzer, highlighter,doc,"title"));
+        indexObject.setKeywords(stringFormatHighlighterOut(analyzer, highlighter,doc,"keywords")==null?doc.get("keywords"):stringFormatHighlighterOut(analyzer, highlighter,doc,"keywords"));
+        indexObject.setDescription(stringFormatHighlighterOut(analyzer, highlighter,doc,"description")==null?doc.get("description"):stringFormatHighlighterOut(analyzer, highlighter,doc,"description"));
         indexObject.setPostDate(doc.get("postDate"));
         indexObject.setUrl(doc.get("url"));
         indexObject.setScore(score);
