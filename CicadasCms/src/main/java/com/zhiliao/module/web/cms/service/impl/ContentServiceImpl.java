@@ -4,15 +4,14 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.exception.SystemException;
-import com.zhiliao.component.lucene.util.IndexObject;
 import com.zhiliao.common.utils.*;
-import com.zhiliao.module.web.cms.service.CategoryService;
-import com.zhiliao.module.web.cms.service.ContentService;
-import com.zhiliao.module.web.cms.service.TagService;
+import com.zhiliao.component.lucene.util.IndexObject;
+import com.zhiliao.module.web.cms.service.*;
 import com.zhiliao.module.web.cms.vo.TCmsContentVo;
 import com.zhiliao.mybatis.mapper.TCmsContentMapper;
 import com.zhiliao.mybatis.model.TCmsCategory;
 import com.zhiliao.mybatis.model.TCmsContent;
+import com.zhiliao.mybatis.model.TCmsModel;
 import com.zhiliao.mybatis.model.TCmsModelFiled;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,7 +59,10 @@ public class ContentServiceImpl implements ContentService{
     private CategoryService categoryService;
 
     @Autowired
-    private LuceneServiceImpl luceneService;
+    private LuceneService luceneService;
+
+    @Autowired
+    private ModelService modelService;
 
     @Override
     public String save(TCmsContent pojo) {
@@ -287,9 +289,9 @@ public class ContentServiceImpl implements ContentService{
         return new PageInfo<>(contentMapper.selectByTableNameAndMap(tableName,categoryId,param));
     }
 
-    @Cacheable(key = "'find-siteid-'+#p0+'-categoryid-'+#p1+'-orderby-'+#p2+'-size-'+#p3+'-hasChild-'+#p4+'-isHot-'+#p5")
+    @Cacheable(key = "'find-siteid-'+#p0+'-categoryid-'+#p1+'-orderby-'+#p2+'-pageNumber-'+#p3+'-pageSize-'+#p4+'-hasChild-'+#p5+'-isHot-'+#p6+'-isPic-'+#p7+'-isRecommend-'+#p8")
     @Override
-    public PageInfo<TCmsContent> findContentListBySiteIdAndCategoryId(Integer siteId,
+    public PageInfo<Map> findContentListBySiteIdAndCategoryId(Integer siteId,
                                                                       Long categoryId,
                                                                       Integer orderBy,
                                                                       Integer pageNumber,
@@ -299,6 +301,9 @@ public class ContentServiceImpl implements ContentService{
                                                                       Integer isPic,
                                                                       Integer isRecommend) {
         Long[] categoryIds;
+        TCmsCategory category = categoryService.findById(categoryId);
+        if(CmsUtil.isNullOrEmpty(category)) throw new CmsException("栏目["+categoryId+"]不存在！");
+        TCmsModel model = modelService.findById(category.getModelId());
         /*如果包含子类栏目*/
         if(hasChild==1) {
             List<TCmsCategory> cats =categoryService.findCategoryListByPid(categoryId);
@@ -310,6 +315,9 @@ public class ContentServiceImpl implements ContentService{
                 categoryIds[0]=categoryId;
                 int i= 1;
                 for(TCmsCategory cat :cats){
+                    /*判断是否和父栏目内容模型一致*/
+                    if(category.getModelId().intValue()!=cat.getModelId().intValue())
+                        continue;
                     categoryIds[i]=cat.getCategoryId();
                     i++;
                 }
@@ -318,43 +326,42 @@ public class ContentServiceImpl implements ContentService{
             categoryIds =new Long[]{categoryId};
         }
         PageHelper.startPage(pageNumber, pageSize);
-        return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryId(siteId,categoryIds,orderBy,isHot,isPic,isRecommend));
+        return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryIds(siteId,categoryIds,orderBy,isHot,isPic,isRecommend,model.getTableName()));
     }
 
-    @Cacheable(key = "'find-siteid-'+#p0+'-categoryids-'+#p1+'-orderby-'+#p2+'-size-'+#p3+'-hasChild-'+#p4+'-isHot-'+#p5")
+    @Cacheable(key = "'find-siteid-'+#p0+'-categoryids-'+#p1+'-orderby-'+#p2+'-size-'+#p3+'-isHot-'+#p4+'-isPic-'+#p5+'-isRecommend-'+#p6")
     @Override
-    public PageInfo<TCmsContent> findContentListBySiteIdAndCategoryIds(Integer siteId,
-                                                                      Long[] categoryIds,
-                                                                      Integer orderBy,
-                                                                      Integer size,
-                                                                      Integer hasChild,
-                                                                      Integer isHot, Integer isPic, Integer isRecommend) {
+    public PageInfo<Map> findTopicContentListBySiteIdAndCategoryIds(Integer siteId,
+                                                                    Long[] categoryIds,
+                                                                    Integer orderBy,
+                                                                    Integer size,
+                                                                    Integer isHot,
+                                                                    Integer isPic,
+                                                                    Integer isRecommend) {
         PageHelper.startPage(1, size);
-        return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryId(siteId,categoryIds,orderBy,isHot,isPic,isRecommend));
+        return new PageInfo<>(contentMapper.selectByTopicContentListBySiteIdAndCategoryIds(siteId,categoryIds,orderBy,isHot,isPic,isRecommend));
     }
 
     @Cacheable(key = "'page-pageNumber-'+#p0+'-siteId-'+#p1+'-categoryId-'+#p2")
     @Override
-    public PageInfo<TCmsContent> page(Integer pageNumber,Integer siteId, Long categoryId) {
-        /* 判断当前分类下有没有内容,如果有内容就直接返回*/
-        PageHelper.startPage(pageNumber,this.categoryService.findPageSize(categoryId));
-        List<TCmsContent> list =contentMapper.selectByCategoyId(categoryId,siteId);
-        if(!CmsUtil.isNullOrEmpty(list)&&list.size()>0)
-            return new PageInfo<>(list);
+    public PageInfo<Map> page(Integer pageNumber,Integer siteId, Long categoryId) {
 
-        /* 查询当前分类的父类下的内容列表 */
-        TCmsCategory category= categoryService.findById(categoryId);
+        TCmsCategory category = categoryService.findById(categoryId);
         if(CmsUtil.isNullOrEmpty(category)) throw new CmsException("栏目["+categoryId+"]不存在！");
+        TCmsModel model = modelService.findById(category.getModelId());
 
-        /*查询父类列表*/
-        PageHelper.startPage(pageNumber,this.categoryService.findPageSize(categoryId));
-        list = contentMapper.selectByCategoyId(category.getParentId(),siteId);
+        /* 如果当前栏目有内容就直接返回*/
+        PageHelper.startPage(pageNumber,category.getPageSize());
+        List<Map> list =contentMapper.selectByCategoyId(categoryId,siteId,model.getTableName());
         if(!CmsUtil.isNullOrEmpty(list)&&list.size()>0)
             return new PageInfo<>(list);
 
-        /*查询当前栏目的子类*/
-        PageHelper.startPage(pageNumber,this.categoryService.findPageSize(categoryId));
-        return new PageInfo<>(contentMapper.selectByCategoyParentId(category.getCategoryId(),siteId));
+        /*
+        * 查询当前栏目的子类
+        * todo 有必要确定子栏目的内容模型是否必须和父栏目一致,暂时以父栏目的模型为主
+        */
+        PageHelper.startPage(pageNumber,category.getPageSize());
+        return new PageInfo<>(contentMapper.selectByCategoyParentId(category.getCategoryId(),siteId,model.getTableName()));
     }
 
 

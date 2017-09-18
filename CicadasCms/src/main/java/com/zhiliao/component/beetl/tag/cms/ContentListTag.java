@@ -4,11 +4,9 @@ import com.github.pagehelper.PageInfo;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.CmsUtil;
-import com.zhiliao.common.utils.Pojo2MapUtil;
 import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.module.web.cms.service.ContentService;
 import com.zhiliao.module.web.cms.service.SiteService;
-import com.zhiliao.mybatis.model.TCmsContent;
 import com.zhiliao.mybatis.model.TCmsSite;
 import org.beetl.core.GeneralVarTagBinding;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,33 +74,29 @@ public class ContentListTag extends GeneralVarTagBinding {
         Integer pageNumber =  Integer.parseInt((CmsUtil.isNullOrEmpty(this.getAttributeValue("pageNumber"))?"1":(String) this.getAttributeValue("pageNumber")));
         Integer pageSize =  Integer.parseInt((String) this.getAttributeValue("size"));
         Integer isHot =  Integer.parseInt((String) this.getAttributeValue("isHot"));
-        PageInfo<TCmsContent> pageInfo = contentService.findContentListBySiteIdAndCategoryId(siteId, categoryId, orderBy, pageNumber,pageSize, hasChild, isHot, isPic,isRecommend);
+        PageInfo<Map> pageInfo = contentService.findContentListBySiteIdAndCategoryId(siteId, categoryId, orderBy, pageNumber,pageSize, hasChild, isHot, isPic,isRecommend);
         if(CmsUtil.isNullOrEmpty(pageInfo.getList())) return;
-        try {
-            wrapRender(pageInfo.getList(),titleLen,siteId);
-        } catch (Exception e) {
-            throw new CmsException(e.getMessage());
-        }
+        this.wrapRender(pageInfo.getList(),titleLen,siteId);
+
     }
 
-    private void wrapRender(List<TCmsContent>  contentList, int titleLen, int siteId) throws Exception {
+    private void wrapRender(List<Map>  contentList, int titleLen, int siteId) {
         int i = 1;
-        for (TCmsContent content : contentList) {
-            String title = content.getTitle();
+        for (Map content : contentList) {
+            String title = content.get("title").toString();
             int length = title.length();
             if (length > titleLen) {
-                content.setTitle(title.substring(0, titleLen) + "...");
+                content.put("title",title.substring(0, titleLen) + "...");
             }
-            if (StrUtil.isBlank(content.getUrl())) {
+            if (StrUtil.isBlank(content.get("url").toString())) {
                 TCmsSite site = siteService.findById(siteId);
                 if(CmsUtil.isNullOrEmpty(site)) throw new CmsException("站点不存在[siteId:"+siteId+"]");
                 String url = httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/"+sitePrefix+"/"+site.getSiteId()+"/";
-                url+=content.getCategoryId()+"/"+content.getContentId();
-                content.setUrl(url+siteSubfix);
+                url+=content.get("categoryId")+"/"+content.get("contentId");
+                content.put("url",url+siteSubfix);
             }
-            Map result = Pojo2MapUtil.toMap(content);
-            result.put("index",i);
-            this.binds(result);
+            content.put("index",i);
+            this.binds(content);
             this.doBodyRender();
             i++;
         }

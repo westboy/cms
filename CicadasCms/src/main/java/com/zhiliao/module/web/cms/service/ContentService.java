@@ -28,7 +28,7 @@ public interface  ContentService extends BaseService<TCmsContent,Long> {
 
     String update(TCmsContent content, String tableName, List<TCmsModelFiled> cmsModelFileds , Map<String, Object> formParam, String[] tag) throws SQLException;
 
-    PageInfo<TCmsContent> findContentListBySiteIdAndCategoryId(Integer siteId,
+    PageInfo<Map> findContentListBySiteIdAndCategoryId(Integer siteId,
                                                                Long categoryId,
                                                                Integer orderBy,
                                                                Integer pageNumber,
@@ -38,16 +38,15 @@ public interface  ContentService extends BaseService<TCmsContent,Long> {
                                                                Integer isPic,
                                                                Integer isRecommend);
 
-    PageInfo<TCmsContent> findContentListBySiteIdAndCategoryIds(Integer siteId,
-                                                                Long[] categoryIds,
-                                                                Integer orderBy,
-                                                                Integer size,
-                                                                Integer hasChild,
-                                                                Integer isHot,
-                                                                Integer isPic,
-                                                                Integer isRecommend);
+    PageInfo<Map> findTopicContentListBySiteIdAndCategoryIds(Integer siteId,
+                                                        Long[] categoryIds,
+                                                        Integer orderBy,
+                                                        Integer size,
+                                                        Integer isHot,
+                                                        Integer isPic,
+                                                        Integer isRecommend);
 
-    PageInfo<TCmsContent> page(Integer pageNumber,Integer siteId,Long categoryId);
+    PageInfo<Map> page(Integer pageNumber,Integer siteId,Long categoryId);
 
     PageInfo<TCmsContent>  findContentListByModelFiledValue(int pageNumber,Long categoryId, String tableName, Map<String, Object> param);
 

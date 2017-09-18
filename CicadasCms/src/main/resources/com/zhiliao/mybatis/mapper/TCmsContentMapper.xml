@@ -100,7 +100,83 @@
 
     </select>
 
-    <select id="selectByContentListBySiteIdAndCategoryId" parameterType="java.util.Map"  resultMap="BaseResultMap">
+    <select id="selectByContentListBySiteIdAndCategoryIds"   resultType="java.util.Map">
+        SELECT
+        c.content_id contentId,
+        c.site_id siteId,
+        c.user_id userId,
+        c.category_id categoryId,
+        c.model_id modelId,
+        c.title,
+        c.keywords,
+        c.description,
+        c.top,
+        c.recommend,
+        c.thumb,
+        c.updatedate,
+        c.inputdate,
+        c.status,
+        c.url,
+        c.author,
+        c.view_num viewNum,
+        m.*
+        FROM
+        t_cms_content c LEFT JOIN  t_cms_content_${tableName}  m
+        ON
+        c.content_id = m.content_id
+        <trim prefix="WHERE ("  suffix=")" prefixOverrides="AND|OR">
+            c.status=1
+            <if test="siteId!=null">
+               AND  c.site_id = #{siteId}
+            </if>
+            <if test="categoryIds!=null">
+               AND
+                c.category_id in
+                 <foreach item="item" index="index" collection="categoryIds" open="(" separator="," close=")">
+                   #{item}
+                 </foreach>
+            </if>
+            <if test='isRecommend!=null and isRecommend==1'>
+                AND
+                c.recommend = 1
+            </if>
+            <if test='isPic!=null and isPic==1'>
+                AND
+                c.thumb!=''
+            </if>
+            <if test='isPic!=null and isPic==0'>
+                AND
+                c.thumb=''
+            </if>
+        </trim>
+
+        <choose>
+            <when test="orderBy==1">
+                order by c.content_id
+            </when>
+            <when test="orderBy==2">
+                order by c.inputdate DESC
+            </when>
+            <when test="orderBy==3">
+                order by c.inputdate
+            </when>
+            <when test="orderBy==4">
+                order by c.updatedate DESC
+            </when>
+            <when test="orderBy==5">
+                order by c.updatedate
+            </when>
+            <when test="isHot==1">
+                order by c.view_num DESC
+            </when>
+            <otherwise>
+                order by c.content_id DESC
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="selectByTopicContentListBySiteIdAndCategoryIds"   resultType="java.util.Map">
         SELECT
         *
         FROM
@@ -108,26 +184,26 @@
         <trim prefix="WHERE ("  suffix=")" prefixOverrides="AND|OR">
             status=1
             <if test="siteId!=null">
-               AND  site_id = #{siteId}
+                AND  site_id = #{siteId}
             </if>
             <if test="categoryIds!=null">
-               AND
-                   category_id in
-                 <foreach item="item" index="index" collection="categoryIds" open="(" separator="," close=")">
-                   #{item}
-                 </foreach>
+                AND
+                category_id in
+                <foreach item="item" index="index" collection="categoryIds" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
             </if>
             <if test='isRecommend!=null and isRecommend==1'>
                 AND
-                    recommend = 1
+                recommend = 1
             </if>
             <if test='isPic!=null and isPic==1'>
                 AND
-                   thumb!=''
+                thumb!=''
             </if>
             <if test='isPic!=null and isPic==0'>
                 AND
-                   thumb=''
+                thumb=''
             </if>
         </trim>
 
