@@ -9,7 +9,7 @@ public class PaginateVo  implements java.io.Serializable{
 	
 	private Integer total;
 	private Integer current;
-	private String last;
+	private String first;
 	private List<PageActionVo> changePage;
 	private String next;
 
@@ -22,12 +22,12 @@ public class PaginateVo  implements java.io.Serializable{
 		this.changePage = changePages;
 	}
 
-	public String getLast() {
-		return last;
+	public String getFirst() {
+		return first;
 	}
 
-	public void setLast(String last) {
-		this.last = last;
+	public void setFirst(String first) {
+		this.first = first;
 	}
 
 	public String getNext() {

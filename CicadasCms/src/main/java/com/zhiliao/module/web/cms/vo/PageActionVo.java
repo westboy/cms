@@ -1,11 +1,14 @@
 package com.zhiliao.module.web.cms.vo;
 
 public class PageActionVo {
-	
+
 	private Integer pageNumber;
 	private String url;
 	private boolean isLink;
+	private boolean isMore = false;
 	private String value;
+	public boolean isMore() { return isMore; }
+	public void setMore(boolean more) { isMore = more; }
 	public Integer getPageNumber() {
 		return pageNumber;
 	}

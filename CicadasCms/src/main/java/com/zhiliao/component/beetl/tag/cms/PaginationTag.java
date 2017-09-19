@@ -84,7 +84,7 @@ public class PaginationTag extends GeneralVarTagBinding {
         paging.setTotal(totalPage);
 
         if (totalPage <= 0 || pageNumber > totalPage) {
-            paging.setLast("<a>上一页</a>");
+            paging.setFirst("<a>上一页</a>");
             PageActionVo p1 = new PageActionVo();
             p1.setLink(false);
             p1.setValue("<a>1</a>");
@@ -120,7 +120,7 @@ public class PaginationTag extends GeneralVarTagBinding {
             lastPage = lastPage.replace("{pageNumber}", (currentPage - 1) + "");
         }
 
-        paging.setLast(lastPage);
+        paging.setFirst(lastPage);
 
         if (currentPage > 8) {
 
@@ -139,6 +139,7 @@ public class PaginationTag extends GeneralVarTagBinding {
             // 更多字符串.....
             PageActionVo more = new PageActionVo();
             more.setLink(false);
+            more.setMore(true);
             more.setValue("<a>...</a>");
             changeLink.add(more);
         }
@@ -165,6 +166,7 @@ public class PaginationTag extends GeneralVarTagBinding {
             // 更多字符串.....
             PageActionVo more1 = new PageActionVo();
             more1.setLink(false);
+            more1.setMore(true);
             more1.setValue("<a>...</a>");
             changeLink.add(more1);
             // 第一页
