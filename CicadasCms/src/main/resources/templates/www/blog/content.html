@@ -32,7 +32,14 @@
     </header>
     <article>
         <#cms_site_pos  site="${site}" category="${category}"  var="bean">
-           <h2 class="about_h">您现在的位置是：${bean.baseURL}>${bean.catURL}</h2>
+            <h2 class="about_h">您现在的位置是:${bean.baseURL}>
+                @for(location in bean.locations){
+                <a href="${location.url}">${location.categoryName}</a>
+                @if(!locationLP.last){
+                >
+                @}
+                @}
+            </h2>
         </#cms_site_pos>
         <div class="index_about">
             <h2 class="c_titile">${content.title!}</h2>
