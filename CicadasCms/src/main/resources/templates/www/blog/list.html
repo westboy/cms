@@ -69,7 +69,7 @@
             <a title="Total record">
             <b>${page.total!}</b></a>
             <#cms_pagination siteId="${site.siteId}" categoryId="${category.categoryId}" page="${page}"  var="page" >
-                @//${page.last}上一页
+                @//${page.first}上一页
                 @for( change in page.changePage){
                 @if(!change.isLink){
                 <b>${change.value!}</b>
