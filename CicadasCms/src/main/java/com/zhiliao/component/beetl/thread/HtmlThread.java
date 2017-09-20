@@ -62,12 +62,12 @@ public class HtmlThread implements InitializingBean,DisposableBean, Runnable {
 	}
 
 	@Override
-	public void destroy() throws Exception {
+	public void destroy(){
         this.run=false;
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
 		thread.start();
 	}
 }

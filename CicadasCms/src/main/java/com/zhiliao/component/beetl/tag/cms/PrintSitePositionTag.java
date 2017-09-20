@@ -44,28 +44,20 @@ public class PrintSitePositionTag extends GeneralVarTagBinding {
     public void render() {
         String url = httpProtocol + "://" + ControllerUtil.getDomain();
         String baseURL = "";
-        String pcatURL = "";
         List<Map> locations = new ArrayList<>();
-        Map reult = Maps.newHashMap();
+        Map result = Maps.newHashMap();
         TCmsSite site = (TCmsSite) this.getAttributeValue("site");
         if (CmsUtil.isNullOrEmpty(site))
             throw new CmsException("面包屑导航出错[site参数必须为site对象]");
         baseURL += url + "/" + sitePrefix + "/" + site.getSiteId() + "/";
-        reult.put("baseURL", "<a href=\"" + baseURL + "\">首页</a>");
+        result.put("baseURL", "<a href=\"" + baseURL + "\">首页</a>");
         TCmsCategory category = (TCmsCategory) this.getAttributeValue("category");
         if (!CmsUtil.isNullOrEmpty(category)) {
-            reult.put("locations", locations(locations, baseURL, category));
+            result.put("locations", locations(locations, baseURL, category));
         } else {
-            reult.put("pcatURL", "");
+            result.put("locations", "");
         }
-        if (!CmsUtil.isNullOrEmpty(category) && category.getParentId().intValue() > 0) {
-            TCmsCategory parentCategory = categoryService.findById(category.getParentId());
-            pcatURL += baseURL + parentCategory.getCategoryId() + siteSubfix;
-            reult.put("pcatURL", "<a href=\"" + pcatURL + "\">" + parentCategory.getCategoryName() + "</a>");
-        } else {
-            reult.put("pcatURL", "");
-        }
-        this.binds(reult);
+        this.binds(result);
         this.doBodyRender();
     }
 
