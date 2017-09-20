@@ -68,17 +68,31 @@
         <div class="page">
             <a title="Total record">
             <b>${page.total!}</b></a>
+            @//if(page.pageNum == 1){
+            <!--<li class="first"><a>首页</a></li>-->
+            @//}else{
+            <!--<li class="first"><a href="${ctxPath}/front/${site.siteId}/${category.categoryId}/index_1.html">首页</a></li>-->
+            @//}
             <#cms_pagination siteId="${site.siteId}" categoryId="${category.categoryId}" page="${page}"  var="page" >
-                @//${page.first}上一页
+                @//${page.first}
                 @for( change in page.changePage){
                 @if(!change.isLink){
-                <b>${change.value!}</b>
+                  @if(change.isMore){
+                    <b>${change.value!}</b>
+                  @}else{
+                    <b>${change.value!}</b>
+                  @}
                 @}else{
                 ${change.url!}
                 @}
                 @}
-                @//${page.next}下一页
+                @//${page.next}
             </#cms_pagination>
+            @//if(page.pageNum == page.pages){
+            <!--<li class="last"><a>末页</a></li>-->
+            @//}else{
+            <!--<li class="last"><a href="${ctxPath}/front/${site.siteId}/${category.categoryId}/index_${page.pages!}.html">末页</a></li>-->
+            @//}
         </div>
     </article>
     <aside>
