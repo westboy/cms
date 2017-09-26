@@ -17,14 +17,9 @@
         <ul id="role-tree" class="ztree" data-toggle="ztree" data-expand-all="true" data-on-click="do_open_layout">
             <li data-id="1" data-pid="0">系统角色</li>
             <li data-id="10" data-pid="1" data-url="${ctxPath}/system/role/input?roleType=0" data-divid="#layout-01" data-divid="#layout-01">+增加角色</li>
-           @for(role in sroles){
+           @for(role in roles){
             <li data-id="1${roleLP.index}" data-pid="1" data-url="${ctxPath}/system/role/input?roleId=${role.roleId}&roleType=0" data-divid="#layout-01">-${role.rolename}</li>
            @}
-            <!--<li data-id="2" data-pid="0">前台角色</li>-->
-            <!--<li data-id="20" data-pid="2" data-url="${ctxPath}/system/role/input?roleType=1" data-divid="#layout-01">+增加角色</li>-->
-            @//for(role in uroles){
-            @//<li data-id="2${roleLP.index}" data-pid="2" data-url="${ctxPath}/system/role/input?roleId=${role.roleId}&roleType=1" data-divid="#layout-01">-${role.rolename}</li>
-            @//}
         </ul>
        </fieldset>
     </div>

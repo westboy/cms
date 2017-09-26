@@ -26,8 +26,7 @@ public class RoleController {
     @RequiresPermissions({"role:admin"})
     @RequestMapping
     public String index(Model model){
-        model.addAttribute("sroles",roleService.findByTypeId(0));
-        model.addAttribute("uroles",roleService.findByTypeId(1));
+        model.addAttribute("roles",roleService.findAll());
         return "system/role";
     }
 

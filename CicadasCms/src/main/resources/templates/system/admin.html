@@ -16,14 +16,14 @@
         <fieldset  style="width:220px; min-height:99.9%;height:auto;padding: 0px;margin: 0">
         <ul id="admin-org-tree" class="ztree" data-toggle="ztree" data-expand-all="true" data-on-click="do_open_layout_admin">
             <!--输出分类tree列表-->
-            ${TreeOrgOut("0","system/member/sysUser?orgId=","#edit-admin-org-layout")}
+            ${TreeOrgOut("0","system/user/list?orgId=","#edit-admin-org-layout")}
          </ul>
         </fieldset>
     </div>
     <div style="margin-left:160px; height:99.9%; overflow:hidden;" >
         <div style="height:100%; overflow:hidden;">
             <fieldset style="height:100%;">
-                <div id="edit-admin-org-layout"  data-url="${ctxPath}/system/member/sysUser" data-toggle="autoajaxload"   style="height:99%; overflow:hidden;">
+                <div id="edit-admin-org-layout"  data-url="${ctxPath}/system/user/list" data-toggle="autoajaxload"   style="height:99%; overflow:hidden;">
 
                 </div>
             </fieldset>

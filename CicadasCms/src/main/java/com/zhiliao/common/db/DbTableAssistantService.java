@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
@@ -24,7 +23,6 @@ import static com.zhiliao.common.db.impl.M.BIG_INT_TYPE;
  *
  **/
 @Service
-@Scope("prototype")
 public class DbTableAssistantService{
 
 

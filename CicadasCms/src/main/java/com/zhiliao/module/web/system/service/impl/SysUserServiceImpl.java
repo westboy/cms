@@ -7,7 +7,6 @@ import com.zhiliao.common.annotation.SysLog;
 import com.zhiliao.common.constant.CmsConst;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.*;
-import com.zhiliao.component.shiro.DefaultUsernamePasswordToken;
 import com.zhiliao.component.shiro.PasswordKit;
 import com.zhiliao.module.web.system.service.SysUserService;
 import com.zhiliao.module.web.system.vo.UserVo;
@@ -15,10 +14,7 @@ import com.zhiliao.mybatis.mapper.*;
 import com.zhiliao.mybatis.model.*;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,13 +59,12 @@ public class SysUserServiceImpl implements SysUserService{
 
     @Override
     @SysLog("后台用户登陆")
-    public Map<String, Object> login(HttpServletRequest request, String username, String password, String remberMe, String loginType) {
+    public Map<String, Object> login(HttpServletRequest request, String username, String password, String remberMe) {
         Map<String, Object> result = Maps.newHashMap();
         result.put("success", false);
         HttpSession session = request.getSession();
         Subject currentUser = SecurityUtils.getSubject();
-        DefaultUsernamePasswordToken usernamePasswordToken = new DefaultUsernamePasswordToken(username, password);
-        usernamePasswordToken.setLoginType(loginType);
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
         /*是否需要记住我*/
         if ("true".equals(remberMe)) {
             usernamePasswordToken.setRememberMe(true);
@@ -139,7 +134,7 @@ public class SysUserServiceImpl implements SysUserService{
         if(sysUserMapper.insert(user)>0) {
             if (CmsUtil.isNullOrEmpty(roleIds)) throw new SystemException("请选择用户角色！");
             for (int roleId : roleIds) {
-                this.saveUserRole(user.getUserId(),roleId,0);
+                this.saveUserRole(user.getUserId(),roleId);
             }
             for (String orgId : orgIds.split(",")) {
                 this.saveUserOrg(user.getUserId(),Integer.parseInt(orgId));
@@ -160,10 +155,10 @@ public class SysUserServiceImpl implements SysUserService{
             user.setSalt(salt);
         }
         if(sysUserMapper.updateByPrimaryKey(user)>0) {
-            userRoleMapper.deleteByUserIdAndTypeId(user.getUserId(),0);
+            userRoleMapper.deleteByUserId(user.getUserId());
             if (CmsUtil.isNullOrEmpty(roleIds)) throw new SystemException("请选择用户角色！");
             for (Integer roleId : roleIds) {
-               this.saveUserRole(user.getUserId(),roleId,0);
+               this.saveUserRole(user.getUserId(),roleId);
             }
             if(!StrUtil.isBlank(orgIds)) {
                 this.userOrgMapper.deleteByUserId(user.getUserId());
@@ -176,11 +171,10 @@ public class SysUserServiceImpl implements SysUserService{
         return JsonUtil.toERROR("更新失败！");
     }
 
-    public void saveUserRole(Integer userId,Integer roleId,Integer typeId){
+    public void saveUserRole(Integer userId,Integer roleId){
         TSysUserRole userRole = new TSysUserRole();
         userRole.setRoleId(roleId);
         userRole.setUserId(userId);
-        userRole.setRoleType(typeId);//todo 这个角色类型有待删除！
         userRoleMapper.insert(userRole);
     }
 
@@ -193,7 +187,7 @@ public class SysUserServiceImpl implements SysUserService{
 
     @Override
     public Set<String> findSysUserPermissionsByUsername(String username) {
-        /* 根据用户名查询权限，set不会重复的 */
+        /* 根据用户名查询权限 */
         List<TSysPermission> permissions = sysPermissionMapper.selectSysUserPermissionsByUsername(username);
         Set<String> set = new HashSet<>();
         for(TSysPermission permission :permissions){
@@ -246,7 +240,7 @@ public class SysUserServiceImpl implements SysUserService{
                     throw new SystemException("你不能删除自己！");
                 if(sysUserMapper.deleteByPrimaryKey(id)>0) {
 
-                    flag_ = userRoleMapper.deleteByUserIdAndTypeId(id,0)>0;
+                    flag_ = userRoleMapper.deleteByUserId(id)>0;
                 }
             }
         }
@@ -264,5 +258,10 @@ public class SysUserServiceImpl implements SysUserService{
             return JsonUtil.toSUCCESS("密码修改成功！","changepwd_page",true);
         }
         return JsonUtil.toERROR("原密码输入错误！");
+    }
+
+    @Override
+    public Integer countAll() {
+        return sysUserMapper.countUser();
     }
 }

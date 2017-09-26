@@ -79,6 +79,12 @@
                    value="${pojo.url!}"  placeholder="外部链接"> ( 填写外部链接后以下设置将失效！)
         </div>
         <hr>
+        <div class="form-group">
+            <label for="permissionKey" class="control-label x85">权限标识：</label>
+            <input type="text"  id="permissionKey" name="permissionKey" size="30"
+                   value="${pojo.permissionKey!}"  placeholder="权限标识">
+        </div>
+        <hr>
         <div  class="form-group">
             <label for="nav" class="control-label x85">是否导航：</label>
             @if(!isEmpty(pojo.isNav)&&pojo.isNav){

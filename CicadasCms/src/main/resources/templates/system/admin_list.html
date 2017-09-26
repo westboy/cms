@@ -1,5 +1,5 @@
 <div class="bjui-pageHeader">
-    <form id="pagerForm" data-toggle="ajaxsearch" action="${ctxPath}/system/member/sysUser" method="post">
+    <form id="pagerForm" data-toggle="ajaxsearch" action="${ctxPath}/system/user/list" method="post">
         <input type="hidden" name="pageSize" value="${model.pageSize!}">
         <input type="hidden" name="pageCurrent" value="${model.pageNum!}">
         <input type="hidden" name="orgId" value="${user.orgId!}">
@@ -25,15 +25,15 @@
             <button type="submit" class="btn-default" data-icon="search">查询</button>&nbsp;
             <a class="btn btn-orange" href="javascript:;" data-toggle="reloadsearch" data-clear-query="true" data-icon="undo">清空查询</a>
             &nbsp;
-            <a href="${ctxPath}/system/member/sysUserInput" class="btn btn-green" data-icon="plus" data-toggle="dialog" data-maxable="false" data-resizable="true"  data-width="650" data-height="550" data-id="add-admin-user"  data-title="新增管理员">新增管理员</a>
+            <a href="${ctxPath}/system/user/input" class="btn btn-green" data-icon="plus" data-toggle="dialog" data-maxable="false" data-resizable="true"  data-width="650" data-height="550" data-id="add-admin-user"  data-title="新增管理员">新增管理员</a>
             <div class="pull-right">
                 <!--<button type="button" class="btn-blue" data-url="ajaxDone2.html?id={#bjui-selected}" data-toggle="doajax" data-confirm-msg="确定要删除选中项吗？" data-icon="remove" title="可以在控制台(network)查看被删除ID">删除选中行</button>&nbsp;-->
                 <div class="btn-group">
                     <button type="button" class="btn-default dropdown-toggle" data-toggle="dropdown" data-icon="copy">复选框-批量操作<span class="caret"></span></button>
                     <ul class="dropdown-menu right" role="menu">
-                        <li><a href="${ctxPath}/system/member/excel?1.xls" data-toggle="doexport" data-confirm-msg="确定要导出信息吗？">导出<span style="color: green;">当前页</span></a></li>
+                        <li><a href="${ctxPath}/system/user/excel?1.xls" data-toggle="doexport" data-confirm-msg="确定要导出信息吗？">导出<span style="color: green;">当前页</span></a></li>
                         <!--<li class="divider"></li>-->
-                        <li><a href="${ctxPath}/system/member/sysUserDel" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="userId" data-group="ids">删除选中</a></li>
+                        <li><a href="${ctxPath}/system/user/delete" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="userId" data-group="ids">删除选中</a></li>
                         <!--<li><a href="ajaxDone2.html" data-toggle="doajaxchecked" data-confirm-msg="确定要删除选中项吗？" data-idname="delids" data-group="ids">删除选中</a></li>-->
                     </ul>
                 </div>
@@ -71,8 +71,8 @@
                 <td align="center">${user.lastIp!}</td>
                 <td  align="center"><input type="checkbox" name="ids" data-toggle="icheck" value="${user.userId!}"></td>
                 <td  align="center">
-                    <a href="${ctxPath}/system/member/sysUserInput?userId=${user.userId!}" class="btn btn-green"  data-toggle="dialog" data-maxable="false" data-resizable="false"  data-width="650" data-height="550" data-id="edit-admin-user"  data-title="用户修改">编辑</a>
-                    <a href="${ctxPath}/system/member/sysUserDel?userId=${user.userId!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删</a>
+                    <a href="${ctxPath}/system/user/input?userId=${user.userId!}" class="btn btn-green"  data-toggle="dialog" data-maxable="false" data-resizable="false"  data-width="650" data-height="550" data-id="edit-admin-user"  data-title="用户修改">编辑</a>
+                    <a href="${ctxPath}/system/user/delete?userId=${user.userId!}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要删除该行信息吗？">删</a>
                 </td>
             </tr>
         @}

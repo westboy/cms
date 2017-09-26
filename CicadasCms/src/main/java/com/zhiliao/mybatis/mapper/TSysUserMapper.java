@@ -24,6 +24,9 @@ public interface TSysUserMapper {
 
     List<TSysUser> selectAll();
 
+    @Select("select count(0) from t_sys_user")
+    Integer countUser();
+
     int updateByPrimaryKey(TSysUser record);
 
     List<TSysUser> selectByCondition(TSysUser user);

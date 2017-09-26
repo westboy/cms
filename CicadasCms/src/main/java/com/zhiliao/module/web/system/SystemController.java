@@ -2,7 +2,6 @@ package com.zhiliao.module.web.system;
 
 import com.zhiliao.common.annotation.FormToken;
 import com.zhiliao.common.constant.CmsConst;
-import com.zhiliao.component.shiro.DefaultUsernamePasswordToken;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.ControllerUtil;
 import com.zhiliao.common.utils.JsonUtil;
@@ -97,7 +96,7 @@ public class SystemController {
         /* 临时验证码验证 */
         if(StrUtil.isBlank(verifyCode)|| !ControllerUtil.validate(verifyCode,request))
              return JsonUtil.toMAP(false,"验证码输入错误");
-        return userService.login(request,username,password,remberMe, DefaultUsernamePasswordToken.ADMIN);
+        return userService.login(request,username,password,remberMe);
 
     }
 
@@ -109,7 +108,7 @@ public class SystemController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam(value = "remberMe",required = false,defaultValue = "") String remberMe){
-         Map resutl = userService.login(request,username,password,remberMe, DefaultUsernamePasswordToken.ADMIN);
+         Map resutl = userService.login(request,username,password,remberMe);
          if((Boolean) resutl.get("success"))
              return JsonUtil.toSUCCESS("登陆成功","",true);
         return JsonUtil.toERROR("登陆失败！");
@@ -147,6 +146,7 @@ public class SystemController {
         model.addAttribute("contentCount",contentService.AllCount());
         model.addAttribute("categoryCount",categoryService.AllCount());
         model.addAttribute("topicCount",topicService.AllCount());
+        model.addAttribute("userCount",userService.countAll());
         return "system/welcome";
     }
 

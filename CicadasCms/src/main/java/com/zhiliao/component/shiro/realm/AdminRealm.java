@@ -21,7 +21,6 @@ public class AdminRealm extends AuthorizingRealm {
 	private SysUserService userService;
 
 
-	//权限资源角色
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		String username = (String) principals.getPrimaryPrincipal();

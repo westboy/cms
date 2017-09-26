@@ -1,4 +1,4 @@
-package com.zhiliao.component.mybatis;
+package com.zhiliao.component.druid;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
@@ -7,15 +7,16 @@ import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 
-//@Configuration
+@Configuration
 public class DruidConfiguration {
 
 
     @Bean
     public ServletRegistrationBean druidServlet() {
-        return new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+        return new ServletRegistrationBean(new StatViewServlet(), "/system/druid/*");
     }
 
     @Bean

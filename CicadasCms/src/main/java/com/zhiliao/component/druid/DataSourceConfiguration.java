@@ -1,4 +1,4 @@
-package com.zhiliao.component.mybatis;
+package com.zhiliao.component.druid;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.github.pagehelper.PageInterceptor;

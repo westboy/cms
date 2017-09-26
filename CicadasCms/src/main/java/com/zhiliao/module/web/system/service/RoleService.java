@@ -13,7 +13,7 @@ public interface RoleService {
 
     TSysRole findByid(Integer id);
 
-    List<TSysRole> findByUserIdAndTypeId(Integer userId, Integer typeId);
+    List<TSysRole> findByUserId(Integer userId);
 
     String delete(Integer id);
 
@@ -21,7 +21,7 @@ public interface RoleService {
 
     String save(TSysRole role,Integer[] permissionId);
 
-    List<TSysRole> findByTypeId(Integer typeId);
+    List<TSysRole> findAll();
 
     List<TSysPermission> findPermissonByPid(Integer pid);
 

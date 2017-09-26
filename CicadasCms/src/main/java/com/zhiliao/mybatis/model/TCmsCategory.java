@@ -76,6 +76,9 @@ public class TCmsCategory implements Serializable {
     @Column(name = "content_tpl")
     private String contentTpl;
 
+    @Column(name = "permission_key")
+    private String permissionKey;
+
     /**
      * 导航
      */
@@ -435,5 +438,13 @@ public class TCmsCategory implements Serializable {
      */
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getPermissionKey() {
+        return permissionKey;
+    }
+
+    public void setPermissionKey(String permissionKey) {
+        this.permissionKey = permissionKey;
     }
 }

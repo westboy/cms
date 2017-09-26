@@ -42,8 +42,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<TSysRole> findByUserIdAndTypeId(Integer userId, Integer typeId) {
-        return roleMapper.selectRoleByUseridAndTypeId(userId,typeId);
+    public List<TSysRole> findByUserId(Integer userId) {
+        return roleMapper.selectRoleByUserId(userId);
     }
 
     @Override
@@ -100,8 +100,8 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<TSysRole> findByTypeId(Integer typeId) {
-        return roleMapper.selectRolesByTypeId(typeId);
+    public List<TSysRole> findAll(){
+        return roleMapper.selectAll();
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.zhiliao.mybatis.model.TCmsCategory;
 import com.zhiliao.mybatis.model.TCmsContent;
 import com.zhiliao.mybatis.model.TCmsModel;
 import com.zhiliao.mybatis.model.TCmsModelFiled;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
@@ -79,6 +80,11 @@ public class ContentServiceImpl implements ContentService{
         boolean flag_=false;
         if(ids!=null&&ids.length>0)
             for (Long id : ids){
+                TCmsContent content = contentMapper.selectByPrimaryKey(id);
+                if(CmsUtil.isNullOrEmpty(content)) continue;
+                TCmsCategory category = categoryService.findById(content.getCategoryId());
+                if(!CmsUtil.isNullOrEmpty(category))
+                    if(!SecurityUtils.getSubject().isPermitted(category.getPermissionKey())) throw new SystemException("对不起，您没有["+category.getCategoryName()+"]栏目的管理权限！");
                 flag_ =  contentMapper.deleteByPrimaryKey(id)>0;
             }
         if(flag_)
@@ -136,6 +142,10 @@ public class ContentServiceImpl implements ContentService{
         if(ids!=null&&ids.length>0)
             for (Long id : ids){
                 TCmsContent cmsContent = contentMapper.selectByPrimaryKey(id);
+                if(CmsUtil.isNullOrEmpty(cmsContent)) continue;
+                TCmsCategory category = categoryService.findById(cmsContent.getCategoryId());
+                if(!CmsUtil.isNullOrEmpty(category))
+                    if(!SecurityUtils.getSubject().isPermitted(category.getPermissionKey())) throw new SystemException("对不起，您没有["+category.getCategoryName()+"]栏目的管理权限！");
                 if(cmsContent.getStatus()<0)
                     cmsContent.setStatus(1);
                 else
@@ -174,7 +184,7 @@ public class ContentServiceImpl implements ContentService{
                     tagService.save(content.getContentId(), tag);
                 }
             this.SaveModelFiledParam(formParam,content,tableName,null);
-            return JsonUtil.toSUCCESS("操作成功", "content-tab", true);
+            return JsonUtil.toSUCCESS("操作成功", "", true);
         }
         return JsonUtil.toERROR("操作失败");
     }
@@ -205,7 +215,7 @@ public class ContentServiceImpl implements ContentService{
                     tagService.save(content.getContentId(), tag);
                 }
             this.SaveModelFiledParam(formParam,content,tableName,cmsModelFileds);
-            return JsonUtil.toSUCCESS("操作成功", "content-tab", true);
+            return JsonUtil.toSUCCESS("操作成功", "", true);
         }
         return JsonUtil.toERROR("操作失败");
     }
@@ -384,8 +394,7 @@ public class ContentServiceImpl implements ContentService{
                 "  },\n" +
                 "  \"legend\": {\n" +
                 "    \"data\": [\n" +
-                "      \"内容\",\n" +
-                "       \"专题\"\n" +
+                "      \"内容数量\"\n" +
                 "    ]\n" +
                 "  },\n" +
                 "  \"toolbox\": {\n" +
@@ -436,25 +445,7 @@ public class ContentServiceImpl implements ContentService{
                 "  ],\n" +
                 "  \"series\": [\n" +
                 "    {\n" +
-                "      \"name\": \"内容\",\n" +
-                "      \"type\": \"bar\",\n" +
-                "      \"data\": [\n" +
-                "        "+result.get("一月份")+",\n" +
-                "        "+result.get("二月份")+",\n" +
-                "        "+result.get("三月份")+",\n" +
-                "        "+result.get("四月份")+",\n" +
-                "        "+result.get("五月份")+",\n" +
-                "        "+result.get("六月份")+",\n" +
-                "        "+result.get("七月份")+",\n" +
-                "        "+result.get("八月份")+",\n" +
-                "        "+result.get("九月份")+",\n" +
-                "        "+result.get("十月份")+",\n" +
-                "        "+result.get("十一月份")+",\n" +
-                "        "+result.get("十二月份")+"\n" +
-                "      ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"name\": \"专题\",\n" +
+                "      \"name\": \"内容数量\",\n" +
                 "      \"type\": \"bar\",\n" +
                 "      \"data\": [\n" +
                 "        "+result.get("一月份")+",\n" +

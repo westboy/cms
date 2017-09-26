@@ -33,12 +33,12 @@
     }
 </script>
 <div class="bjui-pageContent">
-    <form method="post" action="${ctxPath}/system/member/sysUserUpdate" id="j_client_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false"  size="20">
+    <form method="post" action="${ctxPath}/system/user/update" id="j_client_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false"  size="20">
         <input TYPE="hidden" name="userId" value="${user.userId!}">
         <div class="form-group">
             @if(isEmpty(user)){
             <label for="j_username" class="control-label x85">用户名：</label>
-            <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;remote(${ctxPath}/system/member/sysUsername)"  size="20">
+            <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;remote(${ctxPath}/system/user/valid/username)"  size="20">
             @}else{
             <label for="j_username" class="control-label x85">用户名：</label>
             <input type="text" name="username" id="j_username" value="${user.username!,xss}" data-rule="required;"  size="20">

@@ -9,7 +9,6 @@ public class TSysUserRole implements Serializable {
 
     private Integer roleId;
 
-    private Integer roleType;
 
     public Integer getId() {
         return id;
@@ -35,11 +34,4 @@ public class TSysUserRole implements Serializable {
         this.roleId = roleId;
     }
 
-    public Integer getRoleType() {
-        return roleType;
-    }
-
-    public void setRoleType(Integer roleType) {
-        this.roleType = roleType;
-    }
 }

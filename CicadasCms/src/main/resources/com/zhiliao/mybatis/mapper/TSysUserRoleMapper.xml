@@ -5,38 +5,36 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="role_type" jdbcType="INTEGER" property="roleType" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_sys_user_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <delete id="deleteByUserIdAndTypeId">
+  <delete id="deleteByUserId">
     delete from t_sys_user_role
-    where user_id = #{userId} and role_type = #{roleType}
+    where user_id = #{userId}
   </delete>
 
   <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.zhiliao.mybatis.model.TSysUserRole">
-    insert into t_sys_user_role ( user_id, role_id,role_type
+    insert into t_sys_user_role ( user_id, role_id
       )
-    values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{roleType,jdbcType=INTEGER}
+    values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.zhiliao.mybatis.model.TSysUserRole">
     update t_sys_user_role
     set user_id = #{userId,jdbcType=INTEGER},
       role_id = #{roleId,jdbcType=INTEGER}
-      role_type = #{roleType,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, user_id, role_id,role_type
+    select id, user_id, role_id
     from t_sys_user_role
     where id = #{id,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, user_id, role_id,role_type
+    select id, user_id, role_id
     from t_sys_user_role
   </select>
 </mapper>

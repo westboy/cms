@@ -60,7 +60,8 @@
                 <th align="center"  width="150">标题</th>
                 <th align="center" data-order-field="view_num" width="30">浏览</th>
                 <th align="center" data-order-field="inputdate" width="50">发布日期</th>
-                <th align="center"  width="50">状态</th>
+                <th align="center"  width="30">推荐</th>
+                <th align="center"  width="30">状态</th>
                 <!--<th align="center"  width="50">排序</th>-->
                 <th align="center" width="26" ><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
                 <th align="center"  width="50">操作</th>
@@ -78,6 +79,14 @@
                 </td>
                 <td align="center">${content.viewNum!,xss}</td>
                 <td align="center">${content.inputdate!"N/A",dateFormat="yyyy/MM/dd HH:mm"}</td>
+                <td align="center">
+                    @if(isEmpty(content.recommend)||!content.recommend){
+                    <span style="font-weight: 500;color:#4A8CDB"> 否</span>
+                    @}else{
+                    <span style="font-weight: 500;color:green"> 是</span>
+                    @}
+
+                </td>
                 <td align="center">
                     @if(content.status==-1){
                     <span style="font-weight: 500;color: red">回收站</span>

@@ -15,8 +15,10 @@ import com.zhiliao.mybatis.model.TCmsCategory;
 import com.zhiliao.mybatis.model.TCmsContent;
 import com.zhiliao.mybatis.model.TCmsModel;
 import com.zhiliao.mybatis.model.TCmsModelFiled;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -70,6 +72,10 @@ public class ContentController{
                         @RequestParam(value = "pageSize",defaultValue = "50") Integer pageSize,
                        TCmsContentVo content,
                         Model model){
+        Subject currentUser = SecurityUtils.getSubject();
+        TCmsCategory category =categoryService.findById(content.getCategoryId());
+        if(!CmsUtil.isNullOrEmpty(content.getCategoryId())&&!StrUtil.isBlank(category.getPermissionKey())&&!currentUser.isPermitted(category.getPermissionKey()))
+            throw new CmsException("对不起,您没有当前栏目的管理权限！");
         UserVo userVo = ((UserVo)ControllerUtil.getHttpSession().getAttribute(CmsConst.SITE_USER_SESSION_KEY));
         if(CmsUtil.isNullOrEmpty(userVo))
             throw  new UnauthenticatedException();
@@ -89,7 +95,10 @@ public class ContentController{
                         Model model) {
         TCmsCategory category =categoryService.findById(categoryId);
         if(CmsUtil.isNullOrEmpty(category))
-            throw new CmsException("当前文章的栏目已被删除！");
+            throw new CmsException("当前栏目已被删除！");
+        Subject currentUser = SecurityUtils.getSubject();
+        if(!StrUtil.isBlank(category.getPermissionKey())&&!currentUser.isPermitted(category.getPermissionKey()))
+            throw new CmsException("对不起,您没有当前栏目的管理权限！");
         TCmsModel cmsModel = modelService.findById(category.getModelId());
         List<TCmsModelFiled> cmsModelFileds = modelFiledService.findModelFiledListByModelId(cmsModel.getModelId());
         if(contentId!=null)
@@ -102,7 +111,7 @@ public class ContentController{
 
 
     @RequestMapping("/excel")
-    public ModelAndView ClientUser(){
+    public ModelAndView excel(){
         ExcelUtil.exports2007("123",contentService.page(1,20,new TCmsContentVo()).getList());
         return null;
     }
@@ -145,14 +154,14 @@ public class ContentController{
     @RequiresPermissions("content:delete")
     @RequestMapping("/delete")
     @ResponseBody
-    public String delete(@RequestParam(value = "ids",required = false) Long[] ids) throws SQLException {
+    public String delete(@RequestParam(value = "ids",required = false) Long[] ids) {
         return contentService.delete(ids);
     }
 
 
     @RequestMapping("/recovery")
     @ResponseBody
-    public String recovery(@RequestParam(value = "ids",required = false) Long[] ids) throws SQLException {
+    public String recovery(@RequestParam(value = "ids",required = false) Long[] ids) {
         return contentService.recovery(ids);
     }
 
