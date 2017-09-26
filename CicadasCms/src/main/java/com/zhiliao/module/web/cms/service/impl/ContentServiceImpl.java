@@ -84,7 +84,7 @@ public class ContentServiceImpl implements ContentService{
                 if(CmsUtil.isNullOrEmpty(content)) continue;
                 TCmsCategory category = categoryService.findById(content.getCategoryId());
                 if(!CmsUtil.isNullOrEmpty(category))
-                    if(!SecurityUtils.getSubject().isPermitted(category.getPermissionKey())) throw new SystemException("对不起，您没有["+category.getCategoryName()+"]栏目的管理权限！");
+                    if(!StrUtil.isBlank(category.getPermissionKey())&&!SecurityUtils.getSubject().isPermitted(category.getPermissionKey())) throw new SystemException("对不起，您没有["+category.getCategoryName()+"]栏目的管理权限！");
                 flag_ =  contentMapper.deleteByPrimaryKey(id)>0;
             }
         if(flag_)
@@ -145,7 +145,7 @@ public class ContentServiceImpl implements ContentService{
                 if(CmsUtil.isNullOrEmpty(cmsContent)) continue;
                 TCmsCategory category = categoryService.findById(cmsContent.getCategoryId());
                 if(!CmsUtil.isNullOrEmpty(category))
-                    if(!SecurityUtils.getSubject().isPermitted(category.getPermissionKey())) throw new SystemException("对不起，您没有["+category.getCategoryName()+"]栏目的管理权限！");
+                    if(!StrUtil.isBlank(category.getPermissionKey())&&!SecurityUtils.getSubject().isPermitted(category.getPermissionKey())) throw new SystemException("对不起，您没有["+category.getCategoryName()+"]栏目的管理权限！");
                 if(cmsContent.getStatus()<0)
                     cmsContent.setStatus(1);
                 else

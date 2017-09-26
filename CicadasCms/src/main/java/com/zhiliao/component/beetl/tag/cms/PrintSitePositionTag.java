@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.utils.CmsUtil;
 import com.zhiliao.common.utils.ControllerUtil;
+import com.zhiliao.common.utils.StrUtil;
 import com.zhiliao.module.web.cms.service.CategoryService;
 import com.zhiliao.mybatis.model.TCmsCategory;
 import com.zhiliao.mybatis.model.TCmsSite;
@@ -63,7 +64,10 @@ public class PrintSitePositionTag extends GeneralVarTagBinding {
 
     private List<Map> locations(List<Map> locations, String baseURL, TCmsCategory category) {
         Map<String, String> map = new HashedMap();
-        map.put("url", baseURL + category.getCategoryId() + siteSubfix);
+        if(StrUtil.isBlank(category.getUrl()))
+            map.put("url", baseURL + category.getCategoryId() + siteSubfix);
+        else
+            map.put("url",category.getUrl());
         map.put("categoryName", category.getCategoryName());
         locations.add(0, map);
         if (category.getParentId() != 0) {
