@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.SQLException;
-
 import static com.zhiliao.common.db.kit.DbTableKit.PREPARED_MODEL_FILED_NAME;
 
 /**
@@ -50,7 +48,7 @@ public class ModelFiledController extends BaseController<TCmsModelFiled>{
     @RequestMapping("/save")
     @ResponseBody
     @Override
-    public String save(TCmsModelFiled pojo) throws SQLException {
+    public String save(TCmsModelFiled pojo) {
         if(pojo.getFiledId()!=null)
             return filedService.update(pojo);
         return filedService.save(pojo);
@@ -60,7 +58,7 @@ public class ModelFiledController extends BaseController<TCmsModelFiled>{
     @RequestMapping("/delete")
     @ResponseBody
     @Override
-    public String delete(Integer[] ids) throws SQLException {
+    public String delete(Integer[] ids) {
         return filedService.delete(ids);
     }
 

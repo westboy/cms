@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.SQLException;
-
 /**
  * Description:友情链接控制器
  *
@@ -41,7 +39,7 @@ public class FrientlinkController{
 
     @RequestMapping("/save")
     @ResponseBody
-    public String save(TCmsFriendlink pojo) throws SQLException {
+    public String save(TCmsFriendlink pojo) {
        if(StrUtil.isBlank(pojo.getImg()))
            pojo.setImg(null);
         if(pojo.getId()!=null)
@@ -52,13 +50,13 @@ public class FrientlinkController{
 
     @RequestMapping("/delete")
     @ResponseBody
-    public String delete(@RequestParam(value = "ids",required = false) Integer[] ids) throws SQLException {
+    public String delete(@RequestParam(value = "ids",required = false) Integer[] ids)  {
         return friendlinkService.delete(ids);
     }
 
     @RequestMapping("/group/delete")
     @ResponseBody
-    public String groupDelete(@RequestParam(value = "id",required = false) Integer id) throws SQLException {
+    public String groupDelete(@RequestParam(value = "ids",required = false) Integer id) {
         return friendlinkService.deleteGroupById(id);
     }
 

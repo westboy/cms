@@ -71,7 +71,7 @@ public class ModelController extends BaseController<TCmsModel> {
     @RequestMapping("/delete")
     @ResponseBody
     @Override
-    public String delete(@RequestParam(value = "ids",required = false) Integer[] ids) throws SQLException {
+    public String delete(@RequestParam(value = "ids",required = false) Integer[] ids) {
         return modelService.delete(ids);
     }
 

@@ -56,7 +56,7 @@ public class TopicController extends BaseController<TCmsTopic>{
     @Override
     @RequestMapping("/save")
     @ResponseBody
-    public String save(TCmsTopic pojo) throws SQLException {
+    public String save(TCmsTopic pojo) {
         if(pojo.getTopicId()!=null)
             return topicService.update(pojo);
         return topicService.save(pojo);
@@ -65,7 +65,7 @@ public class TopicController extends BaseController<TCmsTopic>{
     @RequestMapping("/delete")
     @ResponseBody
     @Override
-    public String delete(@RequestParam(value = "ids",required = false) Integer[] ids) throws SQLException {
+    public String delete(@RequestParam(value = "ids",required = false) Integer[] ids)  {
         return topicService.delete(ids);
     }
 }

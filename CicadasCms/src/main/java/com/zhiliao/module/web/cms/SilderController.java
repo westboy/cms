@@ -39,7 +39,7 @@ public class SilderController {
 
     @RequestMapping("/save")
     @ResponseBody
-    public String save(TCmsAdSilder pojo) throws SQLException {
+    public String save(TCmsAdSilder pojo){
        if(StrUtil.isBlank(pojo.getImg()))
            pojo.setImg(null);
         if(pojo.getId()!=null)

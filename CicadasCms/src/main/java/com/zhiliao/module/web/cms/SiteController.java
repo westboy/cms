@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.SQLException;
-
 /**
  * Description:站点控制器
  *
@@ -66,7 +64,7 @@ public class SiteController{
     @RequiresPermissions("site:delete")
     @RequestMapping("/delete")
     @ResponseBody
-    public String delete(@RequestParam(value = "ids",required = false) Integer[] ids) throws SQLException {
+    public String delete(@RequestParam(value = "ids",required = false) Integer[] ids) {
         return siteService.delete(ids);
     }
 

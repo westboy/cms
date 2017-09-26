@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,7 +52,7 @@ public class AdController{
 
     @RequestMapping("/save")
     @ResponseBody
-    public String save(TCmsAd pojo) throws SQLException {
+    public String save(TCmsAd pojo) {
         if(pojo.getId()!=null)
             return adService.update(pojo);
         return adService.save(pojo);
@@ -68,7 +67,7 @@ public class AdController{
 
     @RequestMapping("/group/save")
     @ResponseBody
-    public String save(TCmsAdGroup pojo) throws SQLException {
+    public String save(TCmsAdGroup pojo) {
         if(pojo.getId()!=null)
             return adService.update(pojo);
         return adService.save(pojo);
@@ -77,7 +76,7 @@ public class AdController{
     @RequestMapping("/groupCheck")
     public String group(@RequestParam(value = "pageCurrent",defaultValue = "1") Integer pageNumber,
                         @RequestParam(value = "pageSize",defaultValue = "100") Integer pageSize,
-                        TCmsAdGroup pojo, Model model) throws SQLException {
+                        TCmsAdGroup pojo, Model model) {
         model.addAttribute("model",adService.page(pageNumber,pageSize,pojo));
         model.addAttribute("group",pojo);
         return "cms/ad_group_check";
@@ -85,14 +84,14 @@ public class AdController{
 
     @RequestMapping("/group/delete")
     @ResponseBody
-    public String deleteGroup(@RequestParam(value = "ids",required = false)Integer[] ids) throws SQLException {
+    public String deleteGroup(@RequestParam(value = "ids",required = false)Integer[] ids) {
         return adService.deleteGroup(ids);
     }
 
 
     @RequestMapping("/delete")
     @ResponseBody
-    public String delete(@RequestParam(value = "ids",required = false)Integer[] ids) throws SQLException {
+    public String delete(@RequestParam(value = "ids",required = false)Integer[] ids) {
         return adService.delete(ids);
     }
 

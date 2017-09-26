@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.SQLException;
-
 /**
  * Description:联动菜单
  *
@@ -44,7 +42,7 @@ public class LinkageController extends BaseController<TCmsLinkage>{
     @RequestMapping("/save")
     @ResponseBody
     @Override
-    public String save(TCmsLinkage pojo) throws SQLException {
+    public String save(TCmsLinkage pojo)  {
         if(pojo.getId()!=null)
             return linkageService.update(pojo);
         return linkageService.save(pojo);
@@ -53,7 +51,7 @@ public class LinkageController extends BaseController<TCmsLinkage>{
     @RequestMapping("/delete")
     @ResponseBody
     @Override
-    public String delete(@RequestParam(value = "ids",required = false) Integer[] ids) throws SQLException {
+    public String delete(@RequestParam(value = "ids",required = false) Integer[] ids) {
         return linkageService.delete(ids);
     }
 }
