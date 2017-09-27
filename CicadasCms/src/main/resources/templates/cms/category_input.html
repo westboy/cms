@@ -179,6 +179,12 @@
                     <input type="text" id="content_tpl" name="contentTpl" size="30"
                            value="${pojo.contentTpl!,xss}" placeholder="内容页模板，默认：default/content">.html &nbsp; ( 同上.)
         </div>
+        <hr>
+        <div class="form-group">
+          <label for="sortId" class="control-label x85">排序：</label>
+           <input type="text"  id="sortId" name="sortId" size="30"
+                           value="${pojo.sortId!}"  data-rule="integer;"  placeholder="排序">
+        </div>
        </div>
     </form>
     </div>

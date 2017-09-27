@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class CmsApplication {
 
 	public static void main(String[] args){
-		System.out.println("Hello world!");
 		SpringApplication.run(CmsApplication.class, args);
 	}
 }

@@ -22,20 +22,6 @@ public class TCmsCategory implements Serializable {
     private String categoryName;
 
     /**
-     * 栏目图标
-     */
-    @Column(name = "category_icon")
-    private String categoryIcon;
-
-    public String getCategoryIcon() {
-        return categoryIcon;
-    }
-
-    public void setCategoryIcon(String categoryIcon) {
-        this.categoryIcon = categoryIcon;
-    }
-
-    /**
      * 站点编号
      */
     @Column(name = "site_id")
@@ -76,9 +62,6 @@ public class TCmsCategory implements Serializable {
     @Column(name = "content_tpl")
     private String contentTpl;
 
-    @Column(name = "permission_key")
-    private String permissionKey;
-
     /**
      * 导航
      */
@@ -116,6 +99,22 @@ public class TCmsCategory implements Serializable {
      */
     @Column(name = "allow_search")
     private Boolean allowSearch;
+
+    /**
+     * 栏目图标
+     */
+    @Column(name = "category_icon")
+    private String categoryIcon;
+
+    /**
+     * 栏目权限标识
+     */
+    @Column(name = "permission_key")
+    private String permissionKey;
+
+    @OrderBy("DESC")
+    @Column(name = "sort_id")
+    private Integer sortId;
 
     /**
      * 文本
@@ -423,6 +422,56 @@ public class TCmsCategory implements Serializable {
     }
 
     /**
+     * 获取栏目图标
+     *
+     * @return category_icon - 栏目图标
+     */
+    public String getCategoryIcon() {
+        return categoryIcon;
+    }
+
+    /**
+     * 设置栏目图标
+     *
+     * @param categoryIcon 栏目图标
+     */
+    public void setCategoryIcon(String categoryIcon) {
+        this.categoryIcon = categoryIcon;
+    }
+
+    /**
+     * 获取栏目权限标识
+     *
+     * @return permission_key - 栏目权限标识
+     */
+    public String getPermissionKey() {
+        return permissionKey;
+    }
+
+    /**
+     * 设置栏目权限标识
+     *
+     * @param permissionKey 栏目权限标识
+     */
+    public void setPermissionKey(String permissionKey) {
+        this.permissionKey = permissionKey;
+    }
+
+    /**
+     * @return sort_id
+     */
+    public Integer getSortId() {
+        return sortId;
+    }
+
+    /**
+     * @param sortId
+     */
+    public void setSortId(Integer sortId) {
+        this.sortId = sortId;
+    }
+
+    /**
      * 获取文本
      *
      * @return content - 文本
@@ -438,13 +487,5 @@ public class TCmsCategory implements Serializable {
      */
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getPermissionKey() {
-        return permissionKey;
-    }
-
-    public void setPermissionKey(String permissionKey) {
-        this.permissionKey = permissionKey;
     }
 }

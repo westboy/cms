@@ -27,24 +27,16 @@
 
 
         <!--主数据源-->
-        <jdbcConnection driverClass="${datasource.master.driver-class-name}"
-                        connectionURL="${datasource.master.url}" userId="${datasource.master.username}" password="${datasource.master.password}">
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}" userId="${spring.datasource.username}" password="${spring.datasource.password}">
         </jdbcConnection>
         <javaModelGenerator targetPackage="${masterTargetModelPackage}" targetProject="${masterTargetJavaProject}" />
         <sqlMapGenerator targetPackage="${masterTargetXMLPackage}" targetProject="${masterTargetResourcesProject}" />
         <javaClientGenerator targetPackage="${masterTargetMapperPackage}" targetProject="${masterTargetJavaProject}" type="XMLMAPPER" />
 
-        <!--从数据源-->
-        <!--<jdbcConnection driverClass="${datasource.slave.driver-class-name}"-->
-                        <!--connectionURL="${datasource.slave.url}" userId="${datasource.slave.username}" password="${datasource.slave.password}">-->
-        <!--</jdbcConnection>-->
-        <!--<javaModelGenerator targetPackage="${slaveTargetModelPackage}" targetProject="${slaveTargetJavaProject}" />-->
-        <!--<sqlMapGenerator targetPackage="${slaveTargetXMLPackage}" targetProject="${slaveTargetResourcesProject}" />-->
-        <!--<javaClientGenerator targetPackage="${slaveTargetMapperPackage}" targetProject="${slaveTargetJavaProject}" type="XMLMAPPER" />-->
 
-
-        <table tableName="t_sys_attachment">
-            <generatedKey column="id" sqlStatement="Mysql"  />
+        <table tableName="t_cms_category">
+            <generatedKey column="category_id" sqlStatement="Mysql"  />
         </table>
 
     </context>

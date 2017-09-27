@@ -8,7 +8,6 @@
     <id column="category_id" jdbcType="BIGINT" property="categoryId" />
     <result column="alias" jdbcType="VARCHAR" property="alias" />
     <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
-    <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
     <result column="site_id" jdbcType="INTEGER" property="siteId" />
     <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="model_id" jdbcType="INTEGER" property="modelId" />
@@ -23,6 +22,9 @@
     <result column="allow_front_submit" jdbcType="BIT" property="allowFrontSubmit" />
     <result column="page_size" jdbcType="INTEGER" property="pageSize" />
     <result column="allow_search" jdbcType="BIT" property="allowSearch" />
+    <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
+    <result column="permission_key" jdbcType="VARCHAR" property="permissionKey" />
+    <result column="sort_id" jdbcType="INTEGER" property="sortId" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
 </mapper>

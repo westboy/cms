@@ -88,7 +88,7 @@ public class ContentServiceImpl implements ContentService{
                 flag_ =  contentMapper.deleteByPrimaryKey(id)>0;
             }
         if(flag_)
-            return JsonUtil.toSUCCESS("操作成功","",false);
+            return JsonUtil.toSUCCESS("操作成功","content-tab",false);
          return JsonUtil.toERROR("操作失败");
     }
 
@@ -153,7 +153,7 @@ public class ContentServiceImpl implements ContentService{
                 flag_ =  contentMapper.updateByPrimaryKeySelective(cmsContent)>0;
             }
         if(flag_)
-            return JsonUtil.toSUCCESS("操作成功","",false);
+            return JsonUtil.toSUCCESS("操作成功","content-tab",false);
         return JsonUtil.toERROR("操作失败");
     }
 
