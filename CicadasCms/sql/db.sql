@@ -87,6 +87,7 @@ CREATE TABLE `t_cms_category` (
   `allow_search` tinyint(1) unsigned DEFAULT '0' COMMENT '当前栏目下的是否支持全文搜索',
   `category_icon` varchar(255) DEFAULT NULL COMMENT '栏目图标',
   `permission_key` varchar(100) DEFAULT NULL COMMENT '栏目权限标识',
+  `sort_id` int(11) unsigned DEFAULT '0',
   PRIMARY KEY (`category_id`),
   KEY `category_id` (`category_id`),
   KEY `short_name` (`alias`)
@@ -96,7 +97,7 @@ CREATE TABLE `t_cms_category` (
 # Data for table "t_cms_category"
 #
 
-INSERT INTO `t_cms_category` VALUES (45,'manshenghuo','慢生活',1,0,79,0,'\t\t\t    \r\n\t\t\t    ','list','list','content',0,'',1,0,NULL,3,0,NULL,NULL),(180,'guanyuwo','关于我',1,0,79,1,'\t\t\t    <p>哈哈你们菜<br></p>','about','about','about',0,'',NULL,0,NULL,1,0,NULL,NULL),(181,'riji','日记',1,45,79,0,'\t\t\t    \r\n\t\t\t    ','list','list','content',0,'',NULL,0,NULL,15,1,'',NULL),(182,'sheying','摄影',1,45,79,0,'\t\t\t    \r\n\t\t\t    ','list','list','content',0,'',NULL,0,NULL,15,0,'',NULL),(183,'chengxuyuan','程序员',1,45,79,0,'\t\t\t    \r\n\t\t\t    \r\n\t\t\t    \r\n\t\t\t    \r\n\t\t\t    \r\n\t\t\t    \r\n\t\t\t    \r\n\t\t\t    ','list','list','content',0,'',NULL,0,NULL,15,0,'http://127.0.0.1/static/upload/2017/9/5/1504596261668.png','123123123'),(184,'zhileCMS','知了CMS',1,0,79,1,'\t\t\t    <p>知了CMS</p><p>知了CMS</p><p>知了CMS</p><p>知了CMS</p><p><br></p>\r\n\t\t\t    \r\n\t\t\t    ','about','about','about',0,'',NULL,0,NULL,1,0,NULL,NULL),(186,'hahaha','哈哈哈',1,0,79,0,'\t\t\t    \r\n\t\t\t    \r\n\t\t\t    ','category','category_list','content',0,'',NULL,0,NULL,10,0,'',NULL);
+INSERT INTO `t_cms_category` VALUES (45,'manshenghuo','慢生活',1,0,79,0,'\t\t\t    \r\n\t\t\t    ','list','list','content',0,'',1,0,NULL,3,0,NULL,NULL,NULL),(180,'guanyuwo','关于我',1,0,79,1,'\t\t\t    <p>哈哈你们菜<br></p>','about','about','about',0,'',NULL,0,NULL,1,0,NULL,NULL,NULL),(181,'riji','日记',1,45,79,0,'\t\t\t    \r\n\t\t\t    ','list','list','content',0,'',NULL,0,NULL,15,1,'',NULL,NULL),(182,'sheying','摄影',1,45,79,0,'\t\t\t    \r\n\t\t\t    ','list','list','content',0,'',NULL,0,NULL,15,0,'',NULL,NULL),(183,'chengxuyuan','程序员',1,45,79,0,'\t\t\t    \r\n\t\t\t    \r\n\t\t\t    \r\n\t\t\t    \r\n\t\t\t    \r\n\t\t\t    \r\n\t\t\t    \r\n\t\t\t    ','list','list','content',0,'',NULL,0,NULL,15,0,'http://127.0.0.1/static/upload/2017/9/5/1504596261668.png','123123123',NULL),(184,'zhileCMS','知了CMS',1,0,79,1,'\t\t\t    <p>知了CMS</p><p>知了CMS</p><p>知了CMS</p><p>知了CMS</p><p><br></p>\r\n\t\t\t    \r\n\t\t\t    ','about','about','about',0,'',NULL,0,NULL,1,0,NULL,NULL,NULL),(186,'hahaha','哈哈哈',1,0,79,0,'\t\t\t    \r\n\t\t\t    \r\n\t\t\t    ','category','category_list','content',0,'',NULL,0,NULL,10,0,'',NULL,NULL);
 
 #
 # Structure for table "t_cms_content"
@@ -657,7 +658,7 @@ CREATE TABLE `t_sys_org_user` (
   PRIMARY KEY (`id`),
   KEY `org_id` (`org_id`),
   KEY `role_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COMMENT='机构权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COMMENT='机构权限表';
 
 #
 # Data for table "t_sys_org_user"
@@ -714,7 +715,7 @@ CREATE TABLE `t_sys_role_permission` (
   PRIMARY KEY (`id`),
   KEY `rid` (`role_id`),
   KEY `pid` (`permisson_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=738 DEFAULT CHARSET=utf8 COMMENT='角色权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=897 DEFAULT CHARSET=utf8 COMMENT='角色权限表';
 
 #
 # Data for table "t_sys_role_permission"
@@ -790,7 +791,7 @@ CREATE TABLE `t_sys_user_role` (
   PRIMARY KEY (`id`),
   KEY `role_id` (`role_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8 COMMENT='管理员权限';
+) ENGINE=InnoDB AUTO_INCREMENT=173 DEFAULT CHARSET=utf8 COMMENT='管理员权限';
 
 #
 # Data for table "t_sys_user_role"
