@@ -100,11 +100,11 @@ public interface TCmsContentMapper extends Mapper<TCmsContent> {
             " ON cat.category_id = c.category_id  " +
             "left join t_cms_content_${tableName} m" +
             " on c.content_id = m.content_id " +
-            " WHERE cat.parent_id=#{parentId} " +
+            " WHERE c.category_id in (${parentId}) " +
             "and c.site_id=#{siteId} and c.status=1" +
             " order by c.content_id desc")
     @ResultType(Map.class)
-    List<Map> selectByCategoyParentId(@Param("parentId") Long parentId,@Param("siteId") Integer siteId,@Param("tableName") String tableName);
+    List<Map> selectByCategoyParentId(@Param("categoryIds") String categoryIds,@Param("siteId") Integer siteId,@Param("tableName") String tableName);
 
     @Select(" select " +
             "sum(case month(inputdate) when '1' then 1 else 0 end) as 一月份, " +

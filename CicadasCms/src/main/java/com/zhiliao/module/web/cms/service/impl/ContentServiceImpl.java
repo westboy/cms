@@ -371,9 +371,20 @@ public class ContentServiceImpl implements ContentService{
         * todo 有必要确定子栏目的内容模型是否必须和父栏目一致,暂时以父栏目的模型为主
         */
         PageHelper.startPage(pageNumber,category.getPageSize());
-        return new PageInfo<>(contentMapper.selectByCategoyParentId(category.getCategoryId(),siteId,model.getTableName()));
+        return new PageInfo<>(contentMapper.selectByCategoyParentId(this.findChildIds(category.getCategoryId()),siteId,model.getTableName()));
     }
 
+    private String findChildIds(Long categoryId){
+        String catIds="";
+        TCmsCategory category = new TCmsCategory();
+        category.setParentId(categoryId);
+        List<TCmsCategory> list =categoryService.findList(category);
+        if(CmsUtil.isNullOrEmpty(list))return categoryId.toString();
+        for (TCmsCategory subCat :list){
+            catIds+=subCat.getCategoryId()+","+findChildIds(subCat.getCategoryId());
+        }
+        return catIds.substring(0,catIds.length()-1);
+    }
 
     @Async
     @Override
