@@ -19,7 +19,7 @@ public class DisallowConcurrentExecutionQuartzJobFactory implements Job{
          Object scheduleJob =context.getMergedJobDataMap().get("scheduleJob");
          System.out.println(scheduleJob);
 //         System.out.println("任务名称 = [" + scheduleJob.getJobName() + "]");
-         TaskUtils.invokMethod( (ScheduleJob)scheduleJob);
+         TaskUtils.invokeMethod( (ScheduleJob)scheduleJob);
     }
 
 }
