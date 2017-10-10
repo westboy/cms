@@ -100,7 +100,7 @@ public interface TCmsContentMapper extends Mapper<TCmsContent> {
             " ON cat.category_id = c.category_id  " +
             "left join t_cms_content_${tableName} m" +
             " on c.content_id = m.content_id " +
-            " WHERE c.category_id in (${parentId}) " +
+            " WHERE c.category_id in (${categoryIds}) " +
             "and c.site_id=#{siteId} and c.status=1" +
             " order by c.content_id desc")
     @ResultType(Map.class)

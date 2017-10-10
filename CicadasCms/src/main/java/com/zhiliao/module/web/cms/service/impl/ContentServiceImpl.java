@@ -2,6 +2,7 @@ package com.zhiliao.module.web.cms.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.zhiliao.common.exception.CmsException;
 import com.zhiliao.common.exception.SystemException;
 import com.zhiliao.common.utils.*;
@@ -316,7 +317,7 @@ public class ContentServiceImpl implements ContentService{
         TCmsModel model = modelService.findById(category.getModelId());
         /*如果包含子类栏目*/
         if(hasChild==1) {
-            List<TCmsCategory> cats =categoryService.findCategoryListByPid(categoryId);
+            List<TCmsCategory> cats =findChildCategory(categoryId);
             /*如果子栏目没有内容就查询当前自身*/
             if(CmsUtil.isNullOrEmpty(cats)){
                 categoryIds =new Long[]{categoryId};
@@ -337,6 +338,21 @@ public class ContentServiceImpl implements ContentService{
         }
         PageHelper.startPage(pageNumber, pageSize);
         return new PageInfo<>(contentMapper.selectByContentListBySiteIdAndCategoryIds(siteId,categoryIds,orderBy,isHot,isPic,isRecommend,model.getTableName()));
+    }
+
+    private List<TCmsCategory> findChildCategory(Long categoryId){
+        List<TCmsCategory> result =  Lists.newArrayList();
+        TCmsCategory category = new TCmsCategory();
+        category.setParentId(categoryId);
+        List<TCmsCategory> list =categoryService.findList(category);
+        if(CmsUtil.isNullOrEmpty(list))return null;
+        for (TCmsCategory subCat :list){
+            result.add(subCat);
+            List<TCmsCategory> subList =  findChildCategory(subCat.getCategoryId());
+            if(CmsUtil.isNullOrEmpty(subList)) continue;
+            result.addAll(subList);
+        }
+        return result;
     }
 
     @Cacheable(key = "'find-siteid-'+#p0+'-categoryids-'+#p1+'-orderby-'+#p2+'-size-'+#p3+'-isHot-'+#p4+'-isPic-'+#p5+'-isRecommend-'+#p6")
