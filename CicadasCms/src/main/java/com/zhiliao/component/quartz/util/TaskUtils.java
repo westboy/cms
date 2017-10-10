@@ -18,7 +18,7 @@ public class TaskUtils {
 	 * 
 	 * @param scheduleJob
 	 */
-	public static void invokMethod(ScheduleJob scheduleJob) {
+	public static void invokeMethod(ScheduleJob scheduleJob) {
 		Object object = null;
 		Class<?> clazz;
 		if (StringUtils.isNotBlank(scheduleJob.getSpringBean())) {
