@@ -65,7 +65,7 @@ public class Pojo2MapUtil {
 
     public static void main(String[] args) throws Exception {
         TCmsContent content = new TCmsContent();
-        content.setContentId(999999l);
+        content.setContentId(999999L);
         content.setModelId(11111);
         content.setUpdatedate(new Date());
         Map m = toMap(content);

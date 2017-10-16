@@ -27,8 +27,8 @@ public class SelectCategoryFunction implements Function{
         Long currentId =Long.parseLong(objects[1].toString());
         Integer siteId =Integer.parseInt(objects[2].toString());
         if(pid!=null)
-            return head+recursion(currentId,pid,0l,"",siteId);
-        return head+recursion(currentId,0l,0l,"",siteId);
+            return head+recursion(currentId,pid, 0L,"",siteId);
+        return head+recursion(currentId, 0L, 0L,"",siteId);
     }
 
 
@@ -41,10 +41,16 @@ public class SelectCategoryFunction implements Function{
         List<TCmsCategory> ctas  = service.findCategoryListByPid(sPid,siteId);
         if(ctas!=null&&ctas.size()>0){
             for(TCmsCategory cat:ctas){
+
                    /*如果是自己就不输出了*/
-                   if(cid!=cat.getCategoryId()&&cid!=cat.getParentId()||cid.longValue()==0)
-                        sbf.append("<option value=\"" + cat.getCategoryId() + "\" " + isSelected(cat.getCategoryId(), pid) + ">" + tag + "|—" + cat.getCategoryName()+ "</option>");
-                    sbf.append(recursion(cid,pid,cat.getCategoryId(),tag,siteId));
+                   if(cid.intValue()!=cat.getCategoryId().intValue()&&cid.intValue()!=cat.getParentId().intValue()||cid.intValue()==0) {
+                       if (ctas.lastIndexOf(cat) == (ctas.size()-1)) {
+                           sbf.append("<option value=\"" + cat.getCategoryId() + "\" " + isSelected(cat.getCategoryId(), pid) + ">" + tag + "└" + cat.getCategoryName() + "</option>");
+                       }else{
+                           sbf.append("<option value=\"" + cat.getCategoryId() + "\" " + isSelected(cat.getCategoryId(), pid) + ">" + tag + "├" + cat.getCategoryName() + "</option>");
+                       }
+                   }
+                   sbf.append(recursion(cid,pid,cat.getCategoryId(),tag,siteId));
             }
             return  sbf.toString();
         }

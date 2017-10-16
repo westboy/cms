@@ -83,7 +83,7 @@ public class CategoryServiceImpl implements CategoryService{
         if(categoryMapper.selectByPrimaryKey(pojo.getCategoryId()).getParentId()==0&&pojo.getParentId()!=0L){
             /* 父类交换 */
             TCmsCategory parentCategory = categoryMapper.selectByPrimaryKey(pojo.getParentId());
-            parentCategory.setParentId(0l);
+            parentCategory.setParentId(0L);
             parentCategory.setHasChild(true);
             pojo.setParentId(pojo.getParentId());
             categoryMapper.updateByPrimaryKey(parentCategory);

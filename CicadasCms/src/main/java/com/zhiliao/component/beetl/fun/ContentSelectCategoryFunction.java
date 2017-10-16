@@ -22,7 +22,7 @@ public class ContentSelectCategoryFunction implements Function{
 
         Integer siteId = Integer.parseInt(objects[0].toString()); /*站点Id*/
         Long currentId =Long.parseLong(objects[1].toString()); /*当前栏目Id*/
-        return recursion(currentId,0l,"",siteId);
+        return recursion(currentId, 0L,"",siteId);
     }
 
 
@@ -34,22 +34,28 @@ public class ContentSelectCategoryFunction implements Function{
         StringBuffer sbf = new StringBuffer();
         List<TCmsCategory> ctas  = service.findCategoryListByPid(pid,siteId);
         if(ctas!=null&&ctas.size()>0){
+            String tagMaker = "";
             for(TCmsCategory cat:ctas){
+                if (ctas.lastIndexOf(cat) == (ctas.size()-1)){
+                    tagMaker="└";
+                }else {
+                     tagMaker="├";
+                }
+
                 int childSize = service.findCategoryListByPid(cat.getCategoryId(),siteId).size();
-                if((cat.getAlone()||!StrUtil.isBlank(cat.getUrl()))&&childSize==0)
+                if((cat.getAlone()||!StrUtil.isBlank(cat.getUrl()))&&childSize==0) {
                     continue;
+                }
                 if(childSize>0) {
-                    if(cat.getParentId().longValue()==0)
-                        sbf.append("<optgroup label=\""+cat.getCategoryName() + "\">");
-                    else
-                        sbf.append("<optgroup label=\"|—"+cat.getCategoryName() + "\">");
+                    sbf.append("<optgroup label=\""+tagMaker + cat.getCategoryName() + "\">");
                     sbf.append(recursion(cid,cat.getCategoryId(),tag,siteId));
                     sbf.append("</optgroup>");
                 }else {
-                    if (cid.longValue() == cat.getCategoryId().longValue())
-                        sbf.append("<option value=\"" + cat.getCategoryId() + "\" selected='selected' >" + tag + "&nbsp;|—" + cat.getCategoryName() + "</option>");
-                    else
-                        sbf.append("<option value=\"" + cat.getCategoryId() + "\" >" + tag + "&nbsp;|—" + cat.getCategoryName() + "</option>");
+                    if (cid.longValue() == cat.getCategoryId().longValue()) {
+                        sbf.append("<option value=\"" + cat.getCategoryId() + "\" selected='selected' >" + tag + "&nbsp;"+tagMaker + cat.getCategoryName() + "</option>");
+                    }else {
+                        sbf.append("<option value=\"" + cat.getCategoryId() + "\" >" + tag + "&nbsp;"+tagMaker  + cat.getCategoryName() + "</option>");
+                    }
                 }
             }
             return  sbf.toString();
