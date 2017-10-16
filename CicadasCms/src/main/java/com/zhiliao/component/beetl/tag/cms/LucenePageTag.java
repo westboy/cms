@@ -30,13 +30,19 @@ public class LucenePageTag extends GeneralVarTagBinding {
     @Override
     public void render() {
         PageInfo<IndexObject> pageInfo = (PageInfo) this.getAttributeValue("page");
+        String titleLen =  (String) this.getAttributeValue("titleLen");
         if (CmsUtil.isNullOrEmpty(pageInfo))throw  new CmsException("[查询分页标签]标签调用出错！");
         if (CmsUtil.isNullOrEmpty(pageInfo)) throw  new CmsException("[查询分页标签]分页信息不存在！");
-        wrapRender(pageInfo);
+        wrapRender(pageInfo,titleLen);
     }
 
-    private void wrapRender(PageInfo<IndexObject> page) {
+    private void wrapRender(PageInfo<IndexObject> page, String titleLen) {
         for (IndexObject content : page.getList()) {
+            String title = content.getTitle();
+            int length = title.length();
+            if (titleLen!=null&&length > Integer.parseInt(titleLen)) {
+                content.setTitle(title.substring(0, Integer.parseInt(titleLen)) + "...");
+            }
             this.binds(content);
             this.doBodyRender();
         }
