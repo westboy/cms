@@ -100,7 +100,7 @@ public class IndexController {
         log.debug("通过站点Id访问网站首页[{}]",siteId);
         /*判断是否开启静态*/
         File file = new File(PathUtil.getWebRootPath() +File.separator+ "html" + File.separator+ siteId + File.separator+"index.html");
-        if (file.exists() && Boolean.parseBoolean(siteStatic)&& HtmlThread.size()<=0)
+        if (file.exists() && Boolean.parseBoolean(siteStatic)&& HtmlThread.size()<=0&&!ControllerUtil.isMobile())
             return "redirect:/html/"+ siteId + "/index.html";
         TCmsSite site = siteService.findById(siteId);
         if(CmsUtil.isNullOrEmpty(site))
@@ -113,7 +113,7 @@ public class IndexController {
         model.addAttribute("site",site);
         if(StrUtil.isBlank(site.getTemplate()))
             return view(CmsConst.INDEX_TPL);
-        return view(site.getTemplate(),CmsConst.INDEX_TPL);
+        return view((ControllerUtil.isMobile()&&site.getIsMobile())?site.getMobileTpl():site.getTemplate(),CmsConst.INDEX_TPL);
     }
 
 
@@ -137,7 +137,7 @@ public class IndexController {
         model.addAttribute("page",page);
         if(StrUtil.isBlank(site.getTemplate()))
             return view(category.getIndexTpl());
-        return view(site.getTemplate(),category.getIndexTpl());
+        return view((ControllerUtil.isMobile()&&site.getIsMobile())?site.getMobileTpl():site.getTemplate(),category.getIndexTpl());
     }
 
     /*网站栏目列表页*/
@@ -164,7 +164,7 @@ public class IndexController {
         model.addAttribute("page",page);
         if(StrUtil.isBlank(site.getTemplate()))
             return view(category.getListTpl());
-        return view(site.getTemplate(),category.getListTpl());
+        return view((ControllerUtil.isMobile()&&site.getIsMobile())?site.getMobileTpl():site.getTemplate(),category.getListTpl());
     }
 
     /*网站内容页*/
@@ -194,7 +194,7 @@ public class IndexController {
         model.addAttribute("content",content);
         if(StrUtil.isBlank(site.getTemplate()))
             return this.view(category.getContentTpl());
-        return this.view(site.getTemplate(),category.getContentTpl());
+        return this.view((ControllerUtil.isMobile()&&site.getIsMobile())?site.getMobileTpl():site.getTemplate(),category.getContentTpl());
     }
 
     /*全文检索和模型字段检索*/
@@ -204,14 +204,13 @@ public class IndexController {
                          @RequestParam(value = "s",defaultValue = "0") Integer siteId,
                          @RequestParam(value = "c",defaultValue = "0") Long catId,
                          @RequestParam(value = "p",defaultValue = "1") Integer pageNumber,
-                         HttpServletRequest request
-                         ){
+                         HttpServletRequest request){
         log.debug("搜索");
         TCmsSite site = siteService.findById(siteId);
         if(CmsUtil.isNullOrEmpty(site))
             throw new CmsException(CmsConst.SITE_NOT_FOUND);
         if (modelId > 0 && catId > 0) {
-            String action = httpProtocol + "://" + ControllerUtil.getDomain();
+            String action = httpProtocol + "://" + ControllerUtil.getDomain()+"/"+sitePrefix+"/"+site.getSiteId();
             action += "/search?m=" + modelId + "&c=" + catId;
             TCmsCategory category = categoryService.findById(catId);
             if(CmsUtil.isNullOrEmpty(category))
@@ -238,7 +237,7 @@ public class IndexController {
             request.setAttribute("action", action);
             return view(site.getTemplate(), category.getListTpl());
         }else{
-            String action = httpProtocol + "://" + ControllerUtil.getDomain();
+            String action = httpProtocol + "://" + ControllerUtil.getDomain()+"/"+sitePrefix+"/"+site.getSiteId();
             if(StrUtil.isBlank(keyword))
                 throw new CmsException(CmsConst.SEARCH_KEYWORD_NOT_FOUND);
             action +="/search?keyword="+keyword;

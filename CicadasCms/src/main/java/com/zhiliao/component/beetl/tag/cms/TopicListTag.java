@@ -57,7 +57,7 @@ public class TopicListTag extends GeneralVarTagBinding {
 		if(CmsUtil.isNullOrEmpty(topicList)) return;
         for (TCmsTopic topic : topicList){
 			Map result = Pojo2MapUtil.toMap(topic);
-			result.put("url",httpProtocol + "://" + ControllerUtil.getDomain() + "/"+sitePrefix+"/" + topic.getSiteId() + "/topic/" + topic.getTopicId());
+			result.put("url",httpProtocol + "://" + ControllerUtil.getDomain() + "/"+sitePrefix+"/" + topic.getSiteId() + "/topic/" + topic.getTopicId()+siteSubfix);
 			result.put("index",i);
         	this.binds(result);
 			this.doBodyRender();

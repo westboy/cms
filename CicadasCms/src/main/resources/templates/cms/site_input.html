@@ -1,3 +1,13 @@
+<script type="text/javascript">
+    function pic_upload_success(file, data) {
+        var json = $.parseJSON(data)
+        $(this).bjuiajax('ajaxDone', json)
+        if (json[BJUI.keys.statusCode] == BJUI.statusCode.ok) {
+            $('#j_site_logo').val(json.filename).trigger('validate')
+            $('#j_site_logo_span_pic').html('<img src="'+ json.filename +'" WIDTH="200" HEIGHT="120"/>')
+        }
+    }
+</script>
 <div class="bjui-pageContent">
     <form method="post" action="${ctxPath}/system/cms/site/save" id="j_client_form" data-toggle="validate" data-autorefresh="true" data-alertmsg="false">
         <input TYPE="hidden" name="siteId" value="${site.siteId!}">
@@ -21,6 +31,27 @@
             </tr>
             <tr>
                 <td>
+                    <label class="control-label x85">logo：</label>
+                    <div style="display: inline-block; vertical-align: middle;">
+                        <div id="j_site_logo_up" data-toggle="upload" data-uploader="${ctxPath}/upload"
+                             data-file-size-limit="1024000000"
+                             data-file-type-exts="*.jpg;*.png;*.gif;*.mpg"
+                             data-multi="false"
+                             data-on-upload-success="pic_upload_success"
+                             data-icon="cloud-upload"></div>
+                        <input type="hidden" name="logo" value="${site.logo!}" id="j_site_logo">
+                        <span id="j_site_logo_span_pic">
+                    @if(isNotEmpty(site.logo)){
+                    <IMG WIDTH="200" HEIGHT="120" src="${site.logo!}">
+                    @}
+                        </span>
+                    </div>
+                    <br>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <label class="control-label x85">管理员：</label>
                     <input type="text" data-toggle="lookup" data-rule="required;"  data-url="${ctxPath}/system/cms/site/userCheck" name="userIds"   data-maxable="false" data-resizable="false"  data-width="750" data-height="430"  value="${site.userIds!}">
                 </td>
@@ -34,6 +65,20 @@
                         <option value="0" selected>禁用</option>
                         @}else{
                         <option value="1" selected>正常</option>
+                        <option value="0">禁用</option>
+                        @}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_mstatus" class="control-label x85"  data-toggle="selectpicker">开启移动：</label>
+                    <select name="isMobile" id="j_mstatus"  data-rule="required">
+                        @if(isNotEmpty(site.isMobile)&&!site.isMobile){
+                        <option value="1">启用</option>
+                        <option value="0" selected>禁用</option>
+                        @}else{
+                        <option value="1" selected>启用</option>
                         <option value="0">禁用</option>
                         @}
                     </select>
@@ -63,6 +108,12 @@
                 <td>
                     <label for="j_tpl" class="control-label x85">模板：</label>
                     <input type="text" name="template" id="j_tpl" value="${site.template!,xss}"  placeholder="模板"  data-rule="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="j_tpl" class="control-label x85">手机模板：</label>
+                    <input type="text" name="mobileTpl" id="j_mtpl" value="${site.mobileTpl!,xss}"  placeholder="模板"  data-rule="required">
                 </td>
             </tr>
             </tbody>

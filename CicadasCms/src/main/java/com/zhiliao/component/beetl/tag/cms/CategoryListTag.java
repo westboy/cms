@@ -54,6 +54,7 @@ public class CategoryListTag extends GeneralVarTagBinding {
 		try {
 			this.wrapRender(siteId,categoryId,(isNav.intValue()==1?true:false));
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new CmsException(e.getMessage());
 		}
 

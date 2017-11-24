@@ -71,6 +71,16 @@ public class TCmsSite implements Serializable {
      */
     private String description;
 
+    private String logo;
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
     private static final long serialVersionUID = 1L;
 
     /**

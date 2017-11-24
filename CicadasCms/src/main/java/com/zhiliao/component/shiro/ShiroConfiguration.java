@@ -137,7 +137,7 @@ public class ShiroConfiguration {
 											  EhCacheManager cacheManager){
 		ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
 		bean.setSecurityManager(securityManager);
-		bean.setLoginUrl("/login");
+		bean.setLoginUrl(loginPath+"/login");
 		bean.setUnauthorizedUrl("/unauthorized");
 		Map<String, Filter>filters = Maps.newHashMap();
 		filters.put("anon", new AnonymousFilter());

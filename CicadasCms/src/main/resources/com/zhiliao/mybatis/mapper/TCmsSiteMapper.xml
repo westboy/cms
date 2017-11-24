@@ -13,5 +13,6 @@
     <result column="mobile_tpl" jdbcType="VARCHAR" property="mobileTpl" />
     <result column="status" jdbcType="BIT" property="status" />
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
   </resultMap>
 </mapper>

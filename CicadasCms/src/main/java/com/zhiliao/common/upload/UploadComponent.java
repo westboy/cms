@@ -72,7 +72,8 @@ public class UploadComponent {
                 attachment.setFileName(fileName);
                 attachment.setFilePath(uploadPath + newName);
                 File file = new File(uploadPath + newName);
-                if (!file.getParentFile().mkdirs())/*如果不存在就创建*/
+                /*如果不存在就创建*/
+                if (!file.getParentFile().mkdirs())
                     file.getParentFile().mkdirs();
                 try {
                     this.writeFile(multipartFile.getBytes(),file);

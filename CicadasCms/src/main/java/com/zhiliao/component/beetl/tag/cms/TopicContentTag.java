@@ -60,14 +60,16 @@ public class TopicContentTag extends GeneralVarTagBinding {
 		Integer isRecommend =  Integer.parseInt(CmsUtil.isNullOrEmpty(this.getAttributeValue("isRecommend"))?"0":(String) this.getAttributeValue("isRecommend"));
 		Integer orderBy =  Integer.parseInt((String) this.getAttributeValue("orderBy"));
 		Integer size =  Integer.parseInt((String) this.getAttributeValue("size"));
-		Integer topicId =  Integer.parseInt((String) this.getAttributeValue("topicId"));
+		Integer topicId = this.getAttributeValue("topicId")instanceof String?Integer.parseInt((String) this.getAttributeValue("topicId")):(Integer) this.getAttributeValue("topicId");
 		TCmsTopic topic = topicService.findById(topicId);
 		if(CmsUtil.isNullOrEmpty(topic))return;
 		/*将专题中的categoryIds 字符串转为Long数组*/
 		String[] str1 = topic.getCategoryIds().split(",");
 		Long[] str2 = new Long[str1.length];
 		for (int i = 0; i < str1.length; i++) {
-			str2[i] = Long.valueOf(str1[i]);
+			if(!"".equals(str1[i])) {
+				str2[i] = Long.valueOf(str1[i]);
+			}
 		}
 		PageInfo<Map> pageInfo = contentService.findTopicContentListBySiteIdAndCategoryIds(siteId, str2, orderBy, size, isHot, isPic,isRecommend);
 		if(CmsUtil.isNullOrEmpty(pageInfo.getList()))return;
@@ -78,7 +80,7 @@ public class TopicContentTag extends GeneralVarTagBinding {
 		}
 
 	}
-	private void wrapRender(List<Map>  contentList, int titleLen, int siteId) throws Exception {
+	private void wrapRender(List<Map>  contentList, int titleLen, int siteId) {
 		int i = 1;
 		for (Map content : contentList) {
 			String title = content.get("title").toString();
@@ -90,7 +92,7 @@ public class TopicContentTag extends GeneralVarTagBinding {
 				TCmsSite site = siteService.findById(siteId);
 				if(CmsUtil.isNullOrEmpty(site)) throw new CmsException("站点不存在[siteId:"+siteId+"]");
 				String url = httpProtocol + "://" + (StrUtil.isBlank(site.getDomain())?httpHost:site.getDomain()) + "/"+sitePrefix+"/"+site.getSiteId()+"/";
-				url+=content.get("categoryId")+"/"+content.get("contentId");
+				url+=content.get("category_id")+"/"+content.get("content_id");
 				content.put("url",url+siteSubfix);
 			}
 			content.put("index",i);
